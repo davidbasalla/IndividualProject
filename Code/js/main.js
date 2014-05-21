@@ -7,6 +7,19 @@ function myFunction()
     createData();
 
 
+    _webGLFriendly = true;
+    try {
+	// try to create and initialize a 3D renderer
+	threeD = new X.renderer3D();
+	threeD.container = '3d';
+	threeD.init();
+    } catch (Exception) {
+	
+	// no webgl on this machine
+	_webGLFriendly = false;
+	
+    }
+    
     //get file from viewer
     var filePicker = document.getElementById("filePicker");
     console.log(filePicker.files[0]);
@@ -22,8 +35,26 @@ function myFunction()
 
 
 
+    ///////////////////////////////////////////////
 
+    //load file into volume
+    
+    // create the 2D renderer for X
+    sliceX = new X.renderer2D();
+    sliceX.container = 'sliceX';
+    sliceX.orientation = 'X';
+    sliceX.init();
 
+    var sliceY = new X.renderer2D();
+    sliceY.container = 'sliceY';
+    sliceY.orientation = 'Y';
+    sliceY.init();
+    // .. and for Z
+    var sliceZ = new X.renderer2D();
+    sliceZ.container = 'sliceZ';
+    sliceZ.orientation = 'Z';
+    sliceZ.init();
+    
     ///////////////////////////////////////////////////
 
     // we now have the following data structure for the scene
@@ -70,12 +101,29 @@ function myFunction()
 		// we have a volume
 		volume = new X.volume();
 		volume.file = _data['volume']['file'].map(function(v) {
-		    
 		    return v.name;
-		    
 		});
+
 		volume.filedata = _data['volume']['filedata'];
 
+		console.log("File: ");
+		console.log(volume.file);
+		
+		console.log("FileDate: ");
+		console.log(volume.filedata);
+		console.log("Center: ");
+		console.log(volume.center);
+		volume.center = [50,200,100];
+		console.log(volume.center);
+		console.log(volume.dimensions);
+		console.log(volume.lowerThreshold);
+		console.log(volume.transform);
+		volume.lowerThreshold = -10;
+
+		console.log('Image:');
+		console.log(volume.image);
+		console.log(volume.indexX);
+		
 		sliceX.add(volume);
 		sliceX.render();
 		
@@ -84,7 +132,28 @@ function myFunction()
 	};
     };
 
-    ///////////////////////////////////////////////
+
+
+    // the onShowtime method gets executed after all files were fully loaded and
+    // just before the first rendering attempt
+    sliceX.onShowtime = function() {
+	
+	//
+	// add the volume to the other 3 renderers
+	//
+
+	sliceY.add(volume);
+	sliceY.render();
+	sliceZ.add(volume);
+	sliceZ.render();
+	
+	if (_webGLFriendly) {
+	    threeD.add(volume);
+	    threeD.render();
+	}
+    };
+	
+	///////////////////////////////////////////////
 
     //
     // start reading
@@ -109,15 +178,7 @@ function myFunction()
 
 
 
-    ///////////////////////////////////////////////
 
-    //load file into volume
-    
-    // create the 2D renderer for X
-    sliceX = new X.renderer2D();
-    sliceX.container = 'sliceX';
-    sliceX.orientation = 'X';
-    sliceX.init();
 }
 
 
