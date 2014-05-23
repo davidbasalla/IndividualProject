@@ -44,10 +44,11 @@ function myFunction()
     sliceX.container = 'sliceX';
     sliceX.orientation = 'X';
     sliceX.init();
-
+    
     var sliceY = new X.renderer2D();
     sliceY.container = 'sliceY';
     sliceY.orientation = 'Y';
+
     sliceY.init();
     // .. and for Z
     var sliceZ = new X.renderer2D();
@@ -80,6 +81,15 @@ function myFunction()
 
     };
 
+    var cube = new X.cube();
+    // the cube is red
+    cube.color = [1, 0, 0];
+    // captions appear on mouse over
+    cube.caption = 'a cube';
+
+
+
+    
     // setup callback after reading
     var loadHandler = function(type, file) {
 
@@ -105,26 +115,16 @@ function myFunction()
 		});
 
 		volume.filedata = _data['volume']['filedata'];
-
-		console.log("File: ");
-		console.log(volume.file);
-		
-		console.log("FileDate: ");
-		console.log(volume.filedata);
-		console.log("Center: ");
-		console.log(volume.center);
-		volume.center = [50,200,100];
-		console.log(volume.center);
-		console.log(volume.dimensions);
-		console.log(volume.lowerThreshold);
-		console.log(volume.transform);
-		volume.lowerThreshold = -10;
+		console.log('Opac = ' + volume.opacity);
+		volume.opacity = 0.0;
+		console.log('Opac = ' + volume.opacity);
 
 		console.log('Image:');
 		console.log(volume.image);
-		console.log(volume.indexX);
+		//console.log(volume.indexX);
 		
 		sliceX.add(volume);
+		sliceX.add(cube);
 		sliceX.render();
 		
 	    }
@@ -144,13 +144,60 @@ function myFunction()
 
 	sliceY.add(volume);
 	sliceY.render();
+	sliceY.ga.height = 150;
+	//var ctx = sliceY.ga.getContext("2d");
+
+	//ctx.fillStyle="#FF0000";
+	//ctx.fillRect(0,0,150,75);
+	//console.log(ctx);
+	
+	var myCanvas = document.getElementById("myCanvas");
+	var myCtx=myCanvas.getContext("2d");
+
+	myCtx.fillStyle="#FF0000";
+	myCtx.fillRect(0,0,150,75);
+	console.log(myCtx);
+	
+	//console.log(ctx);
+	
+
 	sliceZ.add(volume);
 	sliceZ.render();
 	
 	if (_webGLFriendly) {
 	    threeD.add(volume);
+	    threeD.add(cube);
 	    threeD.render();
 	}
+
+
+	var gui = new dat.GUI();
+	
+	// the following configures the gui for interacting with the X.volume
+	var volumegui = gui.addFolder('Volume');
+	// now we can configure controllers which..
+	// .. switch between slicing and volume rendering
+	var vrController = volumegui.add(volume, 'volumeRendering');
+	
+	// .. configure the volume rendering opacity
+	var opacityController = volumegui.add(volume, 'opacity', 0, 1);
+	
+	// .. and the threshold in the min..max range
+	var lowerThresholdController = volumegui.add(volume, 'lowerThreshold',
+						     volume.min, volume.max);
+	var upperThresholdController = volumegui.add(volume, 'upperThreshold',
+						     volume.min, volume.max);
+	var lowerWindowController = volumegui.add(volume, 'windowLow', volume.min,
+						  volume.max);
+	var upperWindowController = volumegui.add(volume, 'windowHigh', volume.min,
+						  volume.max);
+	// the indexX,Y,Z are the currently displayed slice indices in the range
+	// 0..dimensions-1
+	var sliceXController = volumegui.add(volume, 'indexX', 0, volume.range[0] - 1);
+	var sliceYController = volumegui.add(volume, 'indexY', 0, volume.range[1] - 1);
+	var sliceZController = volumegui.add(volume, 'indexZ', 0, volume.range[2] - 1);
+	volumegui.open();
+
     };
 	
 	///////////////////////////////////////////////
