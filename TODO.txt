@@ -1,0 +1,20 @@
+Brain Scan Viewer
+
+View a loaded NII file (DONE)
+View a loaded NRRD file (BUGGY)
+View a label map (POSSIBLE)
+    - need a label map from Ben Glocker
+View a second loaded NII file (?)
+Paint a labelmap (???)
+    - need to be able to draw on canvas (NOT POSSIBLE CURRENTLY)
+Create an annotation map (???)
+
+
+FROM SCRATCH:
+
+Need to find a way to load a NII/NRRD file
+Display it along an axis on a canvas
+Display it in 3D
+
+
+

@@ -145,11 +145,12 @@ function myFunction()
 	sliceY.add(volume);
 	sliceY.render();
 	sliceY.ga.height = 150;
-	//var ctx = sliceY.ga.getContext("2d");
+	console.log(sliceY);
+	var ctx = sliceY.Aa.getContext("2d");
 
-	//ctx.fillStyle="#FF0000";
-	//ctx.fillRect(0,0,150,75);
-	//console.log(ctx);
+	ctx.fillStyle="#FF0000";
+	ctx.fillRect(0,0,150,75);
+	console.log(ctx);
 	
 	var myCanvas = document.getElementById("myCanvas");
 	var myCtx=myCanvas.getContext("2d");
