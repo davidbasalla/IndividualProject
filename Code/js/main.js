@@ -1,6 +1,5 @@
 function myFunction()
 {
-
     console.log('Loading the viewer')
 
     //create _data dataholder
@@ -144,20 +143,20 @@ function myFunction()
 
 	sliceY.add(volume);
 	sliceY.render();
-	sliceY.ga.height = 150;
+	//sliceY.ga.height = 150;
 	console.log(sliceY);
-	var ctx = sliceY.Aa.getContext("2d");
+	var ctx = sliceY.Ba.getContext("2d");
 
 	ctx.fillStyle="#FF0000";
 	ctx.fillRect(0,0,150,75);
 	console.log(ctx);
 	
-	var myCanvas = document.getElementById("myCanvas");
-	var myCtx=myCanvas.getContext("2d");
+	//var myCanvas = document.getElementById("myCanvas");
+	//var myCtx=myCanvas.getContext("2d");
 
-	myCtx.fillStyle="#FF0000";
-	myCtx.fillRect(0,0,150,75);
-	console.log(myCtx);
+	//myCtx.fillStyle="#FF0000";
+	//myCtx.fillRect(0,0,150,75);
+	//console.log(myCtx);
 	
 	//console.log(ctx);
 	

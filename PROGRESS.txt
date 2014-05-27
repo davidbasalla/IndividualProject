@@ -1,0 +1,26 @@
+22/04/14:
+
+- figured out to use xtk-edge - newer version of the framework
+    - fixes a bug in the demo, tutorials seem to use older version
+
+
+23/05/14:
+
+- emailed XTK dev
+    - sent NRRD file for bug fix
+- cloned XTK repo
+- got dev version to work
+    - had to change the python script
+    - had to change the xtk-dev script from \ to \\
+    - still some issues when working from dev version
+- managed to compile dev version
+
+
+
+
+26/05/14:
+
+- attempting to edit the X sourcecode
+  - cannot use console.log() to print to console :/ - figured out a fix
+- managed to find cross hair drawing
+- made a UI design to filter out functionality

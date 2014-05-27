@@ -1,6 +1,7 @@
 Brain Scan Viewer
 
 View a loaded NII file (DONE)
+    - problem with displaying lines
 View a loaded NRRD file (BUGGY)
 View a label map (POSSIBLE)
     - need a label map from Ben Glocker
@@ -15,6 +16,65 @@ FROM SCRATCH:
 Need to find a way to load a NII/NRRD file
 Display it along an axis on a canvas
 Display it in 3D
+
+
+
+
+
+
+################################################################################
+
+SPECS:
+------
+
+
+- load file
+- view file
+    - 4 views
+    - have an info overlay
+    - switch between the 4 views
+    - have a line show where you are in which (requires work)
+    - need zoom, pan, focus, etc
+    
+- view another file 
+    - label map or other
+    - as an overlay on top
+    - layer system, being able to hide/show which file is being looked at (PS)
+    - issue of scale, transformation, viewing order
+
+- paint label map
+    - paint tools/selection tools
+    - save file
+
+- make annotation map
+    - paint tools/selection tools
+    - require new file format?
+
+
+PLAN:
+    - try adding another file as a label map
+    - try creating a layout to work with
+    - try editing the canvas element to override it with custom drawing/text    
+
+
+
+FILE     
+- open file
+
+HELP
+- info
+- about
+- contact
+
+
+DO TUTORIALS:
+ - backbone.js
+ - require.js
+ - bootstrap.js
+ - google closure (FOR XTK)
+
+
+
 
 
 
