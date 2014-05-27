@@ -6,7 +6,9 @@
     var LayerItem = Backbone.Model.extend({
 	defaults: {
 	    part1: 'hello',
-	    part2: 'world'
+	    part2: 'world',
+	    visible: true,
+	    fileName: 'dummyFileName'
 	}
     });
 
@@ -19,10 +21,46 @@
 	tagName: 'li', // name of (orphan) root tag in this.el
 	initialize: function(){
 	    _.bindAll(this, 'render'); // every function that uses 'this' as the current object should be in here
+
+	    //init a file loader
+	    //hide it
+	    
+	},
+	events: {
+	    //event for toggling visibility
+	    'click button#loadFile': 'loadFile',
+	    'click button#delete': 'deleteLayer'
 	},
 	render: function(){
-	    $(this.el).html('<span>'+this.model.get('part1')+' '+this.model.get('part2')+'</span>');
+
+	    var checkBoxHtml = '<input type="checkbox"></input>';
+	    var fileLoadHtml = '<input type="file" id="filePicker" onchange="myFunction()"></input>';
+
+	    var fileOpen = '<button type="button" class="btn btn-default btn-sm"\
+                            id="loadFile" style="float:right"> <span class="glyphicon glyphicon-floppy-open">\
+                            </span></button>';
+
+	    var layerDelete = '<button type="button" class="btn btn-default btn-sm"\
+                            id="delete" style="float:right"> <span class="glyphicon glyphicon-trash">\
+                            </span></button>';
+
+	    console.log(this.el);
+
+	    $(this.el).addClass('list-group-item');
+	    
+
+	    $(this.el).html(checkBoxHtml + fileLoadHtml + layerDelete + fileOpen);
+	    $('#filePicker', this.el).hide();
+
+	    
 	    return this; // for chainable calls, like .render().el
+	},
+	loadFile: function(){
+	    console.log('LoadFile()');
+	    $('#filePicker').trigger('click');
+	},
+	deleteLayer: function(){
+	    console.log('DeleteLater()');
 	}
     });
 
@@ -43,17 +81,21 @@
 
 	    this.collection = new LayerList();
 	    this.collection.bind('add', this.appendItem); // collection event binder
+
+
+
+
+	    bootstrapListHtml = '<ul class="list-group" id="layerList"></ul>';
+	    $('.panel-footer', this.el).append(bootstrapListHtml);
+
+	    //<li class="list-group-item">Vestibulum at eros</li>
+
 	    
 	    this.counter = 0; // total number of items added thus far
 	    this.render();
 	},
 	// `render()` now introduces a button to add a new list item.
 	render: function(){
-
-	    console.log(this.el);
-	    console.log($("div", this.el));
-	    
-
 
 	    $('#layers', this.el).append("<button type=\"button\" \
                                          class=\"btn btn-default btn-sm\"\
@@ -67,14 +109,11 @@
 	addItem: function(){
 	    console.log("adding layer");
 
-	    //need to add a layerItem here
-
 	    this.counter++;
 	    var item = new LayerItem();
 	    item.set({
 		part2: item.get('part2') + this.counter // modify item defaults
 	    });
-	    console.log(item);
 	    this.collection.add(item);
 	},
 
@@ -82,7 +121,7 @@
 	    var itemView = new LayerItemView({
 		model: item
 	    });
-	    $('.panel-footer', this.el).append(itemView.render().el);
+	    $('#layerList', this.el).append(itemView.render().el);
 	}
 	
 	
