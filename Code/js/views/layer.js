@@ -24,18 +24,21 @@
 
 	    //init a file loader
 	    //hide it
-	    
 	},
 	events: {
 	    //event for toggling visibility
 	    'click button#loadFile': 'loadFile',
-	    'click button#delete': 'deleteLayer'
+	    'click button#delete': 'deleteLayer',
+	    'change input#checkBox': 'toggleVisibility',
+	    'change input#filePicker': 'fileLoaded',
 	},
 	render: function(){
 
-	    var checkBoxHtml = '<input type="checkbox"></input>';
-	    var fileLoadHtml = '<input type="file" id="filePicker" onchange="myFunction()"></input>';
+	    var checkBoxHtml = '<input type="checkbox" id="checkBox"></input>';
+	    var fileLoadHtml = '<input type="file" id="filePicker"></input>';
 
+	    var textHolder = '<span id="textHolder"></span>';
+	    
 	    var fileOpen = '<button type="button" class="btn btn-default btn-sm"\
                             id="loadFile" style="float:right"> <span class="glyphicon glyphicon-floppy-open">\
                             </span></button>';
@@ -49,16 +52,24 @@
 	    $(this.el).addClass('list-group-item');
 	    
 
-	    $(this.el).html(checkBoxHtml + fileLoadHtml + layerDelete + fileOpen);
+	    $(this.el).html(checkBoxHtml + textHolder + fileLoadHtml + layerDelete + fileOpen);
 	    $('#filePicker', this.el).hide();
 
 	    
 	    return this; // for chainable calls, like .render().el
 	},
 	loadFile: function(){
-	    console.log('LoadFile()');
-	    $('#filePicker').trigger('click');
+	    $('#filePicker',this.el).trigger('click');
 	},
+	fileLoaded: function(e){
+	    //console.log($('#textHolder', this.el));
+	    $('#textHolder', this.el).append(e.currentTarget.files[0].name);
+
+	    loadScan(e.currentTarget.files[0]);
+	},
+	toggleVisibility: function(e){
+	    console.log( $(this.el));
+	},	
 	deleteLayer: function(){
 	    console.log('DeleteLater()');
 	}

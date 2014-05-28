@@ -1,10 +1,11 @@
-function myFunction()
+function loadScan(scanFile)
 {
+    /* takes as input a file from a fileSelector, from layer.js */
+    
     console.log('Loading the viewer')
 
     //create _data dataholder
     createData();
-
 
     _webGLFriendly = true;
     try {
@@ -18,12 +19,8 @@ function myFunction()
 	_webGLFriendly = false;
 	
     }
-    
-    //get file from viewer
-    var filePicker = document.getElementById("filePicker");
-    console.log(filePicker.files[0]);
 
-    var f = filePicker.files[0];
+    var f = scanFile;
 
     var _fileName = f.name;
     var _fileExtension = _fileName.split('.').pop().toUpperCase();
@@ -31,8 +28,6 @@ function myFunction()
 
     //add data to data_holder
     _data['volume']['file'].push(f);
-
-
 
     ///////////////////////////////////////////////
 
