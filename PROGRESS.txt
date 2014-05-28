@@ -16,11 +16,23 @@
 - managed to compile dev version
 
 
-
-
 26/05/14:
 
 - attempting to edit the X sourcecode
   - cannot use console.log() to print to console :/ - figured out a fix
 - managed to find cross hair drawing
 - made a UI design to filter out functionality
+
+
+28/05/14:
+
+- playing around wit twitter-bootstrap for nicer UI
+- starting with backbone
+
+
+29/05/14:
+
+- playing more with layers in backbone
+- did UML diagram for structuring layers and overall program
+- investigating require.js for manageing dependencies
+- need to split stuff out into templates at some point
