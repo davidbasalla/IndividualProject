@@ -164,8 +164,8 @@ function loadScan(scanFile)
 	    threeD.add(cube);
 	    threeD.render();
 	}
-
-
+	
+	/*
 	var gui = new dat.GUI();
 	
 	// the following configures the gui for interacting with the X.volume
@@ -192,7 +192,7 @@ function loadScan(scanFile)
 	var sliceYController = volumegui.add(volume, 'indexY', 0, volume.range[1] - 1);
 	var sliceZController = volumegui.add(volume, 'indexZ', 0, volume.range[2] - 1);
 	volumegui.open();
-
+	*/
     };
 	
 	///////////////////////////////////////////////

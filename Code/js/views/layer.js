@@ -21,9 +21,6 @@
 	tagName: 'li', // name of (orphan) root tag in this.el
 	initialize: function(){
 	    _.bindAll(this, 'render'); // every function that uses 'this' as the current object should be in here
-
-	    //init a file loader
-	    //hide it
 	},
 	events: {
 	    //event for toggling visibility
@@ -31,53 +28,67 @@
 	    'click button#delete': 'deleteLayer',
 	    'change input#checkBox': 'toggleVisibility',
 	    'change input#filePicker': 'fileLoaded',
+	    'click a#addLabelMap': 'addLabelMap',
 	},
 	render: function(){
 
-	    var checkBoxHtml = '<input type="checkbox" id="checkBox"></input>';
+	    //html elements to go into the layer
+	    var checkBoxHtml = '<input type="checkbox" id="checkBox" checked></input>';
 	    var fileLoadHtml = '<input type="file" id="filePicker"></input>';
 
-	    var textHolder = '<span id="textHolder"></span>';
+	    var textHolder = '<span id="textHolder">Layer</span>';
 	    
 	    var fileOpen = '<button type="button" class="btn btn-default btn-sm"\
-                            id="loadFile" style="float:right"> <span class="glyphicon glyphicon-floppy-open">\
+                            id="loadFile"> <span class="glyphicon glyphicon-floppy-open">\
                             </span></button>';
 
 	    var layerDelete = '<button type="button" class="btn btn-default btn-sm"\
-                            id="delete" style="float:right"> <span class="glyphicon glyphicon-trash">\
+                            id="delete"> <span class="glyphicon glyphicon-trash">\
                             </span></button>';
 
-	    console.log(this.el);
+	    var dropDown = '<div class="btn-group">\
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="padding-top:9px; padding-bottom:9px">\
+ 	                    <span class="caret"></span>\
+                            </button>\
+                            <ul class="dropdown-menu" role="menu">\
+	                    <li><a href="#" id="addLabelMap">Add Labelmap</a></li>\
+	                    <li class="divider"></li>\
+	                    <li><a href="#">Separated link</a></li>\
+                            </ul>\
+                            </div>';
 
 	    $(this.el).addClass('list-group-item');
 	    
-
-	    $(this.el).html(checkBoxHtml + textHolder + fileLoadHtml + layerDelete + fileOpen);
+	    //create hidden file loader for file loading mechanics
+	    $(this.el).html(checkBoxHtml + textHolder + fileLoadHtml + '<div class="btn-group" style="float:right">' + fileOpen + layerDelete + dropDown + '</div>');
 	    $('#filePicker', this.el).hide();
 
-	    
 	    return this; // for chainable calls, like .render().el
 	},
 	loadFile: function(){
+	    //trigger the hidden fileLoader
 	    $('#filePicker',this.el).trigger('click');
 	},
 	fileLoaded: function(e){
-	    //console.log($('#textHolder', this.el));
-	    $('#textHolder', this.el).append(e.currentTarget.files[0].name);
+	    //add text to layer preview
+	    $('#textHolder', this.el).html(e.currentTarget.files[0].name);
 
+	    //call draw function
 	    loadScan(e.currentTarget.files[0]);
 	},
 	toggleVisibility: function(e){
-	    console.log( $(this.el));
+	    console.log('ToggleVisibility');
+	    //console.log( $(this.el));
 	},	
 	deleteLayer: function(){
-	    console.log('DeleteLater()');
-	}
+	    $(this.el).remove();
+	},
+	addLabelMap: function(){
+	    console.log('addLabelMap');
+	},
     });
 
-
-    
-    var LayerView = Backbone.View.extend({
+    var LayerListView = Backbone.View.extend({
 	el: $('body'), // el attaches to existing element
 	
 	// `events`: Where DOM events are bound to View methods. Backbone doesn't have a separate controller to handle such bindings; it all happens in a View.
@@ -134,11 +145,9 @@
 	    });
 	    $('#layerList', this.el).append(itemView.render().el);
 	}
-	
-	
     });
 
-    var layerView = new LayerView();
+    var layerView = new LayerListView();
 })(jQuery);
 
 /*
