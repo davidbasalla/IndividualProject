@@ -8,7 +8,8 @@
 	    part1: 'hello',
 	    part2: 'world',
 	    visible: true,
-	    fileName: 'dummyFileName'
+	    fileName: 'dummyFileName',
+	    type: 'scan'
 	}
     });
 
@@ -16,11 +17,15 @@
 	model: LayerItem
     });
 
-
     var LayerItemView = Backbone.View.extend({
 	tagName: 'li', // name of (orphan) root tag in this.el
 	initialize: function(){
-	    _.bindAll(this, 'render'); // every function that uses 'this' as the current object should be in here
+	    //_.bindAll(this, 'render'); // every function that uses 'this' as the current object should be in here
+	    console.log('this.el =');
+	    console.log($(this.el));
+	    //console.log(this.el);
+	    console.log(this.$el);
+	    console.log(this);
 	},
 	events: {
 	    //event for toggling visibility
@@ -28,19 +33,21 @@
 	    'click button#delete': 'deleteLayer',
 	    'change input#checkBox': 'toggleVisibility',
 	    'change input#filePicker': 'fileLoaded',
+	    'change input#labelPicker': 'labelLoaded',
 	    'click a#addLabelMap': 'addLabelMap',
 	},
 	render: function(){
 
-	    //html elements to go into the layer
+	    // THESE NEED TO GO INTO A TEMPLATE
 	    var checkBoxHtml = '<input type="checkbox" id="checkBox" checked></input>';
 	    var fileLoadHtml = '<input type="file" id="filePicker"></input>';
+	    var labelLoadHtml = '<input type="file" id="labelPicker"></input>';
 
 	    var textHolder = '<span id="textHolder">Layer</span>';
 	    
 	    var fileOpen = '<button type="button" class="btn btn-default btn-sm"\
-                            id="loadFile"> <span class="glyphicon glyphicon-floppy-open">\
-                            </span></button>';
+                           id="loadFile"> <span class="glyphicon glyphicon-floppy-open">\
+                           </span></button>';
 
 	    var layerDelete = '<button type="button" class="btn btn-default btn-sm"\
                             id="delete"> <span class="glyphicon glyphicon-trash">\
@@ -57,17 +64,25 @@
                             </ul>\
                             </div>';
 
+	    //add style to rendering of the layer item
 	    $(this.el).addClass('list-group-item');
 	    
 	    //create hidden file loader for file loading mechanics
-	    $(this.el).html(checkBoxHtml + textHolder + fileLoadHtml + '<div class="btn-group" style="float:right">' + fileOpen + layerDelete + dropDown + '</div>');
+	    $(this.el).html(checkBoxHtml + textHolder + fileLoadHtml + labelLoadHtml + '<div class="btn-group" style="float:right">' + fileOpen + layerDelete + dropDown + '</div>');
 	    $('#filePicker', this.el).hide();
+	    $('#labelPicker', this.el).hide();
 
 	    return this; // for chainable calls, like .render().el
+
+
 	},
 	loadFile: function(){
 	    //trigger the hidden fileLoader
 	    $('#filePicker',this.el).trigger('click');
+	},
+	loadLabelMap: function(){
+	    //trigger the hidden fileLoader
+	    $('#labelPicker',this.el).trigger('click');
 	},
 	fileLoaded: function(e){
 	    //add text to layer preview
@@ -76,15 +91,27 @@
 	    //call draw function
 	    loadScan(e.currentTarget.files[0]);
 	},
+	labelLoaded: function(e){
+	    //add text to layer preview
+	    //$('#textHolder', this.el).html(e.currentTarget.files[0].name);
+	    
+	    //call draw function
+	    loadLabelMap(e.currentTarget.files[0]);
+	},
 	toggleVisibility: function(e){
 	    console.log('ToggleVisibility');
-	    //console.log( $(this.el));
+	    this.model.attributes.visible = e.target.checked;
 	},	
 	deleteLayer: function(){
 	    $(this.el).remove();
 	},
 	addLabelMap: function(){
 	    console.log('addLabelMap');
+	    console.log($(this.el));
+	    //console.log($(this.el.parentElement));
+	    //$('#layerList', this.el.parentElement).append('<li>TEST</li>')
+	    //$(this.el.parentElement).append('<li>TEST</li>')
+	    this.loadLabelMap();
 	},
     });
 
@@ -104,15 +131,9 @@
 	    this.collection = new LayerList();
 	    this.collection.bind('add', this.appendItem); // collection event binder
 
-
-
-
 	    bootstrapListHtml = '<ul class="list-group" id="layerList"></ul>';
 	    $('.panel-footer', this.el).append(bootstrapListHtml);
 
-	    //<li class="list-group-item">Vestibulum at eros</li>
-
-	    
 	    this.counter = 0; // total number of items added thus far
 	    this.render();
 	},
@@ -137,6 +158,7 @@
 		part2: item.get('part2') + this.counter // modify item defaults
 	    });
 	    this.collection.add(item);
+	    console.log($(this.el));
 	},
 
 	appendItem: function(item){

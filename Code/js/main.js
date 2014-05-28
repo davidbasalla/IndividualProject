@@ -216,11 +216,6 @@ function loadScan(scanFile)
 	    });
 	}
     });
-
-
-
-
-
 }
 
 
