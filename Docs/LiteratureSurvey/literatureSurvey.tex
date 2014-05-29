@@ -10,6 +10,7 @@
 \lhead{\fancyplain{}{M.Sc.\ Individual Project Literature Survey}}
 \rhead{\fancyplain{}{\today}}
 \cfoot{\fancyplain{}{\thepage}}
+\usepackage{adjustbox}
 
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
@@ -48,7 +49,8 @@ There exists a variety of desktop software to date allows viewing of medical ima
 
      Firstly, MITK 3M3 by mint medical and German Cancer Research Center allows for easy viewing of a variety of medical image file formats. The layout of the views is customisable and by default shows the X, Y, Z dimension and a 3D view of all 3 dimensions together. (picture) There is a universal range slider that affects all images at once. Labelmaps (called Segmentations) can be added to a scan file, as sub layers and a range of paint tools are provided to colour in regions of the scan. An arbitrary number of layers can be created and saved out as separate files. 
      Furthermore it can create a 3D volume renderings, applying image filters and supplies measuring tools. In general it is a well rounded product with intuitive controls so will serve as a good benchmark test for the final product.
-    \begin{itemize}
+\begin{itemize}
+\item 3DSlicer (!! open source, functionality, issues)
 \item MIview (functionality, issues)
 \item imview (functionality, issues)
 \end{itemize}
@@ -72,6 +74,7 @@ There appear to be some bugs in \textit{SliceDrop}. When loading \textit{NRRD} f
 \textit{Brainbook} (reference) is a web-app which builds on and extends the features of \textit{SliceDrop} by adding painting tools. It allows the user to paint onto a given file with a standard brush a number of auto selection tools which will fill out a region in 2D or 3D space. The web app offers to save the file, but at time of writing this feature was not working correctly. Since heavily based on \textit{SliceDrop}, it features similar advantages and disadvantages, but provides the painting functionality that is desirable for this project.
 
 - Other Examples (functionality, issues)\\
+- Various DICOM viewers, not compatible with NII/NRRD files tho...
 - Oviyam, requires server installation, not tried as too cumbersome
 
 \subsection{Web Frameworks for Single Page Apps}
@@ -110,25 +113,24 @@ Given enough time, secondary requirements can be implemented, which are consider
 \item The web app provides image filters that can be applied to a scan or label map
 \item The web app provides measuring tools that can be applied to a scan or label map
 \item A three dimensional, parameterised model of the scan be viewed in the 3D view
+\item Provide support for other file types (possibly fix NRRD)
 \end{itemize}
 
 \section{Progress}
 
 Some effort has already gone into planning and implementing the project. The initial plan was to create a working prototype in a relatively short time. This was however foiled by the complexity of the task of creating a functioning web-app. At first, tests were done building on tutorials that are provided by the XTK toolkit site. This included a simple HTML front end as well as some javascript files to handle the XTK objects.
+
 Loading local files in a web browser proved to be one of the early issues. Due to security issues, Chrome and other browsers do not allow local files to be loaded onto the HTML canvas element, tying into the same origin policy that browsers try to uphold. A way around this was found by analysing the SliceDrop code and noticing that it uses the HTML FileReader to convert the local file into a byteArray which can then be loaded into the XTK viewers.
-Having some concerns that modifications will have to be made to the XTK toolkit, the author managed to successfully clone and fork the project from github. Since things are never as easy as hoped for, editing and rebuilding the toolkit proved tricky, sinc it employs yet another unknown JavaScript library, called GoogleClosure.js. After learning how to use this module and other little issues mainly due XTK being developed on Linux and not Windows, the OS the project is currently being developed on.
 
+Having some concerns that modifications will have to be made to the XTK toolkit, the author managed to successfully clone and fork the project from github. Since things are never as easy as hoped for, editing and rebuilding the toolkit proved tricky, since it employs yet another unknown JavaScript library, called GoogleClosure.js. After learning how to use this module and other little issues mainly due XTK being developed on Linux and not Windows, the OS the project is currently being developed on, the toolkit managed to recompile successfully.
 
+Once some basic tests with the XTK toolkit proved that it could be used to display local scan files, it was time to start adding some functionality to the website. This quickly showed that the previous implementation of the HTML website was highly naive, and that it would require a restructuring from the ground up. Almost as an example of why web programming can be tricky, the HTML site was mixing elements from HTML, CSS and JavaScript without much structure. When separating out the JavaScript parts into separate files, the issue of module loading and dependency became apparent.
 
-\subsection{Structure}
-- UML Diagram\\
-- Starting with Backbone\\
-- Starting with RequireJS
+From the group project earlier in the term, the author was aware of JavaScript libraries that aid in structuring a web-app such as Backbone.js, Require.js and JQuery.js. So the next few days were spent trying to get to grips with these and understanding generally how web apps are built. This seems to be a rich topic in its own right, and will undoubtedly take more time still to become comfortable with. However it helps that Backbone tends to enforce a somewhat object-oriented structure, which ties development back to principles learned in the Masters course over the year. Even when starting to implement the Backbone it becomes apparent how easy it is to fall back into mixing different language in the files and to enforce that every component just does the one task it is supposed to do. Talk about templates...
 
-\subsection{Design}
-- UI Designs (screenshot)
-- UI WIP (screenshot)
-- talk about twitter-bootstrap
+When realising that an object-orientated structure can and should be applied to the project, it prompted the author to create a UML diagram with possible class design (see Appendix). This will prove useful when implementing the Backbone components and helps to visualise the flow of control of the web-app. Additionally, visual UI design have been made to show how the front-end would look like to the user and what controls would available to him or her (see Appendix). After it some research it also became apparent that yet another JavaScript library called twitter-bootstrap is very popular among the web community to create UI designs for buttons and menus, so time was spent learning how to tie this into the project.
+Currently, the plan is still to create a working prototype that has all the essential requirements fulfilled.
+
 
 \subsection{Concerns}
 
@@ -140,17 +142,35 @@ There appears to be a bug with loading NRRD files, as they as displayed with an 
 
 It appears that there is only a very small and inactive community for the XTK library. There is a group on the popular tech forum StackOverflow but questions are being asked infrequently and get answered even more rarely. 
 
-\subsubsection{Web-App}
-
-A lot of effort has gone into structuring the web app, with varying success. It appears that the various afore-mentioned JavaScript libraries need to be used in parallel to build up a solid structure for the web app. As the author has very limited experience with the libraries and JavaScript programming in general, this will take a while to implement. Given proper implementation, it should provide a stable base for the project.
-
-
 
 
 
 \section{References}
 
-$http://www.frontiersin.org/10.3389/conf.fninf.2014.08.00101/event_abstract$
+$http://www.frontiersin.org/10.3389/conf.fninf.2014.08.00101/event_abstract$\\
+$http://users.loni.ucla.edu/~pipeline/paint/$\\
+$http://backbonejs.org/$\\
+$http://requirejs.org/$\\
+$http://getbootstrap.com/$\\
+
+\section{Appendix}
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{../../Design/UML_design_01.jpg}
+\caption{Early UML design}
+\label{fig:UIdesign1}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \begin{adjustbox}{addcode={\begin{minipage}{\width}}{\caption{%
+     Early UI design
+      }\end{minipage}},rotate=90,center}
+      \includegraphics[scale=.45]{../../Design/UI_design_02.jpg}%
+  \end{adjustbox}
+\end{figure}
 
 
 \end{document}
