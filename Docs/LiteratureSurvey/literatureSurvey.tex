@@ -50,7 +50,7 @@ There exists a variety of desktop software to date allows viewing of medical ima
      Firstly, MITK 3M3 by mint medical and German Cancer Research Center allows for easy viewing of a variety of medical image file formats. The layout of the views is customisable and by default shows the X, Y, Z dimension and a 3D view of all 3 dimensions together. (picture) There is a universal range slider that affects all images at once. Labelmaps (called Segmentations) can be added to a scan file, as sub layers and a range of paint tools are provided to colour in regions of the scan. An arbitrary number of layers can be created and saved out as separate files. 
      Furthermore it can create a 3D volume renderings, applying image filters and supplies measuring tools. In general it is a well rounded product with intuitive controls so will serve as a good benchmark test for the final product.
 \begin{itemize}
-\item 3DSlicer (!! open source, functionality, issues)
+\item 3DSlicer (!! open source, plugins, functionality, issues)
 \item MIview (functionality, issues)
 \item imview (functionality, issues)
 \end{itemize}
@@ -86,7 +86,7 @@ At the time of writing, Backbone seems to be a good choice to manage the complex
 
 Regarding the design aspect, it looks like twitter-bootstrap.js supplies a convenient library for creating visually pleasing user interface elements. This will cut down on having to spend time to design custom elements with CSS and JavaScript. Bootstrap.js supplies buttons, drop-down menus and commonly-used icons.
 
-As this project will make of several modules, it will be important to manage the dependencies of the modules. For example Underscore.js and JQuery.js will need to load before Backbone.js is used. XTK and twitter-boostrap are additional modules that will have to be loaded. Require.js is a javascript library that provide the ability to asynchronously load nested dependencies. Traditionally javascript files or modules are loaded sequentially, where the order matters in case a module depends on another module.
+As this project will make of several modules, it will be important to manage the dependencies of the modules. For example Underscore.js and JQuery.js will need to load before Backbone.js is used. XTK and twitter-boostrap are additional modules that will have to be loaded. Require.js is a javascript library that provide the ability to asynchronously load nested dependencies. Traditionally javascript files or modules are loaded sequentially, where the order matters in case a module depends on another module. Require.js will make it possible to split up everything into neat modules and facilitate testing of all the components.
 
 
 
@@ -134,6 +134,8 @@ Currently, the plan is still to create a working prototype that has all the esse
 
 \subsection{Concerns}
 
+\subsubsection{XTK}
+
 So far, testing the XTK toolkit has revealed some concerns. In general the library is not so modularised as hoped for, as it does not seem possible to add a custom number of label maps. There is at present also no way to paint a custom label map. However, as already discussed, it is possible to fork the project from github and introduce changes, so this will have to be explored when adding additional features.
 
 Other useful functionality is hard-coded into the library, which may need suppressing or changing of the input triggers. For example currently, the are no display lines for all viewers when one clicks or moves the mouse over one view. Furthermore the user has to hold down the shift key and move the mouse over a view, to affect the slice indices of the other views. This can hopefully be tweaked in the module.
@@ -142,7 +144,9 @@ There appears to be a bug with loading NRRD files, as they as displayed with an 
 
 It appears that there is only a very small and inactive community for the XTK library. There is a group on the popular tech forum StackOverflow but questions are being asked infrequently and get answered even more rarely. 
 
+\subsubsection{Cross Browser Compatibility}
 
+Judging from limited previous experience and source online, cross browser compatibility can be a difficult issue, as different browsers on different operating systems are implemented differently. Therefore what might work very well on Chrome could not work at all on Internet Explorer, as some functions are implemented differently or not even available in certain browsers. The use of WebGL already imposes a restriction on which browsers are usable, so it would be desirable to have at least other restrictions as possible. This is something that will have to be paid close attention to.
 
 
 \section{References}
