@@ -20,7 +20,7 @@ require.config({
 	    exports: "Backbone"
 	},
 	"main": {
-	    deps: ['Backbone']
+	    deps: ['Backbone','xtk']
 	},
     },
 });

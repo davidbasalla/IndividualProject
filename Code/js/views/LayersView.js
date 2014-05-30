@@ -1,4 +1,4 @@
-define(["text!templates/Layers.html", "views/LayerItemView", "models/LayerItem", "collections/LayerList"], function(LayersTemplate, LayerItemView, LayerItem, LayerList) {
+define(["text!templates/Layers.html", "views/LayerItemView", "views/XtkViewerView","models/LayerItem", "collections/LayerList"], function(LayersTemplate, LayerItemView, XtkViewer, LayerItem, LayerList) {
     
     var LayersView = Backbone.View.extend({
 	//define the template
@@ -7,12 +7,13 @@ define(["text!templates/Layers.html", "views/LayerItemView", "models/LayerItem",
 	    'click button#add': 'addItem'
 	},
 	initialize:function() {
-	    console.log(LayersTemplate);
-	    console.log(LayerItem);
-	    console.log(LayerItemView);
+	    //console.log(LayersTemplate);
+	    //console.log(LayerItem);
+	    //console.log(LayerItemView);
 
 	    this.collection = new LayerList();
 	    this.collection.bind('add', this.appendItem); // collection event binder
+	    //this.collection.bind('add', XtkViewer.newItem); // collection event binder
 
 	    //bootstrapListHtml = '<ul class="list-group" id="layerList"></ul>';
 	    //$('.panel-footer', this.el).append(bootstrapListHtml);

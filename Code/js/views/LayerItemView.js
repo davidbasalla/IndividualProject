@@ -1,4 +1,4 @@
-define(["text!templates/Layer.html" , "models/LayerItem"], function(LayerTemplate, LayerItem) {
+define(["text!templates/Layer.html" , "models/LayerItem", "views/XtkViewerView"], function(LayerTemplate, LayerItem, XtkViewer) {
     
     var LayerItemView = Backbone.View.extend({
 	tagName: 'li', // name of (orphan) root tag in this.el
@@ -42,8 +42,9 @@ define(["text!templates/Layer.html" , "models/LayerItem"], function(LayerTemplat
 	    //add text to layer preview
 	    $('#textHolder', this.el).html(e.currentTarget.files[0].name);
 
-	    //call draw function
-	    loadScan(e.currentTarget.files[0]);
+	    //trigger event that file has loaded, expected by XtkViewer
+	    //send file along as a parameter
+	    Backbone.trigger('fileLoaded', e.currentTarget.files[0]);
 	},
 	labelLoaded: function(e){
 	    //add text to layer preview

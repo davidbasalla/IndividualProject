@@ -15,7 +15,6 @@ define(["views/NavBarView", "views/LayersView", "views/XtkViewerView"], function
 	});
 	layers.render();
 
-
 	var xtkViewer = new XtkViewerView({
 	    el: $('#xtkViewer')
 	});
