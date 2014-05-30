@@ -1,0 +1,38 @@
+<li class="list-group-item">
+  <input type="checkbox"
+	 id="checkBox"
+	 checked></input>
+  <input type="file"
+	 id="filePicker"></input>
+  <span id="textHolder">
+    <%= layer_title %>
+  </span>
+
+  <div class="btn-group" style="float:right">
+    <button type="button"
+	    class="btn btn-default btn-sm"
+            id="loadFile">
+      <span class="glyphicon glyphicon-floppy-open"> </span>
+    </button>
+    <button type="button"
+	    class="btn btn-default btn-sm"
+            id="delete">
+      <span class="glyphicon glyphicon-trash"></span>
+    </button>
+    <div class="btn-group">
+      <button type="button"
+	      class="btn btn-default dropdown-toggle"
+	      data-toggle="dropdown"
+	      style="padding-top:9px; padding-bottom:9px">
+	<span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+	<li><a href="#" id="addLabelMap">Add Labelmap</a></li>
+	<li class="divider"></li>
+	<li><a href="#">Separated link</a></li>
+      </ul>
+    </div>
+  </div>
+</li>
+
+
