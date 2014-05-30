@@ -1,0 +1,85 @@
+Literature Review:
+
+Intro
+
+    When creating MRI scans, the resulting image files contain a wealth of data and require specific software pachakges to view them comprehensively. Among others, the files include high-range images across several dimensions (usually at least X, Y and Z) through a volume. This creates the issue 
+for the users to have the appropriate software installed on their local desktop computer. Additionally software developers have to 
+cater for different operating systems. The goal of this
+project is to simplify the process of viewing and manipulating these images (specifically the NifTi format) by creating a web-browser-based medical image viewer with an intuitive interface for viewing multiple files
+and allowing for creation, viewing and manipulation of label maps and other methods of annotating these images. The rationale behind this is to facilitate users to conveniently share
+and annotate medical image files independently of location or type of computer, following the Software as Service paradigm.
+
+    There exists a variety of software to date allows viewing of medical image data. For this project, the MITK 3M3 desktop software has been analysed. It allows for easy viewing of a variety of medical image file formats. The layout of the views is customisable and by default shows the X, Y, Z dimension and a 3D view of all 3 dimensions together. (picture) There is a universal range slider that affects all images at once. Labelmaps (called Segmentations) can be added to a scan file, as sub layers and a range of paint tools are provided to colour in regions of the scan. An arbitrary number of layers can be created and saved out as seperate files. In general it is a well rounded product with intuitive controls so will serve as a good benchmark test for the final product.
+    As suggested in the project specification, the goal of this project is to use the XTK library. It provides an API to load medical images, based on webGL technology for displaying 3D graphics and the HTML5 canvas elements to display 2D components. The library comes with several tutorials as well as a number of example applications. One of these is SliceDrop, a browser-based medical image viewer very much like the one proposed in this project.
+
+
+Specification
+
+
+
+Progress
+
+
+
+
+
+Literature Survey
+
+
+Software Packages Investigated
+    - SliceDrop
+    - MITK
+    - other web apps
+
+FileFormats
+    - Nii
+    - NRRD
+
+XTK
+    - open-source, created by people at Boston Hospital    
+
+
+
+    - webGL
+        - powerful as uses
+    - canvas element
+
+
+
+Web-App tools:
+    Backbone
+        - MVC structure
+    RequireJS (handle dependencies)
+        - race conditions
+        - asnyc module loading
+    Twitter-Bootstrap (UI)
+    
+
+
+Specification:
+
+
+
+
+
+Progress Summary and Plan
+    - Include UI designs
+    - Progress so far:
+        - basic app working
+        - started creating the structure with Backbone
+
+
+Problems:
+    - XTK - need to fix bugs/override functionality
+    - have downloaded the code so should be possible
+
+
+
+
+
+Q's:
+
+
+- talk about DICOM?
+- NIFTI site is down :(
+- Any other software to review? Most-well known one?
