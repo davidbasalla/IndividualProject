@@ -9,110 +9,25 @@
   </head>
 
   <body>
-
-
-
+    <!-- NAVBAR -->
+    <div id="navbar"></div>
     
-    <!-- NAVBAR ---------------------------------------------------------------------------------------------------------->
-    
-    <nav class="navbar navbar-inverse" role="navigation" >
-      <div class="container-fluid">
-	<!-- Brand and toggle get grouped for better mobile display -->
-	<div class="navbar-header">
-	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-	  </button>
-	  <a class="navbar-brand" href="#">ScanView</a>
-	</div>
-
-	<!-- Collect the nav links, forms, and other content for toggling -->
-	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	  <ul class="nav navbar-nav">
-            <li class="active">
-	      <a href="#">Contact</a>
-	    </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-		<li><a href="#">Documentation</a></li>
-		<li><a href="#">About</a></li>
-              </ul>
-            </li>
-	  </ul>
-	</div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
-
-    <!----------------------------------------------------------------------------------------------------------------->  
-
-
     <div id="output"></div>
-   
-    <div id="tools"       
-	 style="background-color: #999; 
-		width: 15%; 
-		height: 90%;
-		float: left;
-		float: up;">
 
-      <div class="panel panel-default"
-	   style="width: 90%;
-		  margin-left:auto;
-		  margin-right:auto;
-		  margin-top:20px;">
-	<div id="layers" class="panel-body">
-	  Layers
-	</div>
-
-	<div class="panel-footer"></div>
-      </div>
-</p>
-</div>
-
-<div id="views">
-  <div id="3d"
-       style="background-color: #000; 
-	      width: 40%; 
-	      height: 45%; 
-	      margin: 5px;
-	      float: left;">
-  </div>
-  <div id="sliceX"
-       style="border-top: 2px solid yellow; 
-	      background-color: #000; 
-	      width: 40%; 
-	      height: 45%; 
-	      margin: 5px;
-	      float: left;">
-  </div>
-  <div id="sliceY"
-       style="border-top: 2px solid red;
-	      background-color: #000; 
-	      width: 40%; 
-	      height: 45%; 
-	      margin: 5px;
-	      float: left;">
-  </div>
-  <div id="sliceZ"
-       style="border-top: 2px solid green; 
-	      background-color: #000; 
-	      width: 40%; 
-	      height: 45%; 
-	      margin: 5px;
-	      float: left;">
-  </div>
-</div>
-<!--
-    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
-      Your browser does not support the HTML5 canvas tag.
-    </canvas>
-    -->
-
-<script data-main='js/launch' src='js/libs/require.js'></script>
-<!--<script src="js/views/layer.js"></script>-->
-
-</body>
+    <!-- SIDE PANEL -->
+    
+    <div id="sidePanel"
+      style="background-color: #999; 
+      width: 15%; 
+      height: 90%;
+      float: left;
+      float: up;">
+    </div>
+    
+    <!-- XTK VIEWS -->
+    <div id="views"></div>
+    
+    <script data-main='js/launch' src='js/libs/require.js'></script>
+    
+  </body>
 </html>

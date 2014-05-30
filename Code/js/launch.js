@@ -10,7 +10,7 @@ require.config({
 	json2: "http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2",
 	Bootstrap: "http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min",
 	text: "libs/text",
-	templates: "/templates",
+	templates: "../templates",
 	xtk: "../../X/utils/xtk",
     },
     shim: {
@@ -26,8 +26,10 @@ require.config({
 });
 
 //load main app
-require(["main"]);
-
+require(["main"], function(app) {
+    console.log('running main');
+    app.initialise();
+});
 /*require(['jquery'], function($){
     $('#output').html('Hello World');
 });*/
