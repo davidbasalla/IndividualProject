@@ -19,7 +19,7 @@ define(["text!templates/XtkViewer.html"], function(XtkViewerTemplate) {
 	    ///////////////////////////////////////////////
 
 	    // create the 3D renderer
-	    _webGLFriendly = true;
+	    this._webGLFriendly = true;
 	    try {
 		// try to create and initialize a 3D renderer
 		this.threeD = new X.renderer3D();
@@ -27,7 +27,7 @@ define(["text!templates/XtkViewer.html"], function(XtkViewerTemplate) {
 		this.threeD.init();
 	    } catch (Exception) {
 		// no webgl on this machine
-		_webGLFriendly = false;
+		this._webGLFriendly = false;
 	    }
 
 	    // create the 2D renderers
@@ -46,7 +46,23 @@ define(["text!templates/XtkViewer.html"], function(XtkViewerTemplate) {
 	    this.sliceZ.orientation = 'Z';
 	    this.sliceZ.init();
 
-	    
+	    // the onShowtime method gets executed after all files were fully loaded and
+	    // just before the first rendering attempt
+	    // add the volume to the other 3 renderers
+	    _this = this;
+	    this.sliceX.onShowtime = function() {
+
+		_this.sliceY.add(_this.volume);
+		_this.sliceY.render();
+
+		_this.sliceZ.add(_this.volume);
+		_this.sliceZ.render();
+		
+		if (_this._webGLFriendly) {
+		    _this.threeD.add(_this.volume);
+		    _this.threeD.render();
+		}
+	    };
 	},
 	loadFile:function(file){
 
@@ -59,7 +75,26 @@ define(["text!templates/XtkViewer.html"], function(XtkViewerTemplate) {
 	    //add data to data_holder
 	    this._data['volume']['file'].push(f);
 
+	    //load files
+	    _this = this;
+	    
+	    this._types.forEach(function(v) {
 
+		if (_this._data[v]['file'].length > 0) {
+		    
+		    _this._data[v]['file'].forEach(function(u) {
+			
+			var reader = new FileReader();
+			
+			reader.onerror = _this.errorHandler;
+			reader.onload = (_this.loadHandler)(v,u); // bind the current type
+			
+			// start reading this file
+			reader.readAsArrayBuffer(u);
+		    });
+		}
+	    });
+	    
 	    
 	},
 	createData:function() {
@@ -74,9 +109,48 @@ define(["text!templates/XtkViewer.html"], function(XtkViewerTemplate) {
 		},
 	    };
 
-}
+	    //FROM SLICEDROP, MAKE SURE TO UNDERSTAND THIS
+	    this._types = Object.keys(this._data);
+	    // number of total files - legacy from SliceDrop code
+	    this._numberOfFiles = 1;
+	    this._numberRead = 0;
+	},
+	loadHandler:function(type,file){
 
-	
+	    _this = this;
+	    
+	    return function(e) {
+		// reading complete
+
+		var data = e.target.result;
+		
+		// might have multiple files associated
+		// attach the filedata to the right one
+		
+		_this._data[type]['filedata'][_this._data[type]['file'].indexOf(file)] = data;
+		//console.log(_this._data[type]['filedata'][_this._data[type]['file'].indexOf(file)]);
+		
+		_this._numberRead++;
+		if (_this._numberRead == _this._numberOfFiles) {
+		    
+		    // all done, start the parsing
+		    //parse(_data);   
+		    
+		    // we have a volume
+		    _this.volume = new X.volume();
+		    //console.log('aboutToLoad volume.file');
+
+		    _this.volume.file = _this._data['volume']['file'].map(function(v) {
+			return v.name;
+		    });
+
+		    _this.volume.filedata = _this._data['volume']['filedata'];
+		    
+		    _this.sliceX.add(_this.volume);
+		    _this.sliceX.render();
+		}
+	    };
+	},
     });
     return XtkViewerView;
 });
