@@ -19,8 +19,12 @@ require.config({
 	    deps: ['Underscore', 'jquery', 'text'],
 	    exports: "Backbone"
 	},
+	"Bootstrap": {
+	    deps: ['jquery'],
+	    exports: "Bootstrap"
+	},
 	"main": {
-	    deps: ['Backbone','xtk']
+	    deps: ['Backbone','xtk','Bootstrap']
 	},
     },
 });

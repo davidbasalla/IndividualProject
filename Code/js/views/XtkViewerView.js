@@ -7,6 +7,7 @@ define(["text!templates/XtkViewer.html"], function(XtkViewerTemplate) {
 
 	    //event listener for file loaded
 	    Backbone.on('fileLoaded', this.loadFile, this);
+	    Backbone.on('fileRemoved', this.clearFile, this);
 
 	    //create place holder for render data
 	    this.createData();
@@ -35,6 +36,7 @@ define(["text!templates/XtkViewer.html"], function(XtkViewerTemplate) {
 	    this.sliceX.container = 'sliceX';
 	    this.sliceX.orientation = 'X';
 	    this.sliceX.init();
+	    //this.sliceX.render();
 	    
 	    this.sliceY = new X.renderer2D();
 	    this.sliceY.container = 'sliceY';
@@ -57,11 +59,13 @@ define(["text!templates/XtkViewer.html"], function(XtkViewerTemplate) {
 
 		_this.sliceZ.add(_this.volume);
 		_this.sliceZ.render();
+
 		
 		if (_this._webGLFriendly) {
 		    _this.threeD.add(_this.volume);
 		    _this.threeD.render();
 		}
+		
 	    };
 	},
 	loadFile:function(file){
@@ -94,8 +98,17 @@ define(["text!templates/XtkViewer.html"], function(XtkViewerTemplate) {
 		    });
 		}
 	    });
+	},
+	clearFile:function(){
 	    
+	    this.sliceX.destroy();
+	    this.sliceY.destroy();
+	    this.sliceZ.destroy();
 	    
+
+	    if (_this._webGLFriendly) {
+		this.threeD.destroy();
+	    };
 	},
 	createData:function() {
 	    // the data holder for the scene

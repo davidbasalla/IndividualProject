@@ -1,4 +1,4 @@
-define(["text!templates/Layer.html" , "models/LayerItem", "views/XtkViewerView"], function(LayerTemplate, LayerItem, XtkViewer) {
+define(["text!templates/Layer.html" , "models/LayerItem"], function(LayerTemplate, LayerItem) {
     
     var LayerItemView = Backbone.View.extend({
 	tagName: 'li', // name of (orphan) root tag in this.el
@@ -58,6 +58,7 @@ define(["text!templates/Layer.html" , "models/LayerItem", "views/XtkViewerView"]
 	    this.model.attributes.visible = e.target.checked;
 	},	
 	deleteLayer: function(){
+	    Backbone.trigger('fileRemoved');
 	    $(this.el).remove();
 	},
 	addLabelMap: function(){

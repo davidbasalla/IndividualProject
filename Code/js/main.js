@@ -1,6 +1,6 @@
 console.log('running stuff');
 
-define(["views/NavBarView", "views/LayersView", "views/XtkViewerView"], function(NavBarView, LayersView, XtkViewerView) {
+define(["views/NavBarView", "views/LayersView","views/ViewerWindowView"], function(NavBarView, LayersView, ViewerWindowView) {
     
     var initialise = function() {
 
@@ -15,11 +15,11 @@ define(["views/NavBarView", "views/LayersView", "views/XtkViewerView"], function
 	});
 	layers.render();
 
-	var xtkViewer = new XtkViewerView({
-	    el: $('#xtkViewer')
-	});
-	xtkViewer.render();
 
+	var viewerWindow = new ViewerWindowView({
+	    el: $('#viewerWindow')
+	});
+	viewerWindow.render();
 
     };
     return {
