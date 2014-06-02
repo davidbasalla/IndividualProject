@@ -10,7 +10,6 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    var viewerWindow = new ViewerWindowView({
 		el: $('#viewerWindow')
 	    });
-	    console.log(this.model.attributes.title);
 	    viewerWindow.layer = this.model.attributes.title;
 	    
 	    viewerWindow.render();
@@ -47,7 +46,6 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    return this; // for chainable calls, like .render().el
 	},
 	setSelected: function(){
-	    console.log('setSelected()');
 	    $(this.el).removeClass('layer-unselected');
 	    $(this.el).addClass('layer-selected');
 	    
@@ -84,12 +82,11 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    loadLabelMap(e.currentTarget.files[0]);
 	},
 	toggleVisibility: function(e){
-	    console.log('ToggleVisibility');
 	    this.model.attributes.visible = e.target.checked;
 	    Backbone.trigger('toggleVisibility', [this.model.attributes.visible, this.model.attributes.title]);
 	},	
 	deleteLayer: function(){
-	    Backbone.trigger('fileRemoved');
+	    Backbone.trigger('layerRemoved', this.model.attributes.title);
 	    $(this.el).remove();
 	},
 	addLabelMap: function(){

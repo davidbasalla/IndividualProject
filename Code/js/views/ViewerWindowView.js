@@ -10,6 +10,7 @@ define(["views/CanvasPanelView"], function(CanvasPanel) {
 	    this.layer = "";
 
 	    Backbone.on('setSelected', this.toggleVisibility, this);
+	    Backbone.on('layerRemoved', this.remove, this);
 	},
 	render:function() {
 
@@ -59,6 +60,10 @@ define(["views/CanvasPanelView"], function(CanvasPanel) {
 	    else
 		$('#view_' + this.layer).hide();
 	    
+	},
+	remove:function(layer){
+	    if(this.layer == layer)
+		$('#view_' + this.layer).remove();
 	},
     });
     return ViewerWindowView;

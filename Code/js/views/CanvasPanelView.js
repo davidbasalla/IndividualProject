@@ -8,9 +8,6 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	initialize:function() {
 	    //possible vars, should these be in a model?
 	    
-	    //this.layer
-	    //this.view
-
 	    this.master = false; //false by default
 	    this.title = "";
 	    this.mode = "";
@@ -23,33 +20,37 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    //Backbone.on('fileRemoved', this.clearFile, this);
 	    Backbone.on('onShowtime', this.drawXTK, this);
 
-	    //Backbone.on('newLayer', this.initViewer, this);
-
 	    //create place holder for render data
 	    this.createData();
-
-	    
 	},
 	render:function() {
 
+	    var toggle = "";
+	    
 	    switch (this.mode) {
 	    case "3D":
 		this.container = "viewer3D" + this.layer;
+		toggle = "#3Dtoggle";
 		break;
 	    case "X":
 		this.container = "viewerX" + this.layer;
+		toggle = "#Xtoggle";
 		break;
 	    case "Y":
 		this.container = "viewerY" + this.layer;
+		toggle = "#Ytoggle";
 		break;
 	    case "Z":
 		this.container = "viewerZ" + this.layer;
+		toggle = "#Ztoggle";
 		break;
 	    }
 
-	    console.log('Layer = ' + this.layer);
 	    this.$el.html(this.template({title: this.title, container: this.container}));
+	    console.log($(toggle, this.el));
+	    $(toggle, this.el).addClass('layer-selected');
 
+	    
 	    //this.initViewer();
 	    
 	    return this; //to enable chain calling
@@ -62,8 +63,6 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    else
 		this.viewer = new X.renderer2D();
 
-	    console.log('for ' + this.viewer + '_' + this.layer);
-	    console.log('looking for ' + this.container);
 	    this.viewer.container = this.container;
 
 	    if(this.mode == "X")
@@ -104,7 +103,6 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    var layer = args[1];
 
 	    if(this.master && this.layer == layer){
-		console.log('XtkViewer.loadFile(' + layer + ')');
 		var f = file;
 		var _fileName = f.name;
 		var _fileExtension = _fileName.split('.').pop().toUpperCase();
@@ -197,10 +195,6 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    var layer = args[1];
 	    
 	    if(!this.master && this.layer == layer){
-		console.log('drawXTK');
-
-		console.log(volume);
-
 		this.viewer.add(volume);
 		this.viewer.render();
 	    }
