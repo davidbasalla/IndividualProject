@@ -76,10 +76,12 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	},
 	labelLoaded: function(e){
 	    //add text to layer preview
+	    console.log('labelLoaded()');
 	    //$('#textHolder', this.el).html(e.currentTarget.files[0].name);
 	    
 	    //call draw function
-	    loadLabelMap(e.currentTarget.files[0]);
+	    //loadLabelMap(e.currentTarget.files[0]);
+	    Backbone.trigger('labelLoaded', [e.currentTarget.files[0], this.model.attributes.title]);
 	},
 	toggleVisibility: function(e){
 	    this.model.attributes.visible = e.target.checked;

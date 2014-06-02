@@ -17,11 +17,11 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 
 	    //event listener for file loaded
 	    Backbone.on('fileLoaded', this.loadFile, this);
+	    Backbone.on('labelLoaded', this.loadLabelFile, this);
+	    
 	    //Backbone.on('fileRemoved', this.clearFile, this);
 	    Backbone.on('onShowtime', this.drawXTK, this);
 
-	    //create place holder for render data
-	    this.createData();
 	},
 	render:function() {
 
@@ -99,9 +99,14 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	*/
 	loadFile:function(args){
 
+	    console.log('loadFile()');
+
 	    var file = args[0];
 	    var layer = args[1];
 
+	    //create place holder for render data
+	    this.createData();
+	    
 	    if(this.master && this.layer == layer){
 		var f = file;
 		var _fileName = f.name;
@@ -172,29 +177,67 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 		    //parse(_data);   
 		    
 		    // we have a volume
-		    _this.volume = new X.volume();
-		    //console.log('aboutToLoad volume.file');
-
-		    _this.volume.file = _this._data['volume']['file'].map(function(v) {
-			return v.name;
-		    });
-
-		    _this.volume.filedata = _this._data['volume']['filedata'];
-		    
-		    _this.viewer.add(_this.volume);
-		    
-		    _this.viewer.render();
+		    _this.parse(_this._data);
 
 		    //Backbone.trigger('onShowtime', _this.volume);
 		}
 	    };
 	},
+	parse:function(data){
+
+	    console.log('parse()');
+	    
+	    // we have a volume
+	    this.volume = new X.volume();
+	    //console.log('aboutToLoad volume.file');
+
+	    this.volume.file = data['volume']['file'].map(function(v) {
+		return v.name;
+	    });
+
+	    this.volume.filedata = data['volume']['filedata'];
+
+	    console.log(this.viewer);
+	    console.log(this.viewer.objects);
+	    console.log(this.viewer.topLevelObjects);
+
+	    
+
+	    this.viewer.objects.clear();
+	    this.viewer.topLevelObjects = [];
+	    
+	    /*
+	    if(this.viewer._objects){
+		this.viewer._objects.clear();
+		delete this._viewer.objects;
+	    };
+
+	    if (this.viewer._topLevelObjects){
+		this.viewer._topLevelObjects.length = 0;
+		delete this.viewer._topLevelObjects;
+	    };
+	    */
+	    
+	    this.viewer.add(this.volume);
+
+
+	    this.viewer.render();
+	    //console.log(this.viewer.objects);
+	},
 	drawXTK:function(args){
+
+	    console.log(this.mode + ' contents:');
+	    console.log(this.viewer.objects);
+	    console.log(this.viewer.topLevelObjects);
 
 	    var volume = args[0];
 	    var layer = args[1];
 	    
 	    if(!this.master && this.layer == layer){
+
+		this.viewer.objects.clear();
+		this.viewer.topLevelObjects = [];
+		
 		this.viewer.add(volume);
 		this.viewer.render();
 	    }
