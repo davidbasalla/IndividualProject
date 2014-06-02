@@ -11,13 +11,15 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    //this.layer
 	    //this.view
 
+	    this.master = false; //false by default
 	    this.title = "";
 	    this.mode = "";
 	    this.container = "";
 
 	    //event listener for file loaded
 	    Backbone.on('fileLoaded', this.loadFile, this);
-	    Backbone.on('fileRemoved', this.clearFile, this);
+	    //Backbone.on('fileRemoved', this.clearFile, this);
+	    Backbone.on('onShowtime', this.drawXTK, this);
 
 	    //create place holder for render data
 	    this.createData();
@@ -58,41 +60,53 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 		this.viewer.orientation = 'X';
 	    else if (this.mode == "Y")
 		this.viewer.orientation = 'Y';
-	    (this.mode == "Z")
-	    this.viewer.orientation = 'Z';
+	    else if (this.mode == "Z")
+		this.viewer.orientation = 'Z';
+
+	    console.log('mode = ' + this.viewer.orientation);
 
 	    this.viewer.init();
+
+	    if(this.master){
+		_this = this;
+		this.viewer.onShowtime = function() {
+		    Backbone.trigger('onShowtime', _this.volume);
+		}
+	    };
+	    
 	},
 	loadFile:function(file){
 
-	    console.log('XtkViewer.loadItem()');
+	    if(this.master){
+		console.log('XtkViewer.loadItem()');
+		var f = file;
+		var _fileName = f.name;
+		var _fileExtension = _fileName.split('.').pop().toUpperCase();
+		
+		//add data to data_holder
+		this._data['volume']['file'].push(f);
 
-	    var f = file;
-	    var _fileName = f.name;
-	    var _fileExtension = _fileName.split('.').pop().toUpperCase();
-	    
-	    //add data to data_holder
-	    this._data['volume']['file'].push(f);
+		//load files
+		_this = this;
+		
+		this._types.forEach(function(v) {
 
-	    //load files
-	    _this = this;
-	    
-	    this._types.forEach(function(v) {
-
-		if (_this._data[v]['file'].length > 0) {
+		    if (_this._data[v]['file'].length > 0) {
+			
+			_this._data[v]['file'].forEach(function(u) {
+			    
+			    var reader = new FileReader();
+			    
+			    reader.onerror = _this.errorHandler;
+			    reader.onload = (_this.loadHandler)(v,u); // bind the current type
+			    
+			    // start reading this file
+			    reader.readAsArrayBuffer(u);
+			});
+		    }
 		    
-		    _this._data[v]['file'].forEach(function(u) {
-			
-			var reader = new FileReader();
-			
-			reader.onerror = _this.errorHandler;
-			reader.onload = (_this.loadHandler)(v,u); // bind the current type
-			
-			// start reading this file
-			reader.readAsArrayBuffer(u);
-		    });
-		}
-	    });
+		});
+	    }
 	},
 	createData:function() {
 	    // the data holder for the scene
@@ -144,12 +158,26 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 		    _this.volume.filedata = _this._data['volume']['filedata'];
 		    
 		    _this.viewer.add(_this.volume);
+		    
 		    _this.viewer.render();
+
+		    //Backbone.trigger('onShowtime', _this.volume);
 		}
 	    };
 	},
+	drawXTK:function(volume){
 
-	
+	    if(!this.master){
+		console.log('drawXTK');
+
+		console.log(volume);
+
+		this.viewer.add(volume);
+		this.viewer.render();
+	    }
+
+
+	},	
     });
     return ViewerWindowView;
 });

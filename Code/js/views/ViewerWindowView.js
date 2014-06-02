@@ -20,6 +20,7 @@ define(["views/CanvasPanelView"], function(CanvasPanel) {
 	    var viewer2 = new CanvasPanel();
 	    viewer2.title = 'viewer2';
 	    viewer2.mode = "X";
+	    viewer2.master = true;
 
 	    var viewer3 = new CanvasPanel();
 	    viewer3.title = 'viewer3';
