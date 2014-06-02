@@ -7,7 +7,7 @@ define(function() {
 	    selected: true,
 	    visible: true,
 	    fileName: 'dummyFileName',
-	    type: 'scan'
+	    type: 'scan',
 	}
     });
 

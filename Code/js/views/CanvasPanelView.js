@@ -15,45 +15,55 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    this.title = "";
 	    this.mode = "";
 	    this.container = "";
+	    this.visible = true;
+	    this.layer = "";
 
 	    //event listener for file loaded
 	    Backbone.on('fileLoaded', this.loadFile, this);
 	    //Backbone.on('fileRemoved', this.clearFile, this);
 	    Backbone.on('onShowtime', this.drawXTK, this);
 
+	    //Backbone.on('newLayer', this.initViewer, this);
+
 	    //create place holder for render data
 	    this.createData();
 
+	    
 	},
 	render:function() {
 
 	    switch (this.mode) {
 	    case "3D":
-		this.container = "viewer3D";
+		this.container = "viewer3D" + this.layer;
 		break;
 	    case "X":
-		this.container = "viewerX";
+		this.container = "viewerX" + this.layer;
 		break;
 	    case "Y":
-		this.container = "viewerY";
+		this.container = "viewerY" + this.layer;
 		break;
 	    case "Z":
-		this.container = "viewerZ";
+		this.container = "viewerZ" + this.layer;
 		break;
 	    }
-	    
+
+	    console.log('Layer = ' + this.layer);
 	    this.$el.html(this.template({title: this.title, container: this.container}));
 
+	    //this.initViewer();
+	    
 	    return this; //to enable chain calling
 	},
 	initViewer:function(){
-	    
+
 	    // create the viewer
 	    if(this.mode == "3D")
 		this.viewer = new X.renderer3D();
 	    else
 		this.viewer = new X.renderer2D();
-	    
+
+	    console.log('for ' + this.viewer + '_' + this.layer);
+	    console.log('looking for ' + this.container);
 	    this.viewer.container = this.container;
 
 	    if(this.mode == "X")
@@ -63,22 +73,38 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    else if (this.mode == "Z")
 		this.viewer.orientation = 'Z';
 
-	    console.log('mode = ' + this.viewer.orientation);
-
 	    this.viewer.init();
 
 	    if(this.master){
 		_this = this;
 		this.viewer.onShowtime = function() {
-		    Backbone.trigger('onShowtime', _this.volume);
+		    Backbone.trigger('onShowtime', [_this.volume, _this.layer]);
 		}
 	    };
 	    
 	},
-	loadFile:function(file){
+	/*
+	toggleVisibility:function(vis){
+	    console.log('toggleVis( ' + vis + ')');
 
-	    if(this.master){
-		console.log('XtkViewer.loadItem()');
+	    console.log(this.el);
+	    console.log(this.$el);
+	    console.log($('#' + this.container));
+	    
+	    if(vis)
+		$('#' + this.container).show();
+	    else
+		$('#' + this.container).hide();
+
+	},
+	*/
+	loadFile:function(args){
+
+	    var file = args[0];
+	    var layer = args[1];
+
+	    if(this.master && this.layer == layer){
+		console.log('XtkViewer.loadFile(' + layer + ')');
 		var f = file;
 		var _fileName = f.name;
 		var _fileExtension = _fileName.split('.').pop().toUpperCase();
@@ -165,9 +191,12 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 		}
 	    };
 	},
-	drawXTK:function(volume){
+	drawXTK:function(args){
 
-	    if(!this.master){
+	    var volume = args[0];
+	    var layer = args[1];
+	    
+	    if(!this.master && this.layer == layer){
 		console.log('drawXTK');
 
 		console.log(volume);

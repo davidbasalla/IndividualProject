@@ -15,11 +15,12 @@ define(["views/NavBarView", "views/LayersView","views/ViewerWindowView"], functi
 	});
 	layers.render();
 
-
+	/*
 	var viewerWindow = new ViewerWindowView({
 	    el: $('#viewerWindow')
 	});
 	viewerWindow.render();
+	*/
 
     };
     return {

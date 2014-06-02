@@ -36,6 +36,7 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 		model: item
 	    });
 	    $('#layerList', this.el).append(itemView.render().el);
+	    itemView.setSelected();
 	}
     });
 

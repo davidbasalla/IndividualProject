@@ -1,8 +1,19 @@
 html, body { 
-  background-color:#000;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden !important;  
+    background-color:#BBB;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden !important;  
 }
-
+.layer-selected{
+    background-color:#88F;
+}
+.layer-unselected{
+    background-color:#FFF;
+}
+.layer-selected:hover{ 
+    background-color:#66F;
+}
+.layer-unselected:hover{ 
+    background-color:#AAF;
+}

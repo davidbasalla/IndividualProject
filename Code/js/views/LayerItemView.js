@@ -1,4 +1,4 @@
-define(["text!templates/Layer.html" , "models/LayerItem"], function(LayerTemplate, LayerItem) {
+define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView"], function(LayerTemplate, LayerItem, ViewerWindowView) {
     
     var LayerItemView = Backbone.View.extend({
 	tagName: 'li', // name of (orphan) root tag in this.el
@@ -6,6 +6,20 @@ define(["text!templates/Layer.html" , "models/LayerItem"], function(LayerTemplat
 	
 	initialize: function(){
 	    //_.bindAll(this, 'render'); // every function that uses 'this' as the current object should be in here
+    	
+	    var viewerWindow = new ViewerWindowView({
+		el: $('#viewerWindow')
+	    });
+	    console.log(this.model.attributes.title);
+	    viewerWindow.layer = this.model.attributes.title;
+	    
+	    viewerWindow.render();
+	    //console.log(viewerWindow);
+	    //viewerWindow.initViewer();
+
+	    Backbone.on('setSelected', this.setUnselected, this);
+	    
+	    //Backbone.trigger('newLayer', this.model.attributes.title);
 	},
 	events: {
 	    //event for toggling visibility
@@ -15,11 +29,13 @@ define(["text!templates/Layer.html" , "models/LayerItem"], function(LayerTemplat
 	    'change input#filePicker': 'fileLoaded',
 	    'change input#labelPicker': 'labelLoaded',
 	    'click a#addLabelMap': 'addLabelMap',
+	    'click': 'setSelected',
 	},
 	render: function(){
 
 	    //add style to rendering of the layer item
 	    $(this.el).addClass('list-group-item');
+
 	    
 	    //template - set title
 	    this.$el.html(this.template({layer_title: this.model.attributes.title}));
@@ -29,6 +45,20 @@ define(["text!templates/Layer.html" , "models/LayerItem"], function(LayerTemplat
 	    $('#labelPicker', this.el).hide();
 
 	    return this; // for chainable calls, like .render().el
+	},
+	setSelected: function(){
+	    console.log('setSelected()');
+	    $(this.el).removeClass('layer-unselected');
+	    $(this.el).addClass('layer-selected');
+	    
+	    Backbone.trigger('setSelected', this.model.attributes.title);
+	},
+	setUnselected: function(layer){
+
+	    if (this.model.attributes.title!=layer){
+		$(this.el).removeClass('layer-selected');
+		$(this.el).addClass('layer-unselected');
+	    }
 	},
 	loadFile: function(){
 	    //trigger the hidden fileLoader
@@ -44,7 +74,7 @@ define(["text!templates/Layer.html" , "models/LayerItem"], function(LayerTemplat
 
 	    //trigger event that file has loaded, expected by XtkViewer
 	    //send file along as a parameter
-	    Backbone.trigger('fileLoaded', e.currentTarget.files[0]);
+	    Backbone.trigger('fileLoaded', [e.currentTarget.files[0], this.model.attributes.title]);
 	},
 	labelLoaded: function(e){
 	    //add text to layer preview
@@ -56,6 +86,7 @@ define(["text!templates/Layer.html" , "models/LayerItem"], function(LayerTemplat
 	toggleVisibility: function(e){
 	    console.log('ToggleVisibility');
 	    this.model.attributes.visible = e.target.checked;
+	    Backbone.trigger('toggleVisibility', [this.model.attributes.visible, this.model.attributes.title]);
 	},	
 	deleteLayer: function(){
 	    Backbone.trigger('fileRemoved');
