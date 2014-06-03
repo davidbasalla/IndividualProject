@@ -11,11 +11,12 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    //console.log(LayerItem);
 	    //console.log(LayerItemView);
 
+	    Backbone.on('layerRemoved', this.removeItem, this);
+	    
 	    this.collection = new LayerList();
 	    this.collection.bind('add', this.appendItem); // collection event binder
 
 	    this.counter = 0; // total number of items added thus far
-	    this.render();
 	    
 	},
 	render:function() {
@@ -30,14 +31,20 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    });
 	    this.collection.add(item);
 	},
-
 	appendItem: function(item){
 	    var itemView = new LayerItemView({
 		model: item
 	    });
 	    $('#layerList', this.el).append(itemView.render().el);
 	    itemView.setSelected();
-	}
+	},
+	removeItem: function(layer){
+
+	    //use index as an id for get layers!
+	    
+	    console.log(this.collection);
+
+	},
     });
 
     

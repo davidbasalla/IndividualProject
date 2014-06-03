@@ -47,8 +47,22 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    }
 
 	    this.$el.html(this.template({title: this.title, container: this.container}));
-	    console.log($(toggle, this.el));
+
+	    //init slider
+
+	    $( "#sliderVertical", this.el ).slider({
+		orientation: "vertical",
+		//range: "min",
+		min: 0,
+		max: 100,
+		value: 60,
+		slide: function( event, ui ) {
+		    $( "#amount" ).val( ui.value );
+		}
+	    });
+	    
 	    $(toggle, this.el).addClass('layer-selected');
+
 
 	    
 	    //this.initViewer();
