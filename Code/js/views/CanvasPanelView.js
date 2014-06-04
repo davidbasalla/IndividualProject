@@ -13,7 +13,7 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    this.mode = "";
 	    this.container = "";
 	    this.visible = true;
-	    this.layer = "";
+	    this.layerIndex = 0;
 
 	    //event listener for file loaded
 	    Backbone.on('fileLoaded', this.loadFile, this);
@@ -91,7 +91,7 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    if(this.master){
 		_this = this;
 		this.viewer.onShowtime = function() {
-		    Backbone.trigger('onShowtime', [_this.volume, _this.layer]);
+		    Backbone.trigger('onShowtime', [_this.volume, _this.layerIndex]);
 		}
 	    };
 	    
@@ -116,12 +116,12 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    console.log('loadFile()');
 
 	    var file = args[0];
-	    var layer = args[1];
+	    var layerIndex = args[1];
 
 	    //create place holder for render data
 	    this.createData();
 	    
-	    if(this.master && this.layer == layer){
+	    if(this.master && this.layerIndex == layerIndex){
 		var f = file;
 		var _fileName = f.name;
 		var _fileExtension = _fileName.split('.').pop().toUpperCase();
@@ -240,14 +240,10 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	},
 	drawXTK:function(args){
 
-	    console.log(this.mode + ' contents:');
-	    console.log(this.viewer.objects);
-	    console.log(this.viewer.topLevelObjects);
-
 	    var volume = args[0];
-	    var layer = args[1];
+	    var layerIndex = args[1];
 	    
-	    if(!this.master && this.layer == layer){
+	    if(!this.master && this.layerIndex == layerIndex){
 
 		this.viewer.objects.clear();
 		this.viewer.topLevelObjects = [];

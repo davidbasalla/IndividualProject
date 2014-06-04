@@ -12,6 +12,11 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    //console.log(LayerItemView);
 
 	    Backbone.on('layerRemoved', this.removeItem, this);
+	    Backbone.on('setSelected', this.setCurrentLayer, this);
+	    Backbone.on('thresholdChange', this.thresholdChange, this);
+	    
+
+	    this.currentLayer = 0;
 	    
 	    this.collection = new LayerList();
 	    this.collection.bind('add', this.appendItem); // collection event binder
@@ -27,7 +32,9 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    this.counter++;
 	    var item = new LayerItem();
 	    item.set({
-		title: item.get('title') + this.counter // modify item defaults
+		// modify item defaults
+		title: item.get('title') + this.counter,
+		index: this.counter,
 	    });
 	    this.collection.add(item);
 	},
@@ -43,7 +50,13 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    //use index as an id for get layers!
 	    
 	    console.log(this.collection);
-
+	},
+	setCurrentLayer: function(layerIndex){
+	    this.currentLayer = layerIndex;
+	    console.log(this.currentLayer);
+	},
+	thresholdChange: function(args){
+	    Backbone.trigger('layerThresholdChange', [this.currentLayer, args[0], args[1]]);
 	},
     });
 

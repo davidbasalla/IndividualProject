@@ -8,6 +8,7 @@ define(function() {
 	    visible: true,
 	    fileName: 'dummyFileName',
 	    type: 'scan',
+	    index: 0,
 	}
     });
 

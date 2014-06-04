@@ -10,7 +10,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    var viewerWindow = new ViewerWindowView({
 		el: $('#viewerWindow')
 	    });
-	    viewerWindow.layer = this.model.attributes.title;
+	    viewerWindow.layerIndex = this.model.attributes.index;
 	    
 	    viewerWindow.render();
 	    //console.log(viewerWindow);
@@ -49,11 +49,11 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    $(this.el).removeClass('layer-unselected');
 	    $(this.el).addClass('layer-selected');
 	    
-	    Backbone.trigger('setSelected', this.model.attributes.title);
+	    Backbone.trigger('setSelected', this.model.attributes.index);
 	},
-	setUnselected: function(layer){
+	setUnselected: function(layerIndex){
 
-	    if (this.model.attributes.title!=layer){
+	    if (this.model.attributes.index!=layerIndex){
 		$(this.el).removeClass('layer-selected');
 		$(this.el).addClass('layer-unselected');
 	    }
@@ -72,7 +72,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 
 	    //trigger event that file has loaded, expected by XtkViewer
 	    //send file along as a parameter
-	    Backbone.trigger('fileLoaded', [e.currentTarget.files[0], this.model.attributes.title]);
+	    Backbone.trigger('fileLoaded', [e.currentTarget.files[0], this.model.attributes.index]);
 	},
 	labelLoaded: function(e){
 	    //add text to layer preview
@@ -81,14 +81,10 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    
 	    //call draw function
 	    //loadLabelMap(e.currentTarget.files[0]);
-	    Backbone.trigger('labelLoaded', [e.currentTarget.files[0], this.model.attributes.title]);
+	    Backbone.trigger('labelLoaded', [e.currentTarget.files[0], this.model.attributes.index]);
 	},
-	toggleVisibility: function(e){
-	    this.model.attributes.visible = e.target.checked;
-	    Backbone.trigger('toggleVisibility', [this.model.attributes.visible, this.model.attributes.title]);
-	},	
 	deleteLayer: function(){
-	    Backbone.trigger('layerRemoved', this.model.attributes.title);
+	    Backbone.trigger('layerRemoved', this.model.attributes.index);
 	    $(this.el).remove();
 	},
 	addLabelMap: function(){

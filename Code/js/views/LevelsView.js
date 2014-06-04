@@ -36,26 +36,14 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 		slide: function( event, ui ) {
 		    $( "#thresholdLow" ).val(ui.values[0]);
 		    $( "#thresholdHigh" ).val(ui.values[1]);
+		    this.alertThresholdChange(ui.values[0], ui.values[1]);
 		}
 	    });
+	},
+	alertThresholdChange:function(lowVal, highVal){
+	    //need to get the current selected layer
+	    Backbone.trigger('thresholdChange', [lowVal, highVal]);
 	    
-
-	    //console.log($("#slider-range", this.el));
-	    //$("#slider-range", this.el).slider();
-
-	    /*
-	      $("#slider-range", this.el).slider({
-	      range: true,
-	      min: 0,
-	      max: 500,
-	      values: [ 75, 300 ],
-	      slide: function( event, ui ) {
-	      $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-	      }
-	      });
-	      $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-	      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-	    */
 	},
     });
 

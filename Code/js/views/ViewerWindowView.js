@@ -7,7 +7,7 @@ define(["views/CanvasPanelView"], function(CanvasPanel) {
 	    //possible vars, should these be in a model?
 	    //this.layout = type of layout
 
-	    this.layer = "";
+	    this.layerIndex = "";
 
 	    Backbone.on('setSelected', this.toggleVisibility, this);
 	    Backbone.on('layerRemoved', this.remove, this);
@@ -20,50 +20,50 @@ define(["views/CanvasPanelView"], function(CanvasPanel) {
 
 	    //insert a div for the current layer
 	    
-	    this.$el.append('<div id="view_' + this.layer + '"></div>');
+	    this.$el.append('<div id="view_' + this.layerIndex + '"></div>');
 
 	    var viewer1 = new CanvasPanel();
 	    viewer1.title = 'viewer1';
 	    viewer1.mode = "3D";
-	    viewer1.layer = this.layer;
+	    viewer1.layerIndex = this.layerIndex;
 
 	    var viewer2 = new CanvasPanel();
 	    viewer2.title = 'viewer2';
 	    viewer2.mode = "X";
 	    viewer2.master = true;
-	    viewer2.layer = this.layer;
+	    viewer2.layerIndex = this.layerIndex;
 	    
 	    var viewer3 = new CanvasPanel();
 	    viewer3.title = 'viewer3';
 	    viewer3.mode = "Y";
-	    viewer3.layer = this.layer;
+	    viewer3.layerIndex = this.layerIndex;
 	    
 	    var viewer4 = new CanvasPanel();
 	    viewer4.title = 'viewer4';
 	    viewer4.mode = "Z";
-	    viewer4.layer = this.layer;
+	    viewer4.layerIndex = this.layerIndex;
 
-	    $('#view_' + this.layer, this.el).append(viewer1.render().el);
-	    $('#view_' + this.layer, this.el).append(viewer2.render().el);
-	    $('#view_' + this.layer, this.el).append(viewer3.render().el);
-	    $('#view_' + this.layer, this.el).append(viewer4.render().el);
+	    $('#view_' + this.layerIndex, this.el).append(viewer1.render().el);
+	    $('#view_' + this.layerIndex, this.el).append(viewer2.render().el);
+	    $('#view_' + this.layerIndex, this.el).append(viewer3.render().el);
+	    $('#view_' + this.layerIndex, this.el).append(viewer4.render().el);
 	    
 	    viewer1.initViewer();
 	    viewer2.initViewer();
 	    viewer3.initViewer();
 	    viewer4.initViewer();
 	},
-	toggleVisibility:function(layer){
+	toggleVisibility:function(layerIndex){
 	    
-	    if(this.layer == layer)
-		$('#view_' + this.layer).show();
+	    if(this.layerIndex == layerIndex)
+		$('#view_' + this.layerIndex).show();
 	    else
-		$('#view_' + this.layer).hide();
+		$('#view_' + this.layerIndex).hide();
 	    
 	},
-	remove:function(layer){
-	    if(this.layer == layer)
-		$('#view_' + this.layer).remove();
+	remove:function(layerIndex){
+	    if(this.layerIndex == layerIndex)
+		$('#view_' + this.layerIndex).remove();
 	},
     });
     return ViewerWindowView;
