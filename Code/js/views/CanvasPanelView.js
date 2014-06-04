@@ -7,6 +7,8 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	},
 	initialize:function() {
 	    //possible vars, should these be in a model?
+
+	    //_.bindAll(this, 'setThreshold'); // every function that uses 'this' as the current object should be in here
 	    
 	    this.master = false; //false by default
 	    this.title = "";
@@ -15,13 +17,24 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    this.visible = true;
 	    this.layerIndex = 0;
 
+	    //levels data
+	    this.originalThresholdLow = 0;
+	    this.originalThresholdHigh = 100;
+	    this.originalWindowLow = 0;
+	    this.originalWindowHigh = 100;
+	    
+
 	    //event listener for file loaded
 	    Backbone.on('fileLoaded', this.loadFile, this);
 	    Backbone.on('labelLoaded', this.loadLabelFile, this);
 	    
 	    //Backbone.on('fileRemoved', this.clearFile, this);
 	    Backbone.on('onShowtime', this.drawXTK, this);
+	    
+	    Backbone.on('layerThresholdChange', this.setThreshold, this);
+	    Backbone.on('layerLevelsChange', this.setLevels, this);
 
+	    
 	},
 	render:function() {
 
@@ -29,19 +42,19 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    
 	    switch (this.mode) {
 	    case "3D":
-		this.container = "viewer3D" + this.layer;
+		this.container = "viewer3D_" + this.layerIndex;
 		toggle = "#3Dtoggle";
 		break;
 	    case "X":
-		this.container = "viewerX" + this.layer;
+		this.container = "viewerX_" + this.layerIndex;
 		toggle = "#Xtoggle";
 		break;
 	    case "Y":
-		this.container = "viewerY" + this.layer;
+		this.container = "viewerY_" + this.layerIndex;
 		toggle = "#Ytoggle";
 		break;
 	    case "Z":
-		this.container = "viewerZ" + this.layer;
+		this.container = "viewerZ_" + this.layerIndex;
 		toggle = "#Ztoggle";
 		break;
 	    }
@@ -63,8 +76,6 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    
 	    $(toggle, this.el).addClass('layer-selected');
 
-
-	    
 	    //this.initViewer();
 	    
 	    return this; //to enable chain calling
@@ -91,7 +102,21 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    if(this.master){
 		_this = this;
 		this.viewer.onShowtime = function() {
-		    Backbone.trigger('onShowtime', [_this.volume, _this.layerIndex]);
+
+		    //store original values
+
+		    /*//debug
+		    console.log('Orig Thresh = ' + _this.volume.lowerThreshold + ', ' +  _this.volume.upperThreshold);
+		    console.log('Orig Levels = ' + _this.volume.windowLow + ', ' +  _this.volume.windowHigh);
+		    */
+		    
+		    _this.originalThresholdLow = _this.volume.lowerThreshold;
+		    _this.originalThresholdHigh = _this.volume.upperThreshold;
+
+		    _this.originalWindowLow = _this.volume.windowLow;
+		    _this.originalWindowHigh = _this.volume.windowHigh;
+		    
+		    Backbone.trigger('onShowtime',  [_this.volume, _this.layerIndex]);
 		}
 	    };
 	    
@@ -231,18 +256,23 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 		delete this.viewer._topLevelObjects;
 	    };
 	    */
-	    
+
+	    console.log('add()');
 	    this.viewer.add(this.volume);
 
+	    console.log('render()');
 
 	    this.viewer.render();
 	    //console.log(this.viewer.objects);
 	},
 	drawXTK:function(args){
 
-	    var volume = args[0];
-	    var layerIndex = args[1];
+	    volume = args[0];
+	    layerIndex = args[1];
 	    
+	    console.log('VOLUME:');
+	    console.log(this.volume);
+
 	    if(!this.master && this.layerIndex == layerIndex){
 
 		this.viewer.objects.clear();
@@ -251,9 +281,40 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 		this.viewer.add(volume);
 		this.viewer.render();
 	    }
+	    
 
+	},
+	setThreshold:function(args){
 
-	},	
+	    //should test if divider ever goes negative!
+	    
+	    if(this.layerIndex == args[0] && this.master){
+
+		/*//for debug//
+		console.log('RECEIVING');
+		console.log(this.layerIndex + ', ' + this.mode);
+		console.log(this.volume);*/
+		
+		var divider = (this.originalThresholdHigh - this.originalThresholdLow)/100;
+		this.volume.lowerThreshold = divider*args[1];
+		this.volume.upperThreshold = this.originalThresholdHigh * (args[2]/100);
+	    }
+	},
+	setLevels:function(args){
+
+	    if(this.layerIndex == args[0] && this.master){
+
+		/*//for debug//
+		console.log('RECEIVING');
+		console.log(this.layerIndex + ', ' + this.mode);
+		console.log(this.volume);*/
+		
+		var divider = (this.originalWindowHigh - this.originalWindowLow)/100;
+		this.volume.windowLow = divider*args[1];
+		this.volume.windowHigh = this.originalWindowHigh * (args[2]/100);
+	    }
+		},
+	
     });
     return ViewerWindowView;
 });

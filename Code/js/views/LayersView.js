@@ -1,4 +1,4 @@
-define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", "collections/LayerList"], function(LayersTemplate, LayerItemView,  LayerItem, LayerList) {
+define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", "collections/LayerList","views/ViewerWindowView"], function(LayersTemplate, LayerItemView,  LayerItem, LayerList, ViewerWindowView) {
     
     var LayersView = Backbone.View.extend({
 	//define the template
@@ -14,9 +14,10 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    Backbone.on('layerRemoved', this.removeItem, this);
 	    Backbone.on('setSelected', this.setCurrentLayer, this);
 	    Backbone.on('thresholdChange', this.thresholdChange, this);
+	    Backbone.on('levelsChange', this.levelsChange, this);
 	    
 
-	    this.currentLayer = 0;
+	    this.currentLayerIndex = 0;
 	    
 	    this.collection = new LayerList();
 	    this.collection.bind('add', this.appendItem); // collection event binder
@@ -30,6 +31,7 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	},
 	addItem: function(){
 	    this.counter++;
+	    
 	    var item = new LayerItem();
 	    item.set({
 		// modify item defaults
@@ -37,6 +39,14 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 		index: this.counter,
 	    });
 	    this.collection.add(item);
+
+
+	    var viewerWindow = new ViewerWindowView({
+		el: $('#viewerWindow')
+	    });
+	    viewerWindow.layerIndex = this.counter;
+	    viewerWindow.render();
+	    
 	},
 	appendItem: function(item){
 	    var itemView = new LayerItemView({
@@ -52,11 +62,16 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    console.log(this.collection);
 	},
 	setCurrentLayer: function(layerIndex){
-	    this.currentLayer = layerIndex;
-	    console.log(this.currentLayer);
+	    this.currentLayerIndex = layerIndex;
+	    console.log(this.currentLayerIndex);
 	},
 	thresholdChange: function(args){
-	    Backbone.trigger('layerThresholdChange', [this.currentLayer, args[0], args[1]]);
+	    //console.log('triggering layerThresholdChange');
+	    Backbone.trigger('layerThresholdChange', [this.currentLayerIndex, args[0], args[1]]);
+	},
+	levelsChange: function(args){
+	    //console.log('triggering layerThresholdChange');
+	    Backbone.trigger('layerLevelsChange', [this.currentLayerIndex, args[0], args[1]]);
 	},
     });
 

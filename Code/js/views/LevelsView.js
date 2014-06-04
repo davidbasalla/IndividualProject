@@ -24,6 +24,7 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 		slide: function( event, ui ) {
 		    $( "#levelLow" ).val(ui.values[0]);
 		    $( "#levelHigh" ).val(ui.values[1]);
+		    Backbone.trigger('levelsChange', [ui.values[0],ui.values[1]]);
 		}
 	    });
 
@@ -36,14 +37,9 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 		slide: function( event, ui ) {
 		    $( "#thresholdLow" ).val(ui.values[0]);
 		    $( "#thresholdHigh" ).val(ui.values[1]);
-		    this.alertThresholdChange(ui.values[0], ui.values[1]);
+		    Backbone.trigger('thresholdChange', [ui.values[0],ui.values[1]]);
 		}
 	    });
-	},
-	alertThresholdChange:function(lowVal, highVal){
-	    //need to get the current selected layer
-	    Backbone.trigger('thresholdChange', [lowVal, highVal]);
-	    
 	},
     });
 

@@ -7,13 +7,6 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	initialize: function(){
 	    //_.bindAll(this, 'render'); // every function that uses 'this' as the current object should be in here
     	
-	    var viewerWindow = new ViewerWindowView({
-		el: $('#viewerWindow')
-	    });
-	    viewerWindow.layerIndex = this.model.attributes.index;
-	    
-	    viewerWindow.render();
-	    //console.log(viewerWindow);
 	    //viewerWindow.initViewer();
 
 	    Backbone.on('setSelected', this.setUnselected, this);

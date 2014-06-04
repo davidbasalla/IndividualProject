@@ -7,7 +7,7 @@ define(["views/CanvasPanelView"], function(CanvasPanel) {
 	    //possible vars, should these be in a model?
 	    //this.layout = type of layout
 
-	    this.layerIndex = "";
+	    this.layerIndex = 0;
 
 	    Backbone.on('setSelected', this.toggleVisibility, this);
 	    Backbone.on('layerRemoved', this.remove, this);
