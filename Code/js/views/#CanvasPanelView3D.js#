@@ -28,7 +28,6 @@ define(["text!templates/CanvasPanel3D.html","views/CanvasPanelView"], function(C
 	    };
 	},
 	setVolumeRender: function(e){
-	    console.log('triggering...');
 	    Backbone.trigger('setVolumeRendering', [this.layerIndex, e.target.checked]);
 	},
     });

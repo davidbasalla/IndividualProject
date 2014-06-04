@@ -33,6 +33,7 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    
 	    Backbone.on('layerThresholdChange', this.setThreshold, this);
 	    Backbone.on('layerLevelsChange', this.setLevels, this);
+	    Backbone.on('setVolumeRendering', this.setVolumeRendering, this);
 
 	    //this.render();
 	},
@@ -85,61 +86,7 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    return this; //to enable chain calling
 	},
 	initViewer:function(){
-
-	    // create the viewer
-	    if(this.mode == "3D")
-		this.viewer = new X.renderer3D();
-	    else
-		this.viewer = new X.renderer2D();
-
-	    this.viewer.container = this.container;
-
-	    if(this.mode == "X")
-		this.viewer.orientation = 'X';
-	    else if (this.mode == "Y")
-		this.viewer.orientation = 'Y';
-	    else if (this.mode == "Z")
-		this.viewer.orientation = 'Z';
-
-	    this.viewer.init();
-
-	    if(this.master){
-		_this = this;
-		this.viewer.onShowtime = function() {
-
-		    //store original values
-
-		    /*//debug
-		    console.log('Orig Thresh = ' + _this.volume.lowerThreshold + ', ' +  _this.volume.upperThreshold);
-		    console.log('Orig Levels = ' + _this.volume.windowLow + ', ' +  _this.volume.windowHigh);
-		    */
-		    
-		    _this.originalThresholdLow = _this.volume.lowerThreshold;
-		    _this.originalThresholdHigh = _this.volume.upperThreshold;
-
-		    _this.originalWindowLow = _this.volume.windowLow;
-		    _this.originalWindowHigh = _this.volume.windowHigh;
-		    
-		    Backbone.trigger('onShowtime',  [_this.volume, _this.layerIndex]);
-		}
-	    };
-	    
 	},
-	/*
-	toggleVisibility:function(vis){
-	    console.log('toggleVis( ' + vis + ')');
-
-	    console.log(this.el);
-	    console.log(this.$el);
-	    console.log($('#' + this.container));
-	    
-	    if(vis)
-		$('#' + this.container).show();
-	    else
-		$('#' + this.container).hide();
-
-	},
-	*/
 	loadFile:function(args){
 
 	    console.log('loadFile()');
@@ -271,11 +218,10 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	},
 	drawXTK:function(args){
 
+	    console.log('drawXTK - ' + this.mode);
+	    
 	    volume = args[0];
 	    layerIndex = args[1];
-	    
-	    console.log('VOLUME:');
-	    console.log(this.volume);
 
 	    if(!this.master && this.layerIndex == layerIndex){
 
@@ -317,8 +263,22 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 		this.volume.windowLow = divider*args[1];
 		this.volume.windowHigh = this.originalWindowHigh * (args[2]/100);
 	    }
-		},
-	
+	},
+	setVolumeRendering:function(args){
+	    
+	    console.log('setVolumeRendering to ' + args[1]);
+	    
+
+	    if(this.layerIndex == args[0] && this.master){
+
+		/*//for debug//
+		  console.log('RECEIVING');
+		  console.log(this.layerIndex + ', ' + this.mode);
+		  console.log(this.volume);*/
+		
+		this.volume.volumeRendering = args[1];
+	    }
+	}
     });
     return ViewerWindowView;
 });
