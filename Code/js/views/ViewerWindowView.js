@@ -1,4 +1,4 @@
-define(["views/CanvasPanelView"], function(CanvasPanel) {
+define(["views/CanvasPanelView", "views/CanvasPanelView3D", "views/CanvasPanelView2D"], function(CanvasPanel, CanvasPanel3D, CanvasPanel2D) {
     var ViewerWindowView = Backbone.View.extend({
 	el:'#viewerWindow',
 	events: {
@@ -22,33 +22,35 @@ define(["views/CanvasPanelView"], function(CanvasPanel) {
 	    
 	    this.$el.append('<div id="view_' + this.layerIndex + '"></div>');
 
-	    var viewer1 = new CanvasPanel();
+	    var viewer1 = new CanvasPanel3D();
 	    viewer1.title = 'viewer1';
 	    viewer1.mode = "3D";
 	    viewer1.layerIndex = this.layerIndex;
 
-	    var viewer2 = new CanvasPanel();
+	    var viewer2 = new CanvasPanel2D();
 	    viewer2.title = 'viewer2';
 	    viewer2.mode = "X";
 	    viewer2.master = true;
 	    viewer2.layerIndex = this.layerIndex;
 	    
-	    var viewer3 = new CanvasPanel();
+	    var viewer3 = new CanvasPanel2D();
 	    viewer3.title = 'viewer3';
 	    viewer3.mode = "Y";
 	    viewer3.layerIndex = this.layerIndex;
 	    
-	    var viewer4 = new CanvasPanel();
+	    var viewer4 = new CanvasPanel2D();
 	    viewer4.title = 'viewer4';
 	    viewer4.mode = "Z";
 	    viewer4.layerIndex = this.layerIndex;
 
 	    $('#view_' + this.layerIndex, this.el).append(viewer1.render().el);
+
 	    $('#view_' + this.layerIndex, this.el).append(viewer2.render().el);
 	    $('#view_' + this.layerIndex, this.el).append(viewer3.render().el);
 	    $('#view_' + this.layerIndex, this.el).append(viewer4.render().el);
 	    
 	    viewer1.initViewer();
+
 	    viewer2.initViewer();
 	    viewer3.initViewer();
 	    viewer4.initViewer();

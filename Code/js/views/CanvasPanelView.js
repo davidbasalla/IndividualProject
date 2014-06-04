@@ -34,7 +34,7 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    Backbone.on('layerThresholdChange', this.setThreshold, this);
 	    Backbone.on('layerLevelsChange', this.setLevels, this);
 
-	    
+	    //this.render();
 	},
 	render:function() {
 
@@ -59,6 +59,10 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 		break;
 	    }
 
+	    console.log('this.el = ');
+	    console.log(this.$el);
+	    //console.log($(this.el));
+	    
 	    this.$el.html(this.template({title: this.title, container: this.container}));
 
 	    //init slider

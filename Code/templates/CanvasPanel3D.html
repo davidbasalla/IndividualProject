@@ -1,0 +1,46 @@
+
+<div id= <%= title %>
+     class="canvasPanel"
+     style="background-color: #000; 
+	    width: 40%; 
+	    height: 44%; 
+	    margin: 5px;
+	    float: left;" >
+
+
+  <div id="topbar"
+       style="background-color: #DDD; 
+	      width: 100%;">
+
+
+    <div class="btn-group">
+      <button type="button" id="3Dtoggle" class="btn btn-default btn-xs ">3D</button>
+      <button type="button" id="Xtoggle" class="btn btn-default btn-xs ">X</button>
+      <button type="button" id="Ytoggle" class="btn btn-default btn-xs ">Y</button>
+      <button type="button" id="Ztoggle" class="btn btn-default btn-xs ">Z</button>
+    </div>
+
+
+    <select id="layerSelector">
+      <option value="Layer1">Layer1</option>
+      <option value="Layer2">Layer2</option>
+      <option value="Layer3">Layer3</option>
+    </select>
+
+    <button type="button" id="button">Click Me!</button>
+    
+    <div style="float:right">
+      <input type="checkbox" id="volumeRender">Volume Rendering
+    </div>
+    
+
+  </div>
+
+  <div id= <%= container %>
+       style="background-color: #000;
+	      width: 100%; 
+	      height: 90%;
+	      float: left;">    
+  </div>
+  
+</div>
