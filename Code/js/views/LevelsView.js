@@ -15,24 +15,46 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    //write the template into the website
 	    this.$el.append(this.template);
 
-	    $( "#slider1" ).slider();
-	    $( "#slider2" ).slider();
+	    $( "#rangeSlider1" ).slider({
+		range: true,
+		min: 0,
+		max: 100,
+		values: [ 0, 100 ],
+		//onslide
+		slide: function( event, ui ) {
+		    $( "#levelLow" ).val(ui.values[0]);
+		    $( "#levelHigh" ).val(ui.values[1]);
+		}
+	    });
 
-	    console.log($("#slider-range", this.el));
+	    $( "#rangeSlider2" ).slider({
+		range: true,
+		min: 0,
+		max: 100,
+		values: [ 0, 100 ],
+		//onslide
+		slide: function( event, ui ) {
+		    $( "#thresholdLow" ).val(ui.values[0]);
+		    $( "#thresholdHigh" ).val(ui.values[1]);
+		}
+	    });
+	    
+
+	    //console.log($("#slider-range", this.el));
 	    //$("#slider-range", this.el).slider();
 
 	    /*
-	    $("#slider-range", this.el).slider({
-		range: true,
-		min: 0,
-		max: 500,
-		values: [ 75, 300 ],
-		slide: function( event, ui ) {
-		    $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-		}
-	    });
-	    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-				" - $" + $( "#slider-range" ).slider( "values", 1 ) );
+	      $("#slider-range", this.el).slider({
+	      range: true,
+	      min: 0,
+	      max: 500,
+	      values: [ 75, 300 ],
+	      slide: function( event, ui ) {
+	      $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+	      }
+	      });
+	      $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+	      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 	    */
 	},
     });

@@ -17,3 +17,20 @@ html, body {
 .layer-unselected:hover{ 
     background-color:#AAF;
 }
+.canvasPanel{
+    border-style:solid;
+    border-width:3px;
+    border-color:#DDD;
+}
+.canvasPanel:hover{
+    border-color:#88F;
+}
+.menuHeader{
+    font-weight:bold;
+    text-decoration: underline;
+    font-size:medium;
+}
+.subMenuHeader{
+    font-weight:bold;
+    font-size:small;
+}

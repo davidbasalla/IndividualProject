@@ -4,7 +4,9 @@
 	    margin-right:auto;
 	    margin-top:20px;">
   <div id="layers" class="panel-body">
-    Levels
+    <span class="menuHeader">
+      Levels
+    </span>
     
   </div>
 
@@ -12,12 +14,66 @@
     <ul class="list-group" id="levelsPanel">
 
       <p>
-	Brightness
-	<div id="slider1" style="margin: auto auto;"></div>	
+	<span class="subMenuHeader">
+	  Window/Level
+	</span>
+	</br>
+	<div id="sliderContainer">
+	  <input type="number"
+		 id="levelLow"
+		 style="width:45px; 
+			display:inline-block;"
+		 value="0">
+	  <div style="width:5px;
+		      display:inline-block"></div>
+
+	  
+	  <div id="rangeSlider1"
+	       style="display:inline-block; 
+		      width: 58%;
+		      margin-left:auto;
+		      margin-right:auto;">
+	  </div>
+	  <input type="number"
+		 id="levelHigh"
+		 style="width:45px;
+			display:inline-block;
+			float: right;"
+		 value="100">
+	</div>
       </p>
+
+
       <p>
-	Contrast
-	<div id="slider2" style="margin: auto auto;"></div>
+
+	<span class="subMenuHeader">
+	  Threshold
+	</span>
+	
+	</br>
+	<div id="sliderContainer">
+	  <input type="number"
+		 id="thresholdLow"
+		 style="width:45px; 
+			display:inline-block;"
+		 value="0">
+	  <div style="width:5px;
+		      display:inline-block"></div>
+
+	  
+	  <div id="rangeSlider2"
+	       style="display:inline-block; 
+		      width: 58%;
+		      margin-left:auto;
+		      margin-right:auto;">
+	  </div>
+	  <input type="number"
+		 id="thresholdHigh"
+		 style="width:45px;
+			display:inline-block;
+			float: right;"
+		 value="100">
+	</div>
       </p>
 
     </ul>
