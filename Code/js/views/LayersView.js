@@ -38,6 +38,7 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 		title: item.get('title') + this.counter,
 		index: this.counter,
 	    });
+	    console.log(item);
 	    this.collection.add(item);
 
 
@@ -45,6 +46,7 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 		el: $('#viewerWindow')
 	    });
 	    viewerWindow.layerIndex = this.counter;
+	    viewerWindow.currentModel = item;
 	    viewerWindow.render();
 	    
 	},
@@ -63,15 +65,43 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	},
 	setCurrentLayer: function(layerIndex){
 	    this.currentLayerIndex = layerIndex;
-	    console.log(this.currentLayerIndex);
+
+	    //set levels back to what they should be
+	    var items = this.collection.where({ index : this.currentLayerIndex })
+
+	    //set text value
+	    var wL = items[0].get("windowLow");
+	    var wH = items[0].get("windowHigh");
+	    var tL = items[0].get("thresholdLow");
+	    var tH = items[0].get("thresholdHigh");
+
+	    $( "#levelLow" ).val(wL);
+	    $( "#levelHigh" ).val(wH);
+	    $( "#thresholdLow" ).val(tL);
+	    $( "#thresholdHigh" ).val(tH);
+
+    	    //set slider value
+	    $("#rangeSlider1").slider('values',0,wL); 
+	    $("#rangeSlider1").slider('values',1,wH);
+	    $("#rangeSlider2").slider('values',0,tL); 
+	    $("#rangeSlider2").slider('values',1,tH); 
 	},
 	thresholdChange: function(args){
 	    //console.log('triggering layerThresholdChange');
 	    Backbone.trigger('layerThresholdChange', [this.currentLayerIndex, args[0], args[1]]);
+
+	    //update the model
+	    var items = this.collection.where({ index : this.currentLayerIndex })
+	    items[0].set({thresholdLow: args[0],thresholdHigh: args[1]});
 	},
 	levelsChange: function(args){
 	    //console.log('triggering layerThresholdChange');
 	    Backbone.trigger('layerLevelsChange', [this.currentLayerIndex, args[0], args[1]]);
+
+	    //update the model
+	    var items = this.collection.where({index : this.currentLayerIndex })
+	    items[0].set({windowLow: args[0],windowHigh: args[1]});
+	    
 	},
     });
 

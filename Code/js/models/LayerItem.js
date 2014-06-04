@@ -9,6 +9,10 @@ define(function() {
 	    fileName: 'dummyFileName',
 	    type: 'scan',
 	    index: 0,
+	    windowLow: 0,
+	    windowHigh: 100,
+	    thresholdLow: 0,
+	    thresholdHigh: 100,
 	}
     });
 
