@@ -18,12 +18,23 @@ html, body {
     background-color:#AAF;
 }
 .canvasPanel{
-    border-style:solid;
-    border-width:3px;
+    background-color: #444; 
+    width: 40%; 
+    height: 44%; 
+    margin: 4px;
+    float: left;
+    border-style:groove;
+    border-width:5px;
     border-color:#DDD;
 }
 .canvasPanel:hover{
     border-color:#88F;
+}
+.viewerCanvas{
+    background-color: #000;
+    width: 97%; 
+    height: 90%;
+    float: left;
 }
 .menuHeader{
     font-weight:bold;
@@ -33,4 +44,12 @@ html, body {
 .subMenuHeader{
     font-weight:bold;
     font-size:small;
+}
+.topbar{
+    background-color: #DDD;
+    border-style:outset;
+    border-width:2px;
+    width: 100%;
+    height: 27px;
+    min-height:27px;
 }

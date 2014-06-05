@@ -1,7 +1,5 @@
 <!-- TOPBAR -->
-<div id="topbar"
-     style="background-color: #DDD; 
-	    width: 100%;">
+<div id="topbar" class="topbar">
 
   <div class="btn-group">
     <button type="button" id="3Dtoggle" class="btn btn-default btn-xs ">3D</button>
@@ -10,26 +8,38 @@
     <button type="button" id="Ztoggle" class="btn btn-default btn-xs ">Z</button>
   </div>
 
+
   <select id="layerSelector">
     <option value="Layer1">Layer1</option>
     <option value="Layer2">Layer2</option>
     <option value="Layer3">Layer3</option>
   </select>
-
+  
   <div style="float:right;margin-right:10px">
-    <input type="checkbox" id="volumeRender">Volume Rendering
+    <input type="checkbox"
+	   id= <%= overlay %>>
+    Overlay
   </div>
-
 </div>
 
 
 <!-- CANVAS -->
 <canvas id= <%= canvasViewerId %>
-	style="background-color: #000;
-	       width: 100%; 
-	       height: 100%;
-	       float: left;">
+	class="viewerCanvas">
+
 </canvas>
 
 
+<!-- SLIDER -->
+<div style="background-color: #FFF; 
+	    width: 3%; 
+	    height: 90%;
+	    border: 2px;
+	    float: right;">
+  <div id= <%= slider %>
+       style="height: 90%;
+	      display: block;
+	      margin: auto auto;" >
+  </div>
+</div>
 
