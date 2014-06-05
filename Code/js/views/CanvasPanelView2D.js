@@ -3,6 +3,11 @@
 define(["text!templates/CanvasPanel2D.html","views/CanvasPanelView"], function(CanvasPanelTemplate2D, CanvasPanelView) {
     var ViewerWindowView2D = CanvasPanelView.extend({
 	template: _.template(CanvasPanelTemplate2D),
+	events: {
+	    'change input#overlayX': 'setOverlay',
+	    'change input#overlayY': 'setOverlay',
+	    'change input#overlayZ': 'setOverlay',
+	},
 	initViewer:function(){
 
 	    this.viewer = new X.renderer2D();
@@ -14,9 +19,40 @@ define(["text!templates/CanvasPanel2D.html","views/CanvasPanelView"], function(C
 		this.viewer.orientation = 'Y';
 	    else if (this.mode == "Z")
 		this.viewer.orientation = 'Z';
-
+	    
 	    this.viewer.init();
 
+	    if(this.mode == "X"){
+		var canv = $($('canvas')[1]);
+		var canvCopy = $($('canvas')[2]);
+		canv.attr({
+		    'id':'canvasX',
+		});
+		canv.hide()
+		canvCopy.attr({
+		    'id':'canvasX_copy',
+		});
+	    }
+	    else if (this.mode == "Y"){
+		var canv = $($('canvas')[3]);
+		canv.attr({
+		    'id':'canvasY',
+		});
+	    }
+	    else if (this.mode == "Z"){
+		var canv = $($('canvas')[5]);
+		canv.attr({
+		    'id':'canvasZ',
+		});
+	    }
+	    
+
+	    //set up copyCanvas
+	    this.c = document.getElementById('canvasX');
+	    this.cCopy = document.getElementById('canvasX_copy');
+	    this.ctx = this.cCopy.getContext("2d");
+
+	    
 	    if(this.master){
 		_this = this;
 		this.viewer.onShowtime = function() {
@@ -30,7 +66,19 @@ define(["text!templates/CanvasPanel2D.html","views/CanvasPanelView"], function(C
 		    Backbone.trigger('onShowtime',  [_this.volume, _this.layerIndex]);
 		}
 	    };
-	},	
+
+	    Backbone.on('sliceIndexChanged', this.updateCanvas, this);
+	},
+	updateCanvas: function(){
+
+
+	    this.ctx.drawImage(this.c, 0, 0);
+	    this.ctx.clearRect(20,20,100,50);
+	    
+	    this.ctx.font="20px Georgia"
+	    this.ctx.fillStyle = 'white';
+	    this.ctx.fillText("Hello World!",20,20);
+	},
     });
     return ViewerWindowView2D;
 });

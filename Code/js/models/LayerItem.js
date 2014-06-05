@@ -13,6 +13,9 @@ define(function() {
 	    windowHigh: 100,
 	    thresholdLow: 0,
 	    thresholdHigh: 100,
+	    indexX: 0,
+	    indexY: 0,
+	    indexZ: 0,
 	}
     });
 

@@ -34,6 +34,7 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    Backbone.on('layerThresholdChange', this.setThreshold, this);
 	    Backbone.on('layerLevelsChange', this.setLevels, this);
 	    Backbone.on('setVolumeRendering', this.setVolumeRendering, this);
+	    Backbone.on('sliceIndexChanged', this.setSliceIndex, this);
 
 	    //this.render();
 	},
@@ -60,22 +61,32 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 		break;
 	    }
 
-	    console.log('this.el = ');
-	    console.log(this.$el);
-	    //console.log($(this.el));
-	    
-	    this.$el.html(this.template({title: this.title, container: this.container}));
+	    this.$el.html(this.template({
+		title: this.title,
+		container: this.container,
+		copyContainer: this.container + '_copy',
+		slider: "sliderVertical" + this.mode,
+		overlay: "overlay" + this.mode
+	    }));
 
 	    //init slider
 
-	    $( "#sliderVertical", this.el ).slider({
+	    console.log("Creating slider for " + this.mode);
+	    
+	    _this = this;
+
+	    var mode = this.mode;
+	    $( "#sliderVertical" + this.mode, this.el).slider({
 		orientation: "vertical",
 		//range: "min",
 		min: 0,
 		max: 100,
-		value: 60,
+		value: 50,   //always halfway
 		slide: function( event, ui ) {
-		    $( "#amount" ).val( ui.value );
+		    console.log(this);
+		    console.log($(this));
+		    console.log(mode);
+		    _this.triggerSetIndex(mode, ui.value);
 		}
 	    });
 	    
@@ -84,6 +95,9 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    //this.initViewer();
 	    
 	    return this; //to enable chain calling
+	},
+	triggerSetIndex:function(mode, value){
+	    Backbone.trigger('sliceIndexChanged', [this.layerIndex, mode, value]);
 	},
 	initViewer:function(){
 	},
@@ -187,12 +201,6 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 
 	    this.volume.filedata = data['volume']['filedata'];
 
-	    console.log(this.viewer);
-	    console.log(this.viewer.objects);
-	    console.log(this.viewer.topLevelObjects);
-
-	    
-
 	    this.viewer.objects.clear();
 	    this.viewer.topLevelObjects = [];
 	    
@@ -278,7 +286,22 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 		
 		this.volume.volumeRendering = args[1];
 	    }
+	},
+	setSliceIndex:function(args){
+	    
+	    if(this.layerIndex == args[0] && this.master){
+
+		console.log('setting ' + args[1] + ' to ' + args[2]);
+		if(args[1] == 'X')
+		    this.volume.indexX = args[2];
+		else if(args[1] == 'Y')
+		    this.volume.indexY = args[2];
+		else if(args[1]  == 'Z')
+		    this.volume.indexZ = args[2];
+	    }
 	}
+
+	
     });
     return ViewerWindowView;
 });
