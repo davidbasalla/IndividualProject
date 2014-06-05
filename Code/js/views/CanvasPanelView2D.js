@@ -71,9 +71,9 @@ define(["text!templates/CanvasPanel2D.html","views/CanvasPanelView"], function(C
 	},
 	updateCanvas: function(){
 
-
+	    this.ctx.clearRect(0,0,2000,2000);
 	    this.ctx.drawImage(this.c, 0, 0);
-	    this.ctx.clearRect(20,20,100,50);
+
 	    
 	    this.ctx.font="20px Georgia"
 	    this.ctx.fillStyle = 'white';
