@@ -68,7 +68,7 @@ Secondly, the user should be able to easily browse through the slices. The axial
 \label{fig:UIdesign1}
 \end{figure}
 
-Furthermore, the software should provide means to take measurements of the image data, such as distance, area or volume measurements. In this case it is helpful to specify a region of interest (ROI) that can be focused on. Also intensity distribution can be measured to give indications of severity of disease in certain cases (such as osteoporosis) [REF].
+Furthermore, the software should provide means to take measurements of the image data, such as distance, area or volume measurements. In this case it is helpful to specify a region of interest (ROI) that can be focused on. Also intensity distribution can be measured to give indications of severity of disease in certain cases (such as osteoporosis)\cite{book}.
 
  For advanced tools, the book suggests providing segmentation tools for identification and marking of certain structures. These tools could be manual so that the user has to paint a region for each slice, or semi-automatic where algorithms select regions following specific rules given by the user, such as threshold-based segmentation or region growing. The resulting segmentation (or label maps) should be overlaid on top of the scan data in a clear manner.
  
@@ -162,7 +162,7 @@ Microsoft implemented its own plugin Silverlight.
 
 JavaApplets are another alternative, which run on the local machine through the Java virtual machine. However many security issues have been identified with this lately, by some accounts even up to 50\% of all issues.
 
-With the standardisation of HTML5, WebGL and the Canvas element became widely used and supported, and helped to reduce the multitude and clutter of browser-plugins. WebGL is a JavaScript API that exposes a computers GPU to the web browser and allows for displaying of complex three dimensional graphics as seen in comparable desktop applications. Although only initially relased in 2011, WebGL is widely supported by most modern browsers (reference), so it's a good time to make use of this for medical visualisation. WebGL is based on OpenGL ES 2.0 and uses the HTML5 canvas element and is accessed using Document Object Model interfaces.
+With the standardisation of HTML5, WebGL and the Canvas element became widely used and supported, and helped to reduce the multitude and clutter of browser-plugins. WebGL is a \textit{JavaScript} API that exposes a computers GPU to the web browser and allows for displaying of complex three dimensional graphics as seen in comparable desktop applications. Although only initially relased in 2011, WebGL is widely supported by most modern browsers (\cite{webGL}), so it's a good time to make use of this for medical visualisation. WebGL is based on OpenGL ES 2.0 and uses the HTML5 canvas element and is accessed using Document Object Model interfaces.
 
 History of WebGL. 
 
@@ -173,22 +173,22 @@ Games in WebGL
 
 \subsection{Web Framework XTK}
 
-As suggested in the project specification, the goal of this project is to use the \textit{X Toolkit}(\textit{XTK}), a JavaScript-based framework for visualizing and interacting with medical imaging data using \textit{WebGL}. It was developed and maintained by Haehn et al of the Fetal-Neonatal Neuroimaging and Developmental Science Center at Childrens Hospital Boston, Harvard Medical School, US (reference). \textit{XTK} provides an API to load medical images, based on \textit{WebGL} technology for displaying 3D graphics and the \textit{HTML5} canvas elements to display 2D components. It hides a lot of the low-level elements of \textit{WebGL} and is designed to load and configure medical image data files of various types (including NIfti). The library is well documented and comes with several tutorials as well as a number of example applications, which will be discussed in the next section. It appears to follow closely the suggestions laid out in section 2.1 (Medical Imaging) in that it provides means to display 2D and 3D slice visualisations (Surface Shaded Display and Volume Rendering are supported), with simple mouse-based controls. It allows for loading of label (segmentation) maps which can overlaid on top of the image data files. It also features color tables (LUTs) to display the data.
+As suggested in the project specification, the goal of this project is to use the \textit{X Toolkit}(\textit{XTK}), a \textit{JavaScript}-based framework for visualizing and interacting with medical imaging data using \textit{WebGL}. It was developed and maintained by Haehn et al of the Fetal-Neonatal Neuroimaging and Developmental Science Center at Childrens Hospital Boston, Harvard Medical School, US (\cite{xtk}). \textit{XTK} provides an API to load medical images, based on \textit{WebGL} technology for displaying 3D graphics and the \textit{HTML5} canvas elements to display 2D components. It hides a lot of the low-level elements of \textit{WebGL} and is designed to load and configure medical image data files of various types (including NIfti). The library is well documented and comes with several tutorials as well as a number of example applications, which will be discussed in the next section. It appears to follow closely the suggestions laid out in section 2.1 (Medical Imaging) in that it provides means to display 2D and 3D slice visualisations (Surface Shaded Display and Volume Rendering are supported), with simple mouse-based controls. It allows for loading of label (segmentation) maps which can overlaid on top of the image data files. It also features color tables (LUTs) to display the data.
 
-The XTK library also provides a module for creating User Interface (UI), that can be overlaid on top of the image viewers, with easy controls to connect the image content with the UI controls.
-The popular forum for coding questions Stackoverflow hosts about 100 questions regarding XTK to date, and occasionally the XTK developers offer up answers.
+The \textit{XTK} library also provides a module for creating User Interface (UI), that can be overlaid on top of the image viewers, with easy controls to connect the image content with the UI controls.
+The popular forum for coding questions Stackoverflow hosts about 100 questions regarding \textit{XTK} to date, and occasionally the \textit{XTK} developers offer up answers.
 
 
 \subsection{Web Applications}
 
 \subsubsection{SliceDrop}
-The \textit{XTK} library also provides links to example applications. One of these is \textit{SliceDrop} which has written by the \textit{XTK} developers and appears to be a testing bed for many of XTK's features as it is often referred to on the XTK Stackoverflow forums. It provides part of the desired functionality and shows off the possibilities provided by \textit{XTK}, but also outlines some of its short comings. Like the desktop software \textit{MITK}, the user can load a file and view it in the standard 4 views, split into 3D and 2D windows. The layout of these views is somewhat customisable, although not to the extent of the \textit{MITK}. The user can interact with the images by scrolling the mouse wheel, which changes the index of the current slice. An interesting feature which has been added lately is the incorporation of popular file sharing site \textit{DropBox} to allow users to share files more easily across the internet.
+The \textit{XTK} library also provides links to example applications. One of these is \textit{SliceDrop}\cite{slicedrop} which has written by the \textit{XTK} developers and appears to be a testing bed for many of \textit{XTK}'s features as it is often referred to on the \textit{XTK} Stackoverflow forums. It provides part of the desired functionality and shows off the possibilities provided by \textit{XTK}, but also outlines some of its short comings. Like the desktop software \textit{MITK}, the user can load a file and view it in the standard 4 views, split into 3D and 2D windows. The layout of these views is somewhat customisable, although not to the extent of the \textit{MITK}. The user can interact with the images by scrolling the mouse wheel, which changes the index of the current slice. An interesting feature which has been added lately is the incorporation of popular file sharing site \textit{DropBox} to allow users to share files more easily across the internet.
 
 There appear to be some bugs in \textit{SliceDrop}. When loading \textit{NRRD} files, as the image is offset and not centered. The image brightness controls seem not calibrated correctly, as with little mouse interaction, the brightness will clamp to white or black and can not be reset other than restarting the program (refreshing the page for web-apps). Furthermore the app does not allow to load custom labelmaps. Also the viewers provide some functionality which is not clearly communicated to the user, such as holding the 'shift' button and move the mouse will adjust the slice index of the other viewers. In general \textit{SliceDrop} has less than the minimum functionality required for this project, but shows the potential of the \textit{XTK} library. 
 
 
 \subsection{Brainbook}
-\textit{Brainbook} (reference) is a web-app which builds on and extends the features of \textit{SliceDrop} by adding painting tools. It allows the user to paint onto a given file with a standard brush a number of auto selection tools which will fill out a region in 2D or 3D space. The web app offers to save the file, but at time of writing this feature was not working correctly. Since heavily based on \textit{SliceDrop}, it features similar advantages and disadvantages, but provides the painting functionality that is desirable for this project. Therefore it should be of benefit to study this implementation.
+\textit{Brainbook}\cite{brainbook} is a web-app which builds on and extends the features of \textit{SliceDrop} by adding painting tools. It allows the user to paint onto a given file with a standard brush a number of auto selection tools which will fill out a region in 2D or 3D space. The web app offers to save the file, but at time of writing this feature was not working correctly. Since heavily based on \textit{SliceDrop}, it features similar advantages and disadvantages, but provides the painting functionality that is desirable for this project. Therefore it should be of benefit to study this implementation.
 
 \subsection{DWV - DICOM Web Viewer}
 This viewer does not provide much functionality other than scrolling through one stack of slices. The user interface is sparse and does not give sufficient feedback to the use of what is currently happening. It uses the HTML5 Canvas element to display the file contents.
@@ -201,7 +201,7 @@ This viewer does not provide much functionality other than scrolling through one
 \end{figure}
 
 \subsection{Papaya}
-Papaya is a JavaScript-based medical image viewer with limited functionality. It has a clean uncluttered design, is easy to use and gives good visual feedback to the user. It successfully adheres to the user control guidelines outlined in section 2.1. It only displays 2D views of slices and does not allow any customisation in terms of label maps, windowing or compositing. It also uses the HTML5 Canvas element to render the 2D data.
+Papaya\cite{papaya} is a \textit{JavaScript}-based medical image viewer with limited functionality. It has a clean uncluttered design, is easy to use and gives good visual feedback to the user. It successfully adheres to the user control guidelines outlined in section 2.1. It only displays 2D views of slices and does not allow any customisation in terms of label maps, windowing or compositing. It also uses the HTML5 Canvas element to render the 2D data.
 
 \begin{figure}[ht!]
 \centering
@@ -212,18 +212,18 @@ Papaya is a JavaScript-based medical image viewer with limited functionality. It
 
 \subsection{Other}
 
-The website www.idoimaging.com lists a number of other available browser-based viewers.
+The website \url{http://www.idoimaging.com} lists a number of other available browser-based viewers.
 
 
 \subsection{Web Frameworks for Single Page Apps}
 
-Programming for modern webpages which require more complex behaviour than just displaying information can get quite involved. Generally it takes at least HTML, CSS and JavaScript to create a useful website. It is possible to include the code from each language in the main index.html file, but this is undesirable as it lacks modularity and will be hard to test and debug.
+Programming for modern webpages which require more complex behaviour than just displaying information can get quite involved. Generally it takes at least HTML, CSS and \textit{JavaScript} to create a useful website. It is possible to include the code from each language in the main index.html file, but this is undesirable as it lacks modularity and will be hard to test and debug.
 
-At the time of writing, Backbone seems to be a good choice to manage the complexity and structure of the project. Backbone is used to structure client-side applications (those that run in a web browser). It was written by Jeremy Ashkenas and is designed for developing single-page web applications, and for keeping various parts of web applications synchronized. It is based on the model–view–presenter (MVP) application design paradigm, providing Events, Models, Collections and Views. Models represent the information in class-like structures, Collections are lists of Models and Views handle the visual representation on the actual HTML site. Finally Events are used to keep track of state changes across the website elements, models and views. It builds on JQuery.js and Underscore.js, both libraries which simplify dealing with HTML elements. It also provides inheritance for its models, collections and views.
+At the time of writing, \textit{Backbone} seems to be a good choice to manage the complexity and structure of the project. \textit{Backbone} is used to structure client-side applications (those that run in a web browser). It was written by Jeremy Ashkenas and is designed for developing single-page web applications, and for keeping various parts of web applications synchronized. It is based on the model–view–presenter (MVP) application design paradigm, providing Events, Models, Collections and Views. Models represent the information in class-like structures, Collections are lists of Models and Views handle the visual representation on the actual HTML site. Finally Events are used to keep track of state changes across the website elements, models and views. It builds on \textit{jQuery} and Underscore.js, both libraries which simplify dealing with HTML elements. It also provides inheritance for its models, collections and views.
 
-Regarding the design aspect, it looks like twitter-bootstrap.js supplies a convenient library for creating visually pleasing user interface elements. This will cut down on having to spend time to design custom elements with CSS and JavaScript. Bootstrap.js supplies buttons, drop-down menus and commonly-used icons. Some specific UI control elements are not provided by Bootstrap, so JqueryUI will be used. It enables the creation and customisation of complex elements such as slider elements with multiple slider tabs, which will allow for a better user experience. Also, it's dependent on the JQuery.js library which is already being used for Backbone.
+Regarding the design aspect, it looks like twitter-bootstrap.js supplies a convenient library for creating visually pleasing user interface elements. This will cut down on having to spend time to design custom elements with CSS and \textit{JavaScript}. Bootstrap.js supplies buttons, drop-down menus and commonly-used icons. Some specific UI control elements are not provided by Bootstrap, so \textit{jQueryUI} will be used. It enables the creation and customisation of complex elements such as slider elements with multiple slider tabs, which will allow for a better user experience. Also, it's dependent on the \textit{jQuery} library which is already being used for \textit{Backbone}.
 
-As this project will make of several modules, it will be important to manage the dependencies of the modules. For example Underscore.js and JQuery.js will need to load before Backbone.js is used. XTK and twitter-boostrap are additional modules that will have to be loaded. Require.js is a javascript library that provide the ability to asynchronously load nested dependencies. Traditionally javascript files or modules are loaded sequentially, where the order matters in case a module depends on another module. Additionally it will be helpful to manage the different HTML templates required for the various elements of the web app. Require.js will make it possible to split up everything into neat modules and templates and facilitate testing of all the components.
+As this project will make of several modules, it will be important to manage the dependencies of the modules. For example Underscore.js and \textit{jQuery} will need to load before \textit{Backbone.js} is used. \textit{XTK} and twitter-boostrap are additional modules that will have to be loaded. \textit{RequireJs} is a \textit{JavaScript} library that provide the ability to asynchronously load nested dependencies. Traditionally \textit{JavaScript} files or modules are loaded sequentially, where the order matters in case a module depends on another module. Additionally it will be helpful to manage the different HTML templates required for the various elements of the web app. \textit{RequireJs} will make it possible to split up everything into neat modules and templates and facilitate testing of all the components.
 
 
 
@@ -274,17 +274,17 @@ A small selection of use cases have been discussed with the project supervisor. 
 
 \section{Progress}
 
-Some effort has already gone into planning and implementing the project. The initial plan was to create a working prototype in a relatively short time. This was however foiled by the complexity of the task of creating a functioning web-app. At first, tests were done building on tutorials that are provided by the XTK toolkit site. This included a simple HTML front end as well as some javascript files to handle the XTK objects.
+Some effort has already gone into planning and implementing the project. The initial plan was to create a working prototype in a relatively short time. This was however foiled by the complexity of the task of creating a functioning web-app. At first, tests were done building on tutorials that are provided by the \textit{XTK} toolkit site. This included a simple HTML front end as well as some \textit{JavaScript} files to handle the \textit{XTK} objects.
 
-Loading local files in a web browser proved to be one of the early issues. Due to security issues, Chrome and other browsers do not allow local files to be loaded onto the HTML canvas element, tying into the same origin policy that browsers try to uphold. A way around this was found by analysing the SliceDrop code and noticing that it uses the HTML FileReader to convert the local file into a byteArray which can then be loaded into the XTK viewers.
+Loading local files in a web browser proved to be one of the early issues. Due to security issues, Chrome and other browsers do not allow local files to be loaded onto the HTML canvas element, tying into the same origin policy that browsers try to uphold. A way around this was found by analysing the SliceDrop code and noticing that it uses the HTML FileReader to convert the local file into a byteArray which can then be loaded into the \textit{XTK} viewers.
 
-Having some concerns that modifications will have to be made to the XTK toolkit, the author managed to successfully clone and fork the project from github. Since things are never as easy as hoped for, editing and rebuilding the toolkit proved tricky, since it employs yet another unknown JavaScript library, called GoogleClosure.js. After learning how to use this module and other little issues mainly due XTK being developed on Linux and not Windows, the OS the project is currently being developed on, the toolkit managed to recompile successfully.
+Having some concerns that modifications will have to be made to the \textit{XTK} toolkit, the author managed to successfully clone and fork the project from github. Since things are never as easy as hoped for, editing and rebuilding the toolkit proved tricky, since it employs yet another unknown \textit{JavaScript} library, called GoogleClosure.js. After learning how to use this module and other little issues mainly due \textit{XTK} being developed on Linux and not Windows, the OS the project is currently being developed on, the toolkit managed to recompile successfully.
 
-Once some basic tests with the XTK toolkit proved that it could be used to display local scan files, it was time to start adding some functionality to the website. This quickly showed that the previous implementation of the HTML website was highly naive, and that it would require a restructuring from the ground up. Almost as an example of why web programming can be tricky, the HTML site was mixing elements from HTML, CSS and JavaScript without much structure. When separating out the JavaScript parts into separate files, the issue of module loading and dependency became apparent.
+Once some basic tests with the \textit{XTK} toolkit proved that it could be used to display local scan files, it was time to start adding some functionality to the website. This quickly showed that the previous implementation of the HTML website was highly naive, and that it would require a restructuring from the ground up. Almost as an example of why web programming can be tricky, the HTML site was mixing elements from HTML, CSS and \textit{JavaScript} without much structure. When separating out the \textit{JavaScript} parts into separate files, the issue of module loading and dependency became apparent.
 
-From the group project earlier in the term, the author was aware of JavaScript libraries that aid in structuring a web-app such as Backbone.js, Require.js and JQuery.js. So the next few days were spent trying to get to grips with these and understanding generally how web apps are built. This seems to be a rich topic in its own right, and will undoubtedly take more time still to become comfortable with. However it helps that Backbone tends to enforce a somewhat object-oriented structure, which ties development back to principles learned in the Masters course over the year. Even when starting to implement the Backbone it becomes apparent how easy it is to fall back into mixing different language in the files and to enforce that every component just does the one task it is supposed to do. Talk about templates...
+From the group project earlier in the term, the author was aware of \textit{JavaScript} libraries that aid in structuring a web-app such as \textit{Backbone.js}, \textit{RequireJs} and \textit{jQuery}. So the next few days were spent trying to get to grips with these and understanding generally how web apps are built. This seems to be a rich topic in its own right, and will undoubtedly take more time still to become comfortable with. However it helps that \textit{Backbone} tends to enforce a somewhat object-oriented structure, which ties development back to principles learned in the Masters course over the year. Even when starting to implement the \textit{Backbone} it becomes apparent how easy it is to fall back into mixing different language in the files and to enforce that every component just does the one task it is supposed to do. Talk about templates...
 
-When realising that an object-orientated structure can and should be applied to the project, it prompted the author to create a UML diagram with possible class design (see Appendix). This will prove useful when implementing the Backbone components and helps to visualise the flow of control of the web-app. Additionally, visual UI design have been made to show how the front-end would look like to the user and what controls would available to him or her (see Appendix). After it some research it also became apparent that yet another JavaScript library called twitter-bootstrap is very popular among the web community to create UI designs for buttons and menus, so time was spent learning how to tie this into the project.
+When realising that an object-orientated structure can and should be applied to the project, it prompted the author to create a UML diagram with possible class design (see Appendix). This will prove useful when implementing the \textit{Backbone} components and helps to visualise the flow of control of the web-app. Additionally, visual UI design have been made to show how the front-end would look like to the user and what controls would available to him or her (see Appendix). After it some research it also became apparent that yet another \textit{JavaScript} library called twitter-bootstrap is very popular among the web community to create UI designs for buttons and menus, so time was spent learning how to tie this into the project.
 Currently, the plan is still to create a working prototype that has all the essential requirements fulfilled.
 
 
@@ -292,53 +292,65 @@ Currently, the plan is still to create a working prototype that has all the esse
 
 \subsubsection{XTK}
 
-So far, testing the XTK toolkit has revealed some concerns. In general the library is not as modularised as hoped for, as it does not seem possible to add a custom number of label maps. There is at present also no way to paint a custom label map. However, as already discussed, it is possible to fork the project from github and introduce changes, so this will have to be explored when adding additional features.
+So far, testing the \textit{XTK} toolkit has revealed some concerns. In general the library is not as modularised as hoped for, as it does not seem possible to add a custom number of label maps. There is at present also no way to paint a custom label map. However, as already discussed, it is possible to fork the project from github and introduce changes, so this will have to be explored when adding additional features.
 
 Other useful functionality is hard-coded into the library, which may need suppressing or changing of the input triggers. For example currently, the are no display lines for all viewers when one clicks or moves the mouse over one view. Furthermore the user has to hold down the shift key and move the mouse over a view, to affect the slice indices of the other views. This can hopefully be tweaked in the module.
 
-Some design decisions in the XTK library are so far not ideal. For example when loading a file into a XTK volume, (which is then attached to a XTK renderer), the actual loading of the file happens only once the first XTK renderer has its render() function called. In the case of having multiple XTK renderers initiated(as the standard 3D/X/Y/Z format), the other renderers have to wait until the loading is complete and can only afterwards call their render() function. If calling render before the loading is complete, according to the XTK developers, the internal object data can get corrupted. For the scope of this project, this is not ideal as it implies that further management is required.
+Some design decisions in the \textit{XTK} library are so far not ideal. For example when loading a file into a \textit{XTK} volume, (which is then attached to a \textit{XTK} renderer), the actual loading of the file happens only once the first \textit{XTK} renderer has its render() function called. In the case of having multiple \textit{XTK} renderers initiated(as the standard 3D/X/Y/Z format), the other renderers have to wait until the loading is complete and can only afterwards call their render() function. If calling render before the loading is complete, according to the \textit{XTK} developers, the internal object data can get corrupted. For the scope of this project, this is not ideal as it implies that further management is required.
 
-There also appears to be a bug with loading NRRD files, as they as displayed with an offset in the 2D and 3D viewers. This behaviour is visible in SliceDrop as well as in the XTK tutorials. The XTK developers have been made aware of the problem.
+There also appears to be a bug with loading NRRD files, as they as displayed with an offset in the 2D and 3D viewers. This behaviour is visible in SliceDrop as well as in the \textit{XTK} tutorials. The \textit{XTK} developers have been made aware of the problem.
 
-It appears that there is only a very small and inactive community for the XTK library. There is a group on the popular tech forum StackOverflow but questions are being asked infrequently and get answered even more rarely.
+It appears that there is only a very small and inactive community for the \textit{XTK} library. There is a group on the popular tech forum StackOverflow but questions are being asked infrequently and get answered even more rarely.
 
-One strategy to follow will be to use the XTK renderers solely for their image generation and override all the UI functionality. This could be achieved by creating a custom renderer class that simply copies the imageData from the XTK renderers. The HTML5 canvas element provides functionality for this, but will have to be tested for speed drawbacks. It would seem that this method would bring along a multitude of advantages, such as easily creating custom text and graphic overlays, blending between different renderers and hiding the more obscure features of the XTK loading process as discussed earlier in this section, all without having to rewrite the XTK library itself. A drawback would be that a lot of UI interaction methods would have to be rewritten (such as middle-mousing over canvas changing the index, etc), but one would also have a lot more control in redesigning the user experience.
+One strategy to follow will be to use the \textit{XTK} renderers solely for their image generation and override all the UI functionality. This could be achieved by creating a custom renderer class that simply copies the imageData from the \textit{XTK} renderers. The HTML5 canvas element provides functionality for this, but will have to be tested for speed drawbacks. It would seem that this method would bring along a multitude of advantages, such as easily creating custom text and graphic overlays, blending between different renderers and hiding the more obscure features of the \textit{XTK} loading process as discussed earlier in this section, all without having to rewrite the \textit{XTK} library itself. A drawback would be that a lot of UI interaction methods would have to be rewritten (such as middle-mousing over canvas changing the index, etc), but one would also have a lot more control in redesigning the user experience.
 
 \subsubsection{Cross Browser Compatibility}
 
 Judging from limited previous experience, cross browser compatibility can be a difficult issue, as different browsers on different operating systems are implemented differently. Therefore what might work very well on Chrome could not work at all on Internet Explorer, as some functions are implemented differently or not even available in certain browsers. Therefore the app will have to be tested thoroughly across a variety of web browsers and operating systems.
 
 
-
+\newpage
 
   \begin{thebibliography}{1}
 
   \bibitem{book} Bernhard Preim, Charl Botha, {\em Visual Computing for Medicine} Second edition. 2014
   
-   \bibitem{backbone} {\em Xtk Toolkit } \url{https://github.com/xtk/X#readme/}
+   \bibitem{xtk} {\em Xtk Toolkit } \url{https://github.com/xtk/X#readme}
    
-      \bibitem{backbone} {\em Neuroimaging in the Browser using the X Toolkit } \url{http://www.frontiersin.org/10.3389/conf.fninf.2014.08.00101/event_abstract/} 
+     \bibitem{nifti1} {\em NIfTI-1 Data Format} \url{http://nifti.nimh.nih.gov/nifti-1}
+     
+	\bibitem{nifti2} {\em The NIFTI file format} \url{http://brainder.org/2012/09/23/the-nifti-file-format/} 
+   
+      \bibitem{backbone} {\em Neuroimaging in the Browser using the X Toolkit } \url{http://www.frontiersin.org/10.3389/conf.fninf.2014.08.00101/event_abstract} 
 
-  \bibitem{backbone} {\em BackboneJs } \url{http://backbonejs.org/} 
+  \bibitem{backbone} {\em BackboneJs } \url{http://backbonejs.org} 
   
-  \bibitem{require} {\em RequireJs } \url{http://requirejs.org/} 
+  \bibitem{require} {\em RequireJs } \url{http://requirejs.org} 
   
-  \bibitem{bootstrap} {\em Twitter-Bootstrap } \url{http://getbootstrap.com/} 	
+  \bibitem{bootstrap} {\em Twitter-Bootstrap } \url{http://getbootstrap.com} 	
   
-  \bibitem{w3graphics} {\em W3 - Graphics } \url{http://www.w3.org/standards/webdesign/graphics/}
+  \bibitem{w3graphics} {\em W3 - Graphics } \url{http://www.w3.org/standards/webdesign/graphics}
   
-  \bibitem{brainbook} {\em Brainbook } \url{http://users.loni.ucla.edu/~pipeline/pain/} 
+  \bibitem{brainbook} {\em Brainbook } \url{http://users.loni.ucla.edu/~pipeline/pain} 
+  
+  \bibitem{papaya} {\em Papaya } \url{http://ric.uthscsa.edu/mango/papaya.html} 
+  
+    \bibitem{dvw} {\em Dwv DICOM Web Viewer. } \url{http://ivmartel.github.io/dwv} 
+
+    \bibitem{slicedrop} {\em Slice:Drop} \url{http://slicedrop.com} 
     
-  \bibitem{nuke1} {\em Weta Digital Purchases Site License Of Nuke } \url{http://www.fxguide.com/quicktakes/weta-digital-purchases-site-license-of-nuke/} 
+  
+    
+  \bibitem{nuke1} {\em Weta Digital Purchases Site License Of Nuke } \url{http://www.fxguide.com/quicktakes/weta-digital-purchases-site-license-of-nuke} 
         
-  \bibitem{nuke2} {\em Industrial Light \& Magic Purchases Nuke Site Licence } \url{http://www.creativeplanetnetwork.com/the_wire/2009/06/09/industrial-light-magic-ilm-purchases-nuke-site-licence/} 
+  \bibitem{nuke2} {\em Industrial Light \& Magic Purchases Nuke Site Licence } \url{http://www.creativeplanetnetwork.com/the_wire/2009/06/09/industrial-light-magic-ilm-purchases-nuke-site-licence} 
 
-    \bibitem{3Doverview} Alun Evans, Marco Romeo, Arash Bahrehmand, Javi Agenjo, Josep Blat, {\em 3D graphics on the web: A survey } \url{http://www.sciencedirect.com/science/article/pii/S0097849314000260/}. Interactive Technologies Group, Universitat Pompeu Fabra, Barcelona, Spain
+    \bibitem{3Doverview} Alun Evans, Marco Romeo, Arash Bahrehmand, Javi Agenjo, Josep Blat, {\em 3D graphics on the web: A survey } \url{http://www.sciencedirect.com/science/article/pii/S0097849314000260}. Interactive Technologies Group, Universitat Pompeu Fabra, Barcelona, Spain
 
 
   \end{thebibliography}
 
-
+\newpage
 
 \section{Appendix}
 
