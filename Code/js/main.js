@@ -10,21 +10,23 @@ define(["views/NavBarView", "views/LayersView","views/LevelsView","views/ViewerW
 	});
 	navBar.render();
 
+	var viewerWindow = new ViewerWindowView({
+	    el: $('#viewerWindow')
+	});
+	viewerWindow.render();
+
+	
 	var layers = new LayersView({
 	    el: $('#sidePanel')
 	});
 	layers.render();
-	//layers.addItem();
+	layers.addItem();
 
 	var levels = new LevelsView({
 	    el: $('#sidePanel')
 	});
 	levels.render();
 
-	var viewerWindow = new ViewerWindowView({
-	    el: $('#viewerWindow')
-	});
-	viewerWindow.render();
 
 	//NEED TO ADD PANEL VIEW BACK IN
 

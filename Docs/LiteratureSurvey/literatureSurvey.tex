@@ -25,7 +25,7 @@
 \title{Browser-based Medical Image Viewer using WebGL \\\Large{--- Literature Review ---}}
 \author{David Basalla\\
        \{db913\}@ic.ac.uk\\ \\
-       \small{Supervisor: Prof.\ Ben Glocker}\\
+       \small{Supervisor: Dr.\ Ben Glocker}\\
        \small{Course: CO541, Imperial College London}
 }
 
@@ -36,12 +36,36 @@
 When creating MRI scans, the resulting image files contain a wealth of data and require specific software packages to view them comprehensively. Among others, the files include high-range images across several dimensions (usually at least X, Y and Z) through a volume. This creates the issue for the users to have the appropriate software installed on their local desktop computer. Additionally software developers have to cater for different operating systems. The goal of this project is to simplify the process of viewing and manipulating these images (specifically the NifTi format) by creating a web-browser-based medical image viewer with an intuitive interface for viewing multiple files and allowing for creation, viewing and manipulation of label maps and other methods of annotating these images. The rationale behind this is to facilitate users to conveniently share and annotate medical image files independently of location or type of computer, following the "Software as a Service" paradigm.
 
 \section{Literature Review}
+
+\subsection{Medical Imaging}
+
+- general uses
+	- what do doctors use it for
+	- 3d data
+
+- 2D Views/Slices
+	talk about details, pixel length etc
+	easier to measure, be exact
+	people still go through slice by slice
+	imagining what the 3D structure is
+
+- 3D View
+	easier to get an overview
+	
+- Comparing images is useful	
+	
+	
+	
 \subsection{File Formats}
 - Talk about DICOM/ PACS ?? \\
 - NIFTI\\
 - NRRD\\
 - mention slices\\
 - arbitrary number of dimensions, but for scope of the project, only the first 3, X, Y, Z will be looked at.
+
+
+	
+
 
 \subsection{Desktop Applications}
 
@@ -56,9 +80,28 @@ There exists a variety of desktop software to date allows viewing of medical ima
 \end{itemize}
 
 
-\subsection{WebGL}
+\subsection{Web Graphics}
+
+\subsubsection{2D Graphics}
+
+Talk about canvas, other alternatives
+Flash
+SVG
+
+
+\subsubsection{3D Graphics}
+
+Broadly speaking, the history of 3D Graphics can be divided into the time before and after the standardisation of WebGL. Before WebGL the standard way to display 3D graphics in a web browser were tied to a browser plug-in that the user would have to download locally to their computer.
+
+Examples JavaApplets, Flash, O3D
 
 WebGL is a JavaScript API that exposes a computers GPU to the web browser and allows for displaying of complex three dimensional graphics as seen in comparable desktop applications. Although only initially relased in 2011, WebGL is widely supported by most modern browsers (reference), so it's a good time to make use of this for medical visualisation. WebGL is based on OpenGL ES 2.0 and uses the HTML5 canvas element and is accessed using Document Object Model interfaces.
+
+History of WebGL. 
+
+Nowadays, most libraries make use of WebGL and even libraries that used to require a plug-in (example) have now been ported to use WebGL. 
+Games in WebGL
+
 
 \subsection{Web Framework XTK}
 
@@ -100,20 +143,19 @@ The goal of this project is to build a web browser based Medical Image Viewer. T
 \item The user can view a file in 2D and 3D
 \item The web-app provides controls for viewing the scan files at different brightness and contrast levels
 \item The user can load and view a labelmap for a given scan file
-\item Alternatively the user can paint a custom labelmap for a given scan file
-\item The user can save a labelmap to his computer
-\item The user can load additional scan or label maps into the viewer and compare them to previously loaded files
+\item The user can load additional scan or label maps into the viewer and compare them to previously loaded files with a set of intuitive controls
 \end{itemize}
 
-Given enough time, secondary requirements can be implemented, which are considered to be more complicated and not essential to the working of the web app:
+Given enough time, secondary requirements can be implemented, which are considered to be more complicated:
 
 \begin{itemize}
+\item The user can paint a custom labelmap for a given scan file with a set of intuitive tools. The primary goal will be that the user can paint areas manually on individual slices. Provided there is enough time, some semi-automatic painting tools will also be implemented that will allow the user to specify regions in the 3D space with automatic selection tools. 
+\item The user can save a labelmap to his computer
 \item The user can create custom annotation maps to label given scans
 \item The web app provides a method for sharing  means of sharing data across the internet (similar to the DropBox implementation in SliceDrop)
 \item The web app provides image filters that can be applied to a scan or label map
 \item The web app provides measuring tools that can be applied to a scan or label map
 \item A three dimensional, parameterised model of the scan be viewed in the 3D view
-\item Provide support for other file types (possibly fix NRRD)
 \end{itemize}
 
 \section{Progress}
@@ -140,9 +182,13 @@ So far, testing the XTK toolkit has revealed some concerns. In general the libra
 
 Other useful functionality is hard-coded into the library, which may need suppressing or changing of the input triggers. For example currently, the are no display lines for all viewers when one clicks or moves the mouse over one view. Furthermore the user has to hold down the shift key and move the mouse over a view, to affect the slice indices of the other views. This can hopefully be tweaked in the module.
 
-There appears to be a bug with loading NRRD files, as they as displayed with an offset in the 2D and 3D viewers. This behaviour is visible in SliceDrop as well as in the XTK tutorials. The XTK developers have been made aware of the problem.
+Some design decisions in the XTK library are so far not ideal. For example when loading a file into a XTK volume, (which is then attached to a XTK renderer), the actual loading of the file happens only once the first XTK renderer has its render() function called. In the case of having multiple XTK renderers initiated(as the standard 3D/X/Y/Z format), the other renderers have to wait until the loading is complete and can only afterwards call their render() function. If calling render before the loading is complete, according to the XTK developers, the internal object data can get corrupted. For the scope of this project, this is not ideal as it implies that further management is required.
 
-It appears that there is only a very small and inactive community for the XTK library. There is a group on the popular tech forum StackOverflow but questions are being asked infrequently and get answered even more rarely. 
+There also appears to be a bug with loading NRRD files, as they as displayed with an offset in the 2D and 3D viewers. This behaviour is visible in SliceDrop as well as in the XTK tutorials. The XTK developers have been made aware of the problem.
+
+It appears that there is only a very small and inactive community for the XTK library. There is a group on the popular tech forum StackOverflow but questions are being asked infrequently and get answered even more rarely.
+
+One strategy to follow will be to use the XTK renderers solely for their image generation and override all the UI functionality. This could be achieved by creating a custom renderer class that simply copies the imageData from the XTK renderers. The HTML5 canvas element provides functionality for this, but will have to be tested for speed drawbacks. It would seem that this method would bring along a multitude of advantages, such as easily creating custom text and graphic overlays, blending between different renderers and hiding the more obscure features of the XTK loading process as discussed earlier in this section, all without having to rewrite the XTK library itself. A drawback would be that a lot of UI interaction methods would have to be rewritten (such as middle-mousing over canvas changing the index, etc), but one would also have a lot more control in redesigning the user experience.
 
 \subsubsection{Cross Browser Compatibility}
 
@@ -150,7 +196,7 @@ Judging from limited previous experience and source online, cross browser compat
 
 
 \section{References}
-
+$THAT BOOK$\\
 $http://www.frontiersin.org/10.3389/conf.fninf.2014.08.00101/event_abstract$\\
 $http://users.loni.ucla.edu/~pipeline/paint/$\\
 $http://backbonejs.org/$\\

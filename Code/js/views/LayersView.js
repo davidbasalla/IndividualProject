@@ -1,4 +1,4 @@
-define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", "collections/LayerList","views/ViewerWindowView"], function(LayersTemplate, LayerItemView,  LayerItem, LayerList, ViewerWindowView) {
+define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", "collections/LayerList","views/XtkView"], function(LayersTemplate, LayerItemView,  LayerItem, LayerList, XtkView) {
     
     var LayersView = Backbone.View.extend({
 	//define the template
@@ -30,25 +30,23 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    this.$el.html(this.template);
 	},
 	addItem: function(){
-	    this.counter++;
-	    
+   
 	    var item = new LayerItem();
 	    item.set({
 		// modify item defaults
 		title: item.get('title') + this.counter,
 		index: this.counter,
 	    });
-	    console.log(item);
 	    this.collection.add(item);
 
+	    console.log('counter = ' + this.counter);
 
-	    var viewerWindow = new ViewerWindowView({
-		el: $('#viewerWindow')
+	    var xtkViewer = new XtkView({
+		layerIndex: this.counter,
+		currentModel: item,
 	    });
-	    viewerWindow.layerIndex = this.counter;
-	    viewerWindow.currentModel = item;
-	    viewerWindow.render();
 	    
+	    this.counter++;
 	},
 	appendItem: function(item){
 	    var itemView = new LayerItemView({

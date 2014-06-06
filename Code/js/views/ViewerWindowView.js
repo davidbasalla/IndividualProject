@@ -27,7 +27,6 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 	    viewer1.el = '#panel3D';
 	    viewer1.render();
 
-
 	    var viewer2 = new CanvasViewer2D();
 	    viewer2.el = '#panelX';
 	    viewer2.mode = 'X';
@@ -43,6 +42,8 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 	    viewer4.mode = 'Z';
 	    viewer4.render();
 
+
+	    //NEED TO HIDE THE PLACEHOLDER DIV HERE
 	},
 	initXtkViews:function(layerIndex){
 
