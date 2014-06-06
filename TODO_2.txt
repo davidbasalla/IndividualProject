@@ -1,0 +1,44 @@
+WIP:
+
+    - work on customisable layout
+        - presets
+        - splitters
+    - add extra buttons/toggles/modes
+    - work on opac slider?
+    - add label maps
+    - work on temporary canvas, make stuff customisable
+    - split out canvasViews into 2D and 3D, add custom panels
+        - 3D - has volume rendering
+             - has no index slider
+        - 2D - has index slider
+             - can do merging with other canvas
+    - use model Cids to keep track of objects??
+
+
+
+DONE:
+    - work on brightness/levels DONE
+
+
+
+
+
+Having viewer canvas that copy the XTK views
+Pros:
+    - can add my own overlays
+    - can do sliding/comparisons
+    - can add custom interactors
+    - can hide internal handling of files mess from user (have custom load bar)
+    - allows to have more modular structure with one-time viewers on front-end
+
+Cons:
+    - have to copy various controls
+    - possible slow down??
+
+
+Controls to overwrite
+    2D:
+        - manipulating slices with shift-click-over
+        - sliceIndex (slider and middle mouse) - NO PROBLEM
+    3D:
+        - 3D controls - could work - NEED TO TEST
