@@ -7,15 +7,9 @@ define(function() {
 	    //console.log(this.$el);
 	    this.currentLayer = 0;
 	    this.srcCanvas = false;
-
-	    
-
-	    
 	    
 	},
 	loadModel:function(options){
-
-
 
 	},
 	setSrcCanvas:function(index){
@@ -24,14 +18,7 @@ define(function() {
 	    //DST CANVAS
 	    this.canvas = document.getElementById("canvasViewer" + this.mode);
 	    this.ctx = this.canvas.getContext("2d");
-
-
-
-	    //SRC CANVAS
 	    this.srcCanvas = document.getElementById("xtkCanvas_" + this.mode);
-	    console.log(this.srcCanvas);
-	    //this.srcCtx = this.srcCanvas.getContext("2d");
-
 	    //this.draw();
 	},
 	setCurrentLayer:function(args){
@@ -43,17 +30,26 @@ define(function() {
 	},
 	draw:function(){
 	    //update the canvases
+
 	    console.log('viewer.draw()');
 
-	    console.log(this.ctx);
+
 	    console.log(this.srcCanvas);
+	    console.log(this.ctx);
 
+	    //console.log(this.ctx);
+	    //console.log(this.srcCanvas);
 
-	    this.ctx.fillStyle = "#FF0000";
-	    this.ctx.fillRect(0,0,150,75);
+	    //this.srcCtx = this.srcCanvas.getContext("2d");
+	    //var imgData=this.srcCtx.getImageData(0,0,1000,100);
+	    //console.log(imgData);
+	    //this.ctx.putImageData(imgData,0,0);
+
 	    
-	    this.ctx.drawImage(this.srcCanvas, 0, 0);
+	    //this.ctx.fillStyle = "#FF0000";
+	    //this.ctx.fillRect(20,20,10,10);
 	    
+	    this.ctx.drawImage(this.srcCanvas, -200, 0);
 
 	},
 

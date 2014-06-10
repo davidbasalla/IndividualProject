@@ -126,7 +126,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    // we have a volume
 		    _this.parse(_this._data);
 
-		    //Backbone.trigger('onShowtime', _this.volume);
 		}
 	    };
 	},
@@ -166,7 +165,14 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    loaded: true
 		});
 	    };
-	    
+
+
+
+	    this.viewerX.onRender = function(){
+		Backbone.trigger('onRender');
+	    };
+
+
 	    //set model layer to be loaded
 	    
 

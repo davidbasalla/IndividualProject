@@ -3,6 +3,7 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 	el:'#viewerWindow',
 	template: _.template(ViewerWindowTemplate),
 	events: {
+	    'click': 'update2'
 	},
 	initialize:function(options) {
 	    console.log('init()');
@@ -11,6 +12,8 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 	    this.layersModel = options.layersModel;
 	    this.layersModel.on("change:currentLayer", this.setCurrentLayerItem, this);
 
+	    Backbone.on('onRender', this.update, this);
+	    
 	    this.layerIndex = 0;
 	    this.currentItem = "";
 	},
@@ -57,13 +60,17 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 
 	    //need to set the canvas to copy from
 	    this.viewer2.setSrcCanvas(this.currentItem.get('index'));
+	    this.viewer3.setSrcCanvas(this.currentItem.get('index'));
+	    this.viewer4.setSrcCanvas(this.currentItem.get('index'));
 	    
 	    
 	},
 	update:function(){
 	    console.log('ViewerWindowView.update()');
-	    console.log(this.currentItem);
+	    //console.log(this.currentItem);
 	    this.viewer2.draw();
+	    this.viewer3.draw();
+	    this.viewer4.draw();
 
 	    
 	    //call draw functions of all canvases
