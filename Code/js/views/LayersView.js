@@ -6,15 +6,15 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	events: {
 	    'click button#add': 'addItem'
 	},
-	initialize:function() {
-	    //console.log(LayersTemplate);
-	    //console.log(LayerItem);
-	    //console.log(LayerItemView);
+	initialize:function(options) {
+
+	    this.layersModel = options.layersModel;
 
 	    Backbone.on('layerRemoved', this.removeItem, this);
-	    Backbone.on('setSelected', this.setCurrentLayer, this);
+	    //Backbone.on('setSelected', this.updateCurrentIndex, this);
 	    Backbone.on('thresholdChange', this.thresholdChange, this);
 	    Backbone.on('levelsChange', this.levelsChange, this);
+	    Backbone.on('xtkInitialised', this.updateCurrentIndex, this);
 	    
 
 	    this.currentLayerIndex = 0;
@@ -30,7 +30,8 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    this.$el.html(this.template);
 	},
 	addItem: function(){
-   
+
+	    //create new item in collection
 	    var item = new LayerItem();
 	    item.set({
 		// modify item defaults
@@ -39,14 +40,22 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    });
 	    this.collection.add(item);
 
-	    console.log('counter = ' + this.counter);
 
+	    //adding new set of XTK viewers
 	    var xtkViewer = new XtkView({
 		layerIndex: this.counter,
 		model: item,
 	    });
 	    
 	    this.counter++;
+	},
+	updateCurrentIndex: function(item){
+	    console.log('updateCurrentIndex');
+	    // this needs to happen after xtkViewers have been loaded
+	    this.layersModel.set({
+		currentLayer: this.counter,
+		currentItem: item
+	    });
 	},
 	appendItem: function(item){
 	    var itemView = new LayerItemView({
@@ -62,11 +71,16 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    console.log(this.collection);
 	},
 	setCurrentLayer: function(layerIndex){
+	    //change the current model to reflect this!
+	    
 	    this.currentLayerIndex = layerIndex;
 
 	    //set levels back to what they should be
 	    var items = this.collection.where({ index : this.currentLayerIndex })
 
+
+	    /////////////////////////////////////////////////////
+	    
 	    //set text value
 	    var wL = items[0].get("windowLow");
 	    var wH = items[0].get("windowHigh");

@@ -5,11 +5,11 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	template: _.template(CanvasPanelTemplate),
 	events: {
 	},
-	initialize:function() {
+	initialize:function(options) {
 	    //possible vars, should these be in a model?
 
 	    //_.bindAll(this, 'setThreshold'); // every function that uses 'this' as the current object should be in here
-	    
+	    this.model = options.model;
 	    this.master = false; //false by default
 	    this.title = "";
 	    this.mode = "";
@@ -24,6 +24,8 @@ define(["text!templates/CanvasPanel.html"], function(CanvasPanelTemplate) {
 	    this.originalWindowHigh = 100;
 	    
 
+	    this.model.on("change:fileName", this.drawCanvas, this);
+	    
 	    //event listener for file loaded
 	    Backbone.on('fileLoaded', this.loadFile, this);
 	    Backbone.on('labelLoaded', this.loadLabelFile, this);

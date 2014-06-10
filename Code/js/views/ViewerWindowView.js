@@ -4,16 +4,15 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 	template: _.template(ViewerWindowTemplate),
 	events: {
 	},
-	initialize:function() {
+	initialize:function(options) {
 	    console.log('init()');
 	    
 	    //set the current layer
+	    this.layersModel = options.layersModel;
+	    this.layersModel.on("change:currentLayer", this.setCurrentLayerItem, this);
+
 	    this.layerIndex = 0;
-
-	    //should store the current model here?
-
-	    //init the xtkViewers, set to layer 0
-	    //this.initXtkViews(0);
+	    this.currentItem = "";
 	},
 	render:function() {
 	    //load the template
@@ -23,64 +22,54 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 	    //create the 4 different views here
 
 	    //need to pass which CanvasSource to look at
-	    var viewer1 = new CanvasViewer3D();
-	    viewer1.el = '#panel3D';
-	    viewer1.render();
+	    this.viewer1 = new CanvasViewer3D();
+	    this.viewer1.el = '#panel3D';
+	    this.viewer1.render();
 
-	    var viewer2 = new CanvasViewer2D();
-	    viewer2.el = '#panelX';
-	    viewer2.mode = 'X';
-	    viewer2.render();
+	    this.viewer2 = new CanvasViewer2D();
+	    this.viewer2.el = '#panelX';
+	    this.viewer2.mode = 1;
+	    this.viewer2.render();
 
-	    var viewer3 = new CanvasViewer2D();
-	    viewer3.el = '#panelY';
-	    viewer3.mode = 'Y';
-	    viewer3.render();
+	    this.viewer3 = new CanvasViewer2D();
+	    this.viewer3.el = '#panelY';
+	    this.viewer3.mode = 2;
+	    this.viewer3.render();
 
-	    var viewer4 = new CanvasViewer2D();
-	    viewer4.el = '#panelZ';
-	    viewer4.mode = 'Z';
-	    viewer4.render();
-
+	    this.viewer4 = new CanvasViewer2D();
+	    this.viewer4.el = '#panelZ';
+	    this.viewer4.mode = 3;
+	    this.viewer4.render();
 
 	    //NEED TO HIDE THE PLACEHOLDER DIV HERE
 	},
-	initXtkViews:function(layerIndex){
+	setCurrentLayerItem:function(model, value, options){
+	    console.log('viewerWindowView.setCurrentLayerItem()');
 
-	    console.log('initXtkViews(' + layerIndex + ')');
 
-	    /*
-	    var viewer1 = new CanvasPanel3D();
-	    viewer1.title = 'viewer1';
-	    viewer1.mode = "3D";
-	    viewer1.layerIndex = this.layerIndex;
-
-	    var viewer2 = new CanvasPanel2D();
-	    viewer2.title = 'viewer2';
-	    viewer2.mode = "X";
-	    viewer2.master = true;
-	    viewer2.layerIndex = this.layerIndex;
+	    //turn off triggers for previous object
+	    if(this.currentItem)
+		this.currentItem.off("change:loaded", this.update, this);
 	    
-	    var viewer3 = new CanvasPanel2D();
-	    viewer3.title = 'viewer3';
-	    viewer3.mode = "Y";
-	    viewer3.layerIndex = this.layerIndex;
-	    
-	    var viewer4 = new CanvasPanel2D();
-	    viewer4.title = 'viewer4';
-	    viewer4.mode = "Z";
-	    viewer4.layerIndex = this.layerIndex;
+	    this.currentItem = model.get('currentItem');
+	    this.currentItem.on("change:loaded", this.update, this);
 
-	    $('#view_' + this.layerIndex, this.el).append(viewer1.render().el);
-	    $('#view_' + this.layerIndex, this.el).append(viewer2.render().el);
-	    $('#view_' + this.layerIndex, this.el).append(viewer3.render().el);
-	    $('#view_' + this.layerIndex, this.el).append(viewer4.render().el);
+
+	    //need to set the canvas to copy from
+	    this.viewer2.setSrcCanvas(this.currentItem.get('index'));
 	    
-	    viewer1.initViewer();
-	    viewer2.initViewer();
-	    viewer3.initViewer();
-	    viewer4.initViewer();
-	    */
+	    
+	},
+	update:function(){
+	    console.log('ViewerWindowView.update()');
+	    console.log(this.currentItem);
+	    this.viewer2.draw();
+
+	    
+	    //call draw functions of all canvases
+
+
+
 	},
     });
     return ViewerWindowView;

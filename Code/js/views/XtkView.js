@@ -10,6 +10,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    console.log('initXTK()');
 	    this.layerIndex = options.layerIndex;
 	    this.model = options.model;
+
 	    this.model.on("change:fileName", this.loadFile, this);
 
 	    this.webGLFriendly = true;
@@ -18,16 +19,12 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	},
 	render:function() {
 	    console.log('render()');
-	    console.log(this.el);
-	    console.log(this.$el);
 
 	    this.$el.append(this.template({layerIndex: 'xtkViewer_L' + this.layerIndex}));
 	    this.initViewers();
 	},
 	initViewers:function(){
 	    //create all 4 viewers
-
-	    //need to set the attribs of the xtkViewer_L id"
 
 	    //set width and height according to original canvas, need to update the size!!
 	    var height = $("#canvasViewer3D").height();
@@ -55,7 +52,16 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerY.init();
 	    this.viewerZ.init();
 
-
+	    //add id's to the canvases
+	    var canvases = document.getElementById('xtkViewer_L' + this.layerIndex);
+	    for(i = j = 0; i < canvases.childNodes.length; i++)
+		if(canvases.childNodes[i].nodeName == 'CANVAS'){
+		    canvases.childNodes[i].setAttribute("id", "xtkCanvas_" + j);
+		    j++;
+		}
+	    
+	    console.log('finished');
+	    Backbone.trigger('xtkInitialised', this.model);
 	    //set x to be the master viewer
 	},
 	loadFile:function(model, value, options){
@@ -128,7 +134,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    // we have a volume
 	    this.volume = new X.volume();
 
-
 	    this.volume.file = data['volume']['file'].map(function(v) {
 		return v.name;
 	    });
@@ -138,7 +143,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerX.objects.clear();
 	    this.viewerX.topLevelObjects = [];
 	    
-
 	    this.viewerX.add(this.volume);
 	    this.viewerX.render();
 
@@ -155,7 +159,17 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    _this.viewer3D.add(_this.volume);
 		    _this.viewer3D.render();
 		}
+
+		//update the model
+		_this.model.set({
+		    // modify item defaults
+		    loaded: true
+		});
 	    };
+	    
+	    //set model layer to be loaded
+	    
+
 	},
 	createData:function() {
 	    // the data holder for the scene

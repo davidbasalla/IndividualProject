@@ -1,6 +1,6 @@
 console.log('running stuff');
 
-define(["views/NavBarView", "views/LayersView","views/LevelsView","views/ViewerWindowView"], function(NavBarView, LayersView, LevelsView, ViewerWindowView) {
+define(["views/NavBarView", "views/LayersView","views/LevelsView","views/ViewerWindowView","models/LayersItem"], function(NavBarView, LayersView, LevelsView, ViewerWindowView, LayersItem) {
     
     var initialise = function() {
 
@@ -10,23 +10,36 @@ define(["views/NavBarView", "views/LayersView","views/LevelsView","views/ViewerW
 	});
 	navBar.render();
 
-	var viewerWindow = new ViewerWindowView({
-	    el: $('#viewerWindow')
-	});
-	viewerWindow.render();
+
+	//init the layers item here...
+	//pass it as an arg to the viewer window
+	//viewer window to pass it to the indivdual views
+
+
+	var layersModel = new LayersItem();
+	console.log(layersModel);
 
 	
 	var layers = new LayersView({
-	    el: $('#sidePanel')
+	    el: $('#sidePanel'),
+	    layersModel: layersModel,
 	});
 	layers.render();
-	layers.addItem();
+
+
+	var viewerWindow = new ViewerWindowView({
+	    el: $('#viewerWindow'),
+	    layersModel: layersModel,
+	});
+	viewerWindow.render();
+	
 
 	var levels = new LevelsView({
 	    el: $('#sidePanel')
 	});
 	levels.render();
 
+	//layers.addItem();
 
 	//NEED TO ADD PANEL VIEW BACK IN
 

@@ -8,10 +8,9 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    
 	    $(this.el).html(this.template({
 		overlay: 'overlayToggle' + this.mode,
-		canvasViewerId: 'canvasViewer3D',
+		canvasViewerId: 'canvasViewer' + this.mode,
 		slider: 'sliderVertical' + this.mode,
 	    }));
-
 	    $( "#sliderVertical" + this.mode, this.el ).slider({
 		orientation: "vertical",
 		//range: "min",
