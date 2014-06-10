@@ -20,7 +20,7 @@ html, body {
 .canvasPanel{
     background-color: #000; 
     width: 40%; 
-    height: 44%; 
+    height: 20%; 
     margin: 4px;
     float: left;
     border-style:groove;

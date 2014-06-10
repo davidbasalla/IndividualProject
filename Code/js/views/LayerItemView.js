@@ -60,12 +60,17 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    $('#labelPicker',this.el).trigger('click');
 	},
 	fileLoaded: function(e){
+	    console.log('fileLoaded()')
 	    //add text to layer preview
 	    $('#textHolder', this.el).html(e.currentTarget.files[0].name);
 
+	    this.model.set({
+		fileName : e.currentTarget.files[0]
+	    });
+	    
 	    //trigger event that file has loaded, expected by XtkViewer
 	    //send file along as a parameter
-	    Backbone.trigger('fileLoaded', [e.currentTarget.files[0], this.model.attributes.index]);
+	    //Backbone.trigger('fileLoaded', [e.currentTarget.files[0], this.model.attributes.index]);
 	},
 	labelLoaded: function(e){
 	    //add text to layer preview

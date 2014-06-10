@@ -43,7 +43,7 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 
 	    var xtkViewer = new XtkView({
 		layerIndex: this.counter,
-		currentModel: item,
+		model: item,
 	    });
 	    
 	    this.counter++;
