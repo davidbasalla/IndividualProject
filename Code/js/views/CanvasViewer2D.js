@@ -1,40 +1,28 @@
-//need to pass a variable here
+x//need to pass a variable here
 
 define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(CanvasViewer2DTemplate, CanvasViewer) {
     var CanvasViewer2D = CanvasViewer.extend({
 	template: _.template(CanvasViewer2DTemplate),
+	events: function(){
+	    return _.extend({}, CanvasViewer.prototype.events,{
+		'mousewheel': 'scroll',
+	    });
+	},
 	render:function() {
-	    console.log($(this.el));
+	    //console.log($(this.el));
 	    
 	    $(this.el).html(this.template({
 		overlay: 'overlayToggle' + this.mode,
 		canvasViewerId: 'canvasViewer' + this.mode,
 		slider: 'sliderVertical' + this.mode,
 	    }));
-	    $( "#sliderVertical" + this.mode, this.el ).slider({
-		orientation: "vertical",
-		//range: "min",
-		min: 0,
-		max: 100,
-		value: 50,
-		slide: function( event, ui ) {
-		    $( "#amount" ).val( ui.value );
-		}
-	    });
 	    return this; //to enable chain calling
-	},
-	setSrcCanvas:function(index){
-	    console.log('settingSrc to ' +  index);
-
-	    //DST CANVAS
-	    this.canvas = document.getElementById("canvasViewer" + this.mode);
-	    this.ctx = this.canvas.getContext("2d");
-	    this.srcCanvas = document.getElementById("xtkCanvas_" + this.mode);
 	},
 	draw:function(){
 	    //update the canvases
 
-	    //this.ctx.clearRect(0,0,1000,200);
+	    //console.log('drawing ' + this.mode);
+	    this.ctx.clearRect(0,0,1000,200);
 
 	    //copy image
 	    this.ctx.drawImage(this.srcCanvas, 0, 0);
@@ -44,6 +32,37 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.ctx.fillStyle = 'white';
 	    this.ctx.font="14px Arial";
 	    this.ctx.fillText("Index: ",10,20);*/
+	},
+	scroll:function(e){
+	    
+	    //X
+	    if (this.mode == 1){
+	    	var oldVal = this.currentItem.get('indexX');
+		
+		if(e.originalEvent.wheelDelta < 0)
+		    this.currentItem.set({indexX: oldVal - 1});
+		else
+		    this.currentItem.set({indexX: oldVal + 1});
+	    }
+	    //Y
+	    else if (this.mode == 2){
+	    	var oldVal = this.currentItem.get('indexY');
+		
+		if(e.originalEvent.wheelDelta < 0)
+		    this.currentItem.set({indexY: oldVal - 1});
+		else
+		    this.currentItem.set({indexY: oldVal + 1});
+	    }
+	    //Z
+	    else if (this.mode == 3){
+	    	var oldVal = this.currentItem.get('indexZ');
+		
+		if(e.originalEvent.wheelDelta < 0)
+		    this.currentItem.set({indexZ: oldVal - 1});
+		else
+		    this.currentItem.set({indexZ: oldVal + 1});
+	    }
+
 	},
     });
     return CanvasViewer2D;

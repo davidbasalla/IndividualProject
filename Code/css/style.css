@@ -17,6 +17,10 @@ html, body {
 .layer-unselected:hover{ 
     background-color:#AAF;
 }
+.mode-btn{
+    border-color:#AAA;
+
+}
 .canvasPanel{
     background-color: #000; 
     width: 690px; 

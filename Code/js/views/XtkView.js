@@ -176,6 +176,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    loaded: true
 		});
 	    };
+	    
 	    this.viewerX.onRender = function(){
 		Backbone.trigger('onRender');
 	    };

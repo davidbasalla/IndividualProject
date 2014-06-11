@@ -3,7 +3,7 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 	el:'#viewerWindow',
 	template: _.template(ViewerWindowTemplate),
 	initialize:function(options) {
-	    console.log('init()');
+	    //console.log('init()');
 	    
 	    //set the current layer
 	    this.layersModel = options.layersModel;
@@ -15,7 +15,6 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 	    this.currentItem = "";
 	},
 	events: {
-	    'mousewheel': 'scroll',
 	},
 	render:function() {
 	    //load the template
@@ -25,32 +24,40 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 	    //create the 4 different views here
 
 	    //need to pass which CanvasSource to look at
-	    this.viewer0 = new CanvasViewer3D({
+	    this.viewer0 = new CanvasViewer2D({
 	    	el: '#panel0',
+		viewerIndex: 0,
 		mode: 0,
 	    });
 	    this.viewer0.render();
+	    this.viewer0.setMode(0);
 
 	    this.viewer1 = new CanvasViewer2D({
 		el:'#panel1',
+		viewerIndex: 1,
 		mode: 1,
 	    });
 	    this.viewer1.render();
+	    this.viewer1.setMode(1);
 
 	    this.viewer2 = new CanvasViewer2D({
 		el:'#panel2',
+		viewerIndex: 2,
 		mode: 2,
 	    });
 	    this.viewer2.render();
+	    this.viewer2.setMode(2);
 
 	    this.viewer3 = new CanvasViewer2D({
 		el:'#panel3',
+		viewerIndex: 3,
 		mode: 3,
 	    });
 	    this.viewer3.render();
+	    this.viewer3.setMode(3);
 	},
 	setCurrentLayerItem:function(model, value, options){
-	    console.log('viewerWindowView.setCurrentLayerItem()');
+	   // console.log('viewerWindowView.setCurrentLayerItem()');
 
 	    //turn OFF triggers for previous object
 	    if(this.currentItem)
@@ -62,14 +69,15 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 
 
 	    //need to set the canvas to copy from
-	    this.viewer0.setSrcCanvas(this.currentItem.get('index'));
-	    this.viewer1.setSrcCanvas(this.currentItem.get('index'));
-	    this.viewer2.setSrcCanvas(this.currentItem.get('index'));
-	    this.viewer3.setSrcCanvas(this.currentItem.get('index'));
+	    this.viewer0.setCurrentItem(this.currentItem);
+	    this.viewer1.setCurrentItem(this.currentItem);
+	    this.viewer2.setCurrentItem(this.currentItem);
+	    this.viewer3.setCurrentItem(this.currentItem);
+	    
 	},
 	update:function(){
 	    //console.log('ViewerWindowView.update()');
-	    //console.log(this.currentItem);
+
 	    this.viewer0.draw();
 	    this.viewer1.draw();
 	    this.viewer2.draw();
@@ -80,9 +88,7 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 	},
 	scroll:function(){
 	    
-	    console.log('ViewerWindowView.scroll()');
-	    //console.log(e.originalEvent.wheelDelta);
-	    //console.log(e);
+	    //console.log('ViewerWindowView.scroll()');
 
 	    var oldX = this.currentItem.get('indexX');
 	    if(e.originalEvent.wheelDelta < 0)
