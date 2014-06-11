@@ -21,9 +21,29 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		    $( "#amount" ).val( ui.value );
 		}
 	    });
-
-	    
 	    return this; //to enable chain calling
+	},
+	setSrcCanvas:function(index){
+	    console.log('settingSrc to ' +  index);
+
+	    //DST CANVAS
+	    this.canvas = document.getElementById("canvasViewer" + this.mode);
+	    this.ctx = this.canvas.getContext("2d");
+	    this.srcCanvas = document.getElementById("xtkCanvas_" + this.mode);
+	},
+	draw:function(){
+	    //update the canvases
+
+	    //this.ctx.clearRect(0,0,1000,200);
+
+	    //copy image
+	    this.ctx.drawImage(this.srcCanvas, 0, 0);
+
+	    /*
+	    //do the overlay
+	    this.ctx.fillStyle = 'white';
+	    this.ctx.font="14px Arial";
+	    this.ctx.fillText("Index: ",10,20);*/
 	},
     });
     return CanvasViewer2D;

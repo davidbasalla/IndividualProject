@@ -2,9 +2,6 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
     var ViewerWindowView = Backbone.View.extend({
 	el:'#viewerWindow',
 	template: _.template(ViewerWindowTemplate),
-	events: {
-	    'click': 'update2'
-	},
 	initialize:function(options) {
 	    console.log('init()');
 	    
@@ -17,6 +14,9 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 	    this.layerIndex = 0;
 	    this.currentItem = "";
 	},
+	events: {
+	    'mousewheel': 'scroll',
+	},
 	render:function() {
 	    //load the template
 
@@ -25,58 +25,74 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D","text!templates/ViewerWin
 	    //create the 4 different views here
 
 	    //need to pass which CanvasSource to look at
-	    this.viewer1 = new CanvasViewer3D();
-	    this.viewer1.el = '#panel3D';
+	    this.viewer0 = new CanvasViewer3D({
+	    	el: '#panel0',
+		mode: 0,
+	    });
+	    this.viewer0.render();
+
+	    this.viewer1 = new CanvasViewer2D({
+		el:'#panel1',
+		mode: 1,
+	    });
 	    this.viewer1.render();
 
-	    this.viewer2 = new CanvasViewer2D();
-	    this.viewer2.el = '#panelX';
-	    this.viewer2.mode = 1;
+	    this.viewer2 = new CanvasViewer2D({
+		el:'#panel2',
+		mode: 2,
+	    });
 	    this.viewer2.render();
 
-	    this.viewer3 = new CanvasViewer2D();
-	    this.viewer3.el = '#panelY';
-	    this.viewer3.mode = 2;
+	    this.viewer3 = new CanvasViewer2D({
+		el:'#panel3',
+		mode: 3,
+	    });
 	    this.viewer3.render();
-
-	    this.viewer4 = new CanvasViewer2D();
-	    this.viewer4.el = '#panelZ';
-	    this.viewer4.mode = 3;
-	    this.viewer4.render();
-
-	    //NEED TO HIDE THE PLACEHOLDER DIV HERE
 	},
 	setCurrentLayerItem:function(model, value, options){
 	    console.log('viewerWindowView.setCurrentLayerItem()');
 
-
-	    //turn off triggers for previous object
+	    //turn OFF triggers for previous object
 	    if(this.currentItem)
 		this.currentItem.off("change:loaded", this.update, this);
-	    
+
+	    //turn ON triggers for current object
 	    this.currentItem = model.get('currentItem');
 	    this.currentItem.on("change:loaded", this.update, this);
 
 
 	    //need to set the canvas to copy from
+	    this.viewer0.setSrcCanvas(this.currentItem.get('index'));
+	    this.viewer1.setSrcCanvas(this.currentItem.get('index'));
 	    this.viewer2.setSrcCanvas(this.currentItem.get('index'));
 	    this.viewer3.setSrcCanvas(this.currentItem.get('index'));
-	    this.viewer4.setSrcCanvas(this.currentItem.get('index'));
-	    
-	    
 	},
 	update:function(){
-	    console.log('ViewerWindowView.update()');
+	    //console.log('ViewerWindowView.update()');
 	    //console.log(this.currentItem);
+	    this.viewer0.draw();
+	    this.viewer1.draw();
 	    this.viewer2.draw();
 	    this.viewer3.draw();
-	    this.viewer4.draw();
 
 	    
 	    //call draw functions of all canvases
+	},
+	scroll:function(){
+	    
+	    console.log('ViewerWindowView.scroll()');
+	    //console.log(e.originalEvent.wheelDelta);
+	    //console.log(e);
 
-
-
+	    var oldX = this.currentItem.get('indexX');
+	    if(e.originalEvent.wheelDelta < 0)
+		this.currentItem.set({
+		    indexX: oldX - 1,
+		});
+	    else
+		this.currentItem.set({
+		    indexX: oldX + 1,
+		});
 	},
     });
     return ViewerWindowView;

@@ -4,14 +4,15 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
     var XtkView = Backbone.View.extend({
 	el: '#xtkPanels',
 	template: _.template(XTKTemplate),
-	events: {
-	},
 	initialize:function(options) {
 	    console.log('initXTK()');
 	    this.layerIndex = options.layerIndex;
 	    this.model = options.model;
 
 	    this.model.on("change:fileName", this.loadFile, this);
+	    this.model.on("change:indexX", this.changeIndexX, this);
+	    this.model.on("change:indexY", this.changeIndexY, this);
+	    this.model.on("change:indexZ", this.changeIndexZ, this);
 
 	    this.webGLFriendly = true;
 	    
@@ -27,8 +28,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //create all 4 viewers
 
 	    //set width and height according to original canvas, need to update the size!!
-	    var height = $("#canvasViewer3D").height();
-	    var width = $("#canvasViewer3D").width();
+	    var height = $("#canvasViewer0").height();
+	    var width = $("#canvasViewer0").width();
 	    
 	    document.getElementById("xtkViewer_L" + this.layerIndex).style.width = width;
 	    document.getElementById("xtkViewer_L" + this.layerIndex).style.height = height;
@@ -149,6 +150,16 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerX.onShowtime = function() {
 		// add the volume to the other 3 renderers
 
+		console.log('setting initial model');
+		
+		_this.model.set({
+		    indexX: _this.volume.indexX,
+		    indexY: _this.volume.indexY,
+		    indexZ: _this.volume.indexZ,
+		});
+
+		console.log(_this.model);
+
 		_this.viewerY.add(_this.volume);
 		_this.viewerY.render();
 		_this.viewerZ.add(_this.volume);
@@ -165,17 +176,9 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    loaded: true
 		});
 	    };
-
-
-
 	    this.viewerX.onRender = function(){
 		Backbone.trigger('onRender');
 	    };
-
-
-	    //set model layer to be loaded
-	    
-
 	},
 	createData:function() {
 	    // the data holder for the scene
@@ -194,6 +197,15 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    // number of total files - legacy from SliceDrop code
 	    this._numberOfFiles = 1;
 	    this._numberRead = 0;
+	},
+	changeIndexX:function(model, value, options){
+	    this.volume.indexX = value;
+	},
+	changeIndexY:function(model, value, options){
+	    this.volume.indexY = value;
+	},
+	changeIndexZ:function(model, value, options){
+	    this.volume.indexZ = value;
 	},
     });
     return XtkView;
