@@ -1,4 +1,4 @@
-x//need to pass a variable here
+//need to pass a variable here
 
 define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(CanvasViewer2DTemplate, CanvasViewer) {
     var CanvasViewer2D = CanvasViewer.extend({
@@ -9,6 +9,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    });
 	},
 	render:function() {
+	    console.log('CanvasViewer2D.render()');
 	    //console.log($(this.el));
 	    
 	    $(this.el).html(this.template({

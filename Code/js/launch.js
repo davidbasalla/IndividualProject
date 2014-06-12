@@ -27,16 +27,20 @@ require.config({
 	    deps: ['jquery'],
 	    exports: "Bootstrap"
 	},
-	"main": {
+	"views/MainView": {
 	    deps: ['Backbone','xtk','Bootstrap','jqueryUI']
 	},
     },
 });
 
 //load main app
-require(["main"], function(app) {
+require(["views/MainView"], function(MainView) {
+
     console.log('running main');
-    app.initialise();
+
+    var main = new MainView();
+    
+    //app.initialise();
 });
 /*require(['jquery'], function($){
     $('#output').html('Hello World');

@@ -1,4 +1,16 @@
-define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", "collections/LayerList","views/XtkView"], function(LayersTemplate, LayerItemView,  LayerItem, LayerList, XtkView) {
+define(["models/LayerItem",
+	"models/LayersItem",
+	"collections/LayerList",
+	"views/XtkView",
+	"views/LayerItemView",
+	"text!templates/Layers.html"
+       ],
+       function(LayerItem,
+		LayersItem,
+		LayerList,
+		XtkView,
+		LayerItemView,
+		LayersTemplate) {
     
     var LayersView = Backbone.View.extend({
 	//define the template
@@ -7,11 +19,11 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    'click button#add': 'addItem'
 	},
 	initialize:function(options) {
-
-	    this.layersModel = options.layersModel;
-
+	    console.log('LayersView.init()');
+	    
+	    this.layersModel = new LayersItem();
+	    
 	    Backbone.on('layerRemoved', this.removeItem, this);
-	    //Backbone.on('setSelected', this.updateCurrentIndex, this);
 	    Backbone.on('thresholdChange', this.thresholdChange, this);
 	    Backbone.on('levelsChange', this.levelsChange, this);
 	    Backbone.on('xtkInitialised', this.updateCurrentIndex, this);
@@ -23,7 +35,9 @@ define(["text!templates/Layers.html", "views/LayerItemView","models/LayerItem", 
 	    this.collection.bind('add', this.appendItem); // collection event binder
 
 	    this.counter = 0; // total number of items added thus far
-	    
+
+
+	    this.render();
 	},
 	render:function() {
 	    //write the template into the website

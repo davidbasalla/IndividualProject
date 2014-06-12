@@ -51,3 +51,13 @@ html, body {
     height: 27px;
     min-height:27px;
 }
+.navbar{
+      margin-bottom: 0px; 
+}
+#sidePanel{
+      background-color: #999; 
+      width: 350px; 
+      height: 90%;
+      float: left;
+      float: up;
+}

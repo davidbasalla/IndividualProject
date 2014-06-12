@@ -4,9 +4,9 @@ WIP:
         - presets
         - splitters
     - add extra buttons/toggles/modes
-    - work on opac slider?
+
     - add label maps
-    - work on temporary canvas, make stuff customisable
+
     - split out canvasViews into 2D and 3D, add custom panels
         - 3D - has volume rendering
              - has no index slider
@@ -21,24 +21,23 @@ DONE:
 
 
 
+--------------------------------------
+
+- work on customisable layout
+    - determine screen layout
+
+- add extra controls
+    - pan/zoom
+    - shift control to control other slices!
 
 
-Having viewer canvas that copy the XTK views
-Pros:
-    - can add my own overlays
-    - can do sliding/comparisons
-    - can add custom interactors
-    - can hide internal handling of files mess from user (have custom load bar)
-    - allows to have more modular structure with one-time viewers on front-end
+- work on layer structure
+    - A/B buffer
 
-Cons:
-    - have to copy various controls
-    - possible slow down??
+- work on implementing lookups!
+    - for viewer or for layer
+    - for viewer more desirable!
 
+- work on providing online sample files
 
-Controls to overwrite
-    2D:
-        - manipulating slices with shift-click-over
-        - sliceIndex (slider and middle mouse) - NO PROBLEM
-    3D:
-        - 3D controls - could work - NEED TO TEST
+- add navigation panel feedback

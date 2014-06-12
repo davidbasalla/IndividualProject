@@ -9,11 +9,11 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    //console.log(LevelsTemplate);
 	    //console.log(LayerItem);
 	    //console.log(LayerItemView);
-
+	    this.render();
 	},
 	render:function() {
 	    //write the template into the website
-	    this.$el.append(this.template);
+	    this.$el.html(this.template);
 
 	    $( "#rangeSlider1" ).slider({
 		range: true,

@@ -3,6 +3,7 @@
 define(function() {
     var CanvasViewer = Backbone.View.extend({
 	initialize:function(options){
+	    console.log('CanvasViewer.init()');
 	    
 	    this.currentLayer = 0;
 	    this.srcCanvas = null;
@@ -34,7 +35,7 @@ define(function() {
 		this.setMode(3);
 	},
 	setMode:function(mode){
-	    //console.log('setMode(' + mode + ')');
+	    console.log('setMode(' + mode + ')');
 
 	    $($(ThreeDtoggle, this.el)[this.viewerIndex]).removeClass('layer-selected');
 	    $($(Xtoggle, this.el)[this.viewerIndex]).removeClass('layer-selected');
