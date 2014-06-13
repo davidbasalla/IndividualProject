@@ -1,5 +1,10 @@
+/* SHOULD TAKE CARE OF XTK VIEWER MANAGEMENT:
+   - when new viewer is added, add it to an array for querying
+*/
+
 define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWindow.html"],
-       function(CanvasViewer3D, CanvasViewer2D, ViewerWindowTemplate) {
+       function(CanvasViewer3D, CanvasViewer2D, ViewerWindowTemplate)
+       {
 	   var ViewerWindowView = Backbone.View.extend({
 	       el:'#viewerWindow',
 	       template: _.template(ViewerWindowTemplate),
@@ -11,13 +16,37 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   this.layersModel.on("change:currentLayer", this.setCurrentLayerItem, this);
 
 		   Backbone.on('onRender', this.update, this);
-		   
+
 		   this.layerIndex = 0;
 		   this.currentItem = "";
 
 		   this.render();
+		   this.setSize();
 	       },
-	       events: {
+	       setSize:function(){
+		   console.log('ViewerWindowView.setSize()');
+
+		   //RESET THE GLOBAL CONTAINER DIMENSIONS
+		   var height = $('#canvasPanels').height() - 20;
+		   var width = $('#canvasPanels').width() - 20;
+		   
+		   $('.canvasPanel').css({ "height": height/2});
+		   $('.canvasPanel').css({ "width": width/2});
+
+
+		   //RESET THE VIEWER CANVAS DIMENSIONS
+		   var myList = document.getElementsByTagName("canvas");
+
+		   for(var i = 0; i < myList.length; i++){
+		       $(myList[i]).attr("height", height/2 - 40);
+		       $(myList[i]).attr("width", width/2);
+		   }
+
+		   //RESET THE XTK PANELS
+		   console.log('Resizing XTK Panels');
+		   console.log($('#xtkPanels'));
+
+		   
 	       },
 	       render:function() {
 		   //load the template

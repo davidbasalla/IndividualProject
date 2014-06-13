@@ -17,12 +17,41 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.webGLFriendly = true;
 	    
 	    this.render();
+	    this.setSize();
 	},
 	render:function() {
-	    console.log('render()');
+	    console.log('XtkView.render()');
 
-	    this.$el.append(this.template({layerIndex: 'xtkViewer_L' + this.layerIndex}));
+	    this.$el.append(this.template({
+		layerIndex: 'xtkViewer_L' + this.layerIndex,
+		containerIndex3D: 'xtkContainer3D_L' + this.layerIndex,
+		containerIndexX: 'xtkContainerX_L' + this.layerIndex,
+		containerIndexY: 'xtkContainerY_L' + this.layerIndex,
+		containerIndexZ: 'xtkContainerZ_L' + this.layerIndex,
+	    }));
+	    //need to adjust the dimensions of layerIndex div
+
+	    
 	    this.initViewers();
+	},
+	setSize:function(){
+
+	    //RESET THE GLOBAL CONTAINER DIMENSIONS
+	    var height = $('#canvasPanels').height() - 20;
+	    var width = $('#canvasPanels').width() - 20;
+		   
+	    $('.canvasPanel').css({ "height": height/2});
+	    $('.canvasPanel').css({ "width": width/2});
+
+
+	    
+	    //need to resize ALL layers!
+
+	    var height2 = $('#canvasPanels').height();
+	    var width2 = $('#canvasPanels').width();
+	    
+	    $('#xtkViewer_L' + this.layerIndex).css({ "height": height2});
+	    $('#xtkViewer_L' + this.layerIndex).css({ "width": width2});
 	},
 	initViewers:function(){
 	    //create all 4 viewers
@@ -39,10 +68,10 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerY = new X.renderer2D();
 	    this.viewerZ = new X.renderer2D();
 	    
-	    this.viewer3D.container = 'xtkViewer_L' + this.layerIndex;
-	    this.viewerX.container = 'xtkViewer_L' + this.layerIndex;
-	    this.viewerY.container = 'xtkViewer_L' + this.layerIndex;
-	    this.viewerZ.container = 'xtkViewer_L' + this.layerIndex;
+	    this.viewer3D.container = 'xtkContainer3D_L' + this.layerIndex;
+	    this.viewerX.container = 'xtkContainerX_L' + this.layerIndex;
+	    this.viewerY.container = 'xtkContainerY_L' + this.layerIndex;
+	    this.viewerZ.container = 'xtkContainerZ_L' + this.layerIndex;
 	    
 	    this.viewerX.orientation = 'X';
 	    this.viewerY.orientation = 'Y';
@@ -53,15 +82,23 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerY.init();
 	    this.viewerZ.init();
 
-	    //add id's to the canvases
-	    var canvases = document.getElementById('xtkViewer_L' + this.layerIndex);
-	    for(i = j = 0; i < canvases.childNodes.length; i++)
-		if(canvases.childNodes[i].nodeName == 'CANVAS'){
-		    canvases.childNodes[i].setAttribute("id", "xtkCanvas_" + j);
-		    j++;
-		}
 	    
-	    console.log('finished');
+	    //add id's to the canvases, need to go 2 levels deep now, due to nesting
+	    //SUPER DODGY CURRENTLY! - CLEANUP!
+	    
+	    var containers = document.getElementById('xtkViewer_L' + this.layerIndex);
+	    for(i = j = 0; i < containers.childNodes.length; i++){
+		if(containers.childNodes[i].nodeName == 'DIV'){
+		    var children = containers.childNodes[i].childNodes;
+		    console.log('children = ');
+		    console.log(children);
+		    if(children[1].nodeName == 'CANVAS'){
+			children[1].setAttribute("id", "xtkCanvas_" + j);
+			j++;
+		    }
+		}
+	    }
+	    
 	    Backbone.trigger('xtkInitialised', this.model);
 	    //set x to be the master viewer
 	},

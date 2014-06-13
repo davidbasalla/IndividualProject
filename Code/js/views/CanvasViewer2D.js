@@ -10,6 +10,9 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	},
 	render:function() {
 	    console.log('CanvasViewer2D.render()');
+
+	    //_.bindAll(this, 'draw');
+	    
 	    //console.log($(this.el));
 	    
 	    $(this.el).html(this.template({
@@ -22,17 +25,23 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	draw:function(){
 	    //update the canvases
 
-	    //console.log('drawing ' + this.mode);
+
+	    //console.log('CanvasViewer2D.draw(' + this.mode + ')');
+	    //console.log(this);
+	    //console.log(this.srcCanvas);
+
+
+	    
 	    this.ctx.clearRect(0,0,1000,200);
 
 	    //copy image
 	    this.ctx.drawImage(this.srcCanvas, 0, 0);
 
-	    /*
+
 	    //do the overlay
 	    this.ctx.fillStyle = 'white';
 	    this.ctx.font="14px Arial";
-	    this.ctx.fillText("Index: ",10,20);*/
+	    this.ctx.fillText("Index: ",10,20);
 	},
 	scroll:function(e){
 	    
