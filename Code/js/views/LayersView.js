@@ -27,6 +27,8 @@ define(["models/LayerItem",
 	    Backbone.on('thresholdChange', this.thresholdChange, this);
 	    Backbone.on('levelsChange', this.levelsChange, this);
 	    Backbone.on('xtkInitialised', this.updateCurrentIndex, this);
+
+	    Backbone.on('setSelected', this.setCurrentLayer, this);
 	    
 
 	    this.currentLayerIndex = 0;
@@ -63,14 +65,6 @@ define(["models/LayerItem",
 	    
 	    this.counter++;
 	},
-	updateCurrentIndex: function(item){
-	    console.log('updateCurrentIndex');
-	    // this needs to happen after xtkViewers have been loaded
-	    this.layersModel.set({
-		currentLayer: this.counter,
-		currentItem: item
-	    });
-	},
 	appendItem: function(item){
 	    var itemView = new LayerItemView({
 		model: item
@@ -84,11 +78,37 @@ define(["models/LayerItem",
 	    
 	    console.log(this.collection);
 	},
-	setCurrentLayer: function(layerIndex){
+	setCurrentLayer: function(args){
 	    //change the current model to reflect this!
 	    
-	    this.currentLayerIndex = layerIndex;
+	    //console.log('LayersView.setCurrentLayer()');
 
+	    this.layersModel.set({
+		currentLayer: args[0],
+		currentItem: args[1]
+	    });
+
+	    console.log('Looping through the collection:');
+	    
+	    //loop through all remaining and set to unselected
+	    for(var index in this.collection.models){
+
+		var item = this.collection.models[index];
+		
+		//set unselected
+		if (item.get('index') == args[0]){
+		    item.set({
+			selected: true
+		    });
+		}
+		else{
+		    item.set({
+			selected: false
+		    });
+		};
+	    };
+	
+	    /*
 	    //set levels back to what they should be
 	    var items = this.collection.where({ index : this.currentLayerIndex })
 
@@ -111,6 +131,7 @@ define(["models/LayerItem",
 	    $("#rangeSlider1").slider('values',1,wH);
 	    $("#rangeSlider2").slider('values',0,tL); 
 	    $("#rangeSlider2").slider('values',1,tH); 
+	    */
 	},
 	thresholdChange: function(args){
 	    //console.log('triggering layerThresholdChange');

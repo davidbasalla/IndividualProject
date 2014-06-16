@@ -93,7 +93,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    console.log('children = ');
 		    console.log(children);
 		    if(children[1].nodeName == 'CANVAS'){
-			children[1].setAttribute("id", "xtkCanvas_" + j);
+			children[1].setAttribute("id", "xtkCanvas_L" + this.layerIndex + "_" + j);
 			j++;
 		    }
 		}

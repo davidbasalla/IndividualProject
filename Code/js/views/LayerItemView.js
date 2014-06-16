@@ -4,14 +4,30 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	tagName: 'li', // name of (orphan) root tag in this.el
 	template: _.template(LayerTemplate),
 	
-	initialize: function(){
-	    //_.bindAll(this, 'render'); // every function that uses 'this' as the current object should be in here
-    	
-	    //viewerWindow.initViewer();
+	initialize: function(options){
 
-	    Backbone.on('setSelected', this.setUnselected, this);
+	    console.log('LayerItemView.init()');
+	    this.model = options.model;
+
+	    console.log('this.model = ');
+	    console.log(this.model);
+
+	    this.model.on("change:selected", this.toggleSelected, this);
+
+	},
+	toggleSelected: function(model, value, options){
+
+	    console.log('LayerItemView.toggleSelected(' + value + ')');
+
+	    if(value){
+		$(this.el).removeClass('layer-unselected');
+		$(this.el).addClass('layer-selected');
+	    }
+	    else{
+		$(this.el).removeClass('layer-selected');
+		$(this.el).addClass('layer-unselected');
+	    }
 	    
-	    //Backbone.trigger('newLayer', this.model.attributes.title);
 	},
 	events: {
 	    //event for toggling visibility
@@ -39,17 +55,12 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    return this; // for chainable calls, like .render().el
 	},
 	setSelected: function(){
+	    //console.log('LayerItemView.setSelected()');
+	    
 	    $(this.el).removeClass('layer-unselected');
 	    $(this.el).addClass('layer-selected');
-	    
-	    Backbone.trigger('setSelected', this.model.attributes.index);
-	},
-	setUnselected: function(layerIndex){
 
-	    if (this.model.attributes.index!=layerIndex){
-		$(this.el).removeClass('layer-selected');
-		$(this.el).addClass('layer-unselected');
-	    }
+	    Backbone.trigger('setSelected', [this.model.attributes.index, this.model]);
 	},
 	loadFile: function(){
 	    //trigger the hidden fileLoader
@@ -74,7 +85,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	},
 	labelLoaded: function(e){
 	    //add text to layer preview
-	    console.log('labelLoaded()');
+	    //console.log('labelLoaded()');
 	    //$('#textHolder', this.el).html(e.currentTarget.files[0].name);
 	    
 	    //call draw function
@@ -86,7 +97,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    $(this.el).remove();
 	},
 	addLabelMap: function(){
-	    console.log('addLabelMap');
+	    //console.log('addLabelMap');
 	    //console.log($(this.el));
 	    //console.log($(this.el.parentElement));
 	    //$('#layerList', this.el.parentElement).append('<li>TEST</li>')

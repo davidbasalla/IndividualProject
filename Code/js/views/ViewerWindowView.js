@@ -13,12 +13,11 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   
 		   //set the current layer
 		   this.layersModel = options.layersModel;
-		   this.layersModel.on("change:currentLayer", this.setCurrentLayerItem, this);
+		   this.layersModel.on("change:currentLayer", this.setCurrentLayer, this);
 
 		   Backbone.on('onRender', this.update, this);
 
-		   this.layerIndex = 0;
-		   this.currentItem = "";
+		   this.currentItem = null;
 
 		   this.render();
 		   this.setSize();
@@ -88,24 +87,32 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   this.viewer3.render();
 		   this.viewer3.setMode(3);
 	       },
-	       setCurrentLayerItem:function(model, value, options){
-		   // console.log('viewerWindowView.setCurrentLayerItem()');
+	       setCurrentLayer:function(model, value, options){
 
+		   /*
+		   console.log('ViewerWindowView.setCurrentLayer()');
+		   console.log(model);
+		   console.log(value);
+		   console.log(options);
+		   console.log(this.currentItem);
+		   */
+
+		   /*
 		   //turn OFF triggers for previous object
 		   if(this.currentItem)
-		       this.currentItem.off("change:loaded", this.update, this);
+		   this.currentItem.off("change:loaded", this.update, this);
+		   */
 
 		   //turn ON triggers for current object
 		   this.currentItem = model.get('currentItem');
-		   this.currentItem.on("change:loaded", this.update, this);
+		   //this.currentItem.on("change:loaded", this.update, this);
 
 
 		   //need to set the canvas to copy from
-		   this.viewer0.setCurrentItem(this.currentItem);
-		   this.viewer1.setCurrentItem(this.currentItem);
-		   this.viewer2.setCurrentItem(this.currentItem);
-		   this.viewer3.setCurrentItem(this.currentItem);
-		   
+		   this.viewer0.setCurrentLayer(value, this.currentItem);
+		   this.viewer1.setCurrentLayer(value, this.currentItem);
+		   this.viewer2.setCurrentLayer(value, this.currentItem);
+		   this.viewer3.setCurrentLayer(value, this.currentItem);
 	       },
 	       update:function(){
 		   //console.log('ViewerWindowView.update()');
@@ -122,15 +129,17 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   
 		   //console.log('ViewerWindowView.scroll()');
 
-		   var oldX = this.currentItem.get('indexX');
-		   if(e.originalEvent.wheelDelta < 0)
-		       this.currentItem.set({
-			   indexX: oldX - 1,
-		       });
-		   else
-		       this.currentItem.set({
-			   indexX: oldX + 1,
-		       });
+		   if(this.currentItem){
+		       var oldX = this.currentItem.get('indexX');
+		       if(e.originalEvent.wheelDelta < 0)
+			   this.currentItem.set({
+			       indexX: oldX - 1,
+			   });
+		       else
+			   this.currentItem.set({
+			       indexX: oldX + 1,
+			   });
+		   }
 	       },
 	   });
 	   return ViewerWindowView;

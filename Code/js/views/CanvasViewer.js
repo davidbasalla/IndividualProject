@@ -18,8 +18,10 @@ define(function() {
 	    'click button#Ytoggle': 'setModeHandler',
 	    'click button#Ztoggle': 'setModeHandler',
 	},
-	setCurrentLayer:function(args){
-	    this.currentLayer = args;
+	setCurrentLayer:function(currentLayer, currentItem){
+	    this.currentLayer = currentLayer;
+	    this.currentItem = currentItem;
+	    this.setSrcCanvas();
 	},
 	setModeHandler:function(e){
 
@@ -35,7 +37,7 @@ define(function() {
 		this.setMode(3);
 	},
 	setMode:function(mode){
-	    console.log('setMode(' + mode + ')');
+	    //console.log('setMode(' + mode + ')');
 
 	    $($(ThreeDtoggle, this.el)[this.viewerIndex]).removeClass('layer-selected');
 	    $($(Xtoggle, this.el)[this.viewerIndex]).removeClass('layer-selected');
@@ -57,10 +59,6 @@ define(function() {
 	    this.mode = mode;
 	    this.setSrcCanvas();
 	},
-	setCurrentItem:function(item){
-	    this.currentItem = item;
-	    this.setSrcCanvas();
-	},
 	setSrcCanvas:function(){
 	    //console.log('settingSrc');
 
@@ -70,8 +68,8 @@ define(function() {
 	    //do not get context for 3D
 	    
 	    this.ctx = this.canvas.getContext("2d");
+	    this.srcCanvas = document.getElementById("xtkCanvas_L" + this.currentLayer + "_" + this.mode);
 
-	    this.srcCanvas = document.getElementById("xtkCanvas_" + this.mode);
 	},
     });
     return CanvasViewer;
