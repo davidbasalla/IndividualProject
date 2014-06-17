@@ -14,7 +14,9 @@ define(["models/LayerItem",
 	//define the template
 	template: _.template(LayersTemplate),
 	events: {
-	    'click button#add': 'addItem'
+	    'click button#add': 'addItem',
+	    'click button#bufferA':'handleClick',
+	    'click button#bufferB':'handleClick',
 	},
 	initialize:function(options) {
 	    console.log('LayersView.init()');
@@ -45,13 +47,6 @@ define(["models/LayerItem",
 	    //write the template into the website
 	    this.$el.html(this.template);
 	},
-	/*
-	toggleBuffer:function(model, value, options){
-	    console.log('toggleBuffer()');
-	    console.log(value);
-
-	    //this.setCurrentLayer();
-	},*/
 	addItem: function(){
 
 	    //create new item in collection
@@ -72,9 +67,7 @@ define(["models/LayerItem",
 	    this.counter++;
 	},
 	appendItem: function(item){
-	    console.log('layersModel = ');
-	    console.log(this.layersModel);
-	    
+    
 	    var itemView = new LayerItemView({
 		model: item,
 		layersModel: this.layersModel,
@@ -90,10 +83,8 @@ define(["models/LayerItem",
 	},
 	setCurrentLayer: function(){
 	    //change the current model to reflect this!
-	    console.log('LayersView.setCurrentLayer()');
+	    //console.log('LayersView.setCurrentLayer()');
 
-	    //console.log('Looping through the collection:');
-	    
 	    //loop through all remaining and set to unselected
 	    for(var index in this.collection.models){
 
@@ -153,6 +144,28 @@ define(["models/LayerItem",
 	    var items = this.collection.where({index : this.currentLayerIndex })
 	    items[0].set({windowLow: args[0],windowHigh: args[1]});
 	    
+	},
+	handleClick:function(value){
+	    if (value.currentTarget.id == 'bufferA')
+		this.setBuffer(0);
+	    else 
+		this.setBuffer(1);
+	},
+	setBuffer:function(value){
+	    if(this.layersModel.toggleBuffer(value)){
+		if (value == 0){
+		    $('#bufferB', this.el).removeClass('layer-selected');
+		    $('#bufferB', this.el).addClass('layer-unselected');
+		    $('#bufferA', this.el).removeClass('layer-unselected');
+		    $('#bufferA', this.el).addClass('layer-selected');
+		}
+		else{
+		    $('#bufferA', this.el).removeClass('layer-selected');
+		    $('#bufferA', this.el).addClass('layer-unselected');
+		    $('#bufferB', this.el).removeClass('layer-unselected');
+		    $('#bufferB', this.el).addClass('layer-selected');
+		}
+	    }
 	},
     });
 

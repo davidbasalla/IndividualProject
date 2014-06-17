@@ -10,6 +10,8 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 	       template: _.template(ViewerWindowTemplate),
 	       initialize:function(options) {
 		   console.log('ViewerWindowView.init()');
+
+
 		   
 		   //set the current layer
 		   this.layersModel = options.layersModel;
@@ -44,8 +46,6 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   //RESET THE XTK PANELS
 		   console.log('Resizing XTK Panels');
 		   console.log($('#xtkPanels'));
-
-		   
 	       },
 	       render:function() {
 		   //load the template

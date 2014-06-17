@@ -13,25 +13,32 @@ define(function() {
 	},
 	toggleBuffer:function(index){
 	    //function to swap buffers
-	    console.log('LayersItem.toggleBuffer(' + index + ')');
-	    console.log(this);
-
-	    if(index == 0){
-		this.set({bufferItemB: this.get('currentItem')});
-		this.set({bufferLayerB: this.get('currentLayer')});
-		this.set({currentItem: this.get('bufferItemA')})
-		this.set({currentLayer: this.get('bufferLayerA')});
+	    //console.log('LayersItem.toggleBuffer(' + index + ')');
+	    
+	    if(index != this.get('currentBuffer')){
+		//console.log('TOGGLING');
+		if(index == 0){
+		    this.set({bufferItemB: this.get('currentItem')});
+		    this.set({bufferLayerB: this.get('currentLayer')});
+		    this.set({currentItem: this.get('bufferItemA')})
+		    this.set({currentLayer: this.get('bufferLayerA')});
+		}
+		else{
+		    this.set({bufferItemA: this.get('currentItem')});
+		    this.set({bufferLayerA: this.get('currentLayer')});
+		    this.set({currentItem: this.get('bufferItemB')})
+		    this.set({currentLayer: this.get('bufferLayerB')});
+		}
+		this.set({currentBuffer: index});
+		return true;
 	    }
 	    else{
-		this.set({bufferItemA: this.get('currentItem')});
-		this.set({bufferLayerA: this.get('currentLayer')});
-		this.set({currentItem: this.get('bufferItemB')})
-		this.set({currentLayer: this.get('bufferLayerB')});
-
+		//console.log('NOT TOGGLING');
+		return false;
 	    }
-	    this.set({currentBuffer: index});
 	},
     });
-
+    
     return LayersItem;
 });
+

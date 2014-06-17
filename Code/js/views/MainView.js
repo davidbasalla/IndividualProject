@@ -7,6 +7,10 @@ define(["views/NavBarView", "views/SidePanelView", "views/ViewerWindowView"],
 		   //INTERESTING, NEED TO THIS KEEP FOCUS FOR SET_SIZE FUNCTION!
 		   _.bindAll(this, 'setSize');
 
+		   //used for adding key presses
+		   _.bindAll(this, 'keyPressHandler');
+		   $(document).bind('keypress', this.keyPressHandler);
+		   
 		   //EVENT FOR RESIZING OF WINDOW
 		   $(window).on("resize", this.setSize);
 
@@ -27,6 +31,14 @@ define(["views/NavBarView", "views/SidePanelView", "views/ViewerWindowView"],
 		   //set size first time
 		   this.setSize();
 		   
+	       },
+	       keyPressHandler: function(e){
+		   //console.log(e.keyCode);
+
+		   if(e.keyCode == 49)
+		       this.sidePanel.toggleBuffer(0);
+		   else if(e.keyCode == 50)
+		       this.sidePanel.toggleBuffer(1);
 	       },
 	       setSize:function(){
 		   console.log('MainView.setSize()');

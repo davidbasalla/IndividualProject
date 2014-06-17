@@ -1,5 +1,5 @@
-define(["models/LayersItem", "views/LayersView", "views/LevelsView", "views/BufferView", "text!templates/SidePanel.html"],
-       function(LayersItem, LayersView, LevelsView, BufferView, SidePanelTemplate) {
+define(["models/LayersItem", "views/LayersView", "views/LevelsView", "text!templates/SidePanel.html"],
+       function(LayersItem, LayersView, LevelsView, SidePanelTemplate) {
 	   var SidePanelView = Backbone.View.extend({
 	       template: _.template(SidePanelTemplate),
 	       events: {
@@ -19,17 +19,14 @@ define(["models/LayersItem", "views/LayersView", "views/LevelsView", "views/Buff
 		       layersModel: layersModel,
 		   });
 
-		   //INIT BUFFERS
-		   this.bufferView = new BufferView({
-		       el: $('#bufferTab'),
-		       layersModel: layersModel,
-		   });
-		   
 		   //INIT LEVELS
 		   this.levelsView = new LevelsView({
 		       el: $('#levelsTab'),
 		       layersModel: layersModel,
 		   });
+	       },
+	       toggleBuffer:function(index){
+		   this.layersView.setBuffer(index);
 	       },
 	   });
 	   return SidePanelView;
