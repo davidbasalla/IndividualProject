@@ -1,12 +1,10 @@
 define(["models/LayerItem",
-	"models/LayersItem",
 	"collections/LayerList",
 	"views/XtkView",
 	"views/LayerItemView",
 	"text!templates/Layers.html"
        ],
        function(LayerItem,
-		LayersItem,
 		LayerList,
 		XtkView,
 		LayerItemView,
@@ -21,15 +19,17 @@ define(["models/LayerItem",
 	initialize:function(options) {
 	    console.log('LayersView.init()');
 	    
-	    this.layersModel = new LayersItem();
+	    _.bindAll(this, 'appendItem');
 	    
+	    this.layersModel = options.layersModel;
+	    //this.layersModel.on("change:currentBuffer", this.toggleBuffer, this);
+	    this.layersModel.on("change:currentLayer", this.setCurrentLayer, this);
+
 	    Backbone.on('layerRemoved', this.removeItem, this);
 	    Backbone.on('thresholdChange', this.thresholdChange, this);
 	    Backbone.on('levelsChange', this.levelsChange, this);
 	    Backbone.on('xtkInitialised', this.updateCurrentIndex, this);
 
-	    Backbone.on('setSelected', this.setCurrentLayer, this);
-	    
 
 	    this.currentLayerIndex = 0;
 	    
@@ -45,6 +45,13 @@ define(["models/LayerItem",
 	    //write the template into the website
 	    this.$el.html(this.template);
 	},
+	/*
+	toggleBuffer:function(model, value, options){
+	    console.log('toggleBuffer()');
+	    console.log(value);
+
+	    //this.setCurrentLayer();
+	},*/
 	addItem: function(){
 
 	    //create new item in collection
@@ -54,23 +61,26 @@ define(["models/LayerItem",
 		title: item.get('title') + this.counter,
 		index: this.counter,
 	    });
-	    this.collection.add(item);
-
 
 	    //adding new set of XTK viewers
 	    var xtkViewer = new XtkView({
 		layerIndex: this.counter,
 		model: item,
 	    });
-	    
+
+	    this.collection.add(item);
 	    this.counter++;
 	},
 	appendItem: function(item){
+	    console.log('layersModel = ');
+	    console.log(this.layersModel);
+	    
 	    var itemView = new LayerItemView({
-		model: item
+		model: item,
+		layersModel: this.layersModel,
 	    });
 	    $('#layerList', this.el).append(itemView.render().el);
-	    itemView.setSelected();
+	    itemView.setSelected(); //select the newly created item!
 	},
 	removeItem: function(layer){
 
@@ -78,25 +88,19 @@ define(["models/LayerItem",
 	    
 	    console.log(this.collection);
 	},
-	setCurrentLayer: function(args){
+	setCurrentLayer: function(){
 	    //change the current model to reflect this!
-	    
-	    //console.log('LayersView.setCurrentLayer()');
+	    console.log('LayersView.setCurrentLayer()');
 
-	    this.layersModel.set({
-		currentLayer: args[0],
-		currentItem: args[1]
-	    });
-
-	    console.log('Looping through the collection:');
+	    //console.log('Looping through the collection:');
 	    
 	    //loop through all remaining and set to unselected
 	    for(var index in this.collection.models){
 
 		var item = this.collection.models[index];
 		
-		//set unselected
-		if (item.get('index') == args[0]){
+		//set selected
+		if (item.get('index') == this.layersModel.get('currentLayer')){
 		    item.set({
 			selected: true
 		    });

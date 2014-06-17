@@ -3,9 +3,34 @@ define(function() {
 
     var LayersItem = Backbone.Model.extend({
 	defaults: {
-	    currentLayer: false,
-	    currentItem: false
-	}
+	    currentLayer: 0,
+	    currentItem: false,
+	    bufferLayerA: 0,
+	    bufferLayerB: 0,
+	    bufferItemA: 0,
+	    bufferItemB: 0,
+	    currentBuffer: 0,
+	},
+	toggleBuffer:function(index){
+	    //function to swap buffers
+	    console.log('LayersItem.toggleBuffer(' + index + ')');
+	    console.log(this);
+
+	    if(index == 0){
+		this.set({bufferItemB: this.get('currentItem')});
+		this.set({bufferLayerB: this.get('currentLayer')});
+		this.set({currentItem: this.get('bufferItemA')})
+		this.set({currentLayer: this.get('bufferLayerA')});
+	    }
+	    else{
+		this.set({bufferItemA: this.get('currentItem')});
+		this.set({bufferLayerA: this.get('currentLayer')});
+		this.set({currentItem: this.get('bufferItemB')})
+		this.set({currentLayer: this.get('bufferLayerB')});
+
+	    }
+	    this.set({currentBuffer: index});
+	},
     });
 
     return LayersItem;

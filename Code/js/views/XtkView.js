@@ -20,7 +20,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.setSize();
 	},
 	render:function() {
-	    console.log('XtkView.render()');
+	    //console.log('XtkView.render()');
 
 	    this.$el.append(this.template({
 		layerIndex: 'xtkViewer_L' + this.layerIndex,
@@ -90,8 +90,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    for(i = j = 0; i < containers.childNodes.length; i++){
 		if(containers.childNodes[i].nodeName == 'DIV'){
 		    var children = containers.childNodes[i].childNodes;
-		    console.log('children = ');
-		    console.log(children);
 		    if(children[1].nodeName == 'CANVAS'){
 			children[1].setAttribute("id", "xtkCanvas_L" + this.layerIndex + "_" + j);
 			j++;
@@ -105,8 +103,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	loadFile:function(model, value, options){
 	    //do file stuff, load it into the master viewer
 	    console.log('XtkView:loadFile()');
-	    console.log(model);
-	    console.log(value);
 
 	    var file = value;
 
@@ -195,7 +191,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    indexZ: _this.volume.indexZ,
 		});
 
-		console.log(_this.model);
 
 		_this.viewerY.add(_this.volume);
 		_this.viewerY.render();

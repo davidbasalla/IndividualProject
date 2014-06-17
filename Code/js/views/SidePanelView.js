@@ -1,26 +1,37 @@
-define(["views/LayersView", "views/LevelsView", "text!templates/SidePanel.html"],
-       function(LayersView, LevelsView, SidePanelTemplate) {
-    var SidePanelView = Backbone.View.extend({
-	template: _.template(SidePanelTemplate),
-	events: {
-	},
-	initialize:function() {
-	    this.render();
-	},
-	render:function() {
-	    this.$el.html(this.template);
+define(["models/LayersItem", "views/LayersView", "views/LevelsView", "views/BufferView", "text!templates/SidePanel.html"],
+       function(LayersItem, LayersView, LevelsView, BufferView, SidePanelTemplate) {
+	   var SidePanelView = Backbone.View.extend({
+	       template: _.template(SidePanelTemplate),
+	       events: {
+	       },
+	       initialize:function() {
+		   this.render();
+	       },
+	       render:function() {
+		   this.$el.html(this.template);
 
-	    //INIT LAYERS
-	    this.layersView = new LayersView({
-		el: $('#layersTab'),
-	    });
+		   //INIT LAYERS MODEL TO KEEP TRACK OF CHANGES
+		   var layersModel = new LayersItem();
+		   
+		   //INIT LAYERS
+		   this.layersView = new LayersView({
+		       el: $('#layersTab'),
+		       layersModel: layersModel,
+		   });
 
-	    //INIT LEVELS
-	    this.levelsView = new LevelsView({
-		el: $('#levelsTab'),
-	    });
-	},
-    });
-    return SidePanelView;
-    
-});
+		   //INIT BUFFERS
+		   this.bufferView = new BufferView({
+		       el: $('#bufferTab'),
+		       layersModel: layersModel,
+		   });
+		   
+		   //INIT LEVELS
+		   this.levelsView = new LevelsView({
+		       el: $('#levelsTab'),
+		       layersModel: layersModel,
+		   });
+	       },
+	   });
+	   return SidePanelView;
+	   
+       });

@@ -60,7 +60,7 @@ define(function() {
 	    this.setSrcCanvas();
 	},
 	setSrcCanvas:function(){
-	    //console.log('settingSrc');
+	    console.log('settingSrc');
 
 	    //DST CANVAS
 	    this.canvas = document.getElementById("canvasViewer" + this.viewerIndex);
@@ -69,6 +69,7 @@ define(function() {
 	    
 	    this.ctx = this.canvas.getContext("2d");
 	    this.srcCanvas = document.getElementById("xtkCanvas_L" + this.currentLayer + "_" + this.mode);
+	    //console.log(this.srcCanvas);
 
 	},
     });

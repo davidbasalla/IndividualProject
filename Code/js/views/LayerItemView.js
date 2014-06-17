@@ -8,9 +8,11 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 
 	    console.log('LayerItemView.init()');
 	    this.model = options.model;
-
+	    this.layersModel = options.layersModel;
+	    
 	    console.log('this.model = ');
 	    console.log(this.model);
+	    console.log(this.layersModel);
 
 	    this.model.on("change:selected", this.toggleSelected, this);
 
@@ -60,7 +62,12 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    $(this.el).removeClass('layer-unselected');
 	    $(this.el).addClass('layer-selected');
 
-	    Backbone.trigger('setSelected', [this.model.attributes.index, this.model]);
+	    this.layersModel.set({
+		currentLayer: this.model.get('index'),
+		currentItem: this.model,
+	    });
+	    
+		//Backbone.trigger('setSelected', [this.model.attributes.index, this.model]);
 	},
 	loadFile: function(){
 	    //trigger the hidden fileLoader

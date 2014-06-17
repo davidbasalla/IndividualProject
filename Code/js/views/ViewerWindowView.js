@@ -89,8 +89,9 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 	       },
 	       setCurrentLayer:function(model, value, options){
 
-		   /*
 		   console.log('ViewerWindowView.setCurrentLayer()');
+
+		   /*
 		   console.log(model);
 		   console.log(value);
 		   console.log(options);
@@ -103,6 +104,10 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   this.currentItem.off("change:loaded", this.update, this);
 		   */
 
+		   this.layersModel.set({
+		       currentLayer:value
+		   });
+		   
 		   //turn ON triggers for current object
 		   this.currentItem = model.get('currentItem');
 		   //this.currentItem.on("change:loaded", this.update, this);

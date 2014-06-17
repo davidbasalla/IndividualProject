@@ -30,8 +30,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    //console.log(this);
 	    //console.log(this.srcCanvas);
 
-
-	    
 	    this.ctx.clearRect(0,0,1000,200);
 
 	    //copy image
