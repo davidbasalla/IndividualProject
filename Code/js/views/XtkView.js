@@ -9,10 +9,15 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.layerIndex = options.layerIndex;
 	    this.model = options.model;
 
+	    //set up listeners to current layer item
 	    this.model.on("change:fileName", this.loadFile, this);
 	    this.model.on("change:indexX", this.changeIndexX, this);
 	    this.model.on("change:indexY", this.changeIndexY, this);
 	    this.model.on("change:indexZ", this.changeIndexZ, this);
+	    this.model.on("change:windowLow", this.setWindowLow, this);
+	    this.model.on("change:windowHigh", this.setWindowHigh, this);
+	    this.model.on("change:thresholdLow", this.setThresholdLow, this);
+	    this.model.on("change:thresholdHigh", this.setThresholdHigh, this);
 
 	    this.webGLFriendly = true;
 	    
@@ -184,14 +189,10 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		// add the volume to the other 3 renderers
 
 		console.log('setting initial model');
+
+		//store initial values into the layerModel
+		_this.storeValues();
 		
-		_this.model.set({
-		    indexX: _this.volume.indexX,
-		    indexY: _this.volume.indexY,
-		    indexZ: _this.volume.indexZ,
-		});
-
-
 		_this.viewerY.add(_this.volume);
 		_this.viewerY.render();
 		_this.viewerZ.add(_this.volume);
@@ -212,6 +213,32 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerX.onRender = function(){
 		Backbone.trigger('onRender');
 	    };
+	},
+	storeValues:function(){
+	    console.log('XtkView.storeValues()');
+
+	    //setting indexes
+	    this.model.set({
+		indexX: this.volume.indexX,
+		indexY: this.volume.indexY,
+		indexZ: this.volume.indexZ,
+	    });
+	    
+	    //setting levels/window values
+	    this.model.set({
+		//ORIG
+		windowLowOrig: this.volume.windowLow,
+		windowHighOrig: this.volume.windowHigh,
+		thresholdLowOrig: this.volume.lowerThreshold,
+		thresholdHighOrig: this.volume.upperThreshold,
+		//CURRENT
+		windowLow: this.volume.windowLow,
+		windowHigh: this.volume.windowHigh,
+		thresholdLow: this.volume.lowerThreshold,
+		thresholdHigh: this.volume.upperThreshold,
+	    }); 
+	    
+	    Backbone.trigger('initValuesStored');
 	},
 	createData:function() {
 	    // the data holder for the scene
@@ -239,6 +266,18 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	},
 	changeIndexZ:function(model, value, options){
 	    this.volume.indexZ = value;
+	},
+	setWindowLow:function(model, value, options){
+	    this.volume.windowLow = value;
+	},
+	setWindowHigh:function(model, value, options){
+	    this.volume.windowHigh = value;
+	},
+	setThresholdLow:function(model, value, options){
+	    this.volume.lowerThreshold = value;
+	},
+	setThresholdHigh:function(model, value, options){
+	    this.volume.upperThreshold = value;
 	},
     });
     return XtkView;

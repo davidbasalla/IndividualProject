@@ -45,6 +45,16 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 		value: 100
 	    });
 	},
+	setWindowOrigValues:function(value){
+	    console.log('setWindowLowOrig');
+
+	    console.log($( "#rangeSlider1" ));
+	    //set slider range values correctly
+	    //set the number correctly
+	    
+	},
+
+	
     });
 
     

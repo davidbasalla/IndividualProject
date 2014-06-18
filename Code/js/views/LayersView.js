@@ -29,8 +29,8 @@ define(["models/LayerItem",
 	    Backbone.on('layerRemoved', this.removeItem, this);
 	    Backbone.on('thresholdChange', this.thresholdChange, this);
 	    Backbone.on('levelsChange', this.levelsChange, this);
+	    Backbone.on('initValuesStored', this.resetSliders, this);
 	    Backbone.on('xtkInitialised', this.updateCurrentIndex, this);
-
 
 	    this.currentLayerIndex = 0;
 	    
@@ -38,7 +38,6 @@ define(["models/LayerItem",
 	    this.collection.bind('add', this.appendItem); // collection event binder
 
 	    this.counter = 0; // total number of items added thus far
-
 
 	    this.render();
 	},
@@ -104,18 +103,21 @@ define(["models/LayerItem",
 		};
 	    };
 	
-	    /*
-	    //set levels back to what they should be
-	    var items = this.collection.where({ index : this.currentLayerIndex })
-
 
 	    /////////////////////////////////////////////////////
+
+	    this.resetSliders();
+	    this.setLevelValues();
+	    
+	},
+	setLevelValues: function(){
+	    var currentItem = this.layersModel.get('currentItem');
 	    
 	    //set text value
-	    var wL = items[0].get("windowLow");
-	    var wH = items[0].get("windowHigh");
-	    var tL = items[0].get("thresholdLow");
-	    var tH = items[0].get("thresholdHigh");
+	    var wL = currentItem.get("windowLow");
+	    var wH = currentItem.get("windowHigh");
+	    var tL = currentItem.get("thresholdLow");
+	    var tH = currentItem.get("thresholdHigh");
 
 	    $( "#levelLow" ).val(wL);
 	    $( "#levelHigh" ).val(wH);
@@ -127,24 +129,38 @@ define(["models/LayerItem",
 	    $("#rangeSlider1").slider('values',1,wH);
 	    $("#rangeSlider2").slider('values',0,tL); 
 	    $("#rangeSlider2").slider('values',1,tH); 
-	    */
 	},
 	thresholdChange: function(args){
-	    //console.log('triggering layerThresholdChange');
+	    console.log('triggering layerThresholdChange');
 	    Backbone.trigger('layerThresholdChange', [this.currentLayerIndex, args[0], args[1]]);
 
 	    //update the model
-	    var items = this.collection.where({ index : this.currentLayerIndex })
-	    items[0].set({thresholdLow: args[0],thresholdHigh: args[1]});
+	    var currentItem = this.layersModel.get('currentItem');
+	    currentItem.set({thresholdLow: args[0],thresholdHigh: args[1]});
 	},
 	levelsChange: function(args){
-	    //console.log('triggering layerThresholdChange');
+	    console.log('triggering layerLevelsChange');
 	    Backbone.trigger('layerLevelsChange', [this.currentLayerIndex, args[0], args[1]]);
 
 	    //update the model
-	    var items = this.collection.where({index : this.currentLayerIndex })
-	    items[0].set({windowLow: args[0],windowHigh: args[1]});
-	    
+	    var currentItem = this.layersModel.get('currentItem');
+	    currentItem.set({windowLow: args[0],windowHigh: args[1]});
+	},
+	resetSliders:function(){
+	    console.log('LayersView.resetSliders()');
+
+	    var currentItem = this.layersModel.get('currentItem');
+
+	    //set original values
+	    var wLO = currentItem.get("windowLowOrig");
+	    var wHO = currentItem.get("windowHighOrig");
+	    var tLO = currentItem.get("thresholdLowOrig");
+	    var tHO = currentItem.get("thresholdHighOrig");
+
+	    $("#rangeSlider1").slider('option',{min: wLO, max: wHO});
+	    $("#rangeSlider2").slider('option',{min: tLO, max: tHO}); 
+
+	    this.setLevelValues();
 	},
 	handleClick:function(value){
 	    if (value.currentTarget.id == 'bufferA')
