@@ -40,6 +40,10 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 		    Backbone.trigger('thresholdChange', [ui.values[0],ui.values[1]]);
 		}
 	    });
+
+	    $( "#opacitySlider" ).slider({
+		value: 100
+	    });
 	},
     });
 

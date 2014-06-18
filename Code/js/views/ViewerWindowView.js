@@ -11,8 +11,6 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 	       initialize:function(options) {
 		   console.log('ViewerWindowView.init()');
 
-
-		   
 		   //set the current layer
 		   this.layersModel = options.layersModel;
 		   this.layersModel.on("change:currentLayer", this.setCurrentLayer, this);

@@ -25,7 +25,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	draw:function(){
 	    //update the canvases
 
-
 	    //console.log('CanvasViewer2D.draw(' + this.mode + ')');
 	    //console.log(this);
 	    //console.log(this.srcCanvas);

@@ -24,7 +24,6 @@ define(["models/LayerItem",
 	    _.bindAll(this, 'appendItem');
 	    
 	    this.layersModel = options.layersModel;
-	    //this.layersModel.on("change:currentBuffer", this.toggleBuffer, this);
 	    this.layersModel.on("change:currentLayer", this.setCurrentLayer, this);
 
 	    Backbone.on('layerRemoved', this.removeItem, this);
@@ -67,13 +66,15 @@ define(["models/LayerItem",
 	    this.counter++;
 	},
 	appendItem: function(item){
-    
+	    console.log('LayersView.appendItem()');
+	    
 	    var itemView = new LayerItemView({
 		model: item,
 		layersModel: this.layersModel,
 	    });
 	    $('#layerList', this.el).append(itemView.render().el);
 	    itemView.setSelected(); //select the newly created item!
+	    this.setCurrentLayer();
 	},
 	removeItem: function(layer){
 

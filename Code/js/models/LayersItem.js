@@ -3,7 +3,7 @@ define(function() {
 
     var LayersItem = Backbone.Model.extend({
 	defaults: {
-	    currentLayer: 0,
+	    currentLayer: -1,
 	    currentItem: false,
 	    bufferLayerA: 0,
 	    bufferLayerB: 0,

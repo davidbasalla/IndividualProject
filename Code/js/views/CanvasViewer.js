@@ -69,7 +69,7 @@ define(function() {
 	    
 	    this.ctx = this.canvas.getContext("2d");
 	    this.srcCanvas = document.getElementById("xtkCanvas_L" + this.currentLayer + "_" + this.mode);
-	    //console.log(this.srcCanvas);
+	    console.log(this.srcCanvas);
 
 	},
     });

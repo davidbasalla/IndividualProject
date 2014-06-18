@@ -9,17 +9,11 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    console.log('LayerItemView.init()');
 	    this.model = options.model;
 	    this.layersModel = options.layersModel;
-	    
-	    console.log('this.model = ');
-	    console.log(this.model);
-	    console.log(this.layersModel);
 
 	    this.model.on("change:selected", this.toggleSelected, this);
 
 	},
 	toggleSelected: function(model, value, options){
-
-	    console.log('LayerItemView.toggleSelected(' + value + ')');
 
 	    if(value){
 		$(this.el).removeClass('layer-unselected');
