@@ -9,11 +9,13 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 	       el:'#viewerWindow',
 	       template: _.template(ViewerWindowTemplate),
 	       initialize:function(options) {
-		   console.log('ViewerWindowView.init()');
+		   //console.log('ViewerWindowView.init()');
 
 		   //set the current layer
 		   this.layersModel = options.layersModel;
-		   this.layersModel.on("change:currentLayer", this.setCurrentLayer, this);
+
+		   //DETECT CHANGES IN LAYERS MODEL
+		   this.layersModel.on("change", this.setCurrentLayer, this);
 
 		   Backbone.on('onRender', this.update, this);
 
@@ -23,7 +25,7 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   this.setSize();
 	       },
 	       setSize:function(){
-		   console.log('ViewerWindowView.setSize()');
+		   //console.log('ViewerWindowView.setSize()');
 
 		   //RESET THE GLOBAL CONTAINER DIMENSIONS
 		   var height = $('#canvasPanels').height() - 20;
@@ -41,9 +43,11 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		       $(myList[i]).attr("width", width/2);
 		   }
 
+		   /*
 		   //RESET THE XTK PANELS
-		   console.log('Resizing XTK Panels');
-		   console.log($('#xtkPanels'));
+		   //console.log('Resizing XTK Panels');
+		   //console.log($('#xtkPanels'));
+		   */
 	       },
 	       render:function() {
 		   //load the template
@@ -85,40 +89,60 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   this.viewer3.render();
 		   this.viewer3.setMode(3);
 	       },
-	       setCurrentLayer:function(model, value, options){
+	       setCurrentLayer:function(layersModel, value, options){
 
 		   console.log('ViewerWindowView.setCurrentLayer()');
 
 		   /*
-		   console.log(model);
-		   console.log(value);
-		   console.log(options);
-		   console.log(this.currentItem);
+		     //console.log(model);
+		     //console.log(value);
+		     //console.log(options);
+		     //console.log(this.currentItem);
 		   */
 
-		   /*
+
 		   //turn OFF triggers for previous object
 		   if(this.currentItem)
-		   this.currentItem.off("change:loaded", this.update, this);
-		   */
+		       this.currentItem.off("change:opacity", this.setOpacity, this);
 
-		   this.layersModel.set({
-		       currentLayer:value
-		   });
-		   
+		   //get new object
+		   this.currentItem = layersModel.getCurrentItem();
+		   console.log(this.currentItem);
+
 		   //turn ON triggers for current object
-		   this.currentItem = model.get('currentItem');
-		   //this.currentItem.on("change:loaded", this.update, this);
+		   this.currentItem.on("change:opacity", this.setOpacity, this);
 
 
 		   //need to set the canvas to copy from
-		   this.viewer0.setCurrentLayer(value, this.currentItem);
-		   this.viewer1.setCurrentLayer(value, this.currentItem);
-		   this.viewer2.setCurrentLayer(value, this.currentItem);
-		   this.viewer3.setCurrentLayer(value, this.currentItem);
+
+		   //determine which is which...
+		   //console.log(layersModel);
+
+		   //declare vars
+		   
+		   var itemA = layersModel.getCurrentItem();
+		   var itemB = layersModel.getOtherItem();
+		   
+		   //if currently A
+		   if(layersModel.getCurrentItem() == itemA){
+		       this.viewer0.setCurrentLayers(itemA, itemB);
+		       this.viewer1.setCurrentLayers(itemA, itemB);
+		       this.viewer2.setCurrentLayers(itemA, itemB);
+		       this.viewer3.setCurrentLayers(itemA, itemB);
+		   }
+		   else{
+		       this.viewer0.setCurrentLayers(itemB, itemA);
+		       this.viewer1.setCurrentLayers(itemB, itemA);
+		       this.viewer2.setCurrentLayers(itemB, itemA);
+		       this.viewer3.setCurrentLayers(itemB, itemA);
+		   }
+		   
+
+		   
+		   this.setOpacity(null, this.currentItem.get('opacity'), null);
 	       },
 	       update:function(){
-		   //console.log('ViewerWindowView.update()');
+		   ////console.log('ViewerWindowView.update()');
 
 		   this.viewer0.draw();
 		   this.viewer1.draw();
@@ -128,9 +152,18 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   
 		   //call draw functions of all canvases
 	       },
+	       setOpacity:function(model, value, options){
+		   //console.log('setOpacity(' + value + ')');
+
+		   this.viewer0.setOpacity(value/100);
+		   this.viewer1.setOpacity(value/100);
+		   this.viewer2.setOpacity(value/100);
+		   this.viewer3.setOpacity(value/100);
+
+	       },
 	       scroll:function(){
 		   
-		   //console.log('ViewerWindowView.scroll()');
+		   ////console.log('ViewerWindowView.scroll()');
 
 		   if(this.currentItem){
 		       var oldX = this.currentItem.get('indexX');

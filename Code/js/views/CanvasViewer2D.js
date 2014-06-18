@@ -9,11 +9,11 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    });
 	},
 	render:function() {
-	    console.log('CanvasViewer2D.render()');
+	    //console.log('CanvasViewer2D.render()');
 
 	    //_.bindAll(this, 'draw');
 	    
-	    //console.log($(this.el));
+	    ////console.log($(this.el));
 	    
 	    $(this.el).html(this.template({
 		overlay: 'overlayToggle' + this.mode,
@@ -22,17 +22,32 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    }));
 	    return this; //to enable chain calling
 	},
+	setOpacity:function(value){
+
+	    if(this.ctx)
+		this.alphaA = value;
+	},
 	draw:function(){
 	    //update the canvases
 
-	    //console.log('CanvasViewer2D.draw(' + this.mode + ')');
-	    //console.log(this);
-	    //console.log(this.srcCanvas);
+	    ////console.log('CanvasViewer2D.draw(' + this.mode + ')');
+	    ////console.log(this);
+	    ////console.log(this.srcCanvas);
 
+	    //CLEAR
 	    this.ctx.clearRect(0,0,1000,200);
 
-	    //copy image
-	    this.ctx.drawImage(this.srcCanvas, 0, 0);
+	    //SET FIRST ALPHA
+	    this.ctx.globalAlpha = this.alphaB;
+
+	    //DRAW BOTTOM CANVAS
+	    this.ctx.drawImage(this.srcCanvasB, 0, 0);
+
+	    //SET SECOND ALPHA
+	    this.ctx.globalAlpha = this.alphaA;
+
+	    //DRAW TOP CANVAS
+	    this.ctx.drawImage(this.srcCanvasA, 0, 0);
 
 
 	    //do the overlay

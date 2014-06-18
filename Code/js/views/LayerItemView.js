@@ -14,6 +14,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 
 	},
 	toggleSelected: function(model, value, options){
+	    console.log('LayerItemView.toggleSelected(' + value + ')');
 
 	    if(value){
 		$(this.el).removeClass('layer-unselected');
@@ -51,17 +52,13 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    return this; // for chainable calls, like .render().el
 	},
 	setSelected: function(){
-	    //console.log('LayerItemView.setSelected()');
+	    console.log('LayerItemView.setSelected()');
 	    
 	    $(this.el).removeClass('layer-unselected');
 	    $(this.el).addClass('layer-selected');
 
-	    this.layersModel.set({
-		currentLayer: this.model.get('index'),
-		currentItem: this.model,
-	    });
-	    
-		//Backbone.trigger('setSelected', [this.model.attributes.index, this.model]);
+	    //set the current item into layersModel
+	    this.layersModel.setCurrentItem(this.model);
 	},
 	loadFile: function(){
 	    //trigger the hidden fileLoader

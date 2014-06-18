@@ -5,7 +5,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	el: '#xtkPanels',
 	template: _.template(XTKTemplate),
 	initialize:function(options) {
-	    console.log('initXTK()');
+	    //console.log('initXTK()');
 	    this.layerIndex = options.layerIndex;
 	    this.model = options.model;
 
@@ -25,7 +25,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.setSize();
 	},
 	render:function() {
-	    //console.log('XtkView.render()');
+	    ////console.log('XtkView.render()');
 
 	    this.$el.append(this.template({
 		layerIndex: 'xtkViewer_L' + this.layerIndex,
@@ -107,7 +107,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	},
 	loadFile:function(model, value, options){
 	    //do file stuff, load it into the master viewer
-	    console.log('XtkView:loadFile()');
+	    //console.log('XtkView:loadFile()');
 
 	    var file = value;
 
@@ -154,7 +154,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		// attach the filedata to the right one
 		
 		_this._data[type]['filedata'][_this._data[type]['file'].indexOf(file)] = data;
-		//console.log(_this._data[type]['filedata'][_this._data[type]['file'].indexOf(file)]);
+		////console.log(_this._data[type]['filedata'][_this._data[type]['file'].indexOf(file)]);
 		
 		_this._numberRead++;
 		if (_this._numberRead == _this._numberOfFiles) {
@@ -188,7 +188,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerX.onShowtime = function() {
 		// add the volume to the other 3 renderers
 
-		console.log('setting initial model');
+		//console.log('setting initial model');
 
 		//store initial values into the layerModel
 		_this.storeValues();
@@ -215,7 +215,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    };
 	},
 	storeValues:function(){
-	    console.log('XtkView.storeValues()');
+	    //console.log('XtkView.storeValues()');
 
 	    //setting indexes
 	    this.model.set({

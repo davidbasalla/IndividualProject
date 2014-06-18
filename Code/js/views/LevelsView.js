@@ -56,11 +56,7 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    //set the number correctly
 	    
 	},
-
-	
     });
-
-    
     return LevelsView;
     
 });

@@ -3,11 +3,15 @@
 define(function() {
     var CanvasViewer = Backbone.View.extend({
 	initialize:function(options){
-	    console.log('CanvasViewer.init()');
+	    //console.log('CanvasViewer.init()');
 	    
-	    this.currentLayer = 0;
+	    this.currentLayerItemTop = null;
+	    this.currentLayerItemBottom = null;
 	    this.srcCanvas = null;
 
+	    this.alphaA = 1;
+	    this.alphaB = 1;
+	    
 	    this.el = options.el;
 	    this.mode = options.mode;
 	    this.viewerIndex = options.viewerIndex;
@@ -18,14 +22,45 @@ define(function() {
 	    'click button#Ytoggle': 'setModeHandler',
 	    'click button#Ztoggle': 'setModeHandler',
 	},
-	setCurrentLayer:function(currentLayer, currentItem){
-	    this.currentLayer = currentLayer;
-	    this.currentItem = currentItem;
-	    this.setSrcCanvas();
+	setCurrentLayers:function(itemA, itemB){
+	    //console.log('CanvasViewer.setCurrentLayer()');
+	    
+	    //console.log(itemA);
+	    //console.log(itemB);
+	    
+	    this.currentLayerItemTop = itemA;
+	    this.currentLayerItemBottom = itemB;
+	    
+	    this.setSrcCanvases();
+	},
+	setSrcCanvases:function(){
+	    //console.log('CanvasViewer.setSrcCanvases()');
+	    //console.log(this.currentLayerItemTop);
+	    //console.log(this.currentLayerItemBottom);
+
+
+	    
+	    if(this.currentLayerItemTop && this.currentLayerItemBottom){
+		
+		//DST CANVAS
+		this.canvas = document.getElementById("canvasViewer" + this.viewerIndex);
+		this.ctx = this.canvas.getContext("2d");
+
+		//SRC CANVASES
+		var layerIndexTop = this.currentLayerItemTop.get('index');
+		var layerIndexBtm = this.currentLayerItemBottom.get('index');
+		
+		this.srcCanvasA = document.getElementById("xtkCanvas_L" + layerIndexTop + "_" + this.mode);
+		this.srcCanvasB = document.getElementById("xtkCanvas_L" + layerIndexBtm + "_" + this.mode);
+	    }
+
+	    //console.log(this.canvas);
+	    //console.log(this.srcCanvasA);
+	    //console.log(this.srcCanvasB);
 	},
 	setModeHandler:function(e){
 
-	    //console.log('e = ' + e.currentTarget.id);
+	    ////console.log('e = ' + e.currentTarget.id);
 	    
 	    if (e.currentTarget.id == 'ThreeDtoggle')
 		this.setMode(0);
@@ -37,7 +72,7 @@ define(function() {
 		this.setMode(3);
 	},
 	setMode:function(mode){
-	    //console.log('setMode(' + mode + ')');
+	    ////console.log('setMode(' + mode + ')');
 
 	    $($(ThreeDtoggle, this.el)[this.viewerIndex]).removeClass('layer-selected');
 	    $($(Xtoggle, this.el)[this.viewerIndex]).removeClass('layer-selected');
@@ -57,20 +92,7 @@ define(function() {
 	    currentTarget.addClass('layer-selected');
 
 	    this.mode = mode;
-	    this.setSrcCanvas();
-	},
-	setSrcCanvas:function(){
-	    console.log('settingSrc');
-
-	    //DST CANVAS
-	    this.canvas = document.getElementById("canvasViewer" + this.viewerIndex);
-
-	    //do not get context for 3D
-	    
-	    this.ctx = this.canvas.getContext("2d");
-	    this.srcCanvas = document.getElementById("xtkCanvas_L" + this.currentLayer + "_" + this.mode);
-	    console.log(this.srcCanvas);
-
+	    this.setSrcCanvases();
 	},
     });
     return CanvasViewer;

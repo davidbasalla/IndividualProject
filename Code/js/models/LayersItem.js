@@ -3,33 +3,51 @@ define(function() {
 
     var LayersItem = Backbone.Model.extend({
 	defaults: {
-	    currentLayer: -1,
-	    currentItem: false,
-	    bufferLayerA: 0,
-	    bufferLayerB: 0,
-	    bufferItemA: 0,
-	    bufferItemB: 0,
-	    currentBuffer: 0,
+	    bufferALayerItem: null,
+	    bufferBLayerItem: null,
+	    currentBufferIndex: 0,
+	},
+	getCurrentItem:function(){
+	    //console.log('LayersItem.getCurrentItem()');
+	    
+	    /* returns current item based on bufferIndex */
+	    if(this.get('currentBufferIndex') == 0)
+		return this.get('bufferALayerItem');
+	    else
+		return this.get('bufferBLayerItem');
+	},
+	getOtherItem:function(){
+	    //console.log('LayersItem.getCurrentItem()');
+	    
+	    /* returns NON-current item based on bufferIndex */
+	    if(this.get('currentBufferIndex') != 0)
+		return this.get('bufferALayerItem');
+	    else
+		return this.get('bufferBLayerItem');
+	},
+	setCurrentItem:function(item){
+	    /* set the current layerItem, based on bufferIndex */
+	    //console.log('LayersItem.setCurrentItem()');
+	    //console.log(item);
+	    
+	    if(this.get('currentBufferIndex') == 0)
+		this.set({bufferALayerItem: item});
+	    else
+		this.set({bufferBLayerItem: item});
+
+	    //if initially at NULL, set these
+	    if(!this.get('bufferALayerItem'))
+		this.set({bufferALayerItem: item});
+	    if(!this.get('bufferBLayerItem'))
+	    	this.set({bufferBLayerItem: item});
+	    
 	},
 	toggleBuffer:function(index){
 	    //function to swap buffers
 	    //console.log('LayersItem.toggleBuffer(' + index + ')');
 	    
-	    if(index != this.get('currentBuffer')){
-		//console.log('TOGGLING');
-		if(index == 0){
-		    this.set({bufferItemB: this.get('currentItem')});
-		    this.set({bufferLayerB: this.get('currentLayer')});
-		    this.set({currentItem: this.get('bufferItemA')})
-		    this.set({currentLayer: this.get('bufferLayerA')});
-		}
-		else{
-		    this.set({bufferItemA: this.get('currentItem')});
-		    this.set({bufferLayerA: this.get('currentLayer')});
-		    this.set({currentItem: this.get('bufferItemB')})
-		    this.set({currentLayer: this.get('bufferLayerB')});
-		}
-		this.set({currentBuffer: index});
+	    if(index != this.get('currentBufferIndex')){
+		this.set({currentBufferIndex: index});
 		return true;
 	    }
 	    else{
