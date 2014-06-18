@@ -6,9 +6,6 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	events: {
 	},
 	initialize:function() {
-	    //console.log(LevelsTemplate);
-	    //console.log(LayerItem);
-	    //console.log(LayerItemView);
 	    this.render();
 	},
 	render:function() {
@@ -42,7 +39,13 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    });
 
 	    $( "#opacitySlider" ).slider({
-		value: 100
+		min: 0,
+		max: 100,
+		value: 100,
+		slide: function( event, ui ) {
+		    $( "#opacityInput" ).val(ui.value);
+		    Backbone.trigger('opacityChange', ui.value);
+		}
 	    });
 	},
 	setWindowOrigValues:function(value){

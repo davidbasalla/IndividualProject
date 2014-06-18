@@ -29,6 +29,7 @@ define(["models/LayerItem",
 	    Backbone.on('layerRemoved', this.removeItem, this);
 	    Backbone.on('thresholdChange', this.thresholdChange, this);
 	    Backbone.on('levelsChange', this.levelsChange, this);
+	    Backbone.on('opacityChange', this.opacityChange, this);
 	    Backbone.on('initValuesStored', this.resetSliders, this);
 	    Backbone.on('xtkInitialised', this.updateCurrentIndex, this);
 
@@ -102,8 +103,6 @@ define(["models/LayerItem",
 		    });
 		};
 	    };
-	
-
 	    /////////////////////////////////////////////////////
 
 	    this.resetSliders();
@@ -118,21 +117,25 @@ define(["models/LayerItem",
 	    var wH = currentItem.get("windowHigh");
 	    var tL = currentItem.get("thresholdLow");
 	    var tH = currentItem.get("thresholdHigh");
+	    var o = currentItem.get("opacity");
 
 	    $( "#levelLow" ).val(wL);
 	    $( "#levelHigh" ).val(wH);
 	    $( "#thresholdLow" ).val(tL);
 	    $( "#thresholdHigh" ).val(tH);
+	    $( "#opacityInput" ).val(o);
 
     	    //set slider value
 	    $("#rangeSlider1").slider('values',0,wL); 
 	    $("#rangeSlider1").slider('values',1,wH);
 	    $("#rangeSlider2").slider('values',0,tL); 
-	    $("#rangeSlider2").slider('values',1,tH); 
+	    $("#rangeSlider2").slider('values',1,tH);
+	    $("#opacitySlider").slider('value',o);
+
+	    console.log(currentItem);
 	},
 	thresholdChange: function(args){
 	    console.log('triggering layerThresholdChange');
-	    Backbone.trigger('layerThresholdChange', [this.currentLayerIndex, args[0], args[1]]);
 
 	    //update the model
 	    var currentItem = this.layersModel.get('currentItem');
@@ -140,11 +143,17 @@ define(["models/LayerItem",
 	},
 	levelsChange: function(args){
 	    console.log('triggering layerLevelsChange');
-	    Backbone.trigger('layerLevelsChange', [this.currentLayerIndex, args[0], args[1]]);
 
 	    //update the model
 	    var currentItem = this.layersModel.get('currentItem');
 	    currentItem.set({windowLow: args[0],windowHigh: args[1]});
+	},
+	opacityChange: function(arg){
+	    console.log('triggering layerOpacityChange');
+
+	    //update the model
+	    var currentItem = this.layersModel.get('currentItem');
+	    currentItem.set({opacity: arg});
 	},
 	resetSliders:function(){
 	    console.log('LayersView.resetSliders()');
