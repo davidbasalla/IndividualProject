@@ -9,12 +9,17 @@ define(function() {
 	    this.currentLayerItemBottom = null;
 	    this.srcCanvas = null;
 
+	    this.showOverlay = false;
+	    
 	    this.alphaA = 1;
 	    this.alphaB = 1;
 	    
 	    this.el = options.el;
 	    this.mode = options.mode;
 	    this.viewerIndex = options.viewerIndex;
+	    
+	    this.ALoaded = false; //for telling if file is loaded
+	    this.BLoaded = false; //for telling if file is loaded
 	},
 	events: {
 	    'click button#ThreeDtoggle': 'setModeHandler',
@@ -30,7 +35,8 @@ define(function() {
 	    
 	    this.currentLayerItemTop = itemA;
 	    this.currentLayerItemBottom = itemB;
-	    
+
+
 	    this.setSrcCanvases();
 	},
 	setSrcCanvases:function(){

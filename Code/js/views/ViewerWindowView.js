@@ -155,10 +155,10 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 	       setOpacity:function(model, value, options){
 		   //console.log('setOpacity(' + value + ')');
 
-		   this.viewer0.setOpacity(value/100);
-		   this.viewer1.setOpacity(value/100);
-		   this.viewer2.setOpacity(value/100);
-		   this.viewer3.setOpacity(value/100);
+		   this.viewer0.setOpacity();
+		   this.viewer1.setOpacity();
+		   this.viewer2.setOpacity();
+		   this.viewer3.setOpacity();
 
 	       },
 	       scroll:function(){
