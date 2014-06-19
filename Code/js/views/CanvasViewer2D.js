@@ -6,7 +6,9 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	events: function(){
 	    return _.extend({}, CanvasViewer.prototype.events,{
 		'mousewheel': 'scroll',
-		'change input#overlayCheckbox': 'toggleOverlay'
+		'change input#overlayCheckbox': 'toggleOverlay',
+		'mousedown': 'setMouseDown',
+		'mousemove': 'mouseHandler'
 	    });
 	},
 	/*
@@ -14,6 +16,27 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    'change input#overlayCheckbox': 'toggleOverlay',
 	},
 	*/
+	mouseHandler:function(e){
+	    //console.log('CanvasViewer2D.mouseHandler');
+
+	    //set swipeCoords
+	    if(e.ctrlKey){
+		//console.log(e.clientX - this.canvas.offsetLeft);
+		//console.log(e.clientY - this.canvas.offsetTop);
+
+
+		this.lineStartX = e.clientX - this.canvas.offsetLeft;
+		this.lineEndX = e.clientX - this.canvas.offsetLeft;
+		this.lineStartY = 0;
+		this.lineEndY = this.canvas.height;
+
+		this.clipPosX = this.canvas.width - this.lineStartX;
+	
+		this.showLine = true;
+	    }
+		
+
+	},
 	toggleOverlay:function(e){
 
 	    console.log('CanvasViewer2D.toggleOverlay()');
@@ -34,11 +57,16 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		canvasViewerId: 'canvasViewer' + this.mode,
 		slider: 'sliderVertical' + this.mode,
 	    }));
+
+	    //DST CANVAS
+	    this.canvas = document.getElementById("canvasViewer" + this.viewerIndex);
+	    this.ctx = this.canvas.getContext("2d");
+	    
 	    return this; //to enable chain calling
 	},
 	setOpacity:function(){
 
-	    if(this.ctx){
+	    if(this.ctx && this.currentLayerItemTop && this.currentLayerItemBottom){
 		this.alphaA = this.currentLayerItemTop.get('opacity')/100;
 		this.alphaB = this.currentLayerItemBottom.get('opacity')/100;
 	    };
@@ -51,44 +79,89 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    //CLEAR - NEED TO FIX THESE COORDS
 	    this.ctx.fillStyle = 'black';
-	    this.ctx.clearRect(0,0,1000,1000);
+	    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
 	    //DRAW BLACK BACKGROUND - SO ALWAYS A BLACK BACKGROUND
 	    this.ctx.globalAlpha = 1;
-	    this.ctx.fillRect(0,0,1000,1000);
+	    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 	    
 	    //SET FIRST ALPHA
 	    this.ctx.globalAlpha = this.alphaB;
 
 
-	    //DRAW BOTTOM CANVAS
+	    //DRAW BOTTOM CANVAS - offset by 1,1 to fit the border in
 	    if(this.currentLayerItemBottom){
 		if(this.currentLayerItemBottom.get('loaded'))
-		    this.ctx.drawImage(this.srcCanvasB, 0, 0);
+		    this.ctx.drawImage(this.srcCanvasB, 1, 1);
 	    }
 
+	    
 
 	    //SET SECOND ALPHA
 	    this.ctx.globalAlpha = this.alphaA;
 
 	    //DRAW BLACK BACKGROUND FOR ITEM_TOP
-	    this.ctx.fillRect(0,0,1000,1000);
+	    //WITH RED FRAME TO SHOW ACTIVE REGION
+	    this.ctx.beginPath();
+	    this.ctx.rect(0, 0,
+	    		 this.canvas.width - this.clipPosX,
+			 this.canvas.height - this.clipPosY);
+	    this.ctx.fillStyle = 'black';
+	    this.ctx.fill();
+	    this.ctx.lineWidth = 2;
+	    this.ctx.strokeStyle = 'red';
+	    this.ctx.stroke();
+
+
+	    
+	    
 	    //DRAW TOP CANVAS
 	    if(this.currentLayerItemTop){
-		if(this.currentLayerItemTop.get('loaded'))
-		    this.ctx.drawImage(this.srcCanvasA, 0, 0);
+		if(this.currentLayerItemTop.get('loaded')){
+		    //this.ctx.drawImage(this.srcCanvasA, 0, 0);
+
+		    this.ctx.drawImage(this.srcCanvasA,
+				       0, 0,
+				       this.canvas.width - this.clipPosX,
+				       this.canvas.height - this.clipPosY,
+				       1, 1,
+				       this.canvas.width - this.clipPosX,
+				       this.canvas.height - this.clipPosY);
+		}
 	    }
 
 	    //do the overlay
-	    if(this.showOverlay){
+	    if(this.showOverlay)
 		this.drawOverlay();
 
-	    }
+	    if(this.showLine)
+		this.drawLine();
+	},
+	drawLine:function(){
+	    //console.log('drawingLine()');
+
+	    this.ctx.globalAlpha = 1;
+	    this.ctx.lineWidth = 2;
+	    this.ctx.beginPath();
+	    this.ctx.moveTo(this.lineStartX, this.lineStartY);
+	    this.ctx.lineTo(this.lineEndX, this.lineEndY);
+
+	    this.ctx.strokeStyle = 'red';
+	    this.ctx.stroke();
+	    this.ctx.closePath();
+
+	    
+	    //this.ctx.moveTo(this.lineStartX, this.lineStartY);
+	    //this.ctx.lineTo(this.lineEndX, this.lineEndY);
+	    
+	    this.showLine = false;
+
 	},
 	drawOverlay:function(){
 	    /* displays info about the current layerItem */
 	    
 	    //reset globalAlpha
+	    this.ctx.fillStyle = 'red';
 	    this.ctx.globalAlpha = 1;
 	    this.ctx.fillStyle = 'white';
 	    this.ctx.font="14px Arial";

@@ -10,6 +10,8 @@ define(function() {
 	    this.srcCanvas = null;
 
 	    this.showOverlay = false;
+	    this.showLine = false;
+	    this.swipeMode = 0;
 	    
 	    this.alphaA = 1;
 	    this.alphaB = 1;
@@ -20,6 +22,19 @@ define(function() {
 	    
 	    this.ALoaded = false; //for telling if file is loaded
 	    this.BLoaded = false; //for telling if file is loaded
+
+	    //not currently used
+	    this.mouseDown = false;
+
+
+	    //LINE POINTS
+	    this.lineStartX = 0;
+	    this.lineEndX = 50;
+	    this.lineStartY= 0;
+	    this.lineEndY = 50;
+	    this.clipPosX = 0;
+	    this.clipPosY = 0;
+	    
 	},
 	events: {
 	    'click button#ThreeDtoggle': 'setModeHandler',
@@ -44,14 +59,8 @@ define(function() {
 	    //console.log(this.currentLayerItemTop);
 	    //console.log(this.currentLayerItemBottom);
 
-
-	    
 	    if(this.currentLayerItemTop && this.currentLayerItemBottom){
 		
-		//DST CANVAS
-		this.canvas = document.getElementById("canvasViewer" + this.viewerIndex);
-		this.ctx = this.canvas.getContext("2d");
-
 		//SRC CANVASES
 		var layerIndexTop = this.currentLayerItemTop.get('index');
 		var layerIndexBtm = this.currentLayerItemBottom.get('index');
