@@ -18,8 +18,11 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.model.on("change:windowHigh", this.setWindowHigh, this);
 	    this.model.on("change:thresholdLow", this.setThresholdLow, this);
 	    this.model.on("change:thresholdHigh", this.setThresholdHigh, this);
+	    this.model.on("change:pan", this.setPan, this);
 
 	    this.webGLFriendly = true;
+
+	    this.panVector = new X.vector(0,0,0);  //x, y, d
 	    
 	    this.render();
 
@@ -210,6 +213,9 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    // modify item defaults
 		    loaded: true
 		});
+
+		console.log('this.viewerX.camera = ');
+		console.log(_this.viewerX.camera);
 	    };
 	    
 	    this.viewerX.onRender = function(){
@@ -280,6 +286,26 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	},
 	setThresholdHigh:function(model, value, options){
 	    this.volume.upperThreshold = value;
+	},
+	setPan:function(model, values, options){
+	    //console.log('XtkVew.setPanX()');
+
+	    //console.log(vector);
+	    
+	    //console.log(this.viewerX);
+	    //console.log(this.viewerX.camera);
+
+	    //this.viewerX.camera.pan(this.panVector);
+	    console.log(this.viewerX.camera);
+	    //console.log(this.viewerX.camera.focus);
+
+
+    
+	    //var y = this.viewerX.camera.position[1];
+	    //this.viewerX.camera.position = [values[0], y, values[1]];
+	    this.viewerX.camera.view[12] = values[0];
+	    this.viewerX.camera.view[13] = values[1];
+	    //this.viewerX.camera.view = a;
 	},
     });
     return XtkView;

@@ -22,6 +22,7 @@ define(function() {
 	    indexZ: 0,
 	    loaded: false,
 	    opacity: 100,
+	    pan: [0,0], //pan [X,Y]
 	}
     });
     return LayerItem;

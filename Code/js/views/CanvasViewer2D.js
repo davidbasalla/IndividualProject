@@ -7,8 +7,10 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    return _.extend({}, CanvasViewer.prototype.events,{
 		'mousewheel': 'scroll',
 		'change input#overlayCheckbox': 'toggleOverlay',
-		'mousedown': 'setMouseDown',
-		'mousemove': 'mouseHandler'
+		'mousedown': 'storeMousePos',
+		'mousemove': 'mouseHandler',
+		'mouseenter canvas': 'mouseEnter',
+		'keydown': 'keyHandler',
 	    });
 	},
 	/*
@@ -16,6 +18,10 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    'change input#overlayCheckbox': 'toggleOverlay',
 	},
 	*/
+	mouseEnter:function(e){
+	    //need to focus the canvas here
+	    $(e.target).focus();
+	},
 	mouseHandler:function(e){
 	    //console.log('CanvasViewer2D.mouseHandler');
 
@@ -34,8 +40,34 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	
 		this.showLine = true;
 	    }
-		
+	    else if(e.which == 2){
+		//console.log('Panning!');
 
+		var x = this.mouseXPrev - e.clientX;
+		var y = this.mouseYPrev - e.clientY;
+
+		//console.log('x,y = ' + x + ', ' + y);
+		    
+		
+		this.currentLayerItemTop.set({pan: [x/10, y/10]});
+	    }
+	},
+	keyHandler:function(e){
+	    console.log('CanvasViewer2D.keyHandler()');
+	    
+	    if(e.which == 70){
+		console.log('Focus');
+		this.currentLayerItemTop.set({pan: [0, 0]});
+	    }
+		
+	    
+	},
+	storeMousePos:function(e){
+	    console.log('storeMousePos');
+
+	    this.mouseXPrev = e.clientX;
+	    this.mouseYPrev = e.clientY;
+	    
 	},
 	toggleOverlay:function(e){
 

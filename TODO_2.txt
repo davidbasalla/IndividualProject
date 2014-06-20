@@ -13,10 +13,6 @@ WIP:
 - work on customisable layout
     - determine screen layout
 
-- add extra controls
-    - pan/zoom
-    - shift control to control other slices!
-
 - work on implementing lookups!
     - for viewer or for layer
     - for viewer more desirable!
@@ -24,3 +20,19 @@ WIP:
 - work on providing online sample files
 
 - add navigation panel feedback
+
+
+---------------------------------------
+
+
+- add extra controls
+    - pan (2D)
+    - zoom (2D)
+    - shift control to control other slices!
+
+PAN:
+    - simlulate a mouse click on the xtk canvas element... 
+    - alter the volume's data directly... prefered!
+
+
+

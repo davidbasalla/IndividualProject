@@ -34,7 +34,13 @@ define(function() {
 	    this.lineEndY = 50;
 	    this.clipPosX = 0;
 	    this.clipPosY = 0;
+
+	    this.mouseXPrev = 0;
+	    this.mouseYPrev = 0;
+
 	    
+	    //DISABLE MIDDLE MOUSE FOR THIS ELEMENT
+	    $(this.el).mousedown(function(e){if(e.button==1)return false});
 	},
 	events: {
 	    'click button#ThreeDtoggle': 'setModeHandler',
