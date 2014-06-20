@@ -1,23 +1,10 @@
 WIP:
 
-    - work on customisable layout
-        - presets
-        - splitters
-    - add extra buttons/toggles/modes
+- add different lookups
+- work on refining the layout
+	- make canvas fit inside the canv panel!!
+	- fix resizing!
 
-    - add label maps
-
-    - split out canvasViews into 2D and 3D, add custom panels
-        - 3D - has volume rendering
-             - has no index slider
-        - 2D - has index slider
-             - can do merging with other canvas
-    - use model Cids to keep track of objects??
-
-
-
-DONE:
-    - work on brightness/levels DONE
 
 
 
@@ -29,10 +16,6 @@ DONE:
 - add extra controls
     - pan/zoom
     - shift control to control other slices!
-
-
-- work on layer structure
-    - A/B buffer
 
 - work on implementing lookups!
     - for viewer or for layer

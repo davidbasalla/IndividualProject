@@ -22,7 +22,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.webGLFriendly = true;
 	    
 	    this.render();
-	    this.setSize();
+
 	},
 	render:function() {
 	    ////console.log('XtkView.render()');
@@ -36,17 +36,19 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    }));
 	    //need to adjust the dimensions of layerIndex div
 
-	    
+	    this.setSize();	    
 	    this.initViewers();
 	},
 	setSize:function(){
 
 	    //RESET THE GLOBAL CONTAINER DIMENSIONS
+
 	    var height = $('#canvasPanels').height() - 20;
 	    var width = $('#canvasPanels').width() - 20;
 		   
 	    $('.canvasPanel').css({ "height": height/2});
 	    $('.canvasPanel').css({ "width": width/2});
+
 
 
 	    

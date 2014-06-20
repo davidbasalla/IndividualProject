@@ -25,9 +25,11 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   this.setSize();
 	       },
 	       setSize:function(){
-		   //console.log('ViewerWindowView.setSize()');
+		   console.log('ViewerWindowView.setSize()');
 
 		   //RESET THE GLOBAL CONTAINER DIMENSIONS
+
+		   console.log($('#canvasPanels'));
 		   var height = $('#canvasPanels').height() - 20;
 		   var width = $('#canvasPanels').width() - 20;
 		   
@@ -39,8 +41,8 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   var myList = document.getElementsByTagName("canvas");
 
 		   for(var i = 0; i < myList.length; i++){
-		       $(myList[i]).attr("height", height/2 - 40);
-		       $(myList[i]).attr("width", width/2);
+		       $(myList[i]).attr("height", height/2 - 35);
+		       $(myList[i]).attr("width", width/2 - 10);
 		   }
 
 		   /*
