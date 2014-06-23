@@ -89,13 +89,16 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	},
 	keyHandler:function(e){
 	    console.log('CanvasViewer2D.keyHandler()');
+	    console.log(e.which);
 	    
 	    if(e.which == 70){
 		console.log('Focus');
 		Backbone.trigger('focus', [this.currentLayerItemTop, this.mode]);
 	    }
-		
-	    
+	    if(e.which == 79){
+		console.log('toggleOverlay');
+		this.toggleOverlay();
+	    }
 	},
 	storeMousePos:function(e){
 	    console.log('storeMousePos');
@@ -105,13 +108,20 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.mouseZPrev = e.clientY;
 	    
 	},
-	toggleOverlay:function(e){
+	toggleOverlay:function(){
 
 	    console.log('CanvasViewer2D.toggleOverlay()');
-	    if (!this.showOverlay)
+	    if (!this.showOverlay){
 		this.showOverlay = true;
-	    else
+
+		//if not toggled, set toggle
+		$('#overlayCheckbox', this.el).prop("checked", true);
+		
+	    }
+	    else{
 		this.showOverlay = false;
+		$('#overlayCheckbox', this.el).prop("checked", false);
+	    }
 	},
 	render:function() {
 	    //console.log('CanvasViewer2D.render()');
