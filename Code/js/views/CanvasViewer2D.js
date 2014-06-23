@@ -23,7 +23,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    $(e.target).focus();
 	},
 	mouseHandler:function(e){
-	    //console.log('CanvasViewer2D.mouseHandler');
+	    console.log('CanvasViewer2D.mouseHandler');
 
 	    //set swipeCoords
 	    if(e.ctrlKey){
@@ -64,13 +64,35 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		this.mouseXPrev = e.clientX;
 		this.mouseYPrev = e.clientY;
 	    }
+	    else if(e.which == 3){
+		//console.log('Zooming!');
+
+		//return normalised/relative mouse data
+		var z = this.mouseZPrev - e.clientY;
+
+		//console.log('x,y = ' + x + ', ' + y);
+
+		/*
+		this.viewX = this.viewX + x/4;
+		this.viewY = this.viewY + y/4;
+		*/
+
+		//use a backbone trigger here to communicate with correct xtkView
+		//send values
+		//send mode
+		//send layer
+
+		Backbone.trigger('zoom', [z, this.currentLayerItemTop, this.mode]);
+
+		this.mouseZPrev = e.clientY;
+	    }
 	},
 	keyHandler:function(e){
 	    console.log('CanvasViewer2D.keyHandler()');
 	    
 	    if(e.which == 70){
 		console.log('Focus');
-		this.currentLayerItemTop.set({pan: [0, 0]});
+		Backbone.trigger('focus', [this.currentLayerItemTop, this.mode]);
 	    }
 		
 	    
@@ -80,6 +102,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    this.mouseXPrev = e.clientX;
 	    this.mouseYPrev = e.clientY;
+	    this.mouseZPrev = e.clientY;
 	    
 	},
 	toggleOverlay:function(e){

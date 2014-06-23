@@ -6,8 +6,24 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	template: _.template(XTKTemplate),
 	initialize:function(options) {
 	    //console.log('initXTK()');
+
+	    //INIT VARS
 	    this.layerIndex = options.layerIndex;
 	    this.model = options.model;
+	    this.webGLFriendly = true;
+	    this.panVector = new X.vector(0,0,0);  //x, y, d
+
+	    this.viewerX_OrigX = 0;
+	    this.viewerX_OrigY = 0;
+	    this.viewerX_OrigZ = 0;
+
+	    this.viewerY_OrigX = 0;
+	    this.viewerY_OrigY = 0;
+	    this.viewerY_OrigZ = 0;
+
+	    this.viewerZ_OrigX = 0;
+	    this.viewerZ_OrigY = 0;
+	    this.viewerZ_OrigZ = 0;
 
 
 	    //MODEL RELATED EVENTS
@@ -20,12 +36,12 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.model.on("change:thresholdLow", this.setThresholdLow, this);
 	    this.model.on("change:thresholdHigh", this.setThresholdHigh, this);
 
+
 	    //GLOBAL EVENTS
 	    Backbone.on('pan', this.setPan, this);
+	    Backbone.on('zoom', this.setZoom, this);
+	    Backbone.on('focus', this.setFocus, this);
 
-	    this.webGLFriendly = true;
-
-	    this.panVector = new X.vector(0,0,0);  //x, y, d
 	    
 	    this.render();
 
@@ -217,11 +233,33 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 		console.log('this.viewerX.camera = ');
 		console.log(_this.viewerX.camera);
+		
+		_this.storeOriginalViews();
 	    };
 	    
 	    this.viewerX.onRender = function(){
 		Backbone.trigger('onRender');
 	    };
+	},
+	storeOriginalViews:function(){
+	    
+	    this.viewerX_OrigX = this.viewerX.camera.view[12];
+	    this.viewerX_OrigY = this.viewerX.camera.view[13];
+	    this.viewerX_OrigZ = this.viewerX.camera.view[14];
+	    console.log(this.viewerX.camera.view);
+
+	    this.viewerY_OrigX = this.viewerY.camera.view[12];
+	    this.viewerY_OrigY = this.viewerY.camera.view[13];
+	    this.viewerY_OrigZ = this.viewerY.camera.view[14];
+	    console.log(this.viewerY.camera.view);
+
+	    this.viewerZ_OrigX = this.viewerZ.camera.view[12];
+	    this.viewerZ_OrigY = this.viewerZ.camera.view[13];
+	    this.viewerZ_OrigZ = this.viewerZ.camera.view[14];
+	    console.log(this.viewerZ.camera.view);
+	    
+
+
 	},
 	storeValues:function(){
 	    //console.log('XtkView.storeValues()');
@@ -296,17 +334,18 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	    if(this.layerIndex == args[2].get('index')){
 
-		//console.log('XtkVew.setPanX()');
-
 		if(args[3] == 1){
+		    console.log('XtkVew.setPanX()');
 		    this.viewerX.camera.view[12] += -(args[0])/4;
 		    this.viewerX.camera.view[13] += args[1]/4;
 		}
 		else if(args[3] == 2){
+		    console.log('XtkVew.setPanY()');
 		    this.viewerY.camera.view[12] += -(args[0])/4;
 		    this.viewerY.camera.view[13] += args[1]/4;
 		}
 		else if(args[3] == 3){
+		    console.log('XtkVew.setPanZ()');
 		    this.viewerZ.camera.view[12] += -(args[0])/4;
 		    this.viewerZ.camera.view[13] += args[1]/4;
 		}
@@ -315,6 +354,62 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //this.viewerX.camera.view = a;
 	    }
 	},
+	setZoom:function(args){
+
+	    //console.log(this.layerIndex);
+	    //console.log(args[2].get('index'));
+
+
+	    if(this.layerIndex == args[1].get('index')){
+
+		if(args[2] == 1){
+		    this.viewerX.camera.view[14] += args[0]/500;
+		}
+		else if(args[2] == 2){
+		    this.viewerY.camera.view[14] += args[0]/500;
+		}
+		else if(args[2] == 3){
+		    this.viewerZ.camera.view[14] += args[0]/500;
+		}
+
+		//console.log(this.viewerX.camera.view);
+		
+	    //console.log(this.viewerX.camera.view);
+	    //this.viewerX.camera.view = a;
+	    }
+	},
+	setFocus:function(args){
+
+	    //console.log(this.layerIndex);
+	    //console.log(args[2].get('index'));
+
+
+	    if(this.layerIndex == args[0].get('index')){
+
+		if(args[1] == 1){
+		    this.viewerX.camera.view[12] = this.viewerX_OrigX;
+		    this.viewerX.camera.view[13] = this.viewerX_OrigY;
+		    this.viewerX.camera.view[14] = this.viewerX_OrigZ;
+		}
+		else if(args[1] == 2){
+		    this.viewerY.camera.view[12] = this.viewerY_OrigX;
+		    this.viewerY.camera.view[13] = this.viewerY_OrigY;
+		    this.viewerY.camera.view[14] = this.viewerY_OrigZ;
+			}
+		else if(args[1] == 3){
+		    this.viewerZ.camera.view[12] = this.viewerZ_OrigX;
+		    this.viewerZ.camera.view[13] = this.viewerZ_OrigY;
+		    this.viewerZ.camera.view[14] = this.viewerZ_OrigZ;
+		}
+
+		//console.log(this.viewerX.camera.view);
+		
+	    //console.log(this.viewerX.camera.view);
+	    //this.viewerX.camera.view = a;
+	    }
+	},
+
+
     });
     return XtkView;
 });

@@ -37,14 +37,17 @@ define(function() {
 
 	    this.mouseXPrev = 0;
 	    this.mouseYPrev = 0;
-
-	    this.viewX = 0;
-	    this.viewY = 0;
-
+	    this.mouseZPrev = 0;
 
 	    
 	    //DISABLE MIDDLE MOUSE FOR THIS ELEMENT
 	    $(this.el).mousedown(function(e){if(e.button==1)return false});
+	    $(this.el).mousedown(function(e){
+		console.log(e);
+		if(e.button==2)
+		    return false
+	    });
+	    $('body').on('contextmenu', this.el, function(e){ return false; });
 	},
 	events: {
 	    'click button#ThreeDtoggle': 'setModeHandler',
