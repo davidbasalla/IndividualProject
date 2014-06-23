@@ -38,6 +38,10 @@ define(function() {
 	    this.mouseXPrev = 0;
 	    this.mouseYPrev = 0;
 
+	    this.viewX = 0;
+	    this.viewY = 0;
+
+
 	    
 	    //DISABLE MIDDLE MOUSE FOR THIS ELEMENT
 	    $(this.el).mousedown(function(e){if(e.button==1)return false});

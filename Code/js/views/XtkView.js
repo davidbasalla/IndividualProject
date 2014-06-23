@@ -9,7 +9,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.layerIndex = options.layerIndex;
 	    this.model = options.model;
 
-	    //set up listeners to current layer item
+
+	    //MODEL RELATED EVENTS
 	    this.model.on("change:fileName", this.loadFile, this);
 	    this.model.on("change:indexX", this.changeIndexX, this);
 	    this.model.on("change:indexY", this.changeIndexY, this);
@@ -18,7 +19,9 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.model.on("change:windowHigh", this.setWindowHigh, this);
 	    this.model.on("change:thresholdLow", this.setThresholdLow, this);
 	    this.model.on("change:thresholdHigh", this.setThresholdHigh, this);
-	    this.model.on("change:pan", this.setPan, this);
+
+	    //GLOBAL EVENTS
+	    Backbone.on('pan', this.setPan, this);
 
 	    this.webGLFriendly = true;
 
@@ -51,8 +54,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		   
 	    $('.canvasPanel').css({ "height": height/2});
 	    $('.canvasPanel').css({ "width": width/2});
-
-
 
 	    
 	    //need to resize ALL layers!
@@ -287,25 +288,32 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	setThresholdHigh:function(model, value, options){
 	    this.volume.upperThreshold = value;
 	},
-	setPan:function(model, values, options){
-	    //console.log('XtkVew.setPanX()');
+	setPan:function(args){
 
-	    //console.log(vector);
-	    
-	    //console.log(this.viewerX);
-	    //console.log(this.viewerX.camera);
-
-	    //this.viewerX.camera.pan(this.panVector);
-	    console.log(this.viewerX.camera);
-	    //console.log(this.viewerX.camera.focus);
+	    //console.log(this.layerIndex);
+	    //console.log(args[2].get('index'));
 
 
-    
-	    //var y = this.viewerX.camera.position[1];
-	    //this.viewerX.camera.position = [values[0], y, values[1]];
-	    this.viewerX.camera.view[12] = values[0];
-	    this.viewerX.camera.view[13] = values[1];
+	    if(this.layerIndex == args[2].get('index')){
+
+		//console.log('XtkVew.setPanX()');
+
+		if(args[3] == 1){
+		    this.viewerX.camera.view[12] += -(args[0])/4;
+		    this.viewerX.camera.view[13] += args[1]/4;
+		}
+		else if(args[3] == 2){
+		    this.viewerY.camera.view[12] += -(args[0])/4;
+		    this.viewerY.camera.view[13] += args[1]/4;
+		}
+		else if(args[3] == 3){
+		    this.viewerZ.camera.view[12] += -(args[0])/4;
+		    this.viewerZ.camera.view[13] += args[1]/4;
+		}
+		
+	    //console.log(this.viewerX.camera.view);
 	    //this.viewerX.camera.view = a;
+	    }
 	},
     });
     return XtkView;

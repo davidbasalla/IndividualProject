@@ -43,13 +43,26 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    else if(e.which == 2){
 		//console.log('Panning!');
 
+		//return normalised/relative mouse data
 		var x = this.mouseXPrev - e.clientX;
 		var y = this.mouseYPrev - e.clientY;
 
 		//console.log('x,y = ' + x + ', ' + y);
-		    
-		
-		this.currentLayerItemTop.set({pan: [x/10, y/10]});
+
+		/*
+		this.viewX = this.viewX + x/4;
+		this.viewY = this.viewY + y/4;
+		*/
+
+		//use a backbone trigger here to communicate with correct xtkView
+		//send values
+		//send mode
+		//send layer
+
+		Backbone.trigger('pan', [x, y, this.currentLayerItemTop, this.mode]);
+
+		this.mouseXPrev = e.clientX;
+		this.mouseYPrev = e.clientY;
 	    }
 	},
 	keyHandler:function(e){
