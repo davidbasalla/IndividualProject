@@ -41,6 +41,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    Backbone.on('pan', this.setPan, this);
 	    Backbone.on('zoom', this.setZoom, this);
 	    Backbone.on('focus', this.setFocus, this);
+	    Backbone.on('traverse', this.traverse, this);
 
 	    
 	    this.render();
@@ -257,9 +258,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerZ_OrigY = this.viewerZ.camera.view[13];
 	    this.viewerZ_OrigZ = this.viewerZ.camera.view[14];
 	    console.log(this.viewerZ.camera.view);
-	    
-
-
 	},
 	storeValues:function(){
 	    //console.log('XtkView.storeValues()');
@@ -406,6 +404,39 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		
 	    //console.log(this.viewerX.camera.view);
 	    //this.viewerX.camera.view = a;
+	    }
+	},
+	traverse:function(args){
+
+	    console.log('XtkView.traverse()');
+
+	    if(this.layerIndex == args[2].get('index')){
+
+		if(args[3] == 1){
+		    //console.log(this.viewerX.interactor);
+		    //console.log('x,y = ' + args[0] + ', ' + args[1])
+
+		    //hijacking this function to convert from x/y to ijk slice indices
+		    var ijk = this.viewerX.xy2ijk(args[0], args[1]);
+		    if(ijk){
+			this.volume.indexY = ijk[0][1];
+			this.volume.indexZ = ijk[0][2];
+		    };
+		}
+		else if(args[3] == 2){
+		    var ijk = this.viewerY.xy2ijk(args[0], args[1]);
+		    if(ijk){
+			this.volume.indexX = ijk[0][0];
+			this.volume.indexZ = ijk[0][2];
+		    };
+		}
+		else if(args[3] == 3){
+		    var ijk = this.viewerZ.xy2ijk(args[0], args[1]);
+		    if(ijk){
+			this.volume.indexX = ijk[0][0];
+			this.volume.indexY = ijk[0][1];
+		    };
+		}
 	    }
 	},
 

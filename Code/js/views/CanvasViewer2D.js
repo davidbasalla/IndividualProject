@@ -23,7 +23,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    $(e.target).focus();
 	},
 	mouseHandler:function(e){
-	    console.log('CanvasViewer2D.mouseHandler');
+	    //console.log('CanvasViewer2D.mouseHandler');
 
 	    //set swipeCoords
 	    if(e.ctrlKey){
@@ -39,6 +39,20 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		this.clipPosX = this.canvas.width - this.lineStartX;
 	
 		this.showLine = true;
+	    }
+	    else if(e.which == 1){
+		console.log('Traversing!');
+
+		/*
+		var x = this.mouseXPrev - e.clientX;
+		var y = this.mouseYPrev - e.clientY;
+		*/
+
+		Backbone.trigger('traverse', 
+				 [e.clientX - this.canvas.offsetLeft,
+				  e.clientY - this.canvas.offsetTop, 
+				  this.currentLayerItemTop, 
+				  this.mode]);
 	    }
 	    else if(e.which == 2){
 		//console.log('Panning!');
