@@ -161,7 +161,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	draw:function(){
 	    //update the canvases at 60 frames a second?
 
-	    ////console.log('CanvasViewer2D.draw(' + this.mode + ')');
+	    //console.log('CanvasViewer2D.draw(' + this.mode + ')');
 
 
 	    //CLEAR - NEED TO FIX THESE COORDS
@@ -200,13 +200,13 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.ctx.stroke();
 
 
-	    
+	    //console.log(this.srcCanvasA);
 	    
 	    //DRAW TOP CANVAS
 	    if(this.currentLayerItemTop){
 		if(this.currentLayerItemTop.get('loaded')){
 		    //this.ctx.drawImage(this.srcCanvasA, 0, 0);
-
+	    
 		    this.ctx.drawImage(this.srcCanvasA,
 				       0, 0,
 				       this.canvas.width - this.clipPosX,

@@ -136,44 +136,31 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   this.setOpacity(null, this.currentItem.get('opacity'), null);
 	       },
 	       update:function(){
-		   ////console.log('ViewerWindowView.update()');
+		   console.log('ViewerWindowView.update()');
 
-
-		   // Animate.
+		   //issue wit settimeout and refreshing webGl canvas, so not using that
 
 		   var _this = this;
-		   var fps = 25;
-		   function draw() {
-		       setTimeout(function() {
-			   requestAnimationFrame(draw);
+		   var time = new Date().getTime();
 
+		   function draw() {
+		   
+		       var now = new Date().getTime();
+		       //only draw the frame if 25 milliseconds have passed!
+		       if(now > (time + 25)){
+
+			   // Drawing code goes here
 			   _this.viewer0.draw();
 			   _this.viewer1.draw();
 			   _this.viewer2.draw();
-			   _this.viewer3.draw();  
-			   // Drawing code goes here
-		       }, 1000 / fps);
+			   _this.viewer3.draw();
+			   
+			   time = now;
+		       }
+		       requestAnimationFrame(draw);	   			   
 		   }
-
-
-		   requestAnimationFrame(draw);
-
-		   /*
-		   setTimeout(this.update, 50);
-
-		   //console.log(this.viewer0);
-		   this.viewer0.draw();
-		   this.viewer1.draw();
-		   this.viewer2.draw();
-		   this.viewer3.draw();
-		   */
-
-		   //call draw functions of all canvases
-	       },
-	       update2:function(){
-		   //this.viewer1.draw();
-	   
-		   //call draw functions of all canvases
+		   requestAnimationFrame(draw);	   
+		   
 	       },
 	       setOpacity:function(model, value, options){
 		   //console.log('setOpacity(' + value + ')');
