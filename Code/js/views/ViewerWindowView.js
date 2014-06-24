@@ -11,13 +11,15 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 	       initialize:function(options) {
 		   //console.log('ViewerWindowView.init()');
 
+		   _.bindAll(this, 'update');
+
 		   //set the current layer
 		   this.layersModel = options.layersModel;
 
 		   //DETECT CHANGES IN LAYERS MODEL
 		   this.layersModel.on("change", this.setCurrentLayer, this);
 
-		   Backbone.on('onRender', this.update, this);
+		   Backbone.on('onShowtime', this.update, this);
 
 		   this.currentItem = null;
 
@@ -136,12 +138,41 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 	       update:function(){
 		   ////console.log('ViewerWindowView.update()');
 
+
+		   // Animate.
+
+		   var _this = this;
+		   var fps = 25;
+		   function draw() {
+		       setTimeout(function() {
+			   requestAnimationFrame(draw);
+
+			   _this.viewer0.draw();
+			   _this.viewer1.draw();
+			   _this.viewer2.draw();
+			   _this.viewer3.draw();  
+			   // Drawing code goes here
+		       }, 1000 / fps);
+		   }
+
+
+		   requestAnimationFrame(draw);
+
+		   /*
+		   setTimeout(this.update, 50);
+
+		   //console.log(this.viewer0);
 		   this.viewer0.draw();
 		   this.viewer1.draw();
 		   this.viewer2.draw();
 		   this.viewer3.draw();
+		   */
 
-		   
+		   //call draw functions of all canvases
+	       },
+	       update2:function(){
+		   //this.viewer1.draw();
+	   
 		   //call draw functions of all canvases
 	       },
 	       setOpacity:function(model, value, options){

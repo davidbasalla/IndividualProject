@@ -236,11 +236,13 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		console.log(_this.viewerX.camera);
 		
 		_this.storeOriginalViews();
+		Backbone.trigger('onShowtime');
 	    };
-	    
+
+	    /*DONT NEED THIS ANYMORE!
 	    this.viewerX.onRender = function(){
-		Backbone.trigger('onRender');
-	    };
+		//Backbone.trigger('onRender2');
+	    };*/
 	},
 	storeOriginalViews:function(){
 	    

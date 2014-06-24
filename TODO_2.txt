@@ -1,7 +1,14 @@
 TODAY:
 
 work on:
-    - performance issue!! - how to reduce?
+    - performance issue!! - how to reduce? POTENTIALLY HUGE PROBLEM
+    - could only have 1 view active...
+        - how to determine the time frame
+        - need all 4 views active when changing global parameters (eg opacity)
+    - only update the render after XTK renderer has finished drawing... need
+      to have a callback for when XTKrenderer has changed?
+
+
 
     - colortables
 
