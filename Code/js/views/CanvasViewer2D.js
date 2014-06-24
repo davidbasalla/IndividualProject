@@ -13,11 +13,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		'keydown': 'keyHandler',
 	    });
 	},
-	/*
-	events: {
-	    'change input#overlayCheckbox': 'toggleOverlay',
-	},
-	*/
 	mouseEnter:function(e){
 	    //need to focus the canvas here
 	    $(e.target).focus();

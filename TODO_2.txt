@@ -1,15 +1,9 @@
 TODAY:
 
 work on:
-panning
-zooming
-multiple index control
-add shortcut 'o' for overlay
-add shortcut 'x/y/z' for different views
+    - performance issue!! - how to reduce?
 
-
-
-
+    - colortables
 
 
 

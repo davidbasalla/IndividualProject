@@ -95,14 +95,6 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 
 		   console.log('ViewerWindowView.setCurrentLayer()');
 
-		   /*
-		     //console.log(model);
-		     //console.log(value);
-		     //console.log(options);
-		     //console.log(this.currentItem);
-		   */
-
-
 		   //turn OFF triggers for previous object
 		   if(this.currentItem)
 		       this.currentItem.off("change:opacity", this.setOpacity, this);
@@ -117,8 +109,6 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 
 		   //need to set the canvas to copy from
 
-		   //determine which is which...
-		   //console.log(layersModel);
 
 		   //declare vars
 		   
