@@ -7,7 +7,8 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    return _.extend({}, CanvasViewer.prototype.events,{
 		'mousewheel': 'scroll',
 		'change input#overlayCheckbox': 'toggleOverlay',
-		'mousedown': 'storeMousePos',
+		'mousedown': 'setMouseDown',
+		'mouseup': 'setMouseUp',
 		'mousemove': 'mouseHandler',
 		'mouseenter canvas': 'mouseEnter',
 		'keydown': 'keyHandler',
@@ -18,82 +19,88 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    $(e.target).focus();
 	},
 	mouseHandler:function(e){
-	    //console.log('CanvasViewer2D.mouseHandler');
-
-	    //set swipeCoords
-	    if(e.ctrlKey){
-		//console.log(e.clientX - this.canvas.offsetLeft);
-		//console.log(e.clientY - this.canvas.offsetTop);
 
 
-		this.lineStartX = e.clientX - this.canvas.offsetLeft;
-		this.lineEndX = e.clientX - this.canvas.offsetLeft;
-		this.lineStartY = 0;
-		this.lineEndY = this.canvas.height;
+	    if(this.mouseDown){
+		
+		console.log('CanvasViewer2D.mouseHandler');
+		console.log(e);
+		console.log(e.buttons);
 
-		this.clipPosX = this.canvas.width - this.lineStartX;
-	
-		this.showLine = true;
-	    }
-	    else if(e.which == 1){
-		console.log('Traversing!');
+		if(e.ctrlKey){
+		    //console.log(e.clientX - this.canvas.offsetLeft);
+		    //console.log(e.clientY - this.canvas.offsetTop);
 
-		/*
-		var x = this.mouseXPrev - e.clientX;
-		var y = this.mouseYPrev - e.clientY;
-		*/
 
-		Backbone.trigger('traverse', 
-				 [e.clientX - this.canvas.offsetLeft,
-				  e.clientY - this.canvas.offsetTop, 
-				  this.currentLayerItemTop, 
-				  this.mode]);
-	    }
-	    else if(e.which == 2){
-		//console.log('Panning!');
+		    this.lineStartX = e.clientX - this.canvas.offsetLeft;
+		    this.lineEndX = e.clientX - this.canvas.offsetLeft;
+		    this.lineStartY = 0;
+		    this.lineEndY = this.canvas.height;
 
-		//return normalised/relative mouse data
-		var x = this.mouseXPrev - e.clientX;
-		var y = this.mouseYPrev - e.clientY;
+		    this.clipPosX = this.canvas.width - this.lineStartX;
+		    
+		    this.showLine = true;
+		}
+		else if(e.buttons == 1){
+		    console.log('Traversing!');
 
-		//console.log('x,y = ' + x + ', ' + y);
+		    /*
+		      var x = this.mouseXPrev - e.clientX;
+		      var y = this.mouseYPrev - e.clientY;
+		    */
 
-		/*
-		this.viewX = this.viewX + x/4;
-		this.viewY = this.viewY + y/4;
-		*/
+		    Backbone.trigger('traverse', 
+				     [e.clientX - this.canvas.offsetLeft,
+				      e.clientY - this.canvas.offsetTop, 
+				      this.currentLayerItemTop, 
+				      this.mode]);
+		}
+		else if(e.buttons == 4){
+		    console.log('Panning!');
 
-		//use a backbone trigger here to communicate with correct xtkView
-		//send values
-		//send mode
-		//send layer
+		    //return normalised/relative mouse data
+		    var x = this.mouseXPrev - e.clientX;
+		    var y = this.mouseYPrev - e.clientY;
 
-		Backbone.trigger('pan', [x, y, this.currentLayerItemTop, this.mode]);
+		    //console.log('x,y = ' + x + ', ' + y);
 
-		this.mouseXPrev = e.clientX;
-		this.mouseYPrev = e.clientY;
-	    }
-	    else if(e.which == 3){
-		//console.log('Zooming!');
+		    /*
+		      this.viewX = this.viewX + x/4;
+		      this.viewY = this.viewY + y/4;
+		    */
 
-		//return normalised/relative mouse data
-		var z = this.mouseZPrev - e.clientY;
+		    //use a backbone trigger here to communicate with correct xtkView
+		    //send values
+		    //send mode
+		    //send layer
 
-		//console.log('x,y = ' + x + ', ' + y);
+		    Backbone.trigger('pan', [x, y, this.currentLayerItemTop, this.mode]);
 
-		/*
-		this.viewX = this.viewX + x/4;
-		this.viewY = this.viewY + y/4;
-		*/
+		    this.mouseXPrev = e.clientX;
+		    this.mouseYPrev = e.clientY;
+		}
+		else if(e.buttons == 2){
+		    console.log('Zooming!');
 
-		//use a backbone trigger here to communicate with correct xtkView
-		//send values
-		//send mode
-		//send layer
+		    //return normalised/relative mouse data
+		    var z = this.mouseZPrev - e.clientY;
 
-		Backbone.trigger('zoom', [z, this.currentLayerItemTop, this.mode]);
+		    //console.log('x,y = ' + x + ', ' + y);
 
-		this.mouseZPrev = e.clientY;
+		    /*
+		      this.viewX = this.viewX + x/4;
+		      this.viewY = this.viewY + y/4;
+		    */
+
+		    //use a backbone trigger here to communicate with correct xtkView
+		    //send values
+		    //send mode
+		    //send layer
+
+		    Backbone.trigger('zoom', [z, this.currentLayerItemTop, this.mode]);
+
+		    this.mouseZPrev = e.clientY;
+		}
 	    }
 	},
 	keyHandler:function(e){
@@ -108,6 +115,14 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		console.log('toggleOverlay');
 		this.toggleOverlay();
 	    }
+	},
+	setMouseDown:function(e){
+	    this.mouseDown = true;
+	    this.storeMousePos(e);
+
+	},
+	setMouseUp:function(e){
+	    this.mouseDown = false;
 	},
 	storeMousePos:function(e){
 	    console.log('storeMousePos');
@@ -191,8 +206,8 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    //WITH RED FRAME TO SHOW ACTIVE REGION
 	    this.ctx.beginPath();
 	    this.ctx.rect(0, 0,
-	    		 this.canvas.width - this.clipPosX,
-			 this.canvas.height - this.clipPosY);
+	    		  this.canvas.width - this.clipPosX,
+			  this.canvas.height - this.clipPosY);
 	    this.ctx.fillStyle = 'black';
 	    this.ctx.fill();
 	    this.ctx.lineWidth = 2;
@@ -206,7 +221,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    if(this.currentLayerItemTop){
 		if(this.currentLayerItemTop.get('loaded')){
 		    //this.ctx.drawImage(this.srcCanvasA, 0, 0);
-	    
+		    
 		    this.ctx.drawImage(this.srcCanvasA,
 				       0, 0,
 				       this.canvas.width - this.clipPosX,
