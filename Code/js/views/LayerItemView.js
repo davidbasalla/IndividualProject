@@ -74,8 +74,11 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    $('#textHolder', this.el).html(e.currentTarget.files[0].name);
 
 	    this.model.set({
-		fileName : e.currentTarget.files[0]
+		fileName: e.currentTarget.files[0].name,
+		file : e.currentTarget.files[0]
 	    });
+
+	    console.log(this.model);
 	    
 	    //trigger event that file has loaded, expected by XtkViewer
 	    //send file along as a parameter

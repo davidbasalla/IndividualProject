@@ -6,6 +6,7 @@ define(function() {
 	    title: 'Layer',
 	    selected: true,
 	    visible: true,
+	    file: null,
 	    fileName: 'dummyFileName',
 	    type: 'scan',
 	    index: 0,

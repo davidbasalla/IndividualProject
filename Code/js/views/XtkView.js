@@ -110,6 +110,10 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerY.init();
 	    this.viewerZ.init();
 
+	    console.log('initial viewer objects');
+	    console.log(this.viewerX.objects);
+	    console.log(this.viewerX.topLevelObjects.length);
+
 	    
 	    //add id's to the canvases, need to go 2 levels deep now, due to nesting
 	    //SUPER DODGY CURRENTLY! - CLEANUP!
@@ -130,15 +134,15 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	},
 	loadFile:function(model, value, options){
 	    //do file stuff, load it into the master viewer
-	    //console.log('XtkView:loadFile()');
+	    console.log('XtkView:loadFile()');
 
-	    var file = value;
+	    var file = model.get('file');
 
 	    //create place holder for render data
 	    this.createData();
 	    
 	    var f = file;
-	    var _fileName = f.name;
+	    var _fileName = value;
 	    var _fileExtension = _fileName.split('.').pop().toUpperCase();
 	    
 	    //add data to data_holder
@@ -165,6 +169,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    });
 	},
 	loadHandler:function(type,file){
+	    console.log('XtkView:loadHandler()');
 
 	    _this = this;
 	    
@@ -191,7 +196,45 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		}
 	    };
 	},
+	clearXtkObjects:function(){
+	    
+	    // WHAT THE FUCK IS GOING ON HERE????
+	    // SOME ASYNCHRONOUS BULLSHIT!!!!!!!!!
+
+	    console.log('Before clearing');
+	    console.log(this.viewerX.objects);
+	    console.log(this.viewerX.topLevelObjects);
+	    console.log(this.viewerX.topLevelObjects.length);
+
+	    //this.viewerX.objects.values();
+	    this.viewerX.objects.clear();
+	    this.viewerX.topLevelObjects = [];
+	    this.viewerX.topLevelObjects.length = 0;
+
+	    /*
+	    delete this.viewerX.objects;
+	    this.viewerX.topLevelObjects.length = 0;
+	    delete this.viewerX.topLevelObjects;
+	    */
+
+	    console.log('After clearing');
+	    console.log(this.viewerX.objects);
+	    console.log(this.viewerX.topLevelObjects);
+	    console.log(this.viewerX.topLevelObjects.length);
+
+	    return true;
+
+	},
 	parse:function(data){
+	    console.log('XtkView:parse()');
+
+	    // CLEAR ANY OLD OBJECTS OUT //////////////////////////
+	    if(!this.clearXtkObjects())
+		return;
+
+
+
+
 	    // we have a volume
 	    this.volume = new X.volume();
 
@@ -201,17 +244,23 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	    this.volume.filedata = data['volume']['filedata'];
 
-	    this.viewerX.objects.clear();
-	    this.viewerX.topLevelObjects = [];
-	    
+
+
 	    this.viewerX.add(this.volume);
 	    this.viewerX.render();
 
+	    console.log('After adding');
+	    console.log(this.viewerX.objects);
+	    console.log(this.viewerX.topLevelObjects);
+	    console.log(this.viewerX.topLevelObjects.length);
+
 	    var _this = this;
+
+
 	    this.viewerX.onShowtime = function() {
 		// add the volume to the other 3 renderers
 
-		//console.log('setting initial model');
+		console.log('XtkView.onShowtime...');
 
 		//store initial values into the layerModel
 		_this.storeValues();
@@ -232,34 +281,26 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    loaded: true
 		});
 
-		console.log('this.viewerX.camera = ');
-		console.log(_this.viewerX.camera);
-		
 		_this.storeOriginalViews();
 		Backbone.trigger('onShowtime');
 	    };
-
-	    /*DONT NEED THIS ANYMORE!
-	    this.viewerX.onRender = function(){
-		//Backbone.trigger('onRender2');
-	    };*/
 	},
 	storeOriginalViews:function(){
 	    
 	    this.viewerX_OrigX = this.viewerX.camera.view[12];
 	    this.viewerX_OrigY = this.viewerX.camera.view[13];
 	    this.viewerX_OrigZ = this.viewerX.camera.view[14];
-	    console.log(this.viewerX.camera.view);
+	    //console.log(this.viewerX.camera.view);
 
 	    this.viewerY_OrigX = this.viewerY.camera.view[12];
 	    this.viewerY_OrigY = this.viewerY.camera.view[13];
 	    this.viewerY_OrigZ = this.viewerY.camera.view[14];
-	    console.log(this.viewerY.camera.view);
+	    //console.log(this.viewerY.camera.view);
 
 	    this.viewerZ_OrigX = this.viewerZ.camera.view[12];
 	    this.viewerZ_OrigY = this.viewerZ.camera.view[13];
 	    this.viewerZ_OrigZ = this.viewerZ.camera.view[14];
-	    console.log(this.viewerZ.camera.view);
+	    //console.log(this.viewerZ.camera.view);
 	},
 	storeValues:function(){
 	    //console.log('XtkView.storeValues()');
@@ -335,17 +376,17 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    if(this.layerIndex == args[2].get('index')){
 
 		if(args[3] == 1){
-		    console.log('XtkVew.setPanX()');
+		    //console.log('XtkVew.setPanX()');
 		    this.viewerX.camera.view[12] += -(args[0])/4;
 		    this.viewerX.camera.view[13] += args[1]/4;
 		}
 		else if(args[3] == 2){
-		    console.log('XtkVew.setPanY()');
+		    //console.log('XtkVew.setPanY()');
 		    this.viewerY.camera.view[12] += -(args[0])/4;
 		    this.viewerY.camera.view[13] += args[1]/4;
 		}
 		else if(args[3] == 3){
-		    console.log('XtkVew.setPanZ()');
+		    //console.log('XtkVew.setPanZ()');
 		    this.viewerZ.camera.view[12] += -(args[0])/4;
 		    this.viewerZ.camera.view[13] += args[1]/4;
 		}
@@ -410,7 +451,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	},
 	traverse:function(args){
 
-	    console.log('XtkView.traverse()');
+	    //console.log('XtkView.traverse()');
 
 	    if(this.layerIndex == args[2].get('index')){
 
