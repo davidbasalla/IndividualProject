@@ -42,16 +42,16 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   //RESET THE VIEWER CANVAS DIMENSIONS
 		   var myList = document.getElementsByTagName("canvas");
 
+		   var topbarHeight = $('#topbar').outerHeight();
+		   var totalHeight =  $('.canvasPanel').height();
+		   var totalWidth =  $('.canvasPanel').width();
+
 		   for(var i = 0; i < myList.length; i++){
-		       $(myList[i]).attr("height", height/2 - 35);
-		       $(myList[i]).attr("width", width/2 - 10);
+		       //$(myList[i]).attr("height", height/2 - 35);
+		       $(myList[i]).attr("height", totalHeight - topbarHeight);
+		       $(myList[i]).attr("width", totalWidth);
 		   }
 
-		   /*
-		   //RESET THE XTK PANELS
-		   //console.log('Resizing XTK Panels');
-		   //console.log($('#xtkPanels'));
-		   */
 	       },
 	       render:function() {
 		   //load the template

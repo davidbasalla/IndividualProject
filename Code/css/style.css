@@ -45,8 +45,8 @@ html, body {
     background-color: #DDD;
     border-style:outset;
     border-width:2px;
-    height: 27px;
-    min-height:27px;
+    /*height: 27px;
+    min-height:27px;*/
     min-width: 280px;
 }
 .navbar{

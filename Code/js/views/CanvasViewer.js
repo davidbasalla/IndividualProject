@@ -5,6 +5,8 @@ define(function() {
 	initialize:function(options){
 	    //console.log('CanvasViewer.init()');
 	    
+	    _.bindAll(this, 'setMode');
+
 	    this.currentLayerItemTop = null;
 	    this.currentLayerItemBottom = null;
 	    this.srcCanvas = null;
@@ -89,7 +91,8 @@ define(function() {
 	},
 	setModeHandler:function(e){
 
-	    ////console.log('e = ' + e.currentTarget.id);
+	    console.log('setModeHandler');
+	    console.log('e = ' + e.currentTarget.id);
 	    
 	    if (e.currentTarget.id == 'ThreeDtoggle')
 		this.setMode(0);
@@ -101,22 +104,23 @@ define(function() {
 		this.setMode(3);
 	},
 	setMode:function(mode){
-	    ////console.log('setMode(' + mode + ')');
+	    console.log('setMode(' + mode + ')');
 
-	    $($(ThreeDtoggle, this.el)[this.viewerIndex]).removeClass('layer-selected');
-	    $($(Xtoggle, this.el)[this.viewerIndex]).removeClass('layer-selected');
-	    $($(Ytoggle, this.el)[this.viewerIndex]).removeClass('layer-selected');
-	    $($(Ztoggle, this.el)[this.viewerIndex]).removeClass('layer-selected');
+	    $($('ThreeDtoggle_canvasViewer' + mode)).removeClass('layer-selected');
+	    $($('Xtoggle_canvasViewer' + mode)).removeClass('layer-selected');
+	    $($('Ytoggle_canvasViewer' + mode)).removeClass('layer-selected');
+	    $($('Ztoggle_canvasViewer' + mode)).removeClass('layer-selected');
 
 	    var currentTarget;
 	    if(mode == 0)
-		currentTarget = $($(ThreeDtoggle, this.el)[this.viewerIndex]);
+		currentTarget = $('#ThreeDtoggle_canvasViewer' + mode);
 	    else if(mode == 1)
-		currentTarget = $($(Xtoggle, this.el)[this.viewerIndex]);
+		currentTarget = $('#Xtoggle_canvasViewer' + mode);
 	    else if(mode == 2)
-		currentTarget = $($(Ytoggle, this.el)[this.viewerIndex]);
+		currentTarget = $('#Ytoggle_canvasViewer' + mode);
 	    else if(mode == 3)
-		currentTarget = $($(Ztoggle, this.el)[this.viewerIndex]);
+		currentTarget = $('#Ztoggle_canvasViewer' + mode);
+
 
 	    currentTarget.addClass('layer-selected');
 
