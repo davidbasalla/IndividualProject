@@ -110,10 +110,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerY.init();
 	    this.viewerZ.init();
 
-	    console.log('initial viewer objects');
-	    console.log(this.viewerX.objects);
-	    console.log(this.viewerX.topLevelObjects.length);
-
 	    
 	    //add id's to the canvases, need to go 2 levels deep now, due to nesting
 	    //SUPER DODGY CURRENTLY! - CLEANUP!
@@ -198,30 +194,25 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	},
 	clearXtkObjects:function(){
 	    
-	    // WHAT THE FUCK IS GOING ON HERE????
-	    // SOME ASYNCHRONOUS BULLSHIT!!!!!!!!!
-
-	    console.log('Before clearing');
-	    console.log(this.viewerX.objects);
-	    console.log(this.viewerX.topLevelObjects);
-	    console.log(this.viewerX.topLevelObjects.length);
-
-	    //this.viewerX.objects.values();
 	    this.viewerX.objects.clear();
 	    this.viewerX.topLevelObjects = [];
-	    this.viewerX.topLevelObjects.length = 0;
 
-	    /*
-	    delete this.viewerX.objects;
-	    this.viewerX.topLevelObjects.length = 0;
-	    delete this.viewerX.topLevelObjects;
-	    */
+	    this.viewerY.objects.clear();
+	    this.viewerY.topLevelObjects = [];
 
-	    console.log('After clearing');
-	    console.log(this.viewerX.objects);
-	    console.log(this.viewerX.topLevelObjects);
-	    console.log(this.viewerX.topLevelObjects.length);
+	    this.viewerZ.objects.clear();
+	    this.viewerZ.topLevelObjects = [];
 
+
+	    if (this.webGLFriendly) {
+
+		if(this.viewer3D.objects){
+		    this.viewer3D.objects.clear();
+		}
+		if(this.viewer3D.topLevelObjects){
+		    this.viewer3D.topLevelObjects = [];
+		}
+	    }
 	    return true;
 
 	},
@@ -244,15 +235,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	    this.volume.filedata = data['volume']['filedata'];
 
-
-
 	    this.viewerX.add(this.volume);
 	    this.viewerX.render();
-
-	    console.log('After adding');
-	    console.log(this.viewerX.objects);
-	    console.log(this.viewerX.topLevelObjects);
-	    console.log(this.viewerX.topLevelObjects.length);
 
 	    var _this = this;
 

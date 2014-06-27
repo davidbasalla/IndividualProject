@@ -23,9 +23,9 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    if(this.mouseDown){
 		
-		console.log('CanvasViewer2D.mouseHandler');
-		console.log(e);
-		console.log(e.buttons);
+		//console.log('CanvasViewer2D.mouseHandler');
+		//console.log(e);
+		//console.log(e.buttons);
 
 		if(e.ctrlKey){
 		    //console.log(e.clientX - this.canvas.offsetLeft);
@@ -42,7 +42,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		    this.showLine = true;
 		}
 		else if(e.buttons == 1){
-		    console.log('Traversing!');
+		    //console.log('Traversing!');
 
 		    /*
 		      var x = this.mouseXPrev - e.clientX;
@@ -56,7 +56,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 				      this.mode]);
 		}
 		else if(e.buttons == 4){
-		    console.log('Panning!');
+		    //console.log('Panning!');
 
 		    //return normalised/relative mouse data
 		    var x = this.mouseXPrev - e.clientX;
@@ -80,7 +80,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		    this.mouseYPrev = e.clientY;
 		}
 		else if(e.buttons == 2){
-		    console.log('Zooming!');
+		    //console.log('Zooming!');
 
 		    //return normalised/relative mouse data
 		    var z = this.mouseZPrev - e.clientY;
@@ -104,8 +104,8 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    }
 	},
 	keyHandler:function(e){
-	    console.log('CanvasViewer2D.keyHandler()');
-	    console.log(e.which);
+	    //console.log('CanvasViewer2D.keyHandler()');
+	    //console.log(e.which);
 	    
 	    if(e.which == 70){
 		console.log('Focus');
@@ -125,7 +125,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.mouseDown = false;
 	},
 	storeMousePos:function(e){
-	    console.log('storeMousePos');
+	    //console.log('storeMousePos');
 
 	    this.mouseXPrev = e.clientX;
 	    this.mouseYPrev = e.clientY;
@@ -134,7 +134,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	},
 	toggleOverlay:function(){
 
-	    console.log('CanvasViewer2D.toggleOverlay()');
+	    //console.log('CanvasViewer2D.toggleOverlay()');
 	    if (!this.showOverlay){
 		this.showOverlay = true;
 
