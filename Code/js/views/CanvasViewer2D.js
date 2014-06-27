@@ -5,7 +5,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	template: _.template(CanvasViewer2DTemplate),
 	events: function(){
 	    return _.extend({}, CanvasViewer.prototype.events,{
-		'mousewheel': 'scroll',
 		'change input#overlayCheckbox': 'toggleOverlay',
 		'mousedown': 'setMouseDown',
 		'mouseup': 'setMouseUp',
@@ -163,8 +162,61 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    //DST CANVAS
 	    this.canvas = document.getElementById("canvasViewer" + this.viewerIndex);
 	    this.ctx = this.canvas.getContext("2d");
-	    
+
+
+	    if (this.canvas.addEventListener) {
+		// IE9, Chrome, Safari, Opera
+		this.canvas.addEventListener("mousewheel", this.mouseWheelHandler, false);
+		// Firefox
+		this.canvas.addEventListener("DOMMouseScroll", this.mouseWheelHandler, false);
+	    }
+	    // IE 6/7/8
+	    else this.canvas.attachEvent("onmousewheel", this.mouseWheelHandler);
+
+
+
 	    return this; //to enable chain calling
+	},
+	mouseWheelHandler:function(e){
+	    console.log('mouseWheelHandler');
+	    console.log(this);
+	    console.log(e);
+
+
+	    var e = window.event || e; // old IE support
+	    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+
+	    console.log(delta);
+	    console.log(this.mode);
+
+	    //X
+	    if (this.mode == 1){
+	    	var oldVal = this.currentLayerItemTop.get('indexX');
+		
+		if(delta < 0)
+		    this.currentLayerItemTop.set({indexX: oldVal - 1});
+		else
+		    this.currentLayerItemTop.set({indexX: oldVal + 1});
+	    }
+	    //Y
+	    else if (this.mode == 2){
+	    	var oldVal = this.currentLayerItemTop.get('indexY');
+		
+		if(delta < 0)
+		    this.currentLayerItemTop.set({indexY: oldVal - 1});
+		else
+		    this.currentLayerItemTop.set({indexY: oldVal + 1});
+	    }
+	    //Z
+	    else if (this.mode == 3){
+	    	var oldVal = this.currentLayerItemTop.get('indexZ');
+		
+		if(delta < 0)
+		    this.currentLayerItemTop.set({indexZ: oldVal - 1});
+		else
+		    this.currentLayerItemTop.set({indexZ: oldVal + 1});
+	    }
+
 	},
 	setOpacity:function(){
 
@@ -284,37 +336,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    //OPAC
 	    this.ctx.fillText("Opacity: " + this.currentLayerItemTop.get('opacity'),10,60);
-
-	},
-	scroll:function(e){
-	    
-	    //X
-	    if (this.mode == 1){
-	    	var oldVal = this.currentLayerItemTop.get('indexX');
-		
-		if(e.originalEvent.wheelDelta < 0)
-		    this.currentLayerItemTop.set({indexX: oldVal - 1});
-		else
-		    this.currentLayerItemTop.set({indexX: oldVal + 1});
-	    }
-	    //Y
-	    else if (this.mode == 2){
-	    	var oldVal = this.currentLayerItemTop.get('indexY');
-		
-		if(e.originalEvent.wheelDelta < 0)
-		    this.currentLayerItemTop.set({indexY: oldVal - 1});
-		else
-		    this.currentLayerItemTop.set({indexY: oldVal + 1});
-	    }
-	    //Z
-	    else if (this.mode == 3){
-	    	var oldVal = this.currentLayerItemTop.get('indexZ');
-		
-		if(e.originalEvent.wheelDelta < 0)
-		    this.currentLayerItemTop.set({indexZ: oldVal - 1});
-		else
-		    this.currentLayerItemTop.set({indexZ: oldVal + 1});
-	    }
 
 	},
     });

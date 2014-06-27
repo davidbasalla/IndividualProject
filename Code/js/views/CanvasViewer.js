@@ -41,7 +41,9 @@ define(function() {
 	    this.mouseYPrev = 0;
 	    this.mouseZPrev = 0;
 
-	    this.mouseDown = false;
+	    this.mouseDown = false;	    
+
+	    _.bindAll(this, 'mouseWheelHandler');
 	    
 	    //DISABLE MIDDLE MOUSE FOR THIS ELEMENT
 	    $(this.el).mousedown(function(e){if(e.button==1)return false});

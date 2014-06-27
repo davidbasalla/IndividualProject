@@ -91,23 +91,37 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    document.getElementById("xtkViewer_L" + this.layerIndex).style.width = width;
 	    document.getElementById("xtkViewer_L" + this.layerIndex).style.height = height;
 	    
-	    this.viewer3D = new X.renderer3D();
-	    this.viewerX = new X.renderer2D();
-	    this.viewerY = new X.renderer2D();
-	    this.viewerZ = new X.renderer2D();
-	    
-	    this.viewer3D.container = 'xtkContainer3D_L' + this.layerIndex;
-	    this.viewerX.container = 'xtkContainerX_L' + this.layerIndex;
-	    this.viewerY.container = 'xtkContainerY_L' + this.layerIndex;
-	    this.viewerZ.container = 'xtkContainerZ_L' + this.layerIndex;
-	    
-	    this.viewerX.orientation = 'X';
-	    this.viewerY.orientation = 'Y';
-	    this.viewerZ.orientation = 'Z';
 
-	    this.viewer3D.init();
+	    // 3D
+	    try {
+		// try to create and initialize a 3D renderer
+		this.viewer3D = new X.renderer3D();
+		this.viewer3D.container = 'xtkContainer3D_L' + this.layerIndex;
+		this.viewer3D.init();
+
+	    } catch (Exception) {
+		
+		// no webgl on this machine
+		this.webGLFriendly = false;
+		
+	    }
+
+	    // X
+	    this.viewerX = new X.renderer2D();
+	    this.viewerX.container = 'xtkContainerX_L' + this.layerIndex;
+	    this.viewerX.orientation = 'X';	    
 	    this.viewerX.init();
+
+	    //Y
+	    this.viewerY = new X.renderer2D();
+	    this.viewerY.container = 'xtkContainerY_L' + this.layerIndex;
+	    this.viewerY.orientation = 'Y';
 	    this.viewerY.init();
+
+	    //Z
+	    this.viewerZ = new X.renderer2D();
+	    this.viewerZ.container = 'xtkContainerZ_L' + this.layerIndex;
+	    this.viewerZ.orientation = 'Z';
 	    this.viewerZ.init();
 
 	    
