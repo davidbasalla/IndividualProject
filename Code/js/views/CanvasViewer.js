@@ -41,7 +41,11 @@ define(function() {
 	    this.mouseYPrev = 0;
 	    this.mouseZPrev = 0;
 
-	    this.mouseDown = false;	    
+	    this.mouseX = 0;
+	    this.mouseY = 0;
+
+	    this.mouseDown = false;
+	    this.traversing = false;
 
 	    _.bindAll(this, 'mouseWheelHandler');
 	    

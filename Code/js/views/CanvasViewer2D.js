@@ -22,6 +22,10 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    if(this.mouseDown){
 		
+
+		this.mouseX = e.clientX - this.canvas.offsetLeft;
+		this.mouseY = e.clientY - this.canvas.offsetTop;
+
 		//console.log('CanvasViewer2D.mouseHandler');
 		//console.log(e);
 		//console.log(e.buttons);
@@ -31,16 +35,13 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		    //console.log(e.clientY - this.canvas.offsetTop);
 
 
-		    this.lineStartX = e.clientX - this.canvas.offsetLeft;
-		    this.lineEndX = e.clientX - this.canvas.offsetLeft;
-		    this.lineStartY = 0;
-		    this.lineEndY = this.canvas.height;
-
-		    this.clipPosX = this.canvas.width - this.lineStartX;
+		    this.clipPosX = this.canvas.width - this.mouseX;
 		    
 		    this.showLine = true;
 		}
 		else if(e.buttons == 1){
+
+		    this.traversing = true;
 		    //console.log('Traversing!');
 
 		    /*
@@ -49,8 +50,8 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		    */
 
 		    Backbone.trigger('traverse', 
-				     [e.clientX - this.canvas.offsetLeft,
-				      e.clientY - this.canvas.offsetTop, 
+				     [this.mouseX,
+				      this.mouseY,
 				      this.currentLayerItemTop, 
 				      this.mode]);
 		}
@@ -122,6 +123,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	},
 	setMouseUp:function(e){
 	    this.mouseDown = false;
+	    this.traversing = false;
 	},
 	storeMousePos:function(e){
 	    //console.log('storeMousePos');
@@ -290,6 +292,10 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    if(this.showLine)
 		this.drawLine();
+
+	    if(this.traversing)
+		this.drawCrosshair();
+
 	},
 	drawLine:function(){
 	    //console.log('drawingLine()');
@@ -297,8 +303,8 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.ctx.globalAlpha = 1;
 	    this.ctx.lineWidth = 2;
 	    this.ctx.beginPath();
-	    this.ctx.moveTo(this.lineStartX, this.lineStartY);
-	    this.ctx.lineTo(this.lineEndX, this.lineEndY);
+	    this.ctx.moveTo(this.mouseX, 0);
+	    this.ctx.lineTo(this.mouseY, this.canvas.height);
 
 	    this.ctx.strokeStyle = 'red';
 	    this.ctx.stroke();
@@ -309,6 +315,30 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    //this.ctx.lineTo(this.lineEndX, this.lineEndY);
 	    
 	    this.showLine = false;
+
+	},
+	drawCrosshair:function(){
+	    console.log('TRAVERSE');
+
+	    this.ctx.globalAlpha = 1;
+	    this.ctx.lineWidth = 2;
+	    this.ctx.beginPath();
+	    this.ctx.moveTo(this.mouseX, 0);
+	    this.ctx.lineTo(this.mouseX, this.canvas.height);
+
+	    this.ctx.strokeStyle = 'green';
+	    this.ctx.stroke();
+	    this.ctx.closePath();
+
+
+	    this.ctx.beginPath();
+	    this.ctx.moveTo(0, this.mouseY);
+	    this.ctx.lineTo(this.canvas.width, this.mouseY);
+
+	    this.ctx.strokeStyle = 'blue';
+	    this.ctx.stroke();
+	    this.ctx.closePath();
+
 
 	},
 	drawOverlay:function(){
@@ -325,17 +355,27 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    //INDEX
 	    var index = 0;
-	    if (this.mode == 1)
+	    var orientation = "";
+	    if (this.mode == 1){
 		index = this.currentLayerItemTop.get('indexX');
-	    else if (this.mode == 2)
+		orientation = 'Axial';
+	    }
+	    else if (this.mode == 2){
 		index = this.currentLayerItemTop.get('indexY');
-	    else if (this.mode == 3)
-		index = this.currentLayerItemTop.get('indexZ');
+		orientation = 'Sagittal';
 
-	    this.ctx.fillText("Index: " + index,10,40);
+	    }
+	    else if (this.mode == 3){
+		index = this.currentLayerItemTop.get('indexZ');
+		orientation = 'Coronal';
+
+	    }
+
+	    this.ctx.fillText("Orientation: " + orientation,10,40);
+	    this.ctx.fillText("Index: " + index,10,60);
 
 	    //OPAC
-	    this.ctx.fillText("Opacity: " + this.currentLayerItemTop.get('opacity'),10,60);
+	    this.ctx.fillText("Opacity: " + this.currentLayerItemTop.get('opacity'),10,80);
 
 	},
     });
