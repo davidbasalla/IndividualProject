@@ -106,21 +106,21 @@ define(function() {
 	setMode:function(mode){
 	    console.log('setMode(' + mode + ')');
 
-	    $($('ThreeDtoggle_canvasViewer' + mode)).removeClass('layer-selected');
-	    $($('Xtoggle_canvasViewer' + mode)).removeClass('layer-selected');
-	    $($('Ytoggle_canvasViewer' + mode)).removeClass('layer-selected');
-	    $($('Ztoggle_canvasViewer' + mode)).removeClass('layer-selected');
+
+	    this.$el.find("#ThreeDtoggle").removeClass('layer-selected');
+	    this.$el.find("#Xtoggle").removeClass('layer-selected');	    
+	    this.$el.find("#Ytoggle").removeClass('layer-selected');
+	    this.$el.find("#Ztoggle").removeClass('layer-selected');
 
 	    var currentTarget;
 	    if(mode == 0)
-		currentTarget = $('#ThreeDtoggle_canvasViewer' + mode);
+		currentTarget = this.$el.find("#ThreeDtoggle");
 	    else if(mode == 1)
-		currentTarget = $('#Xtoggle_canvasViewer' + mode);
+		currentTarget = this.$el.find("#Xtoggle");
 	    else if(mode == 2)
-		currentTarget = $('#Ytoggle_canvasViewer' + mode);
+		currentTarget = this.$el.find("#Ytoggle");
 	    else if(mode == 3)
-		currentTarget = $('#Ztoggle_canvasViewer' + mode);
-
+		currentTarget = this.$el.find("#Ztoggle");
 
 	    currentTarget.addClass('layer-selected');
 
