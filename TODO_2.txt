@@ -1,47 +1,24 @@
 TODAY:
 
+- Colortables:
+  - problematic
+      - XTK does not support applying ColorTable to loaded file
+      - XTK only supports ColorTables for labelmaps
+      -	have managed to apply color lookup to one slice only, need to
+        delve deeper
 
-COMPLETELY FUCKED!!!!
+      - also application of colormaps happens at the beginning when
+        parsing the file structure, so not clear how interactive the
+	swapping of files would be... NEED TO TEST
 
-loading/reloading xtk volumes behaviour really screwy
-could be due to console in Firefox!?
-Try this with Chrome...
-
-Move on, solve this problem later?
-Things seem to happen in asychronous fashion
-
-
-
-
-
-
-
-
-
-
-
-
-
-work on:
-    - performance issue!! - how to reduce? POTENTIALLY HUGE PROBLEM
-    - could only have 1 view active...
-        - how to determine the time frame
-        - need all 4 views active when changing global parameters (eg opacity)
-    - only update the render after XTK renderer has finished drawing... need
-      to have a callback for when XTKrenderer has changed?
-
-
-
-    - colortables
-
-
-
-
-
-
-
-
-
+	Next steps:
+	- get colorTables working for actual files
+	- talk to Ben about importance of this feature
+	- requires separate loading of these maps?
+	- need to fully understand the flow of control of Xtk
+	  
+    
+     
 
 
 WIP:

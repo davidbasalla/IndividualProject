@@ -192,7 +192,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		// attach the filedata to the right one
 		
 		_this._data[type]['filedata'][_this._data[type]['file'].indexOf(file)] = data;
-		////console.log(_this._data[type]['filedata'][_this._data[type]['file'].indexOf(file)]);
 		
 		_this._numberRead++;
 		if (_this._numberRead == _this._numberOfFiles) {
@@ -239,7 +238,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 
 
-
 	    // we have a volume
 	    this.volume = new X.volume();
 
@@ -247,7 +245,23 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		return v.name;
 	    });
 
-	    this.volume.filedata = data['volume']['filedata'];
+
+	    //this.volume.filedata = data['volume']['filedata'];
+
+	    this.volume.file = 'http://x.babymri.org/?seg.nrrd';
+	    this.volume.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
+
+
+	    // .. and use a color table to map the label map values to colors
+
+
+	    //this.volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
+
+	    //this.volume.labelmap.colortable.file = 'https://www.slicer.org/slicerWiki/images/c/ca/PETCT_Labels.txt';
+	    //this.volume.labelmap.colortable.file = 'file://homes/db913/individualproject/Resources/Data/colorExample.txt';
+
+
+
 
 	    this.viewerX.add(this.volume);
 	    this.viewerX.render();
@@ -366,10 +380,12 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.volume.upperThreshold = value;
 	},
 	setPan:function(args){
+	    console.log('setPan()');
 
 	    //console.log(this.layerIndex);
 	    //console.log(args[2].get('index'));
 
+	    //this.volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
 
 	    if(this.layerIndex == args[2].get('index')){
 
