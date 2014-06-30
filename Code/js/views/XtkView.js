@@ -241,14 +241,15 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    // we have a volume
 	    this.volume = new X.volume();
 
+
 	    this.volume.file = data['volume']['file'].map(function(v) {
 		return v.name;
 	    });
+	    this.volume.filedata = data['volume']['filedata'];
 
 
-	    //this.volume.filedata = data['volume']['filedata'];
 
-	    this.volume.file = 'http://x.babymri.org/?seg.nrrd';
+	    //this.volume.file = 'http://x.babymri.org/?seg.nrrd';
 	    this.volume.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
 
 
@@ -274,9 +275,11 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 		console.log('XtkView.onShowtime...');
 
+
 		//store initial values into the layerModel
 		_this.storeValues();
 		
+		/*
 		_this.viewerY.add(_this.volume);
 		_this.viewerY.render();
 		_this.viewerZ.add(_this.volume);
@@ -286,6 +289,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    _this.viewer3D.add(_this.volume);
 		    _this.viewer3D.render();
 		}
+		*/
 
 		//update the model
 		_this.model.set({
@@ -294,8 +298,10 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		});
 
 		_this.storeOriginalViews();
+
 		Backbone.trigger('onShowtime');
 	    };
+
 	},
 	storeOriginalViews:function(){
 	    
