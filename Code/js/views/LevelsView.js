@@ -4,6 +4,7 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	//define the template
 	template: _.template(LevelsTemplate),
 	events: {
+	    'change select': "setLookup"
 	},
 	initialize:function() {
 	    this.render();
@@ -56,6 +57,13 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    //set the number correctly
 	    
 	},
+	setLookup:function(value){
+	    console.log('LevelsView.setLookup()');
+	    console.log(value.currentTarget.value);
+	    Backbone.trigger('lookupChange', value.currentTarget.value);
+
+	},
+
     });
     return LevelsView;
     

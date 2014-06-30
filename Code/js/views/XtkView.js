@@ -35,6 +35,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.model.on("change:windowHigh", this.setWindowHigh, this);
 	    this.model.on("change:thresholdLow", this.setThresholdLow, this);
 	    this.model.on("change:thresholdHigh", this.setThresholdHigh, this);
+	    this.model.on("change:colortable", this.setColortable, this);
 
 
 	    //GLOBAL EVENTS
@@ -246,11 +247,11 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		return v.name;
 	    });
 	    this.volume.filedata = data['volume']['filedata'];
-
+	    //this.volume.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
 
 
 	    //this.volume.file = 'http://x.babymri.org/?seg.nrrd';
-	    this.volume.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
+
 
 
 	    // .. and use a color table to map the label map values to colors
@@ -265,6 +266,9 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 
 	    this.viewerX.add(this.volume);
+
+	    
+
 	    this.viewerX.render();
 
 	    var _this = this;
@@ -290,6 +294,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    _this.viewer3D.render();
 		}
 		*/
+
 
 		//update the model
 		_this.model.set({
@@ -384,6 +389,14 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	},
 	setThresholdHigh:function(model, value, options){
 	    this.volume.upperThreshold = value;
+	},
+	setColortable:function(model, value, options){
+	    console.log('XtkView.setColortable()');
+
+	    this.volume.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
+	    this.viewerX.loader.load(this.volume.colortable, this.volume);
+
+
 	},
 	setPan:function(args){
 	    console.log('setPan()');

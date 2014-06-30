@@ -31,6 +31,7 @@ define(["models/LayerItem",
 	    Backbone.on('levelsChange', this.levelsChange, this);
 	    Backbone.on('opacityChange', this.opacityChange, this);
 	    Backbone.on('initValuesStored', this.resetSliders, this);
+	    Backbone.on('lookupChange', this.setLookup, this);
 	    //Backbone.on('xtkInitialised', this.updateCurrentIndex, this);
 
 	    this.collection = new LayerList();
@@ -203,6 +204,14 @@ define(["models/LayerItem",
 		    $('#bufferB', this.el).addClass('layer-selected');
 		}
 	    }
+	},
+	setLookup:function(value){
+	    console.log('LayersView.setLookup()');
+	    console.log(value);
+
+	    var currentItem = this.layersModel.getCurrentItem();
+	    currentItem.set({colortable: value});
+
 	},
     });
 

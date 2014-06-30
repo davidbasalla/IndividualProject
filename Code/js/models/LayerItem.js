@@ -23,6 +23,7 @@ define(function() {
 	    indexZ: 0,
 	    loaded: false,
 	    opacity: 100,
+	    colortable: null,
 	}
     });
     return LayerItem;

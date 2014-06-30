@@ -2,8 +2,8 @@ html, body {
     background-color:#BBB;
     /*margin: 0;
     padding: 0;
-    height: 100%;
-    overflow: hidden !important*/
+    height: 100%;*/
+    overflow: hidden !important
 }
 .layer-selected{
     background-color:#88F;
