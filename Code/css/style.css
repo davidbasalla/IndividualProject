@@ -57,10 +57,21 @@ html, body {
     background-color: #000; 
     min-width: 300px;
     margin: 4px;
-    float: left;
     border-style:groove;
     border-width:5px;
     border-color:#DDD;
+}
+#panel0{
+    float: left;
+}
+#panel1{
+    float: left;
+}
+#panel2{
+    float: left;
+}
+#panel3{
+    float: left;
 }
 .canvasPanel:hover{
     border-color:#88F;

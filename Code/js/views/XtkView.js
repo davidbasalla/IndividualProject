@@ -43,6 +43,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    Backbone.on('zoom', this.setZoom, this);
 	    Backbone.on('focus', this.setFocus, this);
 	    Backbone.on('traverse', this.traverse, this);
+	    //Backbone.on('setLayout', this.setLayout, this);
 
 	    
 	    this.render();
@@ -516,8 +517,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 			indexZ:ijk[0][2]});
 		};
 	    }
-	},
-	
+	}
     });
     return XtkView;
 });

@@ -20,6 +20,7 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   this.layersModel.on("change", this.setCurrentLayer, this);
 
 		   Backbone.on('onShowtime', this.update, this);
+		   Backbone.on('setLayout', this.setLayout, this);
 
 		   this.currentItem = null;
 
@@ -187,6 +188,20 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 			   });
 		   }
 	       },
+	       setLayout:function(value){
+		   console.log('setLayout(' + value + ')');
+
+		   //LAYOUT 1 - 4 Square View
+
+
+		   //LAYOUT 2 - 1 Left Large, 3 Right Small
+
+
+		   //LAYOUT 3 - 1 Top Large, 3 Bottom Small
+		   
+	       },
+
+
 	   });
 	   return ViewerWindowView;
        });
