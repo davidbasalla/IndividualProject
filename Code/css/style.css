@@ -20,6 +20,39 @@ html, body {
 .mode-btn{
     border-color:#AAA;
 }
+
+.layout-selected{
+    background-color:#88F;
+}
+.layout-unselected{
+    background-color:#000;
+}
+.layout-selected:hover{
+    background-color:#66F;
+}
+.layout-unselected:hover{
+    background-color:#AAF;
+}
+
+
+.layout-btn{
+    display: inline-block;
+    margin-bottom: 0px;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 2px 2px;
+    font-size: 14px;
+    line-height: 1.42857;
+    border-radius: 4px;
+    -moz-user-select: none;
+    /*background-color: #000;*/
+
+}
 .canvasPanel{
     background-color: #000; 
     min-width: 300px;
@@ -68,5 +101,9 @@ html, body {
 .textBold{
     font-weight:bold
 }
-
-
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 0px;
+}

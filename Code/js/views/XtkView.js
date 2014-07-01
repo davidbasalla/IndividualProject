@@ -283,7 +283,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		//store initial values into the layerModel
 		_this.storeValues();
 		
-		/*
+
 		_this.viewerY.add(_this.volume);
 		_this.viewerY.render();
 		_this.viewerZ.add(_this.volume);
@@ -293,7 +293,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    _this.viewer3D.add(_this.volume);
 		    _this.viewer3D.render();
 		}
-		*/
+
 
 
 		//update the model
@@ -391,12 +391,26 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.volume.upperThreshold = value;
 	},
 	setColortable:function(model, value, options){
+	    /* can store locations for various color tables here!! 
+	       depending on index, the path changes
+	       force a reload of the color table
+
+	       ALSO need to force a clear of the cache that disables the 
+	       reslicing
+	    */
+
 	    console.log('XtkView.setColortable()');
 
-	    this.volume.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
+	    var colTableFile = null;
+
+	    if(value == 'Lookup_IDs')
+		colTableFile = 'http://x.babymri.org/?genericanatomy.txt';
+	    //if... else...
+	   
+
+	    this.volume.colortable.file = colTableFile;
+	    this.volume.clearChildren();
 	    this.viewerX.loader.load(this.volume.colortable, this.volume);
-
-
 	},
 	setPan:function(args){
 	    console.log('setPan()');
