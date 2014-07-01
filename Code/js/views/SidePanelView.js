@@ -4,7 +4,10 @@ define(["models/LayersItem", "views/LayersView", "views/LevelsView", "text!templ
 	       template: _.template(SidePanelTemplate),
 	       events: {
 	       },
-	       initialize:function() {
+	       initialize:function(options) {
+		   this.layersModel = options.layersModel;
+		   this.viewerWindowView = options.viewerWindowView;
+
 		   this.render();
 	       },
 	       render:function() {
@@ -16,13 +19,14 @@ define(["models/LayersItem", "views/LayersView", "views/LevelsView", "text!templ
 		   //INIT LAYERS
 		   this.layersView = new LayersView({
 		       el: $('#layersTab'),
-		       layersModel: layersModel,
+		       layersModel: this.layersModel,
+		       viewerWindowView: this.viewerWindowView,
 		   });
 
 		   //INIT LEVELS
 		   this.levelsView = new LevelsView({
 		       el: $('#levelsTab'),
-		       layersModel: layersModel,
+		       layersModel: this.layersModel,
 		   });
 	       },
 	       toggleBuffer:function(index){

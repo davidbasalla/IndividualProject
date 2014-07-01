@@ -6,6 +6,7 @@ define(["text!templates/NavBar.html"], function(NavBarTemplate) {
 	    'click button#layoutButton1':'setLayout',
 	    'click button#layoutButton2':'setLayout',
 	    'click button#layoutButton3':'setLayout',
+	    'click button#layoutButton4':'setLayout',
 	},
 	initialize:function() {
 	    this.render();
@@ -27,9 +28,12 @@ define(["text!templates/NavBar.html"], function(NavBarTemplate) {
 	    this.$el.find("#layoutButton1").removeClass('layout-selected');
 	    this.$el.find("#layoutButton2").removeClass('layout-selected');
 	    this.$el.find("#layoutButton3").removeClass('layout-selected');
+	    this.$el.find("#layoutButton4").removeClass('layout-selected');
+
 	    this.$el.find("#layoutButton1").addClass('layout-unselected');
 	    this.$el.find("#layoutButton2").addClass('layout-unselected');
 	    this.$el.find("#layoutButton3").addClass('layout-unselected');
+	    this.$el.find("#layoutButton4").addClass('layout-unselected');
 
 
 	    if(layout == 'layoutButton1'){
@@ -46,6 +50,11 @@ define(["text!templates/NavBar.html"], function(NavBarTemplate) {
 		this.$el.find("#layoutButton3").addClass('layout-selected');
 		this.$el.find("#layoutButton3").removeClass('layout-unselected');
 	    	Backbone.trigger('setLayout', 3);
+	    }
+	    else if (layout == 'layoutButton4'){
+		this.$el.find("#layoutButton4").addClass('layout-selected');
+		this.$el.find("#layoutButton4").removeClass('layout-unselected');
+	    	Backbone.trigger('setLayout', 4);
 	    }
 
 	},

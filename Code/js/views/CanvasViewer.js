@@ -65,7 +65,7 @@ define(function() {
 	    'click button#Ztoggle': 'setModeHandler',
 	},
 	setCurrentLayers:function(itemA, itemB){
-	    //console.log('CanvasViewer.setCurrentLayer()');
+	    console.log('CanvasViewer.setCurrentLayer()');
 	    
 	    //console.log(itemA);
 	    //console.log(itemB);
@@ -77,7 +77,7 @@ define(function() {
 	    this.setSrcCanvases();
 	},
 	setSrcCanvases:function(){
-	    //console.log('CanvasViewer.setSrcCanvases()');
+	    console.log('CanvasViewer.setSrcCanvases()');
 	    //console.log(this.currentLayerItemTop);
 	    //console.log(this.currentLayerItemBottom);
 

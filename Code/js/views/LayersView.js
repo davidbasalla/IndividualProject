@@ -26,6 +26,9 @@ define(["models/LayerItem",
 	    this.layersModel = options.layersModel;
 	    this.layersModel.on("change", this.setCurrentLayer, this);
 
+	    //set viewerWindowView, required for managing XTKViews
+	    this.viewerWindowView = options.viewerWindowView;
+
 	    Backbone.on('layerRemoved', this.removeItem, this);
 	    Backbone.on('thresholdChange', this.thresholdChange, this);
 	    Backbone.on('levelsChange', this.levelsChange, this);
@@ -46,6 +49,8 @@ define(["models/LayerItem",
 	    this.$el.html(this.template);
 	},
 	addItem: function(){
+
+
 	    console.log('LayersView.addItem()');
 	    console.log(this.layersModel);
 	    
@@ -57,18 +62,25 @@ define(["models/LayerItem",
 		index: this.counter,
 	    });
 
+	    //adding as layerIndex and as model
+	    this.viewerWindowView.addXtkView(this.counter, item);
+	    
+	    /*
 	    //adding new set of XTK viewers
 	    var xtkViewer = new XtkView({
 		layerIndex: this.counter,
 		model: item,
 	    });
+	    */
+
 
 	    this.layersModel.setCurrentItem(item);
-	    console.log('AFTER SETTING ITEM');
-	    console.log(this.layersModel);
+	    //console.log('AFTER SETTING ITEM');
+	    //console.log(this.layersModel);
 
 	    this.collection.add(item);
 	    this.counter++;
+
 	},
 	appendItem: function(item){
 	    console.log('LayersView.appendItem()');

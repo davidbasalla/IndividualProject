@@ -1,5 +1,5 @@
-define(["views/NavBarView", "views/SidePanelView", "views/ViewerWindowView"],
-       function(NavBarView, SidePanelView, ViewerWindowView) {
+define(["views/NavBarView", "views/SidePanelView", "views/ViewerWindowView", "models/LayersItem"],
+       function(NavBarView, SidePanelView, ViewerWindowView, LayersItem) {
 	   var MainView = Backbone.View.extend({
 	       initialize:function() {
 		   console.log('MainView.init()');
@@ -12,21 +12,30 @@ define(["views/NavBarView", "views/SidePanelView", "views/ViewerWindowView"],
 		   $(document).bind('keypress', this.keyPressHandler);
 		   
 		   //EVENT FOR RESIZING OF WINDOW
-		   $(window).on("resize", this.setSize);
+		   $(window).on("resize", this.setSize);		   
+
+		   //INIT LAYERS MODEL TO KEEP TRACK OF CHANGES
+		   var layersModel = new LayersItem();
 
 		   //INIT SUBCOMPONENTS
 		   this.navBar = new NavBarView({
 		       el: $('#navbar')
 		   });
 
-		   this.sidePanel = new SidePanelView({
-		       el: $('#sidePanel')
-		   });
 
 		   this.viewerWindow = new ViewerWindowView({
 		       el: $('#viewerWindow'),
-		       layersModel: this.sidePanel.layersView.layersModel,
+		       layersModel: layersModel,
 		   });
+
+		   this.sidePanel = new SidePanelView({
+		       el: $('#sidePanel'),
+		       layersModel: layersModel,
+		       viewerWindowView: this.viewerWindow,
+		   });
+
+
+		   //this.sidePanel.viewerWindowView = this.viewerWindow;
 		   
 		   //set size first time
 		   this.setSize();

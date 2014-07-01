@@ -26,6 +26,10 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerZ_OrigZ = 0;
 
 
+	    //current layout
+	    this.layout = 1;
+
+
 	    //MODEL RELATED EVENTS
 	    this.model.on("change:fileName", this.loadFile, this);
 	    this.model.on("change:indexX", this.changeIndexX, this);
@@ -50,7 +54,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	},
 	render:function() {
-	    ////console.log('XtkView.render()');
+	    console.log('XtkView.render()');
 
 	    this.$el.append(this.template({
 		layerIndex: 'xtkViewer_L' + this.layerIndex,
@@ -61,27 +65,60 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    }));
 	    //need to adjust the dimensions of layerIndex div
 
-	    this.setSize();	    
+	    this.setSize(); //is this necessary!!??	    
 	    this.initViewers();
 	},
 	setSize:function(){
+	    console.log('XtkView.setSize(' + this.layout + ')');
 
 	    //RESET THE GLOBAL CONTAINER DIMENSIONS
 
+
 	    var height = $('#canvasPanels').height() - 20;
 	    var width = $('#canvasPanels').width() - 20;
-		   
-	    $('.canvasPanel').css({ "height": height/2});
-	    $('.canvasPanel').css({ "width": width/2});
+
+	    //required because of XtkWindows are also defined by this
+	    //CHANGE THIS!
+	    //$('.canvasPanel').css({ "height": height/2});
+	    //$('.canvasPanel').css({ "width": width/2});
 
 	    
-	    //need to resize ALL layers!
+	    if(this.layout == 1){
 
+		console.log('SET 1');
+
+		$('.xtkPanel0').css({ "height": height/2,
+				      "width": width/2});
+		$('.xtkPanel1').css({ "height": height/2,
+				      "width": width/2});
+		$('.xtkPanel2').css({ "height": height/2,
+				      "width": width/2});
+		$('.xtkPanel3').css({ "height": height/2,
+				      "width": width/2});
+	    }
+	    else if(this.layout == 2){
+
+		console.log('SET 2');
+
+		$('.xtkPanel0').css({ "height": height,
+				   "width": width*(2/3)});
+		$('.xtkPanel1').css({ "height": height/3 - 6,
+				   "width": width*(1/3)});
+		$('.xtkPanel2').css({ "height": height/3 - 6,
+				   "width": width*(1/3)});
+		$('.xtkPanel3').css({ "height": height/3 - 6,
+				   "width": width*(1/3)});
+	    }
+
+
+	    
+	    //resize the topLayer
 	    var height2 = $('#canvasPanels').height();
 	    var width2 = $('#canvasPanels').width();
 	    
 	    $('#xtkViewer_L' + this.layerIndex).css({ "height": height2});
 	    $('#xtkViewer_L' + this.layerIndex).css({ "width": width2});
+
 	},
 	initViewers:function(){
 	    //create all 4 viewers

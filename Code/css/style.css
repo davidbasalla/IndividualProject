@@ -2,8 +2,8 @@ html, body {
     background-color:#BBB;
     /*margin: 0;
     padding: 0;
-    height: 100%;*/
-    overflow: hidden !important
+    height: 100%;
+    overflow: hidden !important*/
 }
 .layer-selected{
     background-color:#88F;
@@ -55,11 +55,14 @@ html, body {
 }
 .canvasPanel{
     background-color: #000; 
-    min-width: 300px;
+    /*min-width: 300px;*/
     margin: 4px;
     border-style:groove;
     border-width:5px;
     border-color:#DDD;
+}
+.canvasPanel:hover{
+    border-color:#88F;
 }
 #panel0{
     float: left;
@@ -72,9 +75,6 @@ html, body {
 }
 #panel3{
     float: left;
-}
-.canvasPanel:hover{
-    border-color:#88F;
 }
 .menuHeader{
     font-weight:bold;

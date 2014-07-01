@@ -1,9 +1,11 @@
-/* SHOULD TAKE CARE OF XTK VIEWER MANAGEMENT:
-   - when new viewer is added, add it to an array for querying
-*/
-
-define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWindow.html"],
-       function(CanvasViewer3D, CanvasViewer2D, ViewerWindowTemplate)
+define(["views/CanvasViewer3D", 
+	"views/CanvasViewer2D", 
+	"text!templates/ViewerWindow.html",
+	"views/XtkView",],
+       function(CanvasViewer3D, 
+		CanvasViewer2D, 
+		ViewerWindowTemplate,
+		XtkView)
        {
 	   var ViewerWindowView = Backbone.View.extend({
 	       el:'#viewerWindow',
@@ -23,9 +25,23 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   Backbone.on('setLayout', this.setLayout, this);
 
 		   this.currentItem = null;
+		   this.xtkViewArray = [];
+
+		   this.layout = 1;
 
 		   this.render();
-		   this.setSize();
+		   //this.setSize();
+	       },
+	       addXtkView:function(layerIndex, model){
+		   console.log('ViewerWindowView.addXtkView()');
+
+		   var xtkViewer = new XtkView({
+		       layerIndex: layerIndex,
+		       model: model,
+		   });
+
+		   //need to add this to some sort of array so it can be queried!
+		   this.xtkViewArray[this.xtkViewArray.length] = xtkViewer;
 	       },
 	       setSize:function(){
 		   console.log('ViewerWindowView.setSize()');
@@ -36,11 +52,83 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   var height = $('#canvasPanels').height() - 20;
 		   var width = $('#canvasPanels').width() - 20;
 		   
+		   /*
 		   $('.canvasPanel').css({ "height": height/2});
 		   $('.canvasPanel').css({ "width": width/2});
+		   */		       
+
+		   $('#panel0').show();
+		   $('#panel1').show();
+		   $('#panel2').show();
+		   $('#panel3').show();
+
+		   if(this.layout == 1){
+		       $('#panel0').css({ "height": height/2,
+					  "width": width/2});
+		       $('#panel1').css({ "height": height/2,
+					  "width": width/2});
+		       $('#panel2').css({ "height": height/2,
+					  "width": width/2});
+		       $('#panel3').css({ "height": height/2,
+					  "width": width/2});
+
+		       for(var i = 0; i < this.xtkViewArray.length; i++){
+			   console.log('setting...........1');
+			   this.xtkViewArray[i].layout = 1;
+			   this.xtkViewArray[i].setSize();
+		       }
+
+		       //set all XTK viewers also!!
+		       //for elem in XtkView
+		       //    setXtkLayout to 1
+		       //    elem.setSize()
+
+
+		   }
+		   else if (this.layout == 2){
+		       $('#panel0').css({ "height": height,
+				      "width": width*(2/3)});
+		       $('#panel1').css({ "height": height/3 - 6,
+					  "width": width*(1/3)});
+		       $('#panel2').css({ "height": height/3 - 6,
+					  "width": width*(1/3)});
+		       $('#panel3').css({ "height": height/3 - 6,
+					  "width": width*(1/3)});
+
+		       for(var i = 0; i < this.xtkViewArray.length; i++){
+			   console.log('setting...........2');
+			   this.xtkViewArray[i].layout = 2;
+			   this.xtkViewArray[i].setSize();
+		       }
+
+		       //set all XTK viewers also!!
+		   }
+		   else if (this.layout == 3){
+		       $('#panel0').css({ "height": height*(2/3),
+					  "width": width});
+		       $('#panel1').css({ "height": height*(1/3),
+					  "width": width/3 - 6});
+		       $('#panel2').css({ "height": height*(1/3),
+					  "width": width/3 - 6});
+		       $('#panel3').css({ "height": height*(1/3),
+					  "width": width/3 - 6});
+
+
+		       //set all XTK viewers also!!
+		   }
+		   else if (this.layout == 4){
+		       $('#panel0').css({ "height": height,
+					  "width": width});
+		       $('#panel1').hide();
+		       $('#panel2').hide();
+		       $('#panel3').hide();
+
+		       //set all XTK viewers also!!
+		   }
 
 
 		   //RESET THE VIEWER CANVAS DIMENSIONS
+		   // NEED TO REVISE THIS - NEEDS SEPARATE ONE FOR 
 		   var myList = document.getElementsByTagName("canvas");
 
 		   var topbarHeight = $('#topbar').outerHeight();
@@ -98,6 +186,7 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 
 		   console.log('ViewerWindowView.setCurrentLayer()');
 
+
 		   //turn OFF triggers for previous object
 		   if(this.currentItem)
 		       this.currentItem.off("change:opacity", this.setOpacity, this);
@@ -114,7 +203,7 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 
 
 		   //declare vars
-		   
+
 		   var itemA = layersModel.getCurrentItem();
 		   var itemB = layersModel.getOtherItem();
 		   
@@ -132,9 +221,9 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		       this.viewer3.setCurrentLayers(itemB, itemA);
 		   }
 		   
-
 		   
 		   this.setOpacity(null, this.currentItem.get('opacity'), null);
+
 	       },
 	       update:function(){
 		   console.log('ViewerWindowView.update()');
@@ -164,7 +253,7 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   
 	       },
 	       setOpacity:function(model, value, options){
-		   //console.log('setOpacity(' + value + ')');
+		   console.log('setOpacity(' + value + ')');
 
 		   this.viewer0.setOpacity();
 		   this.viewer1.setOpacity();
@@ -189,16 +278,9 @@ define(["views/CanvasViewer3D", "views/CanvasViewer2D", "text!templates/ViewerWi
 		   }
 	       },
 	       setLayout:function(value){
-		   console.log('setLayout(' + value + ')');
 
-		   //LAYOUT 1 - 4 Square View
-
-
-		   //LAYOUT 2 - 1 Left Large, 3 Right Small
-
-
-		   //LAYOUT 3 - 1 Top Large, 3 Bottom Small
-		   
+		   this.layout = value;
+		   this.setSize();
 	       },
 
 
