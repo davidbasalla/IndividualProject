@@ -65,8 +65,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    }));
 	    //need to adjust the dimensions of layerIndex div
 
-	    this.setSize(); //is this necessary!!??	    
 	    this.initViewers();
+	    this.setSize(); //is this necessary!!??	    
 	},
 	setSize:function(){
 	    console.log('XtkView.setSize(' + this.layout + ')');
@@ -85,7 +85,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    
 	    if(this.layout == 1){
 
-		console.log('SET 1');
+		console.log('XtkView.setSize().SET 1');
 
 		$('.xtkPanel0').css({ "height": height/2,
 				      "width": width/2});
@@ -95,10 +95,16 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 				      "width": width/2});
 		$('.xtkPanel3').css({ "height": height/2,
 				      "width": width/2});
+		
+		this.viewer3D.onResize();
+		this.viewerX.onResize();
+		this.viewerY.onResize();		
+		this.viewerZ.onResize();
+
 	    }
 	    else if(this.layout == 2){
 
-		console.log('SET 2');
+		console.log('XtkView.setSize().SET 2');
 
 		$('.xtkPanel0').css({ "height": height,
 				   "width": width*(2/3)});
@@ -108,6 +114,44 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 				   "width": width*(1/3)});
 		$('.xtkPanel3').css({ "height": height/3 - 6,
 				   "width": width*(1/3)});
+		
+		this.viewer3D.onResize();
+		this.viewerX.onResize();
+		this.viewerY.onResize();		
+		this.viewerZ.onResize();
+		
+	    }
+	    else if(this.layout == 3){
+
+		console.log('XtkView.setSize().SET 3');
+
+		$('.xtkPanel0').css({ "height": height*(2/3),
+				   "width": width});
+		$('.xtkPanel1').css({ "height": height*(1/3),
+				   "width": width/3 - 6});
+		$('.xtkPanel2').css({ "height": height*(1/3),
+				   "width": width/3 - 6});
+		$('.xtkPanel3').css({ "height": height*(1/3),
+				   "width": width/3 - 6});
+		
+		this.viewer3D.onResize();
+		this.viewerX.onResize();
+		this.viewerY.onResize();		
+		this.viewerZ.onResize();
+		
+	    }
+	    else if(this.layout == 4){
+
+		console.log('XtkView.setSize().SET 4');
+
+		$('.xtkPanel0').css({ "height": height,
+				   "width": width});
+		
+		this.viewer3D.onResize();
+		this.viewerX.onResize();
+		this.viewerY.onResize();		
+		this.viewerZ.onResize();
+		
 	    }
 
 

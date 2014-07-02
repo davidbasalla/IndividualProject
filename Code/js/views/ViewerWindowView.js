@@ -43,6 +43,39 @@ define(["views/CanvasViewer3D",
 		   //need to add this to some sort of array so it can be queried!
 		   this.xtkViewArray[this.xtkViewArray.length] = xtkViewer;
 	       },
+	       setSizeViewerCanvas:function(){
+
+		   //SET canvases
+		   var topbarHeight = $('#topbar').outerHeight();
+		   var totalHeight0 =  $('#panel0').height();
+		   var totalWidth0 =  $('#panel0').width();
+		   var totalHeight1 =  $('#panel1').height();
+		   var totalWidth1 =  $('#panel1').width();
+		   var totalHeight2 =  $('#panel2').height();
+		   var totalWidth2 =  $('#panel2').width();
+		   var totalHeight3 =  $('#panel3').height();
+		   var totalWidth3 =  $('#panel3').width();
+
+		   document.getElementById("canvasViewer0").setAttribute("height", totalHeight0 - topbarHeight);
+		   document.getElementById("canvasViewer0").setAttribute("width", totalWidth0);
+		   document.getElementById("canvasViewer1").setAttribute("height", totalHeight1 - topbarHeight);
+		   document.getElementById("canvasViewer1").setAttribute("width", totalWidth1);
+		   document.getElementById("canvasViewer2").setAttribute("height", totalHeight2 - topbarHeight);
+		   document.getElementById("canvasViewer2").setAttribute("width", totalWidth2);
+		   document.getElementById("canvasViewer3").setAttribute("height", totalHeight3 - topbarHeight);
+		   document.getElementById("canvasViewer3").setAttribute("width", totalWidth3);
+
+
+	       },
+	       setSizeXtkView:function(layoutIndex){
+
+		   //SET xtkViewers
+		   for(var i = 0; i < this.xtkViewArray.length; i++){
+		       this.xtkViewArray[i].layout = layoutIndex;
+		       this.xtkViewArray[i].setSize();
+		   }
+
+	       },
 	       setSize:function(){
 		   console.log('ViewerWindowView.setSize()');
 
@@ -52,10 +85,6 @@ define(["views/CanvasViewer3D",
 		   var height = $('#canvasPanels').height() - 20;
 		   var width = $('#canvasPanels').width() - 20;
 		   
-		   /*
-		   $('.canvasPanel').css({ "height": height/2});
-		   $('.canvasPanel').css({ "width": width/2});
-		   */		       
 
 		   $('#panel0').show();
 		   $('#panel1').show();
@@ -63,6 +92,8 @@ define(["views/CanvasViewer3D",
 		   $('#panel3').show();
 
 		   if(this.layout == 1){
+
+		       //SET PANELS
 		       $('#panel0').css({ "height": height/2,
 					  "width": width/2});
 		       $('#panel1').css({ "height": height/2,
@@ -72,18 +103,12 @@ define(["views/CanvasViewer3D",
 		       $('#panel3').css({ "height": height/2,
 					  "width": width/2});
 
-		       for(var i = 0; i < this.xtkViewArray.length; i++){
-			   console.log('setting...........1');
-			   this.xtkViewArray[i].layout = 1;
-			   this.xtkViewArray[i].setSize();
-		       }
+		       //SET xtkView sizes
+		       this.setSizeXtkView(1);
 
-		       //set all XTK viewers also!!
-		       //for elem in XtkView
-		       //    setXtkLayout to 1
-		       //    elem.setSize()
-
-
+		       //SET viewer canvases dimensions
+		       this.setSizeViewerCanvas();
+		       
 		   }
 		   else if (this.layout == 2){
 		       $('#panel0').css({ "height": height,
@@ -95,13 +120,12 @@ define(["views/CanvasViewer3D",
 		       $('#panel3').css({ "height": height/3 - 6,
 					  "width": width*(1/3)});
 
-		       for(var i = 0; i < this.xtkViewArray.length; i++){
-			   console.log('setting...........2');
-			   this.xtkViewArray[i].layout = 2;
-			   this.xtkViewArray[i].setSize();
-		       }
+		       //SET xtkView sizes
+		       this.setSizeXtkView(2);
 
-		       //set all XTK viewers also!!
+		       //SET viewer canvases dimensions
+		       this.setSizeViewerCanvas();
+
 		   }
 		   else if (this.layout == 3){
 		       $('#panel0').css({ "height": height*(2/3),
@@ -113,8 +137,12 @@ define(["views/CanvasViewer3D",
 		       $('#panel3').css({ "height": height*(1/3),
 					  "width": width/3 - 6});
 
+		       //SET xtkView sizes
+		       this.setSizeXtkView(3);
 
-		       //set all XTK viewers also!!
+		       //SET viewer canvases dimensions
+		       this.setSizeViewerCanvas();
+
 		   }
 		   else if (this.layout == 4){
 		       $('#panel0').css({ "height": height,
@@ -123,23 +151,14 @@ define(["views/CanvasViewer3D",
 		       $('#panel2').hide();
 		       $('#panel3').hide();
 
-		       //set all XTK viewers also!!
+		       //SET xtkView sizes
+		       this.setSizeXtkView(4);
+
+		       //SET viewer canvases dimensions
+		       this.setSizeViewerCanvas();
 		   }
 
 
-		   //RESET THE VIEWER CANVAS DIMENSIONS
-		   // NEED TO REVISE THIS - NEEDS SEPARATE ONE FOR 
-		   var myList = document.getElementsByTagName("canvas");
-
-		   var topbarHeight = $('#topbar').outerHeight();
-		   var totalHeight =  $('.canvasPanel').height();
-		   var totalWidth =  $('.canvasPanel').width();
-
-		   for(var i = 0; i < myList.length; i++){
-		       //$(myList[i]).attr("height", height/2 - 35);
-		       $(myList[i]).attr("height", totalHeight - topbarHeight);
-		       $(myList[i]).attr("width", totalWidth);
-		   }
 
 	       },
 	       render:function() {
