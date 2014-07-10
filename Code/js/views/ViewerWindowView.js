@@ -76,6 +76,12 @@ define(["views/CanvasViewer3D",
 		   }
 
 	       },
+	       swapSize:function(dst, src){
+		   console.log('ViewerWindowView.swapSize(' + dst + ',' + src + ')');
+		   
+		   for(var i = 0; i < this.xtkViewArray.length; i++)
+		       this.xtkViewArray[i].swapSize(dst, src);
+	       },
 	       setSize:function(){
 		   console.log('ViewerWindowView.setSize()');
 

@@ -115,17 +115,19 @@ define(function() {
 		mode = 3;
 	    }
 
+	    //get the CanvasViewer that holds the desired mode
 	    var swapViewer = this.getComplementCanvas(mode);
+
+	    //need to resize the XtkViewer(s!) to the target
+
+	    this.viewerWindowView.swapSize(this.mode, mode);
 	    swapViewer.setMode(this.mode);
+
+
 	    this.setMode(mode);
-
-
 	},
 	setMode:function(mode){
 	    console.log('setMode(' + mode + ')');
-
-
-
 
 	    this.$el.find("#ThreeDtoggle").removeClass('layer-selected');
 	    this.$el.find("#Xtoggle").removeClass('layer-selected');	    
@@ -156,34 +158,15 @@ define(function() {
 	      different sized viewers of the same mode*/
 
 	    //step through the other viewers to find the opposite one
-	    
-	    console.log(this.viewerWindowView.viewers);
-	    
 	    for(var i = 0; i < this.viewerWindowView.viewers.length; i++){
 		//skip self
 		if(this.viewerWindowView.viewers[i] != this){
 		    
-		    console.log(this.mode);
-		    console.log(mode);
 		    if(this.viewerWindowView.viewers[i].mode == mode)
 			return this.viewerWindowView.viewers[i];
 			
 		}
 	    }
-
-	    
-
-	    /*
-  	    if(mode == 0)
-		currentTarget = this.$el.find("#ThreeDtoggle");
-	    else if(mode == 1)
-		currentTarget = this.$el.find("#Xtoggle");
-	    else if(mode == 2)
-		currentTarget = this.$el.find("#Ytoggle");
-	    else if(mode == 3)
-		currentTarget = this.$el.find("#Ztoggle");
-		*/
-	    
 	    
 	},
 

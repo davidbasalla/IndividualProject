@@ -26,6 +26,21 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerZ_OrigZ = 0;
 
 
+	    //settings for canvases
+	    this.height0 = 0;
+	    this.width0 = 0;
+
+	    this.height1 = 0;
+	    this.width1 = 0;
+
+	    this.height2 = 0;
+	    this.width2 = 0;
+
+	    this.height3 = 0;
+	    this.width3 = 0;
+
+
+
 	    //current layout
 	    this.layout = 1;
 
@@ -68,11 +83,113 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.initViewers();
 	    this.setSize(); //is this necessary!!??	    
 	},
+	swapSize:function(dst, src){
+	    /* swap the sizes of 2 xtkViewers */
+	    console.log('XtkView.swapSize(' + dst + ',' + src + ')');
+
+
+	    if(dst < 0 || dst > 3 || src < 0 || src > 3)
+		console.log('illegal canvas index');
+
+	    if(dst == src)
+		console.log('indeces are the same');
+
+	    var newHeight = 0;
+	    var newWidth = 0;
+	    var oldHeight = 0;
+	    var oldWidth = 0;
+
+	    //STORE RESULTS
+	    switch (dst) {
+	    case 0:
+		newHeight = this.height0;
+		newWidth = this.width0;
+		break;
+	    case 1:
+		newHeight = this.height1;
+		newWidth = this.width1;
+		break;
+	    case 2:
+		newHeight = this.height2;
+		newWidth = this.width2;
+		break;
+	    case 3:
+		newHeight = this.height3;
+		newWidth = this.width3;
+		break;
+	    }
+
+	    switch (src) {
+	    case 0:
+		oldHeight = this.height0;
+		oldWidth = this.width0;
+		break;
+	    case 1:
+		oldHeight = this.height1;
+		oldWidth = this.width1;
+		break;
+	    case 2:
+		oldHeight = this.height2;
+		oldWidth = this.width2;
+		break;
+	    case 3:
+		oldHeight = this.height3;
+		oldWidth = this.width3;
+		break;
+	    } 
+
+	    //SET NEW DIMENSIONS
+	    switch (dst) {
+	    case 0:
+		this.height0 = oldHeight;
+		this.width0 = oldWidth;
+		break;
+	    case 1:
+		this.height1 = oldHeight;
+		this.width1 = oldWidth;
+		break;
+	    case 2:
+		this.height2 = oldHeight;
+		this.width2 = oldWidth;
+		break;
+	    case 3:
+		this.height3 = oldHeight;
+		this.width3 = oldWidth;
+		break;
+	    }
+
+	    switch (src) {
+	    case 0:
+		this.height0 = newHeight;
+		this.width0 = newWidth;
+		break;
+	    case 1:
+		this.height1 = newHeight;
+		this.width1 = newWidth;
+		break;
+	    case 2:
+		this.height2 = newHeight;
+		this.width2 = newWidth;
+		break;
+	    case 3:
+		this.height3 = newHeight;
+		this.width3 = newWidth;
+		break;
+	    }
+
+	    console.log('newHeight = ' + newHeight);
+	    console.log('newWidth = ' + newWidth);
+	    console.log('oldHeight = ' + oldHeight);
+	    console.log('oldWidth = ' + oldWidth);
+
+
+
+	    //apply the changes
+	    this.setLayout();
+
+	},
 	setSize:function(){
 	    console.log('XtkView.setSize(' + this.layout + ')');
-
-	    //RESET THE GLOBAL CONTAINER DIMENSIONS
-
 
 	    var height = $('#canvasPanels').height() - 20;
 	    var width = $('#canvasPanels').width() - 20;
@@ -87,75 +204,54 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 		console.log('XtkView.setSize().SET 1');
 
-		$('.xtkPanel0').css({ "height": height/2,
-				      "width": width/2});
-		$('.xtkPanel1').css({ "height": height/2,
-				      "width": width/2});
-		$('.xtkPanel2').css({ "height": height/2,
-				      "width": width/2});
-		$('.xtkPanel3').css({ "height": height/2,
-				      "width": width/2});
-		
-		this.viewer3D.onResize();
-		this.viewerX.onResize();
-		this.viewerY.onResize();		
-		this.viewerZ.onResize();
+		this.height0 = height/2;
+		this.width0 = width/2;
 
+		this.height1 = height/2;
+		this.width1 = width/2;
+
+		this.height2 = height/2;
+		this.width2 = width/2;
+
+		this.height3 = height/2;
+		this.width3 = width/2;
 	    }
 	    else if(this.layout == 2){
 
 		console.log('XtkView.setSize().SET 2');
 
-		$('.xtkPanel0').css({ "height": height,
-				   "width": width*(2/3)});
-		$('.xtkPanel1').css({ "height": height/3 - 6,
-				   "width": width*(1/3)});
-		$('.xtkPanel2').css({ "height": height/3 - 6,
-				   "width": width*(1/3)});
-		$('.xtkPanel3').css({ "height": height/3 - 6,
-				   "width": width*(1/3)});
-		
-		this.viewer3D.onResize();
-		this.viewerX.onResize();
-		this.viewerY.onResize();		
-		this.viewerZ.onResize();
-		
+		this.height0 = height;
+		this.width0 = width*(2/3);
+		this.height1 = height/3 - 6;
+		this.width1 = width*(1/3);
+		this.height2 = height/3 - 6;
+		this.width2 = width*(1/3);
+		this.height3 = height/3 - 6;
+		this.width3 = width*(1/3);
 	    }
 	    else if(this.layout == 3){
 
 		console.log('XtkView.setSize().SET 3');
 
-		$('.xtkPanel0').css({ "height": height*(2/3),
-				   "width": width});
-		$('.xtkPanel1').css({ "height": height*(1/3),
-				   "width": width/3 - 6});
-		$('.xtkPanel2').css({ "height": height*(1/3),
-				   "width": width/3 - 6});
-		$('.xtkPanel3').css({ "height": height*(1/3),
-				   "width": width/3 - 6});
-		
-		this.viewer3D.onResize();
-		this.viewerX.onResize();
-		this.viewerY.onResize();		
-		this.viewerZ.onResize();
-		
+		this.height0 = height*(2/3);
+		this.width0 = width;
+		this.height1 = height*(1/3);
+		this.width1 = width/3 - 6;
+		this.height2 = height*(1/3);
+		this.width2 = width/3 - 6;
+		this.height3 = height*(1/3);
+		this.width3 = width/3 - 6;
 	    }
 	    else if(this.layout == 4){
 
 		console.log('XtkView.setSize().SET 4');
 
-		$('.xtkPanel0').css({ "height": height,
-				   "width": width});
-		
-		this.viewer3D.onResize();
-		this.viewerX.onResize();
-		this.viewerY.onResize();		
-		this.viewerZ.onResize();
-		
+		this.height0 = height;
+		this.width0 = width;
 	    }
 
+	    this.setLayout();
 
-	    
 	    //resize the topLayer
 	    var height2 = $('#canvasPanels').height();
 	    var width2 = $('#canvasPanels').width();
@@ -163,6 +259,37 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    $('#xtkViewer_L' + this.layerIndex).css({ "height": height2});
 	    $('#xtkViewer_L' + this.layerIndex).css({ "width": width2});
 
+	},
+	setLayout:function(){
+	    console.log('XtkView.setLayout()');
+
+	    //RESET THE GLOBAL CONTAINER DIMENSIONS
+
+	    console.log(this.height0);
+	    console.log(this.width0);
+	    console.log(this.height1);
+	    console.log(this.width1);
+
+
+
+
+
+	    //set the containers
+	    $('.xtkPanel0').css({ "height": this.height0,
+				  "width": this.width0});
+	    $('.xtkPanel1').css({ "height": this.height1,
+				  "width": this.width1});
+	    $('.xtkPanel2').css({ "height": this.height2,
+				  "width": this.width2});
+	    $('.xtkPanel3').css({ "height": this.height3,
+				  "width": this.width3});
+
+	    
+	    //update the xtkViewers
+	    this.viewer3D.onResize();
+	    this.viewerX.onResize();
+	    this.viewerY.onResize();		
+	    this.viewerZ.onResize();
 	},
 	initViewers:function(){
 	    //create all 4 viewers
