@@ -65,9 +65,9 @@ NEXT STEPS:
    - means swap with viewer.
      - when selecting, find which is the complementary viewer
 
+- WHEN DELETING LAYER, FOCUS BACK ON THE FIRST ONE (currently no image)
 
-
-
+- fix brightness!
 
 - Restore 3D Functionality
     - navigation

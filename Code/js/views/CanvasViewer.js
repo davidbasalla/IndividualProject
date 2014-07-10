@@ -120,7 +120,7 @@ define(function() {
 
 	    //need to resize the XtkViewer(s!) to the target
 
-	    this.viewerWindowView.swapSize(this.mode, mode);
+	    this.viewerWindowView.swapDimensions(this.viewerIndex, swapViewer.viewerIndex);
 	    swapViewer.setMode(this.mode);
 
 
