@@ -66,7 +66,7 @@ define(function() {
 	    'click button#Ztoggle': 'setModeHandler',
 	},
 	setCurrentLayers:function(itemA, itemB){
-	    console.log('CanvasViewer.setCurrentLayer()');
+	    console.log('CanvasViewer.setCurrentLayers()');
 	    
 	    //console.log(itemA);
 	    //console.log(itemB);

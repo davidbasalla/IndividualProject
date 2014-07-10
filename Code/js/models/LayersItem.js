@@ -42,6 +42,23 @@ define(function() {
 	    	this.set({bufferBLayerItem: item});
 	    
 	},
+	setOtherItem:function(item){
+	    /* set the current layerItem, based on bufferIndex */
+	    //console.log('LayersItem.setCurrentItem()');
+	    //console.log(item);
+	    
+	    if(this.get('currentBufferIndex') != 0)
+		this.set({bufferALayerItem: item});
+	    else
+		this.set({bufferBLayerItem: item});
+
+	    //if initially at NULL, set these
+	    if(!this.get('bufferALayerItem'))
+		this.set({bufferALayerItem: item});
+	    if(!this.get('bufferBLayerItem'))
+	    	this.set({bufferBLayerItem: item});
+	    
+	},
 	toggleBuffer:function(index){
 	    //function to swap buffers
 	    //console.log('LayersItem.toggleBuffer(' + index + ')');

@@ -530,11 +530,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	setPan:function(args){
 	    console.log('setPan()');
 
-	    //console.log(this.layerIndex);
-	    //console.log(args[2].get('index'));
-
-	    //this.volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
-
 	    if(this.layerIndex == args[2].get('index')){
 
 		if(args[3] == 1){
@@ -574,18 +569,9 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		else if(args[2] == 3){
 		    this.viewerZ.camera.view[14] += args[0]/500;
 		}
-
-		//console.log(this.viewerX.camera.view);
-		
-	    //console.log(this.viewerX.camera.view);
-	    //this.viewerX.camera.view = a;
 	    }
 	},
 	setFocus:function(args){
-
-	    //console.log(this.layerIndex);
-	    //console.log(args[2].get('index'));
-
 
 	    if(this.layerIndex == args[0].get('index')){
 
@@ -604,11 +590,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    this.viewerZ.camera.view[13] = this.viewerZ_OrigY;
 		    this.viewerZ.camera.view[14] = this.viewerZ_OrigZ;
 		}
-
-		//console.log(this.viewerX.camera.view);
-		
-	    //console.log(this.viewerX.camera.view);
-	    //this.viewerX.camera.view = a;
 	    }
 	},
 	traverse:function(args){

@@ -29,7 +29,6 @@ define(["models/LayerItem",
 	    //set viewerWindowView, required for managing XTKViews
 	    this.viewerWindowView = options.viewerWindowView;
 
-	    Backbone.on('layerRemoved', this.removeItem, this);
 	    Backbone.on('thresholdChange', this.thresholdChange, this);
 	    Backbone.on('levelsChange', this.levelsChange, this);
 	    Backbone.on('opacityChange', this.opacityChange, this);
@@ -50,9 +49,7 @@ define(["models/LayerItem",
 	},
 	addItem: function(){
 
-
 	    console.log('LayersView.addItem()');
-	    console.log(this.layersModel);
 	    
 	    //create new item in collection
 	    var item = new LayerItem();
@@ -65,18 +62,7 @@ define(["models/LayerItem",
 	    //adding as layerIndex and as model
 	    this.viewerWindowView.addXtkView(this.counter, item);
 	    
-	    /*
-	    //adding new set of XTK viewers
-	    var xtkViewer = new XtkView({
-		layerIndex: this.counter,
-		model: item,
-	    });
-	    */
-
-
 	    this.layersModel.setCurrentItem(item);
-	    //console.log('AFTER SETTING ITEM');
-	    //console.log(this.layersModel);
 
 	    this.collection.add(item);
 	    this.counter++;
@@ -88,16 +74,28 @@ define(["models/LayerItem",
 	    var itemView = new LayerItemView({
 		model: item,
 		layersModel: this.layersModel,
+		layersView: this,
 	    });
 	    $('#layerList', this.el).append(itemView.render().el);
 	    itemView.setSelected(); //select the newly created item!
 	    this.setCurrentLayer();
 	},
-	removeItem: function(layer){
+	removeItem: function(layerItem){
+	    console.log('LayersView.removeItem()');
 
-	    //use index as an id for get layers!
-	    
-	    console.log(this.collection);
+	    this.collection.remove(layerItem);
+
+	    //set layersModelCurrentItems for first item in collection (if any left)
+	    if(this.layersModel.getCurrentItem() == layerItem){
+		console.log('BUFFER A!!!!');
+		if(this.collection.length > 0)
+		    this.layersModel.setCurrentItem(this.collection.models[0]);
+	    }
+	    if(this.layersModel.getOtherItem() == layerItem){
+		console.log('BUFFER B!!!!');
+		if(this.collection.length > 0)
+		    this.layersModel.setOtherItem(this.collection.models[0]);
+	    }
 	},
 	setCurrentLayer: function(){
 	    //change the current model to reflect this!
@@ -110,12 +108,7 @@ define(["models/LayerItem",
 		var item = this.collection.models[index];
 		
 		//set selected
-
-		//console.log(item);
-		//console.log(this.layersModel.getCurrentItem());
-		
 		if (item == this.layersModel.getCurrentItem()){
-		    console.log('MATCH');
 		    item.set({
 			selected: true
 		    });
@@ -133,6 +126,8 @@ define(["models/LayerItem",
 	    
 	},
 	setLevelValues: function(){
+	    console.log('LayersView.setLevelValues()');
+
 	    var currentItem = this.layersModel.getCurrentItem();
 	    
 	    //set text value

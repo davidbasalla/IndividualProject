@@ -9,6 +9,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    console.log('LayerItemView.init()');
 	    this.model = options.model;
 	    this.layersModel = options.layersModel;
+	    this.layersView = options.layersView;
 
 	    this.model.on("change:selected", this.toggleSelected, this);
 
@@ -94,7 +95,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    Backbone.trigger('labelLoaded', [e.currentTarget.files[0], this.model.attributes.index]);
 	},
 	deleteLayer: function(){
-	    Backbone.trigger('layerRemoved', this.model.attributes.index);
+	    this.layersView.removeItem(this.model);
 	    $(this.el).remove();
 	},
 	addLabelMap: function(){

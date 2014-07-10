@@ -55,26 +55,34 @@ PAN:
     - alter the volume's data directly... prefered!
 -----------------------------------------------------------
 
+DONE:
+-----
+
+- Fix Layout Swapping
+- Cap indices when middle-mouse scrolling
+
+
+
+
 
 NEXT STEPS:
 ----------
 
-- Fix Layout Swapping
-   - SHIT.. when changing index to watch from, there's a problem as one XtkViewer has 2 different sizes
-    - one way around is to use SliceDrop style selection of layout,
-   - means swap with viewer.
-     - when selecting, find which is the complementary viewer
-
 - WHEN DELETING LAYER, FOCUS BACK ON THE FIRST ONE (currently no image)
+  - clean up layer behaviour... reduce events!?
+  - FUCKING MESS AT THE MOMENT!
 
 - fix brightness!
+
+- fix overlay (file undefined)
+
+- fix slider
 
 - Restore 3D Functionality
     - navigation
     - volume rendering
     - separate panel?
 
-- Cap indices when middle-mouse scrolling
 - Investigate why Chrome not supporting WebGL
 
 - Add warning window when not able to load file
