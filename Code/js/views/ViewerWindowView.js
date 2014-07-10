@@ -172,6 +172,7 @@ define(["views/CanvasViewer3D",
 		   this.viewer0 = new CanvasViewer2D({
 	    	       el: '#panel0',
 		       viewerIndex: 0,
+		       viewerWindowView: this,
 		       mode: 0,
 		   });
 		   this.viewer0.render();
@@ -180,6 +181,7 @@ define(["views/CanvasViewer3D",
 		   this.viewer1 = new CanvasViewer2D({
 		       el:'#panel1',
 		       viewerIndex: 1,
+		       viewerWindowView: this,
 		       mode: 1,
 		   });
 		   this.viewer1.render();
@@ -188,6 +190,7 @@ define(["views/CanvasViewer3D",
 		   this.viewer2 = new CanvasViewer2D({
 		       el:'#panel2',
 		       viewerIndex: 2,
+		       viewerWindowView: this,
 		       mode: 2,
 		   });
 		   this.viewer2.render();
@@ -196,10 +199,14 @@ define(["views/CanvasViewer3D",
 		   this.viewer3 = new CanvasViewer2D({
 		       el:'#panel3',
 		       viewerIndex: 3,
+		       viewerWindowView: this,
 		       mode: 3,
 		   });
 		   this.viewer3.render();
 		   this.viewer3.setMode(3);
+
+		   this.viewers = [this.viewer0, this.viewer1, this.viewer2, this.viewer3];
+
 	       },
 	       setCurrentLayer:function(layersModel, value, options){
 

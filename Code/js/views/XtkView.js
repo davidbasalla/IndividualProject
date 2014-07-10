@@ -453,12 +453,21 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	},
 	changeIndexX:function(model, value, options){
 	    this.volume.indexX = value;
+	    //in case out of bounds, reset model
+	    if(this.volume.indexX != value)
+		model.set({indexX: this.volume.indexX})
 	},
 	changeIndexY:function(model, value, options){
 	    this.volume.indexY = value;
+	    //in case out of bounds, reset model
+	    if(this.volume.indexY != value)
+		model.set({indexY: this.volume.indexY})
 	},
 	changeIndexZ:function(model, value, options){
 	    this.volume.indexZ = value;
+	    //in case out of bounds, reset model
+	    if(this.volume.indexZ != value)
+		model.set({indexZ: this.volume.indexZ})
 	},
 	setWindowLow:function(model, value, options){
 	    this.volume.windowLow = value;

@@ -33,9 +33,6 @@ WIP:
 
 --------------------------------------
 
-- work on customisable layout
-    - determine screen layout
-
 - work on implementing lookups!
     - for viewer or for layer
     - for viewer more desirable!
@@ -56,6 +53,38 @@ WIP:
 PAN:
     - simlulate a mouse click on the xtk canvas element... 
     - alter the volume's data directly... prefered!
+-----------------------------------------------------------
+
+
+NEXT STEPS:
+----------
+
+- Fix Layout Swapping
+   - SHIT.. when changing index to watch from, there's a problem as one XtkViewer has 2 different sizes
+    - one way around is to use SliceDrop style selection of layout,
+   - means swap with viewer.
+     - when selecting, find which is the complementary viewer
 
 
 
+
+
+- Restore 3D Functionality
+    - navigation
+    - volume rendering
+    - separate panel?
+
+- Cap indices when middle-mouse scrolling
+- Investigate why Chrome not supporting WebGL
+
+- Add warning window when not able to load file
+
+- Polish Lookup Behaviour (tricky!)
+
+- Build custom slider to slider around for window level and threshold
+- Work on overlaying of label maps
+
+- Bring whole project online
+    - Support usage of custom data
+
+- Tutorials? Guide?

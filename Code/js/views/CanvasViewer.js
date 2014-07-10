@@ -21,6 +21,7 @@ define(function() {
 	    this.el = options.el;
 	    this.mode = options.mode;
 	    this.viewerIndex = options.viewerIndex;
+	    this.viewerWindowView = options.viewerWindowView;
 	    
 	    this.ALoaded = false; //for telling if file is loaded
 	    this.BLoaded = false; //for telling if file is loaded
@@ -99,18 +100,31 @@ define(function() {
 
 	    console.log('setModeHandler');
 	    console.log('e = ' + e.currentTarget.id);
-	    
-	    if (e.currentTarget.id == 'ThreeDtoggle')
-		this.setMode(0);
-	    else if (e.currentTarget.id == 'Xtoggle')
-		this.setMode(1);
-	    else if (e.currentTarget.id == 'Ytoggle')
-		this.setMode(2);
-	    else if (e.currentTarget.id == 'Ztoggle')
-		this.setMode(3);
+
+	    var mode = 0;
+	    if (e.currentTarget.id == 'ThreeDtoggle'){
+		mode = 0;
+	    }
+	    else if (e.currentTarget.id == 'Xtoggle'){
+		mode = 1;
+	    }
+	    else if (e.currentTarget.id == 'Ytoggle'){	
+		mode = 2;
+	    }
+	    else if (e.currentTarget.id == 'Ztoggle'){
+		mode = 3;
+	    }
+
+	    var swapViewer = this.getComplementCanvas(mode);
+	    swapViewer.setMode(this.mode);
+	    this.setMode(mode);
+
+
 	},
 	setMode:function(mode){
 	    console.log('setMode(' + mode + ')');
+
+
 
 
 	    this.$el.find("#ThreeDtoggle").removeClass('layer-selected');
@@ -133,6 +147,46 @@ define(function() {
 	    this.mode = mode;
 	    this.setSrcCanvases();
 	},
+	getComplementCanvas:function(mode){
+
+	    console.log('getComplementCanvas(' + mode + ')');
+
+	    /*finds the complementary canvas to swap out with.
+	      Have to do the swapping due to XTK since we can't have multiple, 
+	      different sized viewers of the same mode*/
+
+	    //step through the other viewers to find the opposite one
+	    
+	    console.log(this.viewerWindowView.viewers);
+	    
+	    for(var i = 0; i < this.viewerWindowView.viewers.length; i++){
+		//skip self
+		if(this.viewerWindowView.viewers[i] != this){
+		    
+		    console.log(this.mode);
+		    console.log(mode);
+		    if(this.viewerWindowView.viewers[i].mode == mode)
+			return this.viewerWindowView.viewers[i];
+			
+		}
+	    }
+
+	    
+
+	    /*
+  	    if(mode == 0)
+		currentTarget = this.$el.find("#ThreeDtoggle");
+	    else if(mode == 1)
+		currentTarget = this.$el.find("#Xtoggle");
+	    else if(mode == 2)
+		currentTarget = this.$el.find("#Ytoggle");
+	    else if(mode == 3)
+		currentTarget = this.$el.find("#Ztoggle");
+		*/
+	    
+	    
+	},
+
     });
     return CanvasViewer;
 });
