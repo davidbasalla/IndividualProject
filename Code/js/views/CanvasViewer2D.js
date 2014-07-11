@@ -26,9 +26,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		this.mouseX = e.clientX - this.canvas.offsetLeft;
 		this.mouseY = e.clientY - this.canvas.offsetTop;
 
-		//console.log('CanvasViewer2D.mouseHandler');
-		//console.log(e);
-		//console.log(e.buttons);
+
 
 		if(e.ctrlKey){
 		    //console.log(e.clientX - this.canvas.offsetLeft);
@@ -42,12 +40,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		else if(e.buttons == 1){
 
 		    this.traversing = true;
-		    //console.log('Traversing!');
-
-		    /*
-		      var x = this.mouseXPrev - e.clientX;
-		      var y = this.mouseYPrev - e.clientY;
-		    */
 
 		    Backbone.trigger('traverse', 
 				     [this.mouseX,
@@ -62,18 +54,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		    var x = this.mouseXPrev - e.clientX;
 		    var y = this.mouseYPrev - e.clientY;
 
-		    //console.log('x,y = ' + x + ', ' + y);
-
-		    /*
-		      this.viewX = this.viewX + x/4;
-		      this.viewY = this.viewY + y/4;
-		    */
-
-		    //use a backbone trigger here to communicate with correct xtkView
-		    //send values
-		    //send mode
-		    //send layer
-
 		    Backbone.trigger('pan', [x, y, this.currentLayerItemTop, this.mode]);
 
 		    this.mouseXPrev = e.clientX;
@@ -84,18 +64,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 		    //return normalised/relative mouse data
 		    var z = this.mouseZPrev - e.clientY;
-
-		    //console.log('x,y = ' + x + ', ' + y);
-
-		    /*
-		      this.viewX = this.viewX + x/4;
-		      this.viewY = this.viewY + y/4;
-		    */
-
-		    //use a backbone trigger here to communicate with correct xtkView
-		    //send values
-		    //send mode
-		    //send layer
 
 		    Backbone.trigger('zoom', [z, this.currentLayerItemTop, this.mode]);
 
@@ -108,11 +76,9 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    //console.log(e.which);
 	    
 	    if(e.which == 70){
-		console.log('Focus');
 		Backbone.trigger('focus', [this.currentLayerItemTop, this.mode]);
 	    }
 	    if(e.which == 79){
-		console.log('toggleOverlay');
 		this.toggleOverlay();
 	    }
 	},
@@ -180,16 +146,10 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    return this; //to enable chain calling
 	},
 	mouseWheelHandler:function(e){
-	    console.log('mouseWheelHandler');
-	    console.log(this);
-	    console.log(e);
-
+	    console.log('CanvasViewer2D.mouseWheelHandler()');
 
 	    var e = window.event || e; // old IE support
 	    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-
-	    console.log(delta);
-	    console.log(this.mode);
 
 	    //X
 	    if (this.mode == 1){

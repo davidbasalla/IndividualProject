@@ -43,6 +43,26 @@ define(["views/CanvasViewer3D",
 		   //need to add this to some sort of array so it can be queried!
 		   this.xtkViewArray[this.xtkViewArray.length] = xtkViewer;
 	       },
+	       removeXtkView:function(layerIndex){
+		   console.log('ViewerWindowView.removeXtkView(' + layerIndex + ')');
+		   /* DO I HAVE TO DO MORE HERE? */
+
+		   for(var i = 0; i < this.xtkViewArray.length; i++){
+		       if (this.xtkViewArray[i].layerIndex == layerIndex){
+
+			   console.log('Removing this:');
+			   console.log(this.xtkViewArray[i]);
+			   this.xtkViewArray[i].destroy();
+   			   this.xtkViewArray.splice(i,1);
+			   }
+		   }
+		   console.log('LENGTH:');
+		   console.log(this.xtkViewArray.length);
+		   console.log(this.xtkViewArray);
+
+
+		   //this.xtkViewArray.remove();
+	       },
 	       setSizeViewerCanvas:function(){
 		   console.log('ViewerWindowView.setSizeViewerCanvas()');
 

@@ -19,7 +19,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    'change input#filePicker': 'fileLoaded',
 	    'change input#labelPicker': 'labelLoaded',
 	    'click a#addLabelMap': 'addLabelMap',
-	    'click': 'setSelected',
+	    'click': 'clickSelected',
 	},
 	render: function(){
 
@@ -36,6 +36,12 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    $('#labelPicker', this.el).hide();
 
 	    return this; // for chainable calls, like .render().el
+	},
+	clickSelected:function(e){
+	    console.log('LayerItemView.clickSelected()');
+	    console.log(e.target);
+
+	    this.layersView.setSelected(this.model, this);
 	},
 	setSelected: function(){
 	    console.log('LayerItemView.setSelected()');
@@ -83,7 +89,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    Backbone.trigger('labelLoaded', [e.currentTarget.files[0], this.model.attributes.index]);
 	},
 	deleteLayer: function(){
-	    this.layersView.removeItem(this.model);
+	    this.layersView.removeItem(this.model, this);
 	    $(this.el).remove();
 	},
 	addLabelMap: function(){

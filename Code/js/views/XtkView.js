@@ -95,6 +95,19 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.initViewers();
 	    this.setDimensions();	    
 	},
+	destroy:function(){
+	    console.log('XtkView.destroy()');
+
+	    if(this.webGLFriendly)
+		this.viewer3D.destroy();
+
+	    this.viewerX.destroy();
+	    this.viewerY.destroy();		
+	    this.viewerZ.destroy();
+
+	    //this.remove(); //THIS REMOVES EVERYTHING... WHY?
+	    //this.unbind();
+	},
 	setDimensions:function(){
 	    console.log('XtkView.setSize(' + this.layout + ')');
 

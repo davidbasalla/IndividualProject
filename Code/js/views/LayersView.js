@@ -65,10 +65,6 @@ define(["models/LayerItem",
 	    //adding as layerIndex and as model
 	    this.viewerWindowView.addXtkView(this.counter, item);
 	    
-	    //set layerItem to be current
-	    this.layersModel.setCurrentItem(item);
-
-
 	    this.collection.add(item);
 	    this.appendItem(item);
 	    this.counter++;
@@ -83,34 +79,67 @@ define(["models/LayerItem",
 	    });
 	    $('#layerList', this.el).append(itemView.render().el);
 
-
+	    //update the array
 	    this.layerItemViewArray[this.layerItemViewArray.length] = itemView;
-	    this.setCurrentLayerItemView(itemView);
+
+	    this.setSelected(item, itemView);
 	},
-	setCurrentLayerItemView: function(layerItemView){
+	setSelected: function(layerItem, layerItemView){
+	    /* requires the coupling of item and itemView, kinda dumb */
+	    console.log('SETSELECTED()');
+	    console.log(layerItem);
+	    console.log(layerItemView);
+	    
+	    //set layerItem to be current
+	    this.layersModel.setCurrentItem(layerItem);
+	    this.setSelectedLayerItemView(layerItemView);
+	},
+	setSelectedLayerItemView: function(layerItemView){
 	    console.log('LayersView.setCurrentLayerItem()');
 
 	    //remove selected class from all layerItemViews
-
 	    for(index in this.layerItemViewArray){
 		this.layerItemViewArray[index].setUnselected();
 	    }
 	
-	
+	    //add selected class to current item
 	    layerItemView.setSelected();
 
 	    this.resetSliders();
 	    this.setLevelValues();
 
 	},
-	removeItem: function(layerItem){
+	removeItem: function(layerItem, layerItemView){
 	    /* TODO - remove from this.layerItemViewArray */
-
 
 	    console.log('LayersView.removeItem()');
 
+
 	    this.collection.remove(layerItem);
 
+	    for(var i = 0; i < this.layerItemViewArray.length; i++){
+		if (this.layerItemViewArray[i] == layerItemView)
+		    this.layerItemViewArray.splice(i,1);
+	    }
+
+	    this.viewerWindowView.removeXtkView(layerItem.get('index'));
+
+
+	    /*
+	    if(this.layersModel.getCurrentItem() == layerItem){
+		console.log('A!!!');
+		if(this.collection.length > 0)
+		    this.setSelected(this.collection.models[0], this.layerItemViewArray[0]);
+	    }*/
+
+	    /*
+	    if(this.layersModel.getOtherItem() == layerItem){
+		if(this.collection.length > 0)		    
+		    this.layersModel.setOtherItem(this.collection.models[0]);
+	    }
+	    */
+	    
+	    /*
 	    //set layersModelCurrentItems for first item in collection (if any left)
 	    if(this.layersModel.getCurrentItem() == layerItem){
 		console.log('BUFFER A!!!!');
@@ -121,7 +150,7 @@ define(["models/LayerItem",
 		console.log('BUFFER B!!!!');
 		if(this.collection.length > 0)
 		    this.layersModel.setOtherItem(this.collection.models[0]);
-	    }
+	    }*/
 	},
 	setLevelValues: function(){
 	    console.log('LayersView.setLevelValues()');
@@ -185,8 +214,6 @@ define(["models/LayerItem",
 
 	    $("#rangeSlider1").slider('option',{min: wLO, max: wHO});
 	    $("#rangeSlider2").slider('option',{min: tLO, max: tHO}); 
-
-	    this.setLevelValues();
 	},
 	handleClick:function(value){
 	    if (value.currentTarget.id == 'bufferA')
