@@ -60,6 +60,8 @@ DONE:
 
 - Fix Layout Swapping
 - Cap indices when middle-mouse scrolling
+- Fixed a redundancy in the code re update function, was being called
+- multiple times!
 
 
 
@@ -96,3 +98,5 @@ NEXT STEPS:
     - Support usage of custom data
 
 - Tutorials? Guide?
+
+- Revise interaction of panels, bring up to XTK-style quality!

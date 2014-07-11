@@ -15,7 +15,6 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    //event for toggling visibility
 	    'click button#loadFile': 'loadFile',
 	    'click button#delete': 'deleteLayer',
-	    'change input#checkBox': 'toggleVisibility',
 	    'change input#filePicker': 'fileLoaded',
 	    'change input#labelPicker': 'labelLoaded',
 	    'click a#addLabelMap': 'addLabelMap',
@@ -55,9 +54,10 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    $(this.el).removeClass('layer-selected');
 	    $(this.el).addClass('layer');
 	},
-	loadFile: function(){
+	loadFile: function(event){
 	    //trigger the hidden fileLoader
 	    $('#filePicker',this.el).trigger('click');
+	    event.stopPropagation(); 
 	},
 	loadLabelMap: function(){
 	    //trigger the hidden fileLoader
@@ -88,17 +88,22 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    //loadLabelMap(e.currentTarget.files[0]);
 	    Backbone.trigger('labelLoaded', [e.currentTarget.files[0], this.model.attributes.index]);
 	},
-	deleteLayer: function(){
+	deleteLayer: function(event){
 	    this.layersView.removeItem(this.model, this);
 	    $(this.el).remove();
+
+	    //cool stuff, stops the event from continuing (thereby
+	    //causing multiple click events!
+	    event.stopPropagation(); 
 	},
-	addLabelMap: function(){
+	addLabelMap: function(event){
 	    //console.log('addLabelMap');
 	    //console.log($(this.el));
 	    //console.log($(this.el.parentElement));
 	    //$('#layerList', this.el.parentElement).append('<li>TEST</li>')
 	    //$(this.el.parentElement).append('<li>TEST</li>')
 	    this.loadLabelMap();
+	    event.stopPropagation(); 
 	},
     });
 

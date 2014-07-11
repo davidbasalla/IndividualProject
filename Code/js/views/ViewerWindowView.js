@@ -21,7 +21,7 @@ define(["views/CanvasViewer3D",
 		   //DETECT CHANGES IN LAYERS MODEL
 		   this.layersModel.on("change", this.setCurrentLayer, this);
 
-		   Backbone.on('onShowtime', this.update, this);
+		   Backbone.on('onShowtime', this.startAnimation, this);
 		   Backbone.on('setLayout', this.setLayout, this);
 
 		   this.currentItem = null;
@@ -30,6 +30,9 @@ define(["views/CanvasViewer3D",
 		   this.layout = 1;
 
 		   this.render();
+		   this.doRender = false;
+		   this.renderRunning = false;
+
 		   //this.setSize();
 	       },
 	       addXtkView:function(layerIndex, model){
@@ -56,12 +59,6 @@ define(["views/CanvasViewer3D",
    			   this.xtkViewArray.splice(i,1);
 			   }
 		   }
-		   console.log('LENGTH:');
-		   console.log(this.xtkViewArray.length);
-		   console.log(this.xtkViewArray);
-
-
-		   //this.xtkViewArray.remove();
 	       },
 	       setSizeViewerCanvas:function(){
 		   console.log('ViewerWindowView.setSizeViewerCanvas()');
@@ -222,24 +219,20 @@ define(["views/CanvasViewer3D",
 
 		   console.log('ViewerWindowView.setCurrentLayer()');
 
-
 		   //turn OFF triggers for previous object
+		       
 		   if(this.currentItem)
 		       this.currentItem.off("change:opacity", this.setOpacity, this);
-
+		   
 		   //get new object
 		   this.currentItem = layersModel.getCurrentItem();
-		   console.log(this.currentItem);
-
+		   
 		   //turn ON triggers for current object
-		   this.currentItem.on("change:opacity", this.setOpacity, this);
-
-
-		   //need to set the canvas to copy from
-
-
+		   if(this.currentItem)
+		       this.currentItem.on("change:opacity", this.setOpacity, this);
+		   
 		   //declare vars
-
+		   
 		   var itemA = layersModel.getCurrentItem();
 		   var itemB = layersModel.getOtherItem();
 		   
@@ -256,21 +249,37 @@ define(["views/CanvasViewer3D",
 		       this.viewer2.setCurrentLayers(itemB, itemA);
 		       this.viewer3.setCurrentLayers(itemB, itemA);
 		   }
-		   
-		   
-		   this.setOpacity(null, this.currentItem.get('opacity'), null);
+		   if(this.currentItem)
+		       this.setOpacity(null, this.currentItem.get('opacity'), null);
+	       
 
+	       },
+	       startAnimation:function(){
+		   this.doRender = true;
+		   //this.update();               //start render
+
+		   //check if recursive loop is already running
+		   if(!this.renderRunning){
+		       console.log('START RENDER');
+		       this.update();
+		       this.renderRunning = true;   //set to renderRunning
+		   }
+	       },
+	       stopAnimation:function(){
+		   this.doRender = false;
 	       },
 	       update:function(){
 		   console.log('ViewerWindowView.update()');
+		   console.log(this);
 
-		   //issue wit settimeout and refreshing webGl canvas, so not using that
+		   //issue with settimeout and refreshing webGl canvas, so not using that
 
 		   var _this = this;
 		   var time = new Date().getTime();
 
 		   function draw() {
 		   
+		       //console.log('draw');
 		       var now = new Date().getTime();
 		       //only draw the frame if 25 milliseconds have passed!
 		       if(now > (time + 25)){
@@ -283,8 +292,18 @@ define(["views/CanvasViewer3D",
 			   
 			   time = now;
 		       }
-		       requestAnimationFrame(draw);	   			   
+		       //requestAnimationFrame(draw);
+		       
+		       //console.log(this.doRender);
+		       
+		       if(_this.doRender)
+			   requestAnimationFrame(draw);
+	   	       else{
+			   _this.setToBlack();
+			   _this.renderRunning = false;
+		       }
 		   }
+		   //start off the loop
 		   requestAnimationFrame(draw);	   
 		   
 	       },
@@ -295,6 +314,14 @@ define(["views/CanvasViewer3D",
 		   this.viewer1.setOpacity();
 		   this.viewer2.setOpacity();
 		   this.viewer3.setOpacity();
+
+	       },
+	       setToBlack:function(){
+
+		   this.viewer0.setToBlack();
+		   this.viewer1.setToBlack();
+		   this.viewer2.setToBlack();
+		   this.viewer3.setToBlack();
 
 	       },
 	       scroll:function(){

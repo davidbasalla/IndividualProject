@@ -21,18 +21,10 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 
 	    if(this.mouseDown){
-		
-
 		this.mouseX = e.clientX - this.canvas.offsetLeft;
 		this.mouseY = e.clientY - this.canvas.offsetTop;
 
-
-
 		if(e.ctrlKey){
-		    //console.log(e.clientX - this.canvas.offsetLeft);
-		    //console.log(e.clientY - this.canvas.offsetTop);
-
-
 		    this.clipPosX = this.canvas.width - this.mouseX;
 		    
 		    this.showLine = true;
@@ -187,31 +179,39 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		this.alphaB = this.currentLayerItemBottom.get('opacity')/100;
 	    };
 	},
+	setToBlack:function(){	    
+	    
+	    //console.log('CanvasViewer2D.setToBlack()');
+
+	    this.ctx.fillStyle = 'black';
+	    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	    this.ctx.globalAlpha = 1;
+	    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+	},
 	draw:function(){
 	    //update the canvases at 60 frames a second?
 
-	    //console.log('CanvasViewer2D.draw(' + this.mode + ')');
-
+	    //console.log('CanvasViewer2D.draw()');
 
 	    //CLEAR - NEED TO FIX THESE COORDS
 	    this.ctx.fillStyle = 'black';
-	    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
 	    //DRAW BLACK BACKGROUND - SO ALWAYS A BLACK BACKGROUND
-	    this.ctx.globalAlpha = 1;
-	    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+	    this.setToBlack();
 	    
 	    //SET FIRST ALPHA
 	    this.ctx.globalAlpha = this.alphaB;
 
+
+	    //console.log('srcCanvasB:');
+	    //console.log(this.srcCanvasB);
 
 	    //DRAW BOTTOM CANVAS - offset by 1,1 to fit the border in
 	    if(this.currentLayerItemBottom){
 		if(this.currentLayerItemBottom.get('loaded'))
 		    this.ctx.drawImage(this.srcCanvasB, 1, 1);
 	    }
-
-	    
 
 	    //SET SECOND ALPHA
 	    this.ctx.globalAlpha = this.alphaA;
@@ -229,6 +229,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.ctx.stroke();
 
 
+	    //console.log('srcCanvasA:');
 	    //console.log(this.srcCanvasA);
 	    
 	    //DRAW TOP CANVAS

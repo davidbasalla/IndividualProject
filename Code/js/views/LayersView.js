@@ -28,9 +28,7 @@ define(["models/LayerItem",
 	    //set viewerWindowView, required for managing XTKViews
 	    this.viewerWindowView = options.viewerWindowView;
 
-
 	    this.layerItemViewArray = [];
-
 
 	    Backbone.on('thresholdChange', this.thresholdChange, this);
 	    Backbone.on('levelsChange', this.levelsChange, this);
@@ -91,8 +89,16 @@ define(["models/LayerItem",
 	    console.log(layerItemView);
 	    
 	    //set layerItem to be current
-	    this.layersModel.setCurrentItem(layerItem);
-	    this.setSelectedLayerItemView(layerItemView);
+	    if(layerItem)
+		this.layersModel.setCurrentItem(layerItem);
+	    else{
+		this.layersModel.set({
+		    bufferALayerItem:null,
+		    bufferBLayerItem:null
+		});
+	    }
+	    if(layerItemView)
+		this.setSelectedLayerItemView(layerItemView);
 	},
 	setSelectedLayerItemView: function(layerItemView){
 	    console.log('LayersView.setCurrentLayerItem()');
@@ -110,47 +116,36 @@ define(["models/LayerItem",
 
 	},
 	removeItem: function(layerItem, layerItemView){
-	    /* TODO - remove from this.layerItemViewArray */
-
 	    console.log('LayersView.removeItem()');
 
-
+	    //remove associated layerItem from collection
 	    this.collection.remove(layerItem);
 
+	    //remove associated layerItemView from array
 	    for(var i = 0; i < this.layerItemViewArray.length; i++){
 		if (this.layerItemViewArray[i] == layerItemView)
 		    this.layerItemViewArray.splice(i,1);
 	    }
 
+	    //remove associated xtkView
 	    this.viewerWindowView.removeXtkView(layerItem.get('index'));
 
-
-	    /*
+	    //set to previous item OR black
 	    if(this.layersModel.getCurrentItem() == layerItem){
-		console.log('A!!!');
-		if(this.collection.length > 0)
-		    this.setSelected(this.collection.models[0], this.layerItemViewArray[0]);
-	    }*/
+		if(this.collection.models.length > 0){
+		    this.setSelected(this.collection.models[this.collection.models.length-1],
+				     this.layerItemViewArray[this.layerItemViewArray.length-1]);
+		    }
+		else{
+		    //when nothing left to display
+		    console.log('SET TO BLACK');
+		    this.viewerWindowView.stopAnimation();
+		    this.setSelected(null, null);
+		    //this.viewerWindowView.setToBlack();
+		}
+	    }
+	    console.log(this.layersModel);
 
-	    /*
-	    if(this.layersModel.getOtherItem() == layerItem){
-		if(this.collection.length > 0)		    
-		    this.layersModel.setOtherItem(this.collection.models[0]);
-	    }
-	    */
-	    
-	    /*
-	    //set layersModelCurrentItems for first item in collection (if any left)
-	    if(this.layersModel.getCurrentItem() == layerItem){
-		console.log('BUFFER A!!!!');
-		if(this.collection.length > 0)
-		    this.layersModel.setCurrentItem(this.collection.models[0]);
-	    }
-	    if(this.layersModel.getOtherItem() == layerItem){
-		console.log('BUFFER B!!!!');
-		if(this.collection.length > 0)
-		    this.layersModel.setOtherItem(this.collection.models[0]);
-	    }*/
 	},
 	setLevelValues: function(){
 	    console.log('LayersView.setLevelValues()');
