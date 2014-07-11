@@ -24,10 +24,13 @@ define(["models/LayerItem",
 	    _.bindAll(this, 'appendItem');
 	    
 	    this.layersModel = options.layersModel;
-	    this.layersModel.on("change", this.setCurrentLayer, this);
 
 	    //set viewerWindowView, required for managing XTKViews
 	    this.viewerWindowView = options.viewerWindowView;
+
+
+	    this.layerItemViewArray = [];
+
 
 	    Backbone.on('thresholdChange', this.thresholdChange, this);
 	    Backbone.on('levelsChange', this.levelsChange, this);
@@ -37,7 +40,7 @@ define(["models/LayerItem",
 	    //Backbone.on('xtkInitialised', this.updateCurrentIndex, this);
 
 	    this.collection = new LayerList();
-	    this.collection.bind('add', this.appendItem); // collection event binder
+	    //this.collection.bind('add', this.appendItem); // collection event binder
 
 	    this.counter = 0; // total number of items added thus far
 
@@ -62,11 +65,13 @@ define(["models/LayerItem",
 	    //adding as layerIndex and as model
 	    this.viewerWindowView.addXtkView(this.counter, item);
 	    
+	    //set layerItem to be current
 	    this.layersModel.setCurrentItem(item);
 
-	    this.collection.add(item);
-	    this.counter++;
 
+	    this.collection.add(item);
+	    this.appendItem(item);
+	    this.counter++;
 	},
 	appendItem: function(item){
 	    console.log('LayersView.appendItem()');
@@ -77,10 +82,31 @@ define(["models/LayerItem",
 		layersView: this,
 	    });
 	    $('#layerList', this.el).append(itemView.render().el);
-	    itemView.setSelected(); //select the newly created item!
-	    this.setCurrentLayer();
+
+
+	    this.layerItemViewArray[this.layerItemViewArray.length] = itemView;
+	    this.setCurrentLayerItemView(itemView);
+	},
+	setCurrentLayerItemView: function(layerItemView){
+	    console.log('LayersView.setCurrentLayerItem()');
+
+	    //remove selected class from all layerItemViews
+
+	    for(index in this.layerItemViewArray){
+		this.layerItemViewArray[index].setUnselected();
+	    }
+	
+	
+	    layerItemView.setSelected();
+
+	    this.resetSliders();
+	    this.setLevelValues();
+
 	},
 	removeItem: function(layerItem){
+	    /* TODO - remove from this.layerItemViewArray */
+
+
 	    console.log('LayersView.removeItem()');
 
 	    this.collection.remove(layerItem);
@@ -96,34 +122,6 @@ define(["models/LayerItem",
 		if(this.collection.length > 0)
 		    this.layersModel.setOtherItem(this.collection.models[0]);
 	    }
-	},
-	setCurrentLayer: function(){
-	    //change the current model to reflect this!
-	    console.log('LayersView.setCurrentLayer()');
-	    console.log(this.layersModel);
-
-	    //loop through all remaining and set to unselected
-	    for(var index in this.collection.models){
-
-		var item = this.collection.models[index];
-		
-		//set selected
-		if (item == this.layersModel.getCurrentItem()){
-		    item.set({
-			selected: true
-		    });
-		}
-		else{
-		    item.set({
-			selected: false
-		    });
-		};
-	    };
-	    /////////////////////////////////////////////////////
-
-	    this.resetSliders();
-	    this.setLevelValues();
-	    
 	},
 	setLevelValues: function(){
 	    console.log('LayersView.setLevelValues()');
@@ -177,7 +175,7 @@ define(["models/LayerItem",
 	    console.log('LayersView.resetSliders()');
 
 	    var currentItem = this.layersModel.getCurrentItem();
-	    //console.log(currentItem);
+	    console.log(currentItem);
 
 	    //set original values
 	    var wLO = currentItem.get("windowLowOrig");

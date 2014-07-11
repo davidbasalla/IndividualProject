@@ -4,7 +4,6 @@ define(function() {
     var LayerItem = Backbone.Model.extend({
 	defaults: {
 	    title: 'Layer',
-	    selected: true,
 	    visible: true,
 	    file: null,
 	    fileName: 'dummyFileName',

@@ -10,22 +10,6 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    this.model = options.model;
 	    this.layersModel = options.layersModel;
 	    this.layersView = options.layersView;
-
-	    this.model.on("change:selected", this.toggleSelected, this);
-
-	},
-	toggleSelected: function(model, value, options){
-	    console.log('LayerItemView.toggleSelected(' + value + ')');
-
-	    if(value){
-		$(this.el).removeClass('layer-unselected');
-		$(this.el).addClass('layer-selected');
-	    }
-	    else{
-		$(this.el).removeClass('layer-selected');
-		$(this.el).addClass('layer-unselected');
-	    }
-	    
 	},
 	events: {
 	    //event for toggling visibility
@@ -41,6 +25,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 
 	    //add style to rendering of the layer item
 	    $(this.el).addClass('list-group-item');
+	    $(this.el).addClass('layer');
 
 	    
 	    //template - set title
@@ -55,11 +40,14 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	setSelected: function(){
 	    console.log('LayerItemView.setSelected()');
 	    
-	    $(this.el).removeClass('layer-unselected');
+	    $(this.el).removeClass('layer');
 	    $(this.el).addClass('layer-selected');
-
-	    //set the current item into layersModel
-	    this.layersModel.setCurrentItem(this.model);
+	},
+	setUnselected: function(){
+	    console.log('LayerItemView.setUnselected()');
+	    
+	    $(this.el).removeClass('layer-selected');
+	    $(this.el).addClass('layer');
 	},
 	loadFile: function(){
 	    //trigger the hidden fileLoader
