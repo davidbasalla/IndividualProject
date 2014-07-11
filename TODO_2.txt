@@ -62,21 +62,14 @@ DONE:
 - Cap indices when middle-mouse scrolling
 - Fixed a redundancy in the code re update function, was being called
 - multiple times!
-
-
+- WHEN DELETING LAYER, FOCUS BACK ON THE FIRST ONE
+- fix overlay (file undefined)
+- fix brightness!
 
 
 
 NEXT STEPS:
 ----------
-
-- WHEN DELETING LAYER, FOCUS BACK ON THE FIRST ONE (currently no image)
-  - clean up layer behaviour... reduce events!?
-  - FUCKING MESS AT THE MOMENT!
-
-- fix brightness!
-
-- fix overlay (file undefined)
 
 - fix slider
 

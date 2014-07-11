@@ -33,7 +33,7 @@ define(["models/LayerItem",
 	    Backbone.on('thresholdChange', this.thresholdChange, this);
 	    Backbone.on('levelsChange', this.levelsChange, this);
 	    Backbone.on('opacityChange', this.opacityChange, this);
-	    Backbone.on('initValuesStored', this.resetSliders, this);
+	    Backbone.on('initValuesStored', this.setLevelsSettings, this);
 	    Backbone.on('lookupChange', this.setLookup, this);
 	    //Backbone.on('xtkInitialised', this.updateCurrentIndex, this);
 
@@ -84,10 +84,13 @@ define(["models/LayerItem",
 	},
 	setSelected: function(layerItem, layerItemView){
 	    /* requires the coupling of item and itemView, kinda dumb */
+	    console.log('LayersView.setSelected()');
 
 	    //set layerItem to be current
 	    if(layerItem){
 		this.layersModel.setCurrentItem(layerItem);
+
+		this.setLevelsSettings(layerItem);
 	    }
 	    else{
 		this.layersModel.set({
@@ -99,7 +102,7 @@ define(["models/LayerItem",
 		this.setSelectedLayerItemView(layerItemView);
 	},
 	setSelectedLayerItemView: function(layerItemView){
-	    console.log('LayersView.setCurrentLayerItem()');
+	    console.log('LayersView.setSelectedLayerItem()');
 
 	    //remove selected class from all layerItemViews
 	    for(index in this.layerItemViewArray){
@@ -108,10 +111,6 @@ define(["models/LayerItem",
 	
 	    //add selected class to current item
 	    layerItemView.setSelected();
-
-	    this.resetSliders();
-	    this.setLevelValues();
-
 	},
 	removeItem: function(layerItem, layerItemView){
 	    console.log('LayersView.removeItem()');
@@ -151,10 +150,28 @@ define(["models/LayerItem",
 		}
 	    }
 	},
-	setLevelValues: function(){
-	    //console.log('LayersView.setLevelValues()');
+	setLevelsSettings:function(currentItem){
+	    /* gets called when layer is switched OR layerItem is updated
+	       once a file has loaded */
+	    console.log('LayersView.setLevelsSettings()');
 
-	    var currentItem = this.layersModel.getCurrentItem();
+	    this.resetSliders(currentItem);
+	    this.setLevelValues(currentItem);
+	},
+	resetSliders:function(currentItem){
+	    //console.log('LayersView.resetSliders()');
+
+	    //set original values
+	    var wLO = currentItem.get("windowLowOrig");
+	    var wHO = currentItem.get("windowHighOrig");
+	    var tLO = currentItem.get("thresholdLowOrig");
+	    var tHO = currentItem.get("thresholdHighOrig");
+
+	    $("#rangeSlider1").slider('option',{min: wLO, max: wHO});
+	    $("#rangeSlider2").slider('option',{min: tLO, max: tHO}); 
+	},
+	setLevelValues: function(currentItem){
+	    //console.log('LayersView.setLevelValues()');
 	    
 	    //set text value
 	    var wL = currentItem.get("windowLow");
@@ -198,21 +215,6 @@ define(["models/LayerItem",
 	    //update the model
 	    var currentItem = this.layersModel.getCurrentItem();
 	    currentItem.set({opacity: arg});
-	},
-	resetSliders:function(){
-	    ////console.log('LayersView.resetSliders()');
-
-	    var currentItem = this.layersModel.getCurrentItem();
-	    ////console.log(currentItem);
-
-	    //set original values
-	    var wLO = currentItem.get("windowLowOrig");
-	    var wHO = currentItem.get("windowHighOrig");
-	    var tLO = currentItem.get("thresholdLowOrig");
-	    var tHO = currentItem.get("thresholdHighOrig");
-
-	    $("#rangeSlider1").slider('option',{min: wLO, max: wHO});
-	    $("#rangeSlider2").slider('option',{min: tLO, max: tHO}); 
 	},
 	handleClick:function(value){
 	    if (value.currentTarget.id == 'bufferA')

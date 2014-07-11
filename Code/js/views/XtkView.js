@@ -473,7 +473,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		thresholdHigh: this.volume.upperThreshold,
 	    }); 
 	    
-	    Backbone.trigger('initValuesStored');
+	    Backbone.trigger('initValuesStored', this.model);
 	},
 	createData:function() {
 	    // the data holder for the scene

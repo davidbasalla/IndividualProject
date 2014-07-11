@@ -310,9 +310,11 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.ctx.globalAlpha = 1;
 	    this.ctx.fillStyle = 'white';
 	    this.ctx.font="14px Arial";
+	    
+	    console.log(this.currentLayerItemTop);
 
 	    //FILENAME
-	    this.ctx.fillText("File: " + this.currentLayerItemTop.get('fileName').name,10,20);
+	    this.ctx.fillText("File: " + this.currentLayerItemTop.get('fileName'), 10, 20);
 
 	    //INDEX
 	    var index = 0;

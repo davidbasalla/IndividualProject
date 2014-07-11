@@ -64,7 +64,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    $('#labelPicker',this.el).trigger('click');
 	},
 	fileLoaded: function(e){
-	    //console.log('fileLoaded()')
+	    console.log('fileLoaded()')
 	    //add text to layer preview
 	    $('#textHolder', this.el).html(e.currentTarget.files[0].name);
 
