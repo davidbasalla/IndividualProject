@@ -546,34 +546,34 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerX.loader.load(this.volume.colortable, this.volume);
 	},
 	setPan:function(args){
-	    console.log('setPan()');
+	    //console.log('setPan()');
 
 	    if(this.layerIndex == args[2].get('index')){
 
 		if(args[3] == 1){
-		    //console.log('XtkVew.setPanX()');
+		    ////console.log('XtkVew.setPanX()');
 		    this.viewerX.camera.view[12] += -(args[0])/4;
 		    this.viewerX.camera.view[13] += args[1]/4;
 		}
 		else if(args[3] == 2){
-		    //console.log('XtkVew.setPanY()');
+		    ////console.log('XtkVew.setPanY()');
 		    this.viewerY.camera.view[12] += -(args[0])/4;
 		    this.viewerY.camera.view[13] += args[1]/4;
 		}
 		else if(args[3] == 3){
-		    //console.log('XtkVew.setPanZ()');
+		    ////console.log('XtkVew.setPanZ()');
 		    this.viewerZ.camera.view[12] += -(args[0])/4;
 		    this.viewerZ.camera.view[13] += args[1]/4;
 		}
 		
-	    //console.log(this.viewerX.camera.view);
+	    ////console.log(this.viewerX.camera.view);
 	    //this.viewerX.camera.view = a;
 	    }
 	},
 	setZoom:function(args){
 
-	    //console.log(this.layerIndex);
-	    //console.log(args[2].get('index'));
+	    ////console.log(this.layerIndex);
+	    ////console.log(args[2].get('index'));
 
 
 	    if(this.layerIndex == args[1].get('index')){
@@ -612,7 +612,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	},
 	traverse:function(args){
 
-	    //console.log('XtkView.traverse()');
+	    ////console.log('XtkView.traverse()');
 
 	    if(this.layerIndex == args[2].get('index')){
 

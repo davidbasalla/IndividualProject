@@ -37,19 +37,19 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    return this; // for chainable calls, like .render().el
 	},
 	clickSelected:function(e){
-	    console.log('LayerItemView.clickSelected()');
-	    console.log(e.target);
+	    //console.log('LayerItemView.clickSelected()');
+	    //console.log(e.target);
 
 	    this.layersView.setSelected(this.model, this);
 	},
 	setSelected: function(){
-	    console.log('LayerItemView.setSelected()');
+	    //console.log('LayerItemView.setSelected()');
 	    
 	    $(this.el).removeClass('layer');
 	    $(this.el).addClass('layer-selected');
 	},
 	setUnselected: function(){
-	    console.log('LayerItemView.setUnselected()');
+	    //console.log('LayerItemView.setUnselected()');
 	    
 	    $(this.el).removeClass('layer-selected');
 	    $(this.el).addClass('layer');
@@ -64,7 +64,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    $('#labelPicker',this.el).trigger('click');
 	},
 	fileLoaded: function(e){
-	    console.log('fileLoaded()')
+	    //console.log('fileLoaded()')
 	    //add text to layer preview
 	    $('#textHolder', this.el).html(e.currentTarget.files[0].name);
 
@@ -73,7 +73,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 		file : e.currentTarget.files[0]
 	    });
 
-	    console.log(this.model);
+	    //console.log(this.model);
 	    
 	    //trigger event that file has loaded, expected by XtkViewer
 	    //send file along as a parameter
@@ -81,7 +81,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	},
 	labelLoaded: function(e){
 	    //add text to layer preview
-	    //console.log('labelLoaded()');
+	    ////console.log('labelLoaded()');
 	    //$('#textHolder', this.el).html(e.currentTarget.files[0].name);
 	    
 	    //call draw function
@@ -97,9 +97,9 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    event.stopPropagation(); 
 	},
 	addLabelMap: function(event){
-	    //console.log('addLabelMap');
-	    //console.log($(this.el));
-	    //console.log($(this.el.parentElement));
+	    ////console.log('addLabelMap');
+	    ////console.log($(this.el));
+	    ////console.log($(this.el.parentElement));
 	    //$('#layerList', this.el.parentElement).append('<li>TEST</li>')
 	    //$(this.el.parentElement).append('<li>TEST</li>')
 	    this.loadLabelMap();

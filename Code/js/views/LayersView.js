@@ -84,13 +84,11 @@ define(["models/LayerItem",
 	},
 	setSelected: function(layerItem, layerItemView){
 	    /* requires the coupling of item and itemView, kinda dumb */
-	    console.log('SETSELECTED()');
-	    console.log(layerItem);
-	    console.log(layerItemView);
-	    
+
 	    //set layerItem to be current
-	    if(layerItem)
+	    if(layerItem){
 		this.layersModel.setCurrentItem(layerItem);
+	    }
 	    else{
 		this.layersModel.set({
 		    bufferALayerItem:null,
@@ -132,23 +130,29 @@ define(["models/LayerItem",
 
 	    //set to previous item OR black
 	    if(this.layersModel.getCurrentItem() == layerItem){
-		if(this.collection.models.length > 0){
-		    this.setSelected(this.collection.models[this.collection.models.length-1],
-				     this.layerItemViewArray[this.layerItemViewArray.length-1]);
+		if(this.collection.length > 0){
+		    this.setSelected(this.collection.models[this.collection.length - 1],
+				     this.layerItemViewArray[this.layerItemViewArray.length - 1]);
+
+		    //if removed item was in buffer B
+		    if(layerItem == this.layersModel.getOtherItem()){
+			//if other items present
+			if(this.collection.length > 0)
+			    this.layersModel.setOtherItem(this.collection.models[this.collection.length - 1]);
+			else
+			    this.layersModel.setOtherItem(null);
 		    }
+	    
+		}
 		else{
 		    //when nothing left to display
-		    console.log('SET TO BLACK');
 		    this.viewerWindowView.stopAnimation();
 		    this.setSelected(null, null);
-		    //this.viewerWindowView.setToBlack();
 		}
 	    }
-	    console.log(this.layersModel);
-
 	},
 	setLevelValues: function(){
-	    console.log('LayersView.setLevelValues()');
+	    //console.log('LayersView.setLevelValues()');
 
 	    var currentItem = this.layersModel.getCurrentItem();
 	    
@@ -172,34 +176,34 @@ define(["models/LayerItem",
 	    $("#rangeSlider2").slider('values',1,tH);
 	    $("#opacitySlider").slider('value',o);
 
-	    //console.log(currentItem);
+	    //////console.log(currentItem);
 	},
 	thresholdChange: function(args){
-	    console.log('triggering layerThresholdChange');
+	    ////console.log('triggering layerThresholdChange');
 
 	    //update the model
 	    var currentItem = this.layersModel.getCurrentItem();
 	    currentItem.set({thresholdLow: args[0],thresholdHigh: args[1]});
 	},
 	levelsChange: function(args){
-	    console.log('triggering layerLevelsChange');
+	    ////console.log('triggering layerLevelsChange');
 
 	    //update the model
 	    var currentItem = this.layersModel.getCurrentItem();
 	    currentItem.set({windowLow: args[0],windowHigh: args[1]});
 	},
 	opacityChange: function(arg){
-	    console.log('triggering layerOpacityChange');
+	    ////console.log('triggering layerOpacityChange');
 
 	    //update the model
 	    var currentItem = this.layersModel.getCurrentItem();
 	    currentItem.set({opacity: arg});
 	},
 	resetSliders:function(){
-	    console.log('LayersView.resetSliders()');
+	    ////console.log('LayersView.resetSliders()');
 
 	    var currentItem = this.layersModel.getCurrentItem();
-	    console.log(currentItem);
+	    ////console.log(currentItem);
 
 	    //set original values
 	    var wLO = currentItem.get("windowLowOrig");
@@ -233,8 +237,8 @@ define(["models/LayerItem",
 	    }
 	},
 	setLookup:function(value){
-	    console.log('LayersView.setLookup()');
-	    console.log(value);
+	    ////console.log('LayersView.setLookup()');
+	    ////console.log(value);
 
 	    var currentItem = this.layersModel.getCurrentItem();
 	    currentItem.set({colortable: value});

@@ -36,7 +36,7 @@ define(["views/CanvasViewer3D",
 		   //this.setSize();
 	       },
 	       addXtkView:function(layerIndex, model){
-		   console.log('ViewerWindowView.addXtkView()');
+		   //console.log('ViewerWindowView.addXtkView()');
 
 		   var xtkViewer = new XtkView({
 		       layerIndex: layerIndex,
@@ -53,15 +53,15 @@ define(["views/CanvasViewer3D",
 		   for(var i = 0; i < this.xtkViewArray.length; i++){
 		       if (this.xtkViewArray[i].layerIndex == layerIndex){
 
-			   console.log('Removing this:');
-			   console.log(this.xtkViewArray[i]);
+			   //console.log('Removing this:');
+			   //console.log(this.xtkViewArray[i]);
 			   this.xtkViewArray[i].destroy();
    			   this.xtkViewArray.splice(i,1);
 			   }
 		   }
 	       },
 	       setSizeViewerCanvas:function(){
-		   console.log('ViewerWindowView.setSizeViewerCanvas()');
+		   //console.log('ViewerWindowView.setSizeViewerCanvas()');
 
 		   //SET canvases
 		   var topbarHeight = $('#topbar').outerHeight();
@@ -86,7 +86,7 @@ define(["views/CanvasViewer3D",
 
 	       },
 	       setSizeXtkView:function(layoutIndex){
-		   console.log('ViewerWindowView.setSizeXtkView()');
+		   //console.log('ViewerWindowView.setSizeXtkView()');
 
 		   //SET xtkViewers
 		   for(var i = 0; i < this.xtkViewArray.length; i++){
@@ -96,7 +96,7 @@ define(["views/CanvasViewer3D",
 
 	       },
 	       swapDimensions:function(dst, src){
-		   console.log('ViewerWindowView.swapSize(' + dst + ',' + src + ')');
+		   //console.log('ViewerWindowView.swapSize(' + dst + ',' + src + ')');
 		   
 		   for(var i = 0; i < this.xtkViewArray.length; i++)
 		       this.xtkViewArray[i].swapDimensions(dst, src);
@@ -108,11 +108,10 @@ define(["views/CanvasViewer3D",
 
 	       },
 	       setSize:function(){
-		   console.log('ViewerWindowView.setSize()');
+		   //console.log('ViewerWindowView.setSize()');
 
 		   //RESET THE GLOBAL CONTAINER DIMENSIONS
 
-		   console.log($('#canvasPanels'));
 		   var height = $('#canvasPanels').height() - 20;
 		   var width = $('#canvasPanels').width() - 20;
 		   
@@ -217,7 +216,7 @@ define(["views/CanvasViewer3D",
 	       },
 	       setCurrentLayer:function(layersModel, value, options){
 
-		   console.log('ViewerWindowView.setCurrentLayer()');
+		   //console.log('ViewerWindowView.setCurrentLayer()');
 
 		   //turn OFF triggers for previous object
 		       
@@ -260,7 +259,7 @@ define(["views/CanvasViewer3D",
 
 		   //check if recursive loop is already running
 		   if(!this.renderRunning){
-		       console.log('START RENDER');
+		       //console.log('START RENDER');
 		       this.update();
 		       this.renderRunning = true;   //set to renderRunning
 		   }
@@ -269,8 +268,8 @@ define(["views/CanvasViewer3D",
 		   this.doRender = false;
 	       },
 	       update:function(){
-		   console.log('ViewerWindowView.update()');
-		   console.log(this);
+		   //console.log('ViewerWindowView.update()');
+		   //console.log(this);
 
 		   //issue with settimeout and refreshing webGl canvas, so not using that
 
@@ -279,7 +278,7 @@ define(["views/CanvasViewer3D",
 
 		   function draw() {
 		   
-		       //console.log('draw');
+		       ////console.log('draw');
 		       var now = new Date().getTime();
 		       //only draw the frame if 25 milliseconds have passed!
 		       if(now > (time + 25)){
@@ -294,7 +293,7 @@ define(["views/CanvasViewer3D",
 		       }
 		       //requestAnimationFrame(draw);
 		       
-		       //console.log(this.doRender);
+		       ////console.log(this.doRender);
 		       
 		       if(_this.doRender)
 			   requestAnimationFrame(draw);
@@ -308,7 +307,7 @@ define(["views/CanvasViewer3D",
 		   
 	       },
 	       setOpacity:function(model, value, options){
-		   console.log('setOpacity(' + value + ')');
+		   //console.log('setOpacity(' + value + ')');
 
 		   this.viewer0.setOpacity();
 		   this.viewer1.setOpacity();
@@ -326,7 +325,7 @@ define(["views/CanvasViewer3D",
 	       },
 	       scroll:function(){
 		   
-		   ////console.log('ViewerWindowView.scroll()');
+		   //////console.log('ViewerWindowView.scroll()');
 
 		   if(this.currentItem){
 		       var oldX = this.currentItem.get('indexX');
