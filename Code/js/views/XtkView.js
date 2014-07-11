@@ -5,7 +5,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	el: '#xtkPanels',
 	template: _.template(XTKTemplate),
 	initialize:function(options) {
-	    //console.log('initXTK()');
+	    console.log('initXTK()');
 
 	    //INIT VARS
 	    this.layerIndex = options.layerIndex;
@@ -82,15 +82,20 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	},
 	render:function() {
 	    console.log('XtkView.render()');
+	    console.log(this.el);
 
-	    this.$el.append(this.template({
+	    //this.$el.append(this.template({
+	    $('#xtkPanels').append(this.template({
 		layerIndex: 'xtkViewer_L' + this.layerIndex,
 		containerIndex3D: 'xtkContainer3D_L' + this.layerIndex,
 		containerIndexX: 'xtkContainerX_L' + this.layerIndex,
 		containerIndexY: 'xtkContainerY_L' + this.layerIndex,
 		containerIndexZ: 'xtkContainerZ_L' + this.layerIndex,
 	    }));
-	    //need to adjust the dimensions of layerIndex div
+
+	    //reset this to correct elements (for proper destruction)
+	    this.el = document.getElementById('xtkViewer_L' + this.layerIndex);
+	    this.$el = $('#xtkViewer_L' + this.layerIndex);
 
 	    this.initViewers();
 	    this.setDimensions();	    
@@ -105,8 +110,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.viewerY.destroy();		
 	    this.viewerZ.destroy();
 
-	    //this.remove(); //THIS REMOVES EVERYTHING... WHY?
-	    //this.unbind();
+	    this.remove(); 
+	    this.unbind();
 	},
 	setDimensions:function(){
 	    console.log('XtkView.setSize(' + this.layout + ')');
