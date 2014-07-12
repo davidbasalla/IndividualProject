@@ -61,7 +61,8 @@ define(function() {
 	},
 	toggleBuffer:function(index){
 	    //function to swap buffers
-	    //console.log('LayersItem.toggleBuffer(' + index + ')');
+	    console.log('LayersItem.toggleBuffer(' + index + ')');
+
 	    
 	    if(index != this.get('currentBufferIndex')){
 		this.set({currentBufferIndex: index});

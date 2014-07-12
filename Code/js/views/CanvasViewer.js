@@ -53,7 +53,6 @@ define(function() {
 	    //DISABLE MIDDLE MOUSE FOR THIS ELEMENT
 	    $(this.el).mousedown(function(e){if(e.button==1)return false});
 	    $(this.el).mousedown(function(e){
-		console.log(e);
 		if(e.button==2)
 		    return false
 	    });
@@ -66,7 +65,7 @@ define(function() {
 	    'click button#Ztoggle': 'setModeHandler',
 	},
 	setCurrentLayers:function(itemA, itemB){
-	    console.log('CanvasViewer.setCurrentLayers()');
+	    //console.log('CanvasViewer.setCurrentLayers()');
 	    
 	    //console.log(itemA);
 	    //console.log(itemB);
@@ -78,7 +77,7 @@ define(function() {
 	    this.setSrcCanvases();
 	},
 	setSrcCanvases:function(){
-	    console.log('CanvasViewer.setSrcCanvases()');
+	    //console.log('CanvasViewer.setSrcCanvases()');
 	    //console.log(this.currentLayerItemTop);
 	    //console.log(this.currentLayerItemBottom);
 
@@ -127,7 +126,7 @@ define(function() {
 	    this.setMode(mode);
 	},
 	setMode:function(mode){
-	    console.log('setMode(' + mode + ')');
+	    //console.log('setMode(' + mode + ')');
 
 	    this.$el.find("#ThreeDtoggle").removeClass('layer-selected');
 	    this.$el.find("#Xtoggle").removeClass('layer-selected');	    
@@ -151,7 +150,7 @@ define(function() {
 	},
 	getComplementCanvas:function(mode){
 
-	    console.log('getComplementCanvas(' + mode + ')');
+	    //console.log('getComplementCanvas(' + mode + ')');
 
 	    /*finds the complementary canvas to swap out with.
 	      Have to do the swapping due to XTK since we can't have multiple, 

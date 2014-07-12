@@ -1,3 +1,7 @@
+/* some nastiness going on with models and itemViews, it's like
+   a doubling up and requires extra handling which is annoying and 
+   may cause trouble in the future!!*/
+
 define(["models/LayerItem",
 	"collections/LayerList",
 	"views/XtkView",
@@ -186,19 +190,38 @@ define(["models/LayerItem",
 		this.setBuffer(1);
 	},
 	setBuffer:function(value){
+	    console.log('SET BUFFER ' + value);
+
 	    if(this.layersModel.toggleBuffer(value)){
+
+		//FIGURE OUT WHICH layerItemView to activate - NASTY
+		var layerItemView = null;
+		var currentItem = this.layersModel.getCurrentItem();
+		
+		for(index in this.layerItemViewArray){
+		    if(this.layerItemViewArray[index].model == currentItem)
+			layerItemView = this.layerItemViewArray[index];
+		}
+
+		this.setSelectedLayerItemView(layerItemView);
+
+		
+		//SET THE CSS FOR BUFFER BUTTON
 		if (value == 0){
+		    
 		    $('#bufferB', this.el).removeClass('layer-selected');
 		    $('#bufferB', this.el).addClass('layer-unselected');
 		    $('#bufferA', this.el).removeClass('layer-unselected');
 		    $('#bufferA', this.el).addClass('layer-selected');
 		}
 		else{
+		    
 		    $('#bufferA', this.el).removeClass('layer-selected');
 		    $('#bufferA', this.el).addClass('layer-unselected');
 		    $('#bufferB', this.el).removeClass('layer-unselected');
 		    $('#bufferB', this.el).addClass('layer-selected');
 		}
+		
 	    }
 	},
 	setLookup:function(value){
