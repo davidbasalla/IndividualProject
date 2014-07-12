@@ -66,10 +66,15 @@ DONE:
 - fix overlay (file undefined)
 - fix levels sliders
 - fix scroll behaviour when no valid items are set!
+- add textEdit field for selectedIndex
+- add in correction for input fields in Levels (for wrong inputs)
+
 
 
 NEXT STEPS:
 ----------
+
+- Revise interaction of panels, bring up to XTK-style quality!
 
 - Restore 3D Functionality
     - navigation
@@ -86,6 +91,7 @@ NEXT STEPS:
       - would need a file loader
       - would need the whole loading malarchy
 
+- Fix Buffer selection
 
 - Polish Lookup Behaviour (tricky!)
 
@@ -98,8 +104,6 @@ NEXT STEPS:
 
 - Tutorials? Guide?
 
-- Revise interaction of panels, bring up to XTK-style quality!
-
-- add textEdit field for selectedIndex
-
 - MAKE SURE COMMANDS WORK IN CHROME ALSO!
+
+

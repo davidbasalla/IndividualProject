@@ -15,6 +15,10 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    'change input#indexX': 'setIndexInputHandler',
 	    'change input#indexY': 'setIndexInputHandler',
 	    'change input#indexZ': 'setIndexInputHandler',
+	    'change input#levelLow': 'setLevelInputHandler',
+	    'change input#levelHigh': 'setLevelInputHandler',
+	    'change input#thresholdLow': 'setThresholdInputHandler',
+	    'change input#thresholdHigh': 'setThresholdInputHandler',
 	},
 	render:function() {
 	    //write the template into the website
@@ -120,10 +124,13 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	},
 	setIndexInputHandler:function(e){
 	    console.log('LevelsView.setIndexInputHandler()');
+	    /* ADD A MAX HERE, BUT CURRENTLY DIFFICULT DUE THAT
+	       INFO NOT BEING AVAILABLE IN XTK */
 
 	    var val = Number(e.target.value);
 
 	    if(this.currentItem){
+
 		if(e.target.id == 'indexX'){
 		    this.currentItem.set({indexX: val});
 		}
@@ -135,6 +142,155 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 		}
 	    }
 	},
+	setOpacityInputHandler:function(e){
+	    console.log('LevelsView.setIndexInputHandler()');
+
+	    //guard against non-number input
+	    if(isNaN(e.target.value)){
+		if(this.currentItem){
+		    $( "#opacityInput" ).val(this.currentItem.get('opacity'));
+	       	    $("#opacitySlider").slider('value', this.currentItem.get('opacity')); 
+		}
+		else{
+		    $( "#opacityInput" ).val(100);
+	       	    $("#opacitySlider").slider('value', 100); 
+		}
+		console.log('Error: Non-number input');
+	    }
+	    else{
+		
+		var val = Number(e.target.value);
+		
+		/*guard against out of bounds inputs*/
+		if(val < 0){
+		    val = 0;
+		    $( "#opacityInput" ).val(0);
+		}
+		else if(val > 100){
+		    val = 100;
+		    $( "#opacityInput" ).val(100);
+		}
+		
+		//set
+		if(this.currentItem){
+		    //update model
+		    this.currentItem.set({opacity: val});
+	    	    $("#opacitySlider").slider('value', val); 
+		}
+	    }
+	},
+	setLevelInputHandler:function(e){
+
+	    var low = 0;
+	    var high = 100;
+	    var lowOrig = 0;
+	    var highOrig = 100;
+
+	    if(this.currentItem){
+		low = this.currentItem.get('windowLow');
+		high = this.currentItem.get('windowHigh');
+		lowOrig = this.currentItem.get('windowLowOrig');
+		highOrig = this.currentItem.get('windowHighOrig');
+	    }
+
+	    //guard against non-number input, reset to original values
+	    if(isNaN(e.target.value)){
+		console.log('Error: Non-number input');
+
+		$( "#levelLow" ).val(low);
+		$( "#levelHigh" ).val(high);
+		$("#rangeSlider1").slider('values', 0, low); 
+		$("#rangeSlider1").slider('values', 1, high);
+	    }
+	    else{
+		//guard against out of bounds input
+		if(e.target.id == "levelLow"){
+		    low = Number(e.target.value);
+		    if(low < lowOrig)
+			low = lowOrig;
+		    else if(low > highOrig)
+			low = highOrig;
+		}
+		else if (e.target.id == "levelHigh"){
+		    high = Number(e.target.value);
+		    if(high > highOrig){
+			high = highOrig;}
+		    else if(high < lowOrig)
+			high = lowOrig;
+		}
+		
+		//set
+		if(this.currentItem){
+		    //update model
+		    this.currentItem.set({
+			windowLow: low,
+			windowHigh: high
+		    });
+		    $( "#levelLow" ).val(low);
+		    $( "#levelHigh" ).val(high);
+
+		    $("#rangeSlider1").slider('values', 0, low); 
+		    $("#rangeSlider1").slider('values', 1, high);
+		}
+	    }
+
+	},
+	setThresholdInputHandler:function(e){
+
+	    var low = 0;
+	    var high = 100;
+	    var lowOrig = 0;
+	    var highOrig = 100;
+
+	    if(this.currentItem){
+		low = this.currentItem.get('thresholdLow');
+		high = this.currentItem.get('thresholdHigh');
+		lowOrig = this.currentItem.get('thresholdLowOrig');
+		highOrig = this.currentItem.get('thresholdHighOrig');
+	    }
+
+	    //guard against non-number input, reset to original values
+	    if(isNaN(e.target.value)){
+		console.log('Error: Non-number input');
+
+		$( "#thresholdLow" ).val(low);
+		$( "#thresholdHigh" ).val(high);
+		$("#rangeSlider2").slider('values', 0, low); 
+		$("#rangeSlider2").slider('values', 1, high);
+	    }
+	    else{
+		//guard against out of bounds input
+		if(e.target.id == "thresholdLow"){
+		    low = Number(e.target.value);
+		    if(low < lowOrig)
+			low = lowOrig;
+		    else if(low > highOrig)
+			low = highOrig;
+		}
+		else if (e.target.id == "thresholdHigh"){
+		    high = Number(e.target.value);
+		    if(high > highOrig){
+			high = highOrig;}
+		    else if(high < lowOrig)
+			high = lowOrig;
+		}
+		
+		//set
+		if(this.currentItem){
+		    //update model
+		    this.currentItem.set({
+			thresholdLow: low,
+			thresholdHigh: high
+		    });
+		    $( "#thresholdLow" ).val(low);
+		    $( "#thresholdHigh" ).val(high);
+
+		    $("#rangeSlider2").slider('values', 0, low); 
+		    $("#rangeSlider2").slider('values', 1, high);
+		}
+	    }
+
+	},
 	setSliders:function(currentItem){
 	    //console.log('LayersView.resetSliders()');
 
@@ -142,7 +298,7 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    var wLO = currentItem.get("windowLowOrig");
 	    var wHO = currentItem.get("windowHighOrig");
 	    var tLO = currentItem.get("thresholdLowOrig");
-	    var tHO = currentItem.get("thresholdHighOrig");
+	    var tHO = currentItem.get("thresholdHighOrig");	    
 
 	    $("#rangeSlider1").slider('option',{min: wLO, max: wHO});
 	    $("#rangeSlider2").slider('option',{min: tLO, max: tHO}); 
