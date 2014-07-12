@@ -68,7 +68,7 @@ DONE:
 - fix scroll behaviour when no valid items are set!
 - add textEdit field for selectedIndex
 - add in correction for input fields in Levels (for wrong inputs)
-
+- Fix Buffer selection
 
 
 NEXT STEPS:
@@ -90,8 +90,6 @@ NEXT STEPS:
   - Test script
       - would need a file loader
       - would need the whole loading malarchy
-
-- Fix Buffer selection
 
 - Polish Lookup Behaviour (tricky!)
 

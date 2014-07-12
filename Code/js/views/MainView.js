@@ -17,17 +17,21 @@ define(["views/NavBarView", "views/SidePanelView", "views/ViewerWindowView", "mo
 		   //INIT LAYERS MODEL TO KEEP TRACK OF CHANGES
 		   var layersModel = new LayersItem();
 
+
+		   console.log('MainView.init() navbar');
 		   //INIT SUBCOMPONENTS
 		   this.navBar = new NavBarView({
 		       el: $('#navbar')
 		   });
 
 
+		   console.log('MainView.init() ViewerWindowView');
 		   this.viewerWindow = new ViewerWindowView({
 		       el: $('#viewerWindow'),
 		       layersModel: layersModel,
 		   });
 
+		   console.log('MainView.init() sidePanel');
 		   this.sidePanel = new SidePanelView({
 		       el: $('#sidePanel'),
 		       layersModel: layersModel,

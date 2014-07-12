@@ -11,7 +11,7 @@ define(["views/CanvasViewer3D",
 	       el:'#viewerWindow',
 	       template: _.template(ViewerWindowTemplate),
 	       initialize:function(options) {
-		   //console.log('ViewerWindowView.init()');
+		   console.log('ViewerWindowView.init()');
 
 		   _.bindAll(this, 'update');
 
@@ -168,6 +168,7 @@ define(["views/CanvasViewer3D",
 
 	       },
 	       render:function() {
+		   console.log('ViewerWindowView.render()');
 		   //load the template
 
 		   this.$el.append(this.template);
@@ -175,14 +176,12 @@ define(["views/CanvasViewer3D",
 		   //create the 4 different views here
 
 		   //need to pass which CanvasSource to look at
-		   this.viewer0 = new CanvasViewer2D({
+		   this.viewer0 = new CanvasViewer3D({
 	    	       el: '#panel0',
 		       viewerIndex: 0,
 		       viewerWindowView: this,
 		       mode: 0,
 		   });
-		   this.viewer0.render();
-		   this.viewer0.setMode(0);
 
 		   this.viewer1 = new CanvasViewer2D({
 		       el:'#panel1',
@@ -190,8 +189,6 @@ define(["views/CanvasViewer3D",
 		       viewerWindowView: this,
 		       mode: 1,
 		   });
-		   this.viewer1.render();
-		   this.viewer1.setMode(1);
 
 		   this.viewer2 = new CanvasViewer2D({
 		       el:'#panel2',
@@ -199,8 +196,6 @@ define(["views/CanvasViewer3D",
 		       viewerWindowView: this,
 		       mode: 2,
 		   });
-		   this.viewer2.render();
-		   this.viewer2.setMode(2);
 
 		   this.viewer3 = new CanvasViewer2D({
 		       el:'#panel3',
@@ -208,11 +203,15 @@ define(["views/CanvasViewer3D",
 		       viewerWindowView: this,
 		       mode: 3,
 		   });
-		   this.viewer3.render();
-		   this.viewer3.setMode(3);
 
 		   this.viewers = [this.viewer0, this.viewer1, this.viewer2, this.viewer3];
+		   this.renderCanvasViewers();
 
+	       },
+	       renderCanvasViewers:function(){
+		   for(index in this.viewers){
+		       this.viewers[index].render();
+		   }
 	       },
 	       setCurrentLayer:function(layersModel, value, options){
 

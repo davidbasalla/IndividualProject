@@ -133,7 +133,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    // IE 6/7/8
 	    else this.canvas.attachEvent("onmousewheel", this.mouseWheelHandler);
 
-
+	    this.setMode(this.mode);
 
 	    return this; //to enable chain calling
 	},
