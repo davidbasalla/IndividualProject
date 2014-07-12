@@ -104,8 +104,6 @@ define(["views/CanvasViewer3D",
 		   //swap viewers in the array?
 
 		   //would it be enough to change the order of the array?
-
-
 	       },
 	       setSize:function(){
 		   //console.log('ViewerWindowView.setSize()');
@@ -212,6 +210,13 @@ define(["views/CanvasViewer3D",
 		   for(index in this.viewers){
 		       this.viewers[index].render();
 		   }
+	       },
+	       resetPanels:function(){
+		   this.viewer0.setPanel('#panel1');
+		   this.viewer1.setPanel('#panel0');
+		   this.viewer2.setPanel('#panel2');		   
+		   this.viewer3.setPanel('#panel3');
+		   this.setSize();
 	       },
 	       setCurrentLayer:function(layersModel, value, options){
 

@@ -64,6 +64,14 @@ define(function() {
 	    'click button#Ytoggle': 'setModeHandler',
 	    'click button#Ztoggle': 'setModeHandler',
 	},
+	setPanel:function(panel){
+	    /* NEW - for reassigning el and $el */
+	    this.el = panel;
+	    this.$el = $(panel);
+
+	    //force the rerender
+	    this.render();
+	},
 	setCurrentLayers:function(itemA, itemB){
 	    //console.log('CanvasViewer.setCurrentLayers()');
 	    
@@ -97,6 +105,9 @@ define(function() {
 	},
 	setModeHandler:function(e){
 
+	    this.viewerWindowView.resetPanels();
+
+	    /*//OLD
 	    console.log('setModeHandler');
 	    console.log('e = ' + e.currentTarget.id);
 
@@ -124,6 +135,7 @@ define(function() {
 
 
 	    this.setMode(mode);
+	    */
 	},
 	setMode:function(mode){
 	    //console.log('setMode(' + mode + ')');

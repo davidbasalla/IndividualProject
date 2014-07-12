@@ -76,7 +76,21 @@ NEXT STEPS:
 
 - Revise interaction of panels, bring up to XTK-style quality!
 
-- Restore 3D Functionality
+- Restore 3D Functionality:
+  - MASSIVE task
+  - separate out 2D and 3DCanvasViewer
+    - ensure same height of topNavbar
+    - understand why 3D image does not appear after swap
+    - implement correct swap behaviour
+    - implement correct swap behaviour for different layouts!
+
+
+
+
+
+
+
+
     - navigation
     - volume rendering
     - separate panel?
