@@ -64,14 +64,12 @@ DONE:
 - multiple times!
 - WHEN DELETING LAYER, FOCUS BACK ON THE FIRST ONE
 - fix overlay (file undefined)
-- fix brightness!
+- fix levels sliders
 
 
 
 NEXT STEPS:
 ----------
-
-- fix slider
 
 - Restore 3D Functionality
     - navigation
@@ -79,12 +77,20 @@ NEXT STEPS:
     - separate panel?
 
 - Investigate why Chrome not supporting WebGL
+  - seems to work fine on visual09 (lab machine)
 
 - Add warning window when not able to load file
+  - COMPLEX, LEAVE THIS SHIT TIL LATER, NEED TO DEBUG THOROUGHLY
+  - should I only support NII for now?
+  - Test script
+      - would need a file loader
+      - would need the whole loading malarchy
+
 
 - Polish Lookup Behaviour (tricky!)
 
 - Build custom slider to slider around for window level and threshold
+
 - Work on overlaying of label maps
 
 - Bring whole project online
@@ -93,3 +99,9 @@ NEXT STEPS:
 - Tutorials? Guide?
 
 - Revise interaction of panels, bring up to XTK-style quality!
+
+- add textEdit field for selectedIndex
+
+- fix scroll behaviour when no valid items are set!
+
+- MAKE SURE COMMANDS WORK IN CHROME ALSO!

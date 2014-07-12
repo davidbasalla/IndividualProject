@@ -386,23 +386,27 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //this.volume.labelmap.colortable.file = 'https://www.slicer.org/slicerWiki/images/c/ca/PETCT_Labels.txt';
 	    //this.volume.labelmap.colortable.file = 'file://homes/db913/individualproject/Resources/Data/colorExample.txt';
 
+	    try {
+	
+		this.viewerX.add(this.volume);
+		
+		this.viewerX.render();
+		console.log('SUCCESS');
+
+	    } catch (Exception) {
+		
+		console.log('BALLS');
+	    }
+
+	
 
 
-
-	    this.viewerX.add(this.volume);
-
-	    
-
-	    this.viewerX.render();
 
 	    var _this = this;
-
-
 	    this.viewerX.onShowtime = function() {
 		// add the volume to the other 3 renderers
 
 		console.log('XtkView.onShowtime...');
-
 
 		//store initial values into the layerModel
 		_this.storeValues();
@@ -417,7 +421,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    _this.viewer3D.add(_this.volume);
 		    _this.viewer3D.render();
 		}
-
 
 
 		//update the model
@@ -494,22 +497,28 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this._numberRead = 0;
 	},
 	changeIndexX:function(model, value, options){
-	    this.volume.indexX = value;
-	    //in case out of bounds, reset model
-	    if(this.volume.indexX != value)
-		model.set({indexX: this.volume.indexX})
+	    if(this.volume){
+		this.volume.indexX = value;
+		//in case out of bounds, reset model
+		if(this.volume.indexX != value)
+		    model.set({indexX: this.volume.indexX})
+	    }
 	},
 	changeIndexY:function(model, value, options){
-	    this.volume.indexY = value;
-	    //in case out of bounds, reset model
-	    if(this.volume.indexY != value)
-		model.set({indexY: this.volume.indexY})
+	    if(this.volume){
+		this.volume.indexY = value;
+		//in case out of bounds, reset model
+		if(this.volume.indexY != value)
+		    model.set({indexY: this.volume.indexY})
+	    }
 	},
 	changeIndexZ:function(model, value, options){
-	    this.volume.indexZ = value;
-	    //in case out of bounds, reset model
-	    if(this.volume.indexZ != value)
-		model.set({indexZ: this.volume.indexZ})
+	    if(this.volume){
+		this.volume.indexZ = value;
+		//in case out of bounds, reset model
+		if(this.volume.indexZ != value)
+		    model.set({indexZ: this.volume.indexZ})
+	    }
 	},
 	setWindowLow:function(model, value, options){
 	    this.volume.windowLow = value;

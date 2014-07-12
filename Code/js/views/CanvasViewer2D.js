@@ -140,35 +140,39 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	mouseWheelHandler:function(e){
 	    console.log('CanvasViewer2D.mouseWheelHandler()');
 
-	    var e = window.event || e; // old IE support
-	    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+	    //only scroll if a layerItem is set
+	    if(this.currentLayerItemTop){
+	
+		var e = window.event || e; // old IE support
+		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 
-	    //X
-	    if (this.mode == 1){
-	    	var oldVal = this.currentLayerItemTop.get('indexX');
-		
-		if(delta < 0)
-		    this.currentLayerItemTop.set({indexX: oldVal - 1});
-		else
-		    this.currentLayerItemTop.set({indexX: oldVal + 1});
-	    }
-	    //Y
-	    else if (this.mode == 2){
-	    	var oldVal = this.currentLayerItemTop.get('indexY');
-		
-		if(delta < 0)
-		    this.currentLayerItemTop.set({indexY: oldVal - 1});
-		else
-		    this.currentLayerItemTop.set({indexY: oldVal + 1});
-	    }
-	    //Z
-	    else if (this.mode == 3){
-	    	var oldVal = this.currentLayerItemTop.get('indexZ');
-		
-		if(delta < 0)
-		    this.currentLayerItemTop.set({indexZ: oldVal - 1});
-		else
-		    this.currentLayerItemTop.set({indexZ: oldVal + 1});
+		//X
+		if (this.mode == 1){
+	    	    var oldVal = this.currentLayerItemTop.get('indexX');
+		    
+		    if(delta < 0)
+			this.currentLayerItemTop.set({indexX: oldVal - 1});
+		    else
+			this.currentLayerItemTop.set({indexX: oldVal + 1});
+		}
+		//Y
+		else if (this.mode == 2){
+	    	    var oldVal = this.currentLayerItemTop.get('indexY');
+		    
+		    if(delta < 0)
+			this.currentLayerItemTop.set({indexY: oldVal - 1});
+		    else
+			this.currentLayerItemTop.set({indexY: oldVal + 1});
+		}
+		//Z
+		else if (this.mode == 3){
+	    	    var oldVal = this.currentLayerItemTop.get('indexZ');
+		    
+		    if(delta < 0)
+			this.currentLayerItemTop.set({indexZ: oldVal - 1});
+		    else
+			this.currentLayerItemTop.set({indexZ: oldVal + 1});
+		}
 	    }
 
 	},

@@ -45,3 +45,6 @@ require(["views/MainView"], function(MainView) {
 /*require(['jquery'], function($){
     $('#output').html('Hello World');
 });*/
+//<script type="text/javascript" src="X/lib/google-closure-library/closure/goog/base.js"></script>
+//<script type="text/javascript" src="X/xtk-deps.js"></script>
+//xtk: "../../X/utils/xtk",
