@@ -24,6 +24,7 @@ define(["models/LayerItem",
 	    _.bindAll(this, 'appendItem');
 	    
 	    this.layersModel = options.layersModel;
+	    this.levelsView = options.levelsView;
 
 	    //set viewerWindowView, required for managing XTKViews
 	    this.viewerWindowView = options.viewerWindowView;
@@ -155,45 +156,7 @@ define(["models/LayerItem",
 	       once a file has loaded */
 	    console.log('LayersView.setLevelsSettings()');
 
-	    this.resetSliders(currentItem);
-	    this.setLevelValues(currentItem);
-	},
-	resetSliders:function(currentItem){
-	    //console.log('LayersView.resetSliders()');
-
-	    //set original values
-	    var wLO = currentItem.get("windowLowOrig");
-	    var wHO = currentItem.get("windowHighOrig");
-	    var tLO = currentItem.get("thresholdLowOrig");
-	    var tHO = currentItem.get("thresholdHighOrig");
-
-	    $("#rangeSlider1").slider('option',{min: wLO, max: wHO});
-	    $("#rangeSlider2").slider('option',{min: tLO, max: tHO}); 
-	},
-	setLevelValues: function(currentItem){
-	    //console.log('LayersView.setLevelValues()');
-	    
-	    //set text value
-	    var wL = currentItem.get("windowLow");
-	    var wH = currentItem.get("windowHigh");
-	    var tL = currentItem.get("thresholdLow");
-	    var tH = currentItem.get("thresholdHigh");
-	    var o = currentItem.get("opacity");
-
-	    $( "#levelLow" ).val(wL);
-	    $( "#levelHigh" ).val(wH);
-	    $( "#thresholdLow" ).val(tL);
-	    $( "#thresholdHigh" ).val(tH);
-	    $( "#opacityInput" ).val(o);
-
-    	    //set slider value
-	    $("#rangeSlider1").slider('values',0,wL); 
-	    $("#rangeSlider1").slider('values',1,wH);
-	    $("#rangeSlider2").slider('values',0,tL); 
-	    $("#rangeSlider2").slider('values',1,tH);
-	    $("#opacitySlider").slider('value',o);
-
-	    //////console.log(currentItem);
+	    this.levelsView.setCurrentItem(currentItem);
 	},
 	thresholdChange: function(args){
 	    ////console.log('triggering layerThresholdChange');

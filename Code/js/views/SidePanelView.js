@@ -15,19 +15,21 @@ define(["models/LayersItem", "views/LayersView", "views/LevelsView", "text!templ
 
 		   //INIT LAYERS MODEL TO KEEP TRACK OF CHANGES
 		   var layersModel = new LayersItem();
-		   
-		   //INIT LAYERS
-		   this.layersView = new LayersView({
-		       el: $('#layersTab'),
-		       layersModel: this.layersModel,
-		       viewerWindowView: this.viewerWindowView,
-		   });
 
 		   //INIT LEVELS
 		   this.levelsView = new LevelsView({
 		       el: $('#levelsTab'),
 		       layersModel: this.layersModel,
 		   });
+
+		   //INIT LAYERS
+		   this.layersView = new LayersView({
+		       el: $('#layersTab'),
+		       layersModel: this.layersModel,
+		       levelsView: this.levelsView,
+		       viewerWindowView: this.viewerWindowView,
+		   });
+
 	       },
 	       toggleBuffer:function(index){
 		   this.layersView.setBuffer(index);

@@ -65,7 +65,7 @@ DONE:
 - WHEN DELETING LAYER, FOCUS BACK ON THE FIRST ONE
 - fix overlay (file undefined)
 - fix levels sliders
-
+- fix scroll behaviour when no valid items are set!
 
 
 NEXT STEPS:
@@ -101,7 +101,5 @@ NEXT STEPS:
 - Revise interaction of panels, bring up to XTK-style quality!
 
 - add textEdit field for selectedIndex
-
-- fix scroll behaviour when no valid items are set!
 
 - MAKE SURE COMMANDS WORK IN CHROME ALSO!

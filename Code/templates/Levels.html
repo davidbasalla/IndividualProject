@@ -13,6 +13,50 @@
   <div class="panel-footer">
     <ul class="list-group" id="levelsPanel">
 
+
+    <p>
+
+	<span class="subMenuHeader">
+	  Indeces
+	</span>
+	
+	<div id="sliderContainer">
+
+	  X:
+	  <input type="number"
+		 id="indexX"
+		 style="width:45px; 
+			display:inline-block;"
+		 value="0">
+	  </input>
+
+	  <div style="width:5px;
+		      display:inline-block"></div>
+
+	  Y:
+	  <input type="number"
+		 id="indexY"
+		 style="width:45px; 
+			display:inline-block;"
+		 value="0">
+	  </input>
+
+	  <div style="width:5px;
+		      display:inline-block"></div>
+
+	  Z:
+	  <input type="number"
+		 id="indexZ"
+		 style="width:45px; 
+			display:inline-block;"
+		 value="0">
+	  </input>
+
+
+	</div>
+      </p>
+
+
       <p>
 	<span class="subMenuHeader">
 	  Window/Level
@@ -91,7 +135,9 @@
 		 id="opacityInput"
 		 style="width:45px; 
 			display:inline-block;"
-		 value="100">
+		 value="100"
+		 min="0"
+		 max="100">
 	  </input>
 
 	  <div style="width:5px;
