@@ -26,12 +26,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    }));
 
 	    //DST CANVAS
-	    console.log('Fetching ' + "canvasViewer" + this.panelId);
-
 	    this.canvas = document.getElementById("canvasViewer" + this.panelId);
-	    console.log('CANVAS:');
-	    console.log(this.canvas);
-
 	    this.ctx = this.canvas.getContext("2d");
 
 
@@ -47,9 +42,16 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.setModeCSS();
 	    this.setSrcCanvases();
 
-	    this.delegateEvents();
+	    this.delegateEvents();//hook up events again
 
+	    if(this.showOverlay){
+		this.showOverlay = true;
 
+		//if not toggled, set toggle
+		$('#overlayCheckbox', this.el).prop("checked", true);
+		
+	    }
+	
 	    return this; //to enable chain calling
 	},
 	mouseEnter:function(e){
@@ -135,8 +137,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    console.log('CanvasViewer2D.toggleOverlay()');
 	    console.log(this.el);
 
-
-
 	    if (!this.showOverlay){
 		this.showOverlay = true;
 
@@ -205,7 +205,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
 	},
-	draw:function(){
+	drawTest:function(){
 
 	    //console.log('CanvasViewer2D.draw - ' + this.mode);
 	    /*this.ctx.rect(0, 0,
@@ -230,7 +230,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.ctx.fill();
 
 	},
-	drawOLD:function(){
+	draw:function(){
 	    //update the canvases at 60 frames a second?
 
 	    //console.log('CanvasViewer2D.draw(' + this.mode + ')');
@@ -306,7 +306,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.ctx.lineWidth = 2;
 	    this.ctx.beginPath();
 	    this.ctx.moveTo(this.mouseX, 0);
-	    this.ctx.lineTo(this.mouseY, this.canvas.height);
+	    this.ctx.lineTo(this.mouseX, this.canvas.height);
 
 	    this.ctx.strokeStyle = 'red';
 	    this.ctx.stroke();

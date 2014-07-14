@@ -95,8 +95,6 @@ define(["views/CanvasViewer3D",
 		       }
 		   }
 
-		   console.log('swapping ' + srcPanel + ' and ' + dstPanel);
-		   
 		   var viewer1;
 		   var viewer2;
 
@@ -112,6 +110,7 @@ define(["views/CanvasViewer3D",
 		   //put this into canvas viewer!?
 		   //need to disconnect events
 
+
 		   //keep the order intact
 		   var tmp = viewer1.panelId;
 		   viewer1.panelId = viewer2.panelId;
@@ -123,27 +122,31 @@ define(["views/CanvasViewer3D",
 		   viewer1.setPanel(dstPanel);
 		   viewer2.setPanel(srcPanel);
 
+		   this.transferSettings(viewer1, viewer2);
+
 		   this.renderCanvasViewers();
-		   //viewer1.render();
-		   //viewer2.render();
 
 		   //change size
 		   this.setSize();
+	       },
+	       transferSettings:function(viewer1, viewer2){
+		   /* swap out settings such as showoverlay toggle */
 
-		   /*
-		   console.log('FINAL STATE');
-		   for(index in this.viewers){
-		       console.log('viewer' + index + '.el: ' + this.viewers[index].el);
-		       console.log('viewer' + index + '.mode: ' + this.viewers[index].mode);
-		   }
-		   */
+		   var overlay1 = viewer1.showOverlay;
+		   var overlay2 = viewer2.showOverlay;
 
-		   /*
-		   this.viewer0.setPanel('#panel1');
-		   this.viewer1.setPanel('#panel0');
-		   this.viewer2.setPanel('#panel2');		   
-		   this.viewer3.setPanel('#panel3');
-		   */
+		   if(overlay1)
+		       viewer2.showOverlay = true;
+		   else
+		       viewer2.showOverlay = false;
+
+		   if(overlay2)
+		       viewer1.showOverlay = true;
+		   else
+		       viewer1.showOverlay = false;
+		   
+
+
 	       },
 	       addXtkView:function(layerIndex, model){
 		   //console.log('ViewerWindowView.addXtkView()');2

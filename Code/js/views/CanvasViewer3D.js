@@ -18,16 +18,17 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    this.undelegateEvents();
 
 	    $(this.el).html(this.template({
-		topbarId: 'topbar' + this.mode,
-		canvasViewerId: 'canvasViewer' + this.mode,
+		topbarId: 'topbar' + this.panelId,
+		canvasViewerId: 'canvasViewer' + this.panelId,
 	    }));
 
 	    this.canvas = document.getElementById("canvasViewer" + this.panelId);
 	    this.ctx = this.canvas.getContext("2d");
 	    
+	    this.setModeCSS();
 	    this.setSrcCanvases();
 
-	    this.delegateEvents();	    
+	    this.delegateEvents();//hook up events again
 
 	    return this; //to enable chain calling
 	},
