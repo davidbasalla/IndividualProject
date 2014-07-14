@@ -4,8 +4,7 @@ define(function() {
     var CanvasViewer = Backbone.View.extend({
 	initialize:function(options){
 	    //console.log('CanvasViewer.init()');
-	    
-	    _.bindAll(this, 'setMode');
+
 	    _.bindAll(this, 'render');
 
 	    this.currentLayerItemTop = null;
@@ -21,9 +20,9 @@ define(function() {
 	    
 	    this.el = options.el;
 	    this.mode = options.mode;
-	    this.position = options.position;
+	    this.panelId = options.viewerId;
 
-	    this.viewerIndex = options.viewerIndex;
+	    this.panelId = options.panelId;
 	    this.viewerWindowView = options.viewerWindowView;
 	    
 	    this.ALoaded = false; //for telling if file is loaded
@@ -69,16 +68,14 @@ define(function() {
 	},
 	setPanel:function(panel){
 	    /* NEW - for reassigning el and $el */
+
+	    //this.setElement(panel); - this does weird things
 	    this.el = panel;
 	    this.$el = $(panel);
 
-	    this.render();
 	},
 	setCurrentLayers:function(itemA, itemB){
 	    console.log('CanvasViewer.setCurrentLayers()');
-	    
-	    //console.log(itemA);
-	    //console.log(itemB);
 	    
 	    this.currentLayerItemTop = itemA;
 	    this.currentLayerItemBottom = itemB;
@@ -101,10 +98,6 @@ define(function() {
 		this.srcCanvasA = document.getElementById("xtkCanvas_L" + layerIndexTop + "_" + this.mode);
 		this.srcCanvasB = document.getElementById("xtkCanvas_L" + layerIndexBtm + "_" + this.mode);
 	    }
-
-	    //console.log(this.canvas);
-	    //console.log(this.srcCanvasA);
-	    //console.log(this.srcCanvasB);
 	},
 	setModeHandler:function(e){
 
@@ -116,7 +109,6 @@ define(function() {
 	    console.log('E.DELTARGET.ID = ' + e.delegateTarget.id);
 	    console.log(e);
 
-	    
 
 	    var srcIndex = this.mode;
 	    //var srcPanel = this.el;
@@ -124,41 +116,20 @@ define(function() {
 
 	    var dstIndex = 0;
 
-	    if (e.currentTarget.id == 'ThreeDtoggle'){
+	    if (e.currentTarget.id == 'ThreeDtoggle')
 		var dstIndex = 0;
-	    }
-	    else if (e.currentTarget.id == 'Xtoggle'){
+	    else if (e.currentTarget.id == 'Xtoggle')
 		var dstIndex = 1;
-	    }
-	    else if (e.currentTarget.id == 'Ytoggle'){	
-		var dstIndex = 2;
-	    }
-	    else if (e.currentTarget.id == 'Ztoggle'){
+	    else if (e.currentTarget.id == 'Ytoggle')	
+		var dstIndex = 2;	    
+	    else if (e.currentTarget.id == 'Ztoggle')
 		var dstIndex = 3;
-	    }
 
 	    this.viewerWindowView.resetPanels(srcPanel, dstIndex);
 
-	    /*//OLD
-	    console.log('setModeHandler');
-	    console.log('e = ' + e.currentTarget.id);
-
-	    var mode = 0;
-
-	    //get the CanvasViewer that holds the desired mode
-	    var swapViewer = this.getComplementCanvas(mode);
-
-	    //need to resize the XtkViewer(s!) to the target
-
-	    this.viewerWindowView.swapDimensions(this.viewerIndex, swapViewer.viewerIndex);
-	    swapViewer.setMode(this.mode);
-
-
-	    this.setMode(mode);
-	    */
 	},
-	setMode:function(mode){
-	    console.log('setMode(' + mode + ')');
+	setModeCSS:function(){
+	    console.log('setMode(' + this.mode + ')');
 
 	    this.$el.find("#ThreeDtoggle").removeClass('layer-selected');
 	    this.$el.find("#Xtoggle").removeClass('layer-selected');	    
@@ -166,41 +137,17 @@ define(function() {
 	    this.$el.find("#Ztoggle").removeClass('layer-selected');
 
 	    var currentTarget;
-	    if(mode == 0)
+	    if(this.mode == 0)
 		currentTarget = this.$el.find("#ThreeDtoggle");
-	    else if(mode == 1)
+	    else if(this.mode == 1)
 		currentTarget = this.$el.find("#Xtoggle");
-	    else if(mode == 2)
+	    else if(this.mode == 2)
 		currentTarget = this.$el.find("#Ytoggle");
-	    else if(mode == 3)
+	    else if(this.mode == 3)
 		currentTarget = this.$el.find("#Ztoggle");
 
 	    currentTarget.addClass('layer-selected');
-
-	    this.mode = mode;
-	    this.setSrcCanvases();
 	},
-	getComplementCanvas:function(mode){
-
-	    //console.log('getComplementCanvas(' + mode + ')');
-
-	    /*finds the complementary canvas to swap out with.
-	      Have to do the swapping due to XTK since we can't have multiple, 
-	      different sized viewers of the same mode*/
-
-	    //step through the other viewers to find the opposite one
-	    for(var i = 0; i < this.viewerWindowView.viewers.length; i++){
-		//skip self
-		if(this.viewerWindowView.viewers[i] != this){
-		    
-		    if(this.viewerWindowView.viewers[i].mode == mode)
-			return this.viewerWindowView.viewers[i];
-			
-		}
-	    }
-	    
-	},
-
     });
     return CanvasViewer;
 });

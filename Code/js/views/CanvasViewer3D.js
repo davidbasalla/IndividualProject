@@ -22,11 +22,11 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 		canvasViewerId: 'canvasViewer' + this.mode,
 	    }));
 
-	    //DST CANVAS
-	    this.canvas = document.getElementById("canvasViewer" + this.viewerIndex);
+	    this.canvas = document.getElementById("canvasViewer" + this.panelId);
 	    this.ctx = this.canvas.getContext("2d");
 	    
-	    this.setMode(this.mode);
+	    this.setSrcCanvases();
+
 	    this.delegateEvents();	    
 
 	    return this; //to enable chain calling

@@ -44,42 +44,42 @@ define(["views/CanvasViewer3D",
 		   //create the 4 different views here
 
 		   //need to pass which CanvasSource to look at
+		   console.log('ViewerWindowView.render() 0');
 		   this.viewer0 = new CanvasViewer3D({
 	    	       el: '#panel0',
-		       viewerIndex: 0,
 		       viewerWindowView: this,
-		       mode: 0,
-		       position: 0
+		       panelId : 0,
+		       mode: 0
 		   });
 
+		   console.log('ViewerWindowView.render() 1');
 		   this.viewer1 = new CanvasViewer2D({
 		       el:'#panel1',
-		       viewerIndex: 1,
 		       viewerWindowView: this,
-		       mode: 1,
-		       position: 1
+		       panelId : 1,
+		       mode: 1
 		   });
 
 		   this.viewer2 = new CanvasViewer2D({
 		       el:'#panel2',
-		       viewerIndex: 2,
 		       viewerWindowView: this,
-		       mode: 2,
-		       position: 2
+		       panelId : 2,
+		       mode: 2
 		   });
 
 		   this.viewer3 = new CanvasViewer2D({
 		       el:'#panel3',
-		       viewerIndex: 3,
 		       viewerWindowView: this,
-		       mode: 3,
-		       position: 3
+		       panelId : 3,
+		       mode: 3
 		   });
 
 		   this.viewers = [this.viewer0, this.viewer1, this.viewer2, this.viewer3];
 		   this.renderCanvasViewers();
 	       },
 	       renderCanvasViewers:function(){
+		   console.log('ViewerWindowView.renderCanvasViewers()');
+
 		   for(index in this.viewers){
 		       console.log('Rendering - ' + this.viewers[index].el);
 		       this.viewers[index].render();
@@ -109,30 +109,40 @@ define(["views/CanvasViewer3D",
 		       }
 		   }
 
+		   //put this into canvas viewer!?
 		   //need to disconnect events
+
+		   //keep the order intact
+		   var tmp = viewer1.panelId;
+		   viewer1.panelId = viewer2.panelId;
+		   viewer2.panelId = tmp;
+
 		   viewer1.undelegateEvents();
 		   viewer2.undelegateEvents();
 
 		   viewer1.setPanel(dstPanel);
 		   viewer2.setPanel(srcPanel);
 
+		   this.renderCanvasViewers();
+		   //viewer1.render();
+		   //viewer2.render();
+
 		   //change size
 		   this.setSize();
 
-
+		   /*
 		   console.log('FINAL STATE');
 		   for(index in this.viewers){
 		       console.log('viewer' + index + '.el: ' + this.viewers[index].el);
 		       console.log('viewer' + index + '.mode: ' + this.viewers[index].mode);
 		   }
-
+		   */
 
 		   /*
 		   this.viewer0.setPanel('#panel1');
 		   this.viewer1.setPanel('#panel0');
 		   this.viewer2.setPanel('#panel2');		   
 		   this.viewer3.setPanel('#panel3');
-		   this.setSize();
 		   */
 	       },
 	       addXtkView:function(layerIndex, model){
@@ -159,6 +169,66 @@ define(["views/CanvasViewer3D",
    			   this.xtkViewArray.splice(i,1);
 			   }
 		   }
+	       },
+	       setSize:function(){
+		   //console.log('ViewerWindowView.setSize()');
+
+		   //RESET THE GLOBAL CONTAINER DIMENSIONS
+
+		   var height = $('#canvasPanels').height() - 20;
+		   var width = $('#canvasPanels').width() - 20;
+		   
+		   $('#panel0').show();
+		   $('#panel1').show();
+		   $('#panel2').show();
+		   $('#panel3').show();
+
+		   if(this.layout == 1){
+		       //SET PANELS
+		       $('#panel0').css({ "height": height/2,
+					  "width": width/2});
+		       $('#panel1').css({ "height": height/2,
+					  "width": width/2});
+		       $('#panel2').css({ "height": height/2,
+					  "width": width/2});
+		       $('#panel3').css({ "height": height/2,
+					  "width": width/2});
+		   }
+		   else if (this.layout == 2){
+		       $('#panel0').css({ "height": height,
+				      "width": width*(2/3)});
+		       $('#panel1').css({ "height": height/3 - 6,
+					  "width": width*(1/3)});
+		       $('#panel2').css({ "height": height/3 - 6,
+					  "width": width*(1/3)});
+		       $('#panel3').css({ "height": height/3 - 6,
+					  "width": width*(1/3)});
+		   }
+		   else if (this.layout == 3){
+		       $('#panel0').css({ "height": height*(2/3),
+					  "width": width});
+		       $('#panel1').css({ "height": height*(1/3),
+					  "width": width/3 - 6});
+		       $('#panel2').css({ "height": height*(1/3),
+					  "width": width/3 - 6});
+		       $('#panel3').css({ "height": height*(1/3),
+					  "width": width/3 - 6});
+		   }
+		   else if (this.layout == 4){
+		       $('#panel0').css({ "height": height,
+					  "width": width});
+		       $('#panel1').hide();
+		       $('#panel2').hide();
+		       $('#panel3').hide();
+
+		   }
+		   //SET xtkView sizes
+		   this.setSizeXtkView(this.layout);
+
+		   //SET viewer canvases dimensions
+		   this.setSizeViewerCanvas();
+
+
 	       },
 	       setSizeViewerCanvas:function(){
 		   //console.log('ViewerWindowView.setSizeViewerCanvas()');
@@ -221,66 +291,6 @@ define(["views/CanvasViewer3D",
 		   //swap viewers in the array?
 
 		   //would it be enough to change the order of the array?
-	       },
-	       setSize:function(){
-		   //console.log('ViewerWindowView.setSize()');
-
-		   //RESET THE GLOBAL CONTAINER DIMENSIONS
-
-		   var height = $('#canvasPanels').height() - 20;
-		   var width = $('#canvasPanels').width() - 20;
-		   
-		   $('#panel0').show();
-		   $('#panel1').show();
-		   $('#panel2').show();
-		   $('#panel3').show();
-
-		   if(this.layout == 1){
-		       //SET PANELS
-		       $('#panel0').css({ "height": height/2,
-					  "width": width/2});
-		       $('#panel1').css({ "height": height/2,
-					  "width": width/2});
-		       $('#panel2').css({ "height": height/2,
-					  "width": width/2});
-		       $('#panel3').css({ "height": height/2,
-					  "width": width/2});
-		   }
-		   else if (this.layout == 2){
-		       $('#panel0').css({ "height": height,
-				      "width": width*(2/3)});
-		       $('#panel1').css({ "height": height/3 - 6,
-					  "width": width*(1/3)});
-		       $('#panel2').css({ "height": height/3 - 6,
-					  "width": width*(1/3)});
-		       $('#panel3').css({ "height": height/3 - 6,
-					  "width": width*(1/3)});
-		   }
-		   else if (this.layout == 3){
-		       $('#panel0').css({ "height": height*(2/3),
-					  "width": width});
-		       $('#panel1').css({ "height": height*(1/3),
-					  "width": width/3 - 6});
-		       $('#panel2').css({ "height": height*(1/3),
-					  "width": width/3 - 6});
-		       $('#panel3').css({ "height": height*(1/3),
-					  "width": width/3 - 6});
-		   }
-		   else if (this.layout == 4){
-		       $('#panel0').css({ "height": height,
-					  "width": width});
-		       $('#panel1').hide();
-		       $('#panel2').hide();
-		       $('#panel3').hide();
-
-		   }
-		   //SET xtkView sizes
-		   this.setSizeXtkView(this.layout);
-
-		   //SET viewer canvases dimensions
-		   this.setSizeViewerCanvas();
-
-
 	       },
 	       setCurrentLayer:function(layersModel, value, options){
 

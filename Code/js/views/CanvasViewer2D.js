@@ -14,22 +14,24 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    });
 	},
 	render:function() {
-	    //console.log('CanvasViewer2D.render()');
+	    console.log('CanvasViewer2D.render(' + this.mode + ')');
 
 	    //_.bindAll(this, 'draw');
 	    
-	    ////console.log($(this.el));
-	    this.undelegateEvents();
-	    
 	    $(this.el).html(this.template({
-		topbarId: 'topbar' + this.mode,
-		overlay: 'overlayToggle' + this.mode,
-		canvasViewerId: 'canvasViewer' + this.mode,
-		slider: 'sliderVertical' + this.mode,
+		topbarId: 'topbar' + this.panelId,
+		overlay: 'overlayToggle' + this.panelId,
+		canvasViewerId: 'canvasViewer' + this.panelId,
+		slider: 'sliderVertical' + this.panelId,
 	    }));
 
 	    //DST CANVAS
-	    this.canvas = document.getElementById("canvasViewer" + this.viewerIndex);
+	    console.log('Fetching ' + "canvasViewer" + this.panelId);
+
+	    this.canvas = document.getElementById("canvasViewer" + this.panelId);
+	    console.log('CANVAS:');
+	    console.log(this.canvas);
+
 	    this.ctx = this.canvas.getContext("2d");
 
 
@@ -42,8 +44,11 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    // IE 6/7/8
 	    else this.canvas.attachEvent("onmousewheel", this.mouseWheelHandler);
 
-	    this.setMode(this.mode);
+	    this.setModeCSS();
+	    this.setSrcCanvases();
+
 	    this.delegateEvents();
+
 
 	    return this; //to enable chain calling
 	},
@@ -201,6 +206,31 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	},
 	draw:function(){
+
+	    //console.log('CanvasViewer2D.draw - ' + this.mode);
+	    /*this.ctx.rect(0, 0,
+	    		  this.canvas.width - this.clipPosX,
+			  this.canvas.height - this.clipPosY);*/
+
+	    this.ctx.rect(0, 0,
+	    		  200, 200);
+
+	    //console.log('this.ctx:');
+	    //console.log(this.ctx);
+
+
+
+	    if(this.mode == 1)
+		this.ctx.fillStyle = 'red';
+	    if(this.mode == 2)
+		this.ctx.fillStyle = 'green';
+	    if(this.mode == 3)
+		this.ctx.fillStyle = 'blue';
+
+	    this.ctx.fill();
+
+	},
+	drawOLD:function(){
 	    //update the canvases at 60 frames a second?
 
 	    //console.log('CanvasViewer2D.draw(' + this.mode + ')');
