@@ -12,6 +12,25 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 		'keydown': 'keyHandler',
 	    });
 	},
+	render:function() {
+	    console.log('CanvasViewer3D.render()');
+
+	    this.undelegateEvents();
+
+	    $(this.el).html(this.template({
+		topbarId: 'topbar' + this.mode,
+		canvasViewerId: 'canvasViewer' + this.mode,
+	    }));
+
+	    //DST CANVAS
+	    this.canvas = document.getElementById("canvasViewer" + this.viewerIndex);
+	    this.ctx = this.canvas.getContext("2d");
+	    
+	    this.setMode(this.mode);
+	    this.delegateEvents();	    
+
+	    return this; //to enable chain calling
+	},
 	mouseEnter:function(e){
 	    //need to focus the canvas here
 	    $(e.target).focus();
@@ -60,21 +79,6 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    this.mouseYPrev = e.clientY;
 	    this.mouseZPrev = e.clientY;
 	    
-	},
-	render:function() {
-	    console.log('CanvasViewer3D.render()');
-
-	    $(this.el).html(this.template({
-		canvasViewerId: 'canvasViewer' + this.mode,
-	    }));
-
-	    //DST CANVAS
-	    this.canvas = document.getElementById("canvasViewer" + this.viewerIndex);
-	    this.ctx = this.canvas.getContext("2d");
-	    
-	    this.setMode(this.mode);
-	    
-	    return this; //to enable chain calling
 	},
 	setOpacity:function(){
 

@@ -6,6 +6,7 @@ define(function() {
 	    //console.log('CanvasViewer.init()');
 	    
 	    _.bindAll(this, 'setMode');
+	    _.bindAll(this, 'render');
 
 	    this.currentLayerItemTop = null;
 	    this.currentLayerItemBottom = null;
@@ -20,6 +21,8 @@ define(function() {
 	    
 	    this.el = options.el;
 	    this.mode = options.mode;
+	    this.position = options.position;
+
 	    this.viewerIndex = options.viewerIndex;
 	    this.viewerWindowView = options.viewerWindowView;
 	    
@@ -69,11 +72,10 @@ define(function() {
 	    this.el = panel;
 	    this.$el = $(panel);
 
-	    //force the rerender
 	    this.render();
 	},
 	setCurrentLayers:function(itemA, itemB){
-	    //console.log('CanvasViewer.setCurrentLayers()');
+	    console.log('CanvasViewer.setCurrentLayers()');
 	    
 	    //console.log(itemA);
 	    //console.log(itemB);
@@ -81,11 +83,12 @@ define(function() {
 	    this.currentLayerItemTop = itemA;
 	    this.currentLayerItemBottom = itemB;
 
-
 	    this.setSrcCanvases();
 	},
 	setSrcCanvases:function(){
-	    //console.log('CanvasViewer.setSrcCanvases()');
+	    console.log('CanvasViewer.setSrcCanvases()');
+	    console.log('MODE = ' + this.mode);
+
 	    //console.log(this.currentLayerItemTop);
 	    //console.log(this.currentLayerItemBottom);
 
@@ -105,25 +108,42 @@ define(function() {
 	},
 	setModeHandler:function(e){
 
-	    this.viewerWindowView.resetPanels();
+	    console.log('CanvasView.setModelHandler()');
+
+	    console.log(this);
+	    console.log('MODE = ' + this.mode);
+	    console.log('EL = ' + this.el);
+	    console.log('E.DELTARGET.ID = ' + e.delegateTarget.id);
+	    console.log(e);
+
+	    
+
+	    var srcIndex = this.mode;
+	    //var srcPanel = this.el;
+	    var srcPanel = '#' + e.delegateTarget.id; //for some reason the buttons get confused
+
+	    var dstIndex = 0;
+
+	    if (e.currentTarget.id == 'ThreeDtoggle'){
+		var dstIndex = 0;
+	    }
+	    else if (e.currentTarget.id == 'Xtoggle'){
+		var dstIndex = 1;
+	    }
+	    else if (e.currentTarget.id == 'Ytoggle'){	
+		var dstIndex = 2;
+	    }
+	    else if (e.currentTarget.id == 'Ztoggle'){
+		var dstIndex = 3;
+	    }
+
+	    this.viewerWindowView.resetPanels(srcPanel, dstIndex);
 
 	    /*//OLD
 	    console.log('setModeHandler');
 	    console.log('e = ' + e.currentTarget.id);
 
 	    var mode = 0;
-	    if (e.currentTarget.id == 'ThreeDtoggle'){
-		mode = 0;
-	    }
-	    else if (e.currentTarget.id == 'Xtoggle'){
-		mode = 1;
-	    }
-	    else if (e.currentTarget.id == 'Ytoggle'){	
-		mode = 2;
-	    }
-	    else if (e.currentTarget.id == 'Ztoggle'){
-		mode = 3;
-	    }
 
 	    //get the CanvasViewer that holds the desired mode
 	    var swapViewer = this.getComplementCanvas(mode);
@@ -138,7 +158,7 @@ define(function() {
 	    */
 	},
 	setMode:function(mode){
-	    //console.log('setMode(' + mode + ')');
+	    console.log('setMode(' + mode + ')');
 
 	    this.$el.find("#ThreeDtoggle").removeClass('layer-selected');
 	    this.$el.find("#Xtoggle").removeClass('layer-selected');	    

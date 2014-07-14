@@ -35,8 +35,108 @@ define(["views/CanvasViewer3D",
 
 		   //this.setSize();
 	       },
+	       render:function() {
+		   console.log('ViewerWindowView.render()');
+		   //load the template
+
+		   this.$el.append(this.template);
+		   
+		   //create the 4 different views here
+
+		   //need to pass which CanvasSource to look at
+		   this.viewer0 = new CanvasViewer3D({
+	    	       el: '#panel0',
+		       viewerIndex: 0,
+		       viewerWindowView: this,
+		       mode: 0,
+		       position: 0
+		   });
+
+		   this.viewer1 = new CanvasViewer2D({
+		       el:'#panel1',
+		       viewerIndex: 1,
+		       viewerWindowView: this,
+		       mode: 1,
+		       position: 1
+		   });
+
+		   this.viewer2 = new CanvasViewer2D({
+		       el:'#panel2',
+		       viewerIndex: 2,
+		       viewerWindowView: this,
+		       mode: 2,
+		       position: 2
+		   });
+
+		   this.viewer3 = new CanvasViewer2D({
+		       el:'#panel3',
+		       viewerIndex: 3,
+		       viewerWindowView: this,
+		       mode: 3,
+		       position: 3
+		   });
+
+		   this.viewers = [this.viewer0, this.viewer1, this.viewer2, this.viewer3];
+		   this.renderCanvasViewers();
+	       },
+	       renderCanvasViewers:function(){
+		   for(index in this.viewers){
+		       console.log('Rendering - ' + this.viewers[index].el);
+		       this.viewers[index].render();
+		   }
+	       },
+	       resetPanels:function(srcPanel, dstIndex){
+		   console.log('ViewerWindowView.resetPanels(' + srcPanel + ',' + dstIndex + ')');
+
+		   var dstPanel = "";
+		   for(index in this.viewers){
+		       if(this.viewers[index].mode == dstIndex){
+			   dstPanel = this.viewers[index].el;
+		       }
+		   }
+
+		   console.log('swapping ' + srcPanel + ' and ' + dstPanel);
+		   
+		   var viewer1;
+		   var viewer2;
+
+		   for(index in this.viewers){
+		       if(this.viewers[index].el == srcPanel){
+			   viewer1 = this.viewers[index];
+		       }
+		       if(this.viewers[index].el == dstPanel){
+			   viewer2 = this.viewers[index];
+		       }
+		   }
+
+		   //need to disconnect events
+		   viewer1.undelegateEvents();
+		   viewer2.undelegateEvents();
+
+		   viewer1.setPanel(dstPanel);
+		   viewer2.setPanel(srcPanel);
+
+		   //change size
+		   this.setSize();
+
+
+		   console.log('FINAL STATE');
+		   for(index in this.viewers){
+		       console.log('viewer' + index + '.el: ' + this.viewers[index].el);
+		       console.log('viewer' + index + '.mode: ' + this.viewers[index].mode);
+		   }
+
+
+		   /*
+		   this.viewer0.setPanel('#panel1');
+		   this.viewer1.setPanel('#panel0');
+		   this.viewer2.setPanel('#panel2');		   
+		   this.viewer3.setPanel('#panel3');
+		   this.setSize();
+		   */
+	       },
 	       addXtkView:function(layerIndex, model){
-		   //console.log('ViewerWindowView.addXtkView()');
+		   //console.log('ViewerWindowView.addXtkView()');2
 
 		   var xtkViewer = new XtkView({
 		       layerIndex: layerIndex,
@@ -64,23 +164,40 @@ define(["views/CanvasViewer3D",
 		   //console.log('ViewerWindowView.setSizeViewerCanvas()');
 
 		   //SET canvases
-		   var topbarHeight = $('#topbar').outerHeight();
+		   var topbarHeight0 = $('#topbar0').outerHeight();
 		   var totalHeight0 =  $('#panel0').height();
 		   var totalWidth0 =  $('#panel0').width();
+
+		   var topbarHeight1 = $('#topbar1').outerHeight();
 		   var totalHeight1 =  $('#panel1').height();
 		   var totalWidth1 =  $('#panel1').width();
+
+		   var topbarHeight2 = $('#topbar2').outerHeight();
 		   var totalHeight2 =  $('#panel2').height();
 		   var totalWidth2 =  $('#panel2').width();
+
+		   var topbarHeight3 = $('#topbar3').outerHeight();
 		   var totalHeight3 =  $('#panel3').height();
 		   var totalWidth3 =  $('#panel3').width();
 
-		   document.getElementById("canvasViewer0").setAttribute("height", totalHeight0 - topbarHeight);
+
+		   var maxTopbarHeight = Math.max(topbarHeight0, topbarHeight1, topbarHeight2, topbarHeight3);
+		   console.log('maxTopBarHeight = ' + maxTopbarHeight);
+
+		   //set topbars to max
+		   document.getElementById("topbar0").setAttribute("height", maxTopbarHeight);
+		   document.getElementById("topbar1").setAttribute("height", maxTopbarHeight);
+		   document.getElementById("topbar2").setAttribute("height", maxTopbarHeight);
+		   document.getElementById("topbar3").setAttribute("height", maxTopbarHeight);
+		   
+		   //set canvasViewer div dimensions
+		   document.getElementById("canvasViewer0").setAttribute("height", totalHeight0 - maxTopbarHeight);
 		   document.getElementById("canvasViewer0").setAttribute("width", totalWidth0);
-		   document.getElementById("canvasViewer1").setAttribute("height", totalHeight1 - topbarHeight);
+		   document.getElementById("canvasViewer1").setAttribute("height", totalHeight1 - maxTopbarHeight);
 		   document.getElementById("canvasViewer1").setAttribute("width", totalWidth1);
-		   document.getElementById("canvasViewer2").setAttribute("height", totalHeight2 - topbarHeight);
+		   document.getElementById("canvasViewer2").setAttribute("height", totalHeight2 - maxTopbarHeight);
 		   document.getElementById("canvasViewer2").setAttribute("width", totalWidth2);
-		   document.getElementById("canvasViewer3").setAttribute("height", totalHeight3 - topbarHeight);
+		   document.getElementById("canvasViewer3").setAttribute("height", totalHeight3 - maxTopbarHeight);
 		   document.getElementById("canvasViewer3").setAttribute("width", totalWidth3);
 
 
@@ -165,62 +282,9 @@ define(["views/CanvasViewer3D",
 
 
 	       },
-	       render:function() {
-		   console.log('ViewerWindowView.render()');
-		   //load the template
-
-		   this.$el.append(this.template);
-		   
-		   //create the 4 different views here
-
-		   //need to pass which CanvasSource to look at
-		   this.viewer0 = new CanvasViewer3D({
-	    	       el: '#panel0',
-		       viewerIndex: 0,
-		       viewerWindowView: this,
-		       mode: 0,
-		   });
-
-		   this.viewer1 = new CanvasViewer2D({
-		       el:'#panel1',
-		       viewerIndex: 1,
-		       viewerWindowView: this,
-		       mode: 1,
-		   });
-
-		   this.viewer2 = new CanvasViewer2D({
-		       el:'#panel2',
-		       viewerIndex: 2,
-		       viewerWindowView: this,
-		       mode: 2,
-		   });
-
-		   this.viewer3 = new CanvasViewer2D({
-		       el:'#panel3',
-		       viewerIndex: 3,
-		       viewerWindowView: this,
-		       mode: 3,
-		   });
-
-		   this.viewers = [this.viewer0, this.viewer1, this.viewer2, this.viewer3];
-		   this.renderCanvasViewers();
-
-	       },
-	       renderCanvasViewers:function(){
-		   for(index in this.viewers){
-		       this.viewers[index].render();
-		   }
-	       },
-	       resetPanels:function(){
-		   this.viewer0.setPanel('#panel1');
-		   this.viewer1.setPanel('#panel0');
-		   this.viewer2.setPanel('#panel2');		   
-		   this.viewer3.setPanel('#panel3');
-		   this.setSize();
-	       },
 	       setCurrentLayer:function(layersModel, value, options){
 
-		   //console.log('ViewerWindowView.setCurrentLayer()');
+		   console.log('ViewerWindowView.setCurrentLayer()');
 
 		   //turn OFF triggers for previous object
 		       
@@ -272,7 +336,7 @@ define(["views/CanvasViewer3D",
 		   this.doRender = false;
 	       },
 	       update:function(){
-		   //console.log('ViewerWindowView.update()');
+		   console.log('ViewerWindowView.update()');
 		   //console.log(this);
 
 		   //issue with settimeout and refreshing webGl canvas, so not using that

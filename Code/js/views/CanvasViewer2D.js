@@ -13,6 +13,40 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		'keydown': 'keyHandler',
 	    });
 	},
+	render:function() {
+	    //console.log('CanvasViewer2D.render()');
+
+	    //_.bindAll(this, 'draw');
+	    
+	    ////console.log($(this.el));
+	    this.undelegateEvents();
+	    
+	    $(this.el).html(this.template({
+		topbarId: 'topbar' + this.mode,
+		overlay: 'overlayToggle' + this.mode,
+		canvasViewerId: 'canvasViewer' + this.mode,
+		slider: 'sliderVertical' + this.mode,
+	    }));
+
+	    //DST CANVAS
+	    this.canvas = document.getElementById("canvasViewer" + this.viewerIndex);
+	    this.ctx = this.canvas.getContext("2d");
+
+
+	    if (this.canvas.addEventListener) {
+		// IE9, Chrome, Safari, Opera
+		this.canvas.addEventListener("mousewheel", this.mouseWheelHandler, false);
+		// Firefox
+		this.canvas.addEventListener("DOMMouseScroll", this.mouseWheelHandler, false);
+	    }
+	    // IE 6/7/8
+	    else this.canvas.attachEvent("onmousewheel", this.mouseWheelHandler);
+
+	    this.setMode(this.mode);
+	    this.delegateEvents();
+
+	    return this; //to enable chain calling
+	},
 	mouseEnter:function(e){
 	    //need to focus the canvas here
 	    $(e.target).focus();
@@ -93,7 +127,11 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	},
 	toggleOverlay:function(){
 
-	    //console.log('CanvasViewer2D.toggleOverlay()');
+	    console.log('CanvasViewer2D.toggleOverlay()');
+	    console.log(this.el);
+
+
+
 	    if (!this.showOverlay){
 		this.showOverlay = true;
 
@@ -105,37 +143,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		this.showOverlay = false;
 		$('#overlayCheckbox', this.el).prop("checked", false);
 	    }
-	},
-	render:function() {
-	    //console.log('CanvasViewer2D.render()');
-
-	    //_.bindAll(this, 'draw');
-	    
-	    ////console.log($(this.el));
-	    
-	    $(this.el).html(this.template({
-		overlay: 'overlayToggle' + this.mode,
-		canvasViewerId: 'canvasViewer' + this.mode,
-		slider: 'sliderVertical' + this.mode,
-	    }));
-
-	    //DST CANVAS
-	    this.canvas = document.getElementById("canvasViewer" + this.viewerIndex);
-	    this.ctx = this.canvas.getContext("2d");
-
-
-	    if (this.canvas.addEventListener) {
-		// IE9, Chrome, Safari, Opera
-		this.canvas.addEventListener("mousewheel", this.mouseWheelHandler, false);
-		// Firefox
-		this.canvas.addEventListener("DOMMouseScroll", this.mouseWheelHandler, false);
-	    }
-	    // IE 6/7/8
-	    else this.canvas.attachEvent("onmousewheel", this.mouseWheelHandler);
-
-	    this.setMode(this.mode);
-
-	    return this; //to enable chain calling
 	},
 	mouseWheelHandler:function(e){
 	    console.log('CanvasViewer2D.mouseWheelHandler()');
@@ -196,7 +203,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	draw:function(){
 	    //update the canvases at 60 frames a second?
 
-	    //console.log('CanvasViewer2D.draw()');
+	    //console.log('CanvasViewer2D.draw(' + this.mode + ')');
 
 	    //CLEAR - NEED TO FIX THESE COORDS
 	    this.ctx.fillStyle = 'black';
@@ -233,7 +240,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.ctx.stroke();
 
 
-	    //console.log('srcCanvasA:');
+	    //if(this.mode == 2)
 	    //console.log(this.srcCanvasA);
 	    
 	    //DRAW TOP CANVAS
@@ -314,8 +321,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.ctx.globalAlpha = 1;
 	    this.ctx.fillStyle = 'white';
 	    this.ctx.font="14px Arial";
-	    
-	    console.log(this.currentLayerItemTop);
 
 	    //FILENAME
 	    this.ctx.fillText("File: " + this.currentLayerItemTop.get('fileName'), 10, 20);
