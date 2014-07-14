@@ -121,12 +121,14 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
     
 	    if(this.layout == 1){
+		console.log('Layout 1');
 
 		for(var i = 0; i < 4; i++){
 		    this.viewerDictArray[i].dimensions = [width/2, height/2];
 		}
 	    }
 	    else if(this.layout == 2){
+		console.log('Layout 2');
 
 		this.viewerDictArray[0].dimensions = [width*(2/3), height];
 		this.viewerDictArray[1].dimensions = [width*(1/3), height/3 - 6];
@@ -135,6 +137,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	    }
 	    else if(this.layout == 3){
+		console.log('Layout 3');
 
 		this.viewerDictArray[0].dimensions = [width, height*(2/3)];
 		this.viewerDictArray[1].dimensions = [width/3 - 6, height*(1/3)];
@@ -143,6 +146,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	    }
 	    else if(this.layout == 4){
+		console.log('Layout 4');
 
 		this.viewerDictArray[0].dimensions = [width, height];
 	    }

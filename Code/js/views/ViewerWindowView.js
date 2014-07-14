@@ -88,6 +88,7 @@ define(["views/CanvasViewer3D",
 	       resetPanels:function(srcPanel, dstIndex){
 		   console.log('ViewerWindowView.resetPanels(' + srcPanel + ',' + dstIndex + ')');
 
+		   //find the destination panel
 		   var dstPanel = "";
 		   for(index in this.viewers){
 		       if(this.viewers[index].mode == dstIndex){
@@ -95,6 +96,7 @@ define(["views/CanvasViewer3D",
 		       }
 		   }
 
+		   //determine which views to change
 		   var viewer1;
 		   var viewer2;
 
@@ -116,15 +118,19 @@ define(["views/CanvasViewer3D",
 		   viewer1.panelId = viewer2.panelId;
 		   viewer2.panelId = tmp;
 
+		   //unhook events
 		   viewer1.undelegateEvents();
 		   viewer2.undelegateEvents();
 
+		   //change el's
 		   viewer1.setPanel(dstPanel);
 		   viewer2.setPanel(srcPanel);
 
 		   this.transferSettings(viewer1, viewer2);
 
 		   this.renderCanvasViewers();
+
+		   this.swapDimensions(viewer1.panelId, viewer2.panelId);
 
 		   //change size
 		   this.setSize();
@@ -145,8 +151,6 @@ define(["views/CanvasViewer3D",
 		   else
 		       viewer1.showOverlay = false;
 		   
-
-
 	       },
 	       addXtkView:function(layerIndex, model){
 		   //console.log('ViewerWindowView.addXtkView()');2
@@ -285,11 +289,11 @@ define(["views/CanvasViewer3D",
 		   }
 
 	       },
-	       swapDimensions:function(dst, src){
+	       swapDimensions:function(dstIndex, srcIndex){
 		   //console.log('ViewerWindowView.swapSize(' + dst + ',' + src + ')');
 		   
 		   for(var i = 0; i < this.xtkViewArray.length; i++)
-		       this.xtkViewArray[i].swapDimensions(dst, src);
+		       this.xtkViewArray[i].swapDimensions(dstIndex, srcIndex);
 
 		   //swap viewers in the array?
 
