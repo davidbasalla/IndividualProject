@@ -5,6 +5,7 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	template: _.template(CanvasViewer3DTemplate),
 	events: function(){
 	    return _.extend({}, CanvasViewer.prototype.events,{
+		'change input#volumeRender': 'toggleVolumeRender',
 		'mousedown': 'setMouseDown',
 		'mouseup': 'setMouseUp',
 		'mousemove': 'mouseHandler',
@@ -96,6 +97,26 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	    this.ctx.globalAlpha = 1;
 	    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+	},
+	toggleVolumeRender:function(){
+
+	    console.log('CanvasViewer3D.toggleVolumeRender()');
+
+	    if (!this.doVolumeRender){
+		this.doVolumeRender = true;
+
+		//if not toggled, set toggle
+		$('#volumeRender', this.el).prop("checked", true);
+		this.viewerWindowView.setVolumeRender(true);
+		
+	    }
+	    else{
+		this.doVolumeRender = false;
+		$('#volumeRender', this.el).prop("checked", false);
+		this.viewerWindowView.setVolumeRender(false);
+	    }
+
 
 	},
 	draw:function(){

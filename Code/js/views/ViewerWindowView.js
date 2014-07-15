@@ -396,7 +396,6 @@ define(["views/CanvasViewer3D",
 		   this.viewer1.setOpacity();
 		   this.viewer2.setOpacity();
 		   this.viewer3.setOpacity();
-
 	       },
 	       setToBlack:function(){
 
@@ -427,8 +426,14 @@ define(["views/CanvasViewer3D",
 		   this.layout = value;
 		   this.setSize();
 	       },
+	       setVolumeRender:function(value){
 
+		   //SET xtkViewers
+		   for(var i = 0; i < this.xtkViewArray.length; i++){
+		       this.xtkViewArray[i].setVolumeRender(value);
+		   }
 
+	       }
 	   });
 	   return ViewerWindowView;
        });

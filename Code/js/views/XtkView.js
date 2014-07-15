@@ -641,7 +641,12 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 			indexZ:ijk[0][2]});
 		};
 	    }
-	}
+	},
+	setVolumeRender:function(val){
+
+	    this.volume.volumeRendering = val;
+
+	},
     });
     return XtkView;
 });

@@ -78,9 +78,10 @@ NEXT STEPS:
 - Revise interaction of panels, bring up to XTK-style quality!
 
 - Restore 3D Functionality:
-  - MASSIVE task:
-  - Figure out how to load file from different layout!
   - navigation
+    - pan
+    - zoom
+    - rotate
   - volume rendering
 
 

@@ -13,6 +13,7 @@ define(function() {
 
 	    this.showOverlay = false;
 	    this.showLine = false;
+	    this.doVolumeRender = false;
 	    this.swipeMode = 0;
 	    
 	    this.alphaA = 1;
