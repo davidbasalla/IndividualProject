@@ -69,6 +69,7 @@ DONE:
 - add textEdit field for selectedIndex
 - add in correction for input fields in Levels (for wrong inputs)
 - Fix Buffer selection
+- separate out 2D and 3DCanvasViewer	
 
 
 NEXT STEPS:
@@ -77,23 +78,11 @@ NEXT STEPS:
 - Revise interaction of panels, bring up to XTK-style quality!
 
 - Restore 3D Functionality:
-  - MASSIVE task
-  - separate out 2D and 3DCanvasViewer
-    - ensure same height of topNavbar
-    - understand why 3D image does not appear after swap
-    - implement correct swap behaviour
-    - implement correct swap behaviour for different layouts!
+  - MASSIVE task:
+  - Figure out how to load file from different layout!
+  - navigation
+  - volume rendering
 
-
-
-
-
-
-
-
-    - navigation
-    - volume rendering
-    - separate panel?
 
 - Investigate why Chrome not supporting WebGL
   - seems to work fine on visual09 (lab machine)

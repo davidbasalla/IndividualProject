@@ -9,6 +9,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	    //INIT VARS
 	    this.layerIndex = options.layerIndex;
+	    this.layout = options.layout;//current layout
 	    this.model = options.model;
 	    this.webGLFriendly = true;
 	    this.panVector = new X.vector(0,0,0);  //x, y, d
@@ -53,9 +54,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	    this.viewerDictArray = [viewer0_dict, viewer1_dict, viewer2_dict, viewer3_dict];
 
-
-	    //current layout
-	    this.layout = 1;
 
 
 	    //MODEL RELATED EVENTS

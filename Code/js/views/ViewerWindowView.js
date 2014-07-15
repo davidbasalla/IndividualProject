@@ -48,8 +48,8 @@ define(["views/CanvasViewer3D",
 		   this.viewer0 = new CanvasViewer3D({
 	    	       el: '#panel0',
 		       viewerWindowView: this,
-		       panelId : 0,
-		       mode: 0
+		       panelId : 0,  //keeps track of positioning
+		       mode: 0  //keep track of mode ie 3D/X/Y/Z, stays the same
 		   });
 
 		   console.log('ViewerWindowView.render() 1');
@@ -109,10 +109,6 @@ define(["views/CanvasViewer3D",
 		       }
 		   }
 
-		   //put this into canvas viewer!?
-		   //need to disconnect events
-
-
 		   //keep the order intact
 		   var tmp = viewer1.panelId;
 		   viewer1.panelId = viewer2.panelId;
@@ -126,11 +122,15 @@ define(["views/CanvasViewer3D",
 		   viewer1.setPanel(dstPanel);
 		   viewer2.setPanel(srcPanel);
 
+		   //transfer viewer-settings such as overlay
 		   this.transferSettings(viewer1, viewer2);
 
+		   //re-render the views with the new el's
 		   this.renderCanvasViewers();
 
-		   this.swapDimensions(viewer1.panelId, viewer2.panelId);
+		   //need to swap the xtkDimensions to keep track of positioning
+		   //can't rerender these due to complex initiation
+		   this.swapXtkDimensions(viewer1.panelId, viewer2.panelId);
 
 		   //change size
 		   this.setSize();
@@ -153,11 +153,12 @@ define(["views/CanvasViewer3D",
 		   
 	       },
 	       addXtkView:function(layerIndex, model){
-		   //console.log('ViewerWindowView.addXtkView()');2
+		   //console.log('ViewerWindowView.addXtkView()');
 
 		   var xtkViewer = new XtkView({
 		       layerIndex: layerIndex,
 		       model: model,
+		       layout: this.layout,
 		   });
 
 		   //need to add this to some sort of array so it can be queried!
@@ -261,12 +262,9 @@ define(["views/CanvasViewer3D",
 		   var maxTopbarHeight = Math.max(topbarHeight0, topbarHeight1, topbarHeight2, topbarHeight3);
 		   console.log('maxTopBarHeight = ' + maxTopbarHeight);
 
-		   //set topbars to max
-		   document.getElementById("topbar0").setAttribute("height", maxTopbarHeight);
-		   document.getElementById("topbar1").setAttribute("height", maxTopbarHeight);
-		   document.getElementById("topbar2").setAttribute("height", maxTopbarHeight);
-		   document.getElementById("topbar3").setAttribute("height", maxTopbarHeight);
-		   
+		   //set topbars to max (SET WHOLE CLASS)
+		   $('.topbar').css({ "height": maxTopbarHeight});
+
 		   //set canvasViewer div dimensions
 		   document.getElementById("canvasViewer0").setAttribute("height", totalHeight0 - maxTopbarHeight);
 		   document.getElementById("canvasViewer0").setAttribute("width", totalWidth0);
@@ -289,7 +287,7 @@ define(["views/CanvasViewer3D",
 		   }
 
 	       },
-	       swapDimensions:function(dstIndex, srcIndex){
+	       swapXtkDimensions:function(dstIndex, srcIndex){
 		   //console.log('ViewerWindowView.swapSize(' + dst + ',' + src + ')');
 		   
 		   for(var i = 0; i < this.xtkViewArray.length; i++)
