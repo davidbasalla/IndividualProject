@@ -70,20 +70,13 @@ DONE:
 - add in correction for input fields in Levels (for wrong inputs)
 - Fix Buffer selection
 - separate out 2D and 3DCanvasViewer	
+- Restore 3D Functionality (pan/zoom/rotate)
+- Volume Rendering done
+
 
 
 NEXT STEPS:
-----------
-
-- Revise interaction of panels, bring up to XTK-style quality!
-
-- Restore 3D Functionality:
-  - navigation
-    - pan
-    - zoom
-    - rotate
-  - volume rendering
-
+-----------
 
 - Investigate why Chrome not supporting WebGL
   - seems to work fine on visual09 (lab machine)
@@ -95,7 +88,17 @@ NEXT STEPS:
       - would need a file loader
       - would need the whole loading malarchy
 
-- Polish Lookup Behaviour (tricky!)
+- Lookup Behaviour
+  - create more colortables
+  - store colortables so they can be accessed
+    - look into same origin policy/load local files/need to be in txt
+      format
+  - figure out how to reload image
+  
+- Fix brightness for 2D renderers!
+  
+    
+
 
 - Build custom slider to slider around for window level and threshold
 
@@ -107,5 +110,13 @@ NEXT STEPS:
 - Tutorials? Guide?
 
 - MAKE SURE COMMANDS WORK IN CHROME ALSO!
+
+
+
+
+CBB's:
+------
+
+- Revise interaction of panels, bring up to XTK-style quality!
 
 

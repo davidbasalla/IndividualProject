@@ -3,9 +3,6 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
     var LevelsView = Backbone.View.extend({
 	//define the template
 	template: _.template(LevelsTemplate),
-	events: {
-	    'change select': "setLookup"
-	},
 	initialize:function() {
 	    this.currentItem = null;//item for detecting changes
 
@@ -19,6 +16,7 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    'change input#levelHigh': 'setLevelInputHandler',
 	    'change input#thresholdLow': 'setThresholdInputHandler',
 	    'change input#thresholdHigh': 'setThresholdInputHandler',
+	    'change select': "setLookup",
 	},
 	render:function() {
 	    //write the template into the website

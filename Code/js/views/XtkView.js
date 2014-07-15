@@ -552,12 +552,34 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	    if(value == 'Lookup_IDs')
 		colTableFile = 'http://x.babymri.org/?genericanatomy.txt';
+
+
+	   
+
 	    //if... else...
 	   
 
 	    this.volume.colortable.file = colTableFile;
-	    this.volume.clearChildren();
+
+	    //this.volume.clearChildren(0);
+	    //this.volume.clearChildren(1);
+	    //this.volume.clearChildren(2);
+
 	    this.viewerX.loader.load(this.volume.colortable, this.volume);
+
+	    /*
+	    this.volume.sliceInfoChanged(0);
+	    this.volume.sliceInfoChanged(1);
+	    this.volume.sliceInfoChanged(2);
+	    */
+
+	    /*//once this has loaded, the volumes needs to be changed and the 
+	    //modified event triggered!
+
+	    */
+	    //this.volume.sliceInfoChanged(0);
+	    //this.viewerX.resetViewAndRender();
+
 	},
 	setPan:function(args){
 	    //console.log('setPan()');
