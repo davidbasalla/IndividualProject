@@ -29,7 +29,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.canvas = document.getElementById("canvasViewer" + this.panelId);
 	    this.ctx = this.canvas.getContext("2d");
 
-
+	    //MOUSEWHEEL SUPPORT
 	    if (this.canvas.addEventListener) {
 		// IE9, Chrome, Safari, Opera
 		this.canvas.addEventListener("mousewheel", this.mouseWheelHandler, false);
@@ -44,6 +44,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    this.delegateEvents();//hook up events again
 
+	    //re-check showOverlay toggle if internal attrib is set
 	    if(this.showOverlay){
 		this.showOverlay = true;
 
@@ -135,7 +136,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	toggleOverlay:function(){
 
 	    console.log('CanvasViewer2D.toggleOverlay()');
-	    console.log(this.el);
 
 	    if (!this.showOverlay){
 		this.showOverlay = true;

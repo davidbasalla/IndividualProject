@@ -73,6 +73,9 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    Backbone.on('zoom', this.setZoom, this);
 	    Backbone.on('focus', this.setFocus, this);
 	    Backbone.on('traverse', this.traverse, this);
+	    Backbone.on('rotate', this.rotate, this);
+	    Backbone.on('zoom3D', this.setZoom3D, this);
+	    Backbone.on('pan3D', this.setPan3D, this);
 	    //Backbone.on('setLayout', this.setLayout, this);
 
 	    this.render();
@@ -642,7 +645,45 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		};
 	    }
 	},
+	rotate:function(args){
+	    //console.log('setPan()');
+
+	    if(this.layerIndex == args[2].get('index')){
+		//console.log(args[0]);
+		//console.log(args[1]);
+
+		if(args[3] == 0){
+		    this.viewer3D.camera.rotate([args[0], args[1]]);
+		}
+	    }
+	},
+	setPan3D:function(args){
+	    //console.log('setPan()');
+	    
+	    if(this.layerIndex == args[2].get('index')){
+		
+		if(args[3] == 0){
+		    this.viewer3D.camera.pan([args[0], args[1]]);
+		}
+	    }
+	},
+	setZoom3D:function(args){
+	    //console.log('setZoom3D()');
+	    
+	    if(this.layerIndex == args[2].get('index')){
+		
+		if(args[3] == 0){
+		    if(args[1] < 0)
+			this.viewer3D.camera.zoomOut(args[0]);
+		    else
+			this.viewer3D.camera.zoomIn(args[0]);
+		}
+	    }
+		
+	},
 	setVolumeRender:function(val){
+
+//console.log('XtkView.rotate()');	    
 
 	    this.volume.volumeRendering = val;
 

@@ -25,12 +25,33 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 	    this.canvas = document.getElementById("canvasViewer" + this.panelId);
 	    this.ctx = this.canvas.getContext("2d");
+
+	    //MOUSEWHEEL SUPPORT
+	    if (this.canvas.addEventListener) {
+		// IE9, Chrome, Safari, Opera
+		this.canvas.addEventListener("mousewheel", this.mouseWheelHandler, false);
+		// Firefox
+		this.canvas.addEventListener("DOMMouseScroll", this.mouseWheelHandler, false);
+	    }
+	    // IE 6/7/8
+	    else this.canvas.attachEvent("onmousewheel", this.mouseWheelHandler);
+
+
 	    
 	    this.setModeCSS();
 	    this.setSrcCanvases();
 
 	    this.delegateEvents();//hook up events again
 
+
+	    //re-check volume render toggle if internal attrib is set
+	    if(this.doVolumeRender){
+		this.doVolumeRender = true;
+
+		//if not toggled, set toggle
+		$('#volumeRender', this.el).prop("checked", true);
+		
+	    }
 	    return this; //to enable chain calling
 	},
 	mouseEnter:function(e){
@@ -44,18 +65,56 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 		this.mouseY = e.clientY - this.canvas.offsetTop;
 
 		if(e.buttons == 1){
-		    //rotating
+		    //rotating - LEFT CLICK
+		
+		    Backbone.trigger('rotate', 
+				     [this.mouseXPrev - this.mouseX,
+				      this.mouseYPrev - this.mouseY,
+				      this.currentLayerItemTop, 
+				      this.mode]);
+
+		    this.mouseXPrev = this.mouseX;
+		    this.mouseYPrev = this.mouseY;
 		}
 		else if(e.buttons == 4){
-		    //panning
+		    //panning - MIDDLE MOUSE CLICK
+		    Backbone.trigger('pan3D', 
+				     [this.mouseXPrev - this.mouseX,
+				      this.mouseYPrev - this.mouseY,
+				      this.currentLayerItemTop, 
+				      this.mode]);
+
+		    this.mouseXPrev = this.mouseX;
+		    this.mouseYPrev = this.mouseY;
 		}
 		else if(e.buttons == 2){
-		    //zooming
+		    //zooming - RIGHT CLICK		   
+		    Backbone.trigger('zoom3D', 
+				     [false,
+				      this.mouseYPrev - this.mouseY,
+				      this.currentLayerItemTop, 
+				      this.mode]);
+		    
+		    this.mouseXPrev = this.mouseX;
+		    this.mouseYPrev = this.mouseY;
 		}
 	    }
 	},
 	mouseWheelHandler:function(e){
-	    console.log('CanvasViewer3D.mouseWheelHandler()');
+	    //console.log('CanvasViewer3D.mouseWheelHandler()');	    
+
+	    if(this.currentLayerItemTop){
+
+		var e = window.event || e; // old IE support
+		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+
+		Backbone.trigger('zoom3D', 
+				 [true,
+				  -(delta),
+				  this.currentLayerItemTop, 
+				  this.mode]);
+	    }
+
 	},
 	keyHandler:function(e){
 	    //console.log('CanvasViewer2D.keyHandler()');
@@ -77,9 +136,9 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	storeMousePos:function(e){
 	    //console.log('storeMousePos');
 
-	    this.mouseXPrev = e.clientX;
-	    this.mouseYPrev = e.clientY;
-	    this.mouseZPrev = e.clientY;
+	    this.mouseXPrev = e.clientX - this.canvas.offsetLeft;
+	    this.mouseYPrev = e.clientY - this.canvas.offsetTop;
+
 	    
 	},
 	setOpacity:function(){
