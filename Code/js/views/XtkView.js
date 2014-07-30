@@ -7,6 +7,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	initialize:function(options) {
 	    console.log('initXTK()');
 
+
 	    //INIT VARS
 	    this.layerIndex = options.layerIndex;
 	    this.layout = options.layout;//current layout
@@ -561,12 +562,15 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	    this.volume.colortable.file = colTableFile;
 
-	    //this.volume.clearChildren(0);
-	    //this.volume.clearChildren(1);
-	    //this.volume.clearChildren(2);
+	    this.volume.clearChildren(0);
+	    this.volume.clearChildren(1);
+	    this.volume.clearChildren(2);
 
 	    this.viewerX.loader.load(this.volume.colortable, this.volume);
 
+	    //this.volume.clearChildren(0);
+	    //this.volume.clearChildren(1);
+	    //xthis.volume.clearChildren(2);
 	    /*
 	    this.volume.sliceInfoChanged(0);
 	    this.volume.sliceInfoChanged(1);

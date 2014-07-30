@@ -12,7 +12,9 @@ require.config({
 	Bootstrap: "http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min",
 	text: "libs/text",
 	templates: "../templates",
-	xtk: "../../X/utils/xtk",
+	xtk: "../../X/xtk-deps",
+	closure: "../../X/lib/google-closure-library/closure/goog/base",
+	//xtk: "../../X/utils/xtk",
     },
     shim: {
 	/* used to fix dependency order */
@@ -23,12 +25,16 @@ require.config({
 	"jqueryUI": {
             deps: ['jquery']
         },
+	"xtk":{
+	    deps:['closure'],
+	    exports: "xtk"
+	},
 	"Bootstrap": {
 	    deps: ['jquery'],
 	    exports: "Bootstrap"
 	},
 	"views/MainView": {
-	    deps: ['Backbone','xtk','Bootstrap','jqueryUI']
+	    deps: ['Backbone','Bootstrap','jqueryUI']
 	},
     },
 });
@@ -37,6 +43,12 @@ require.config({
 require(["views/MainView"], function(MainView) {
 
     console.log('running main');
+
+    //goog.require("X");
+    // goog.require("X.renderer3D");
+    //goog.require("X.renderer2D");
+    goog.require("X.vector");
+
 
     var main = new MainView();
     
