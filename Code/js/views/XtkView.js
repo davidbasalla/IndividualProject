@@ -409,23 +409,33 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 
 	    var _this = this;
+
+	    //this appears to get triggered after reloading the colorMap
 	    this.viewerX.onShowtime = function() {
 		// add the volume to the other 3 renderers
 
-		console.log('XtkView.onShowtime...');
+		console.log('XtkView.parse() - onShowtime!');
 
 		//store initial values into the layerModel
 		_this.storeValues();
 		
-
-		_this.viewerY.add(_this.volume);
-		_this.viewerY.render();
-		_this.viewerZ.add(_this.volume);
-		_this.viewerZ.render();
+		if(_this.viewerY.objects._array.length == 0){
+		    _this.viewerY.add(_this.volume);
+		    _this.viewerY.render();
+		}
+	    
+		if(_this.viewerZ.objects._array.length == 0){
+		    _this.viewerZ.add(_this.volume);
+		    _this.viewerZ.render();
+		}
+		
 		
 		if (_this.webGLFriendly) {
-		    _this.viewer3D.add(_this.volume);
-		    _this.viewer3D.render();
+		    if(_this.viewer3D.objects._array.length == 0){
+			_this.viewer3D.add(_this.volume);
+			_this.viewer3D.render();
+		    }
+		    
 		}
 
 
@@ -562,11 +572,14 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	    this.volume.colortable.file = colTableFile;
 
-	    this.volume.clearChildren(0);
-	    this.volume.clearChildren(1);
-	    this.volume.clearChildren(2);
+	    //this.volume.clearChildren(0);
+	    //this.volume.clearChildren(1);
+	    //this.volume.clearChildren(2);
 
+	    //causes IMAGE to go black
 	    this.viewerX.loader.load(this.volume.colortable, this.volume);
+
+
 
 	    //this.volume.clearChildren(0);
 	    //this.volume.clearChildren(1);

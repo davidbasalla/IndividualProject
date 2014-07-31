@@ -351,7 +351,7 @@ define(["views/CanvasViewer3D",
 		   this.doRender = false;
 	       },
 	       update:function(){
-		   console.log('ViewerWindowView.update()');
+		   console.log('ViewerWindowView.update() - start animation loop');
 		   //console.log(this);
 
 		   //issue with settimeout and refreshing webGl canvas, so not using that
