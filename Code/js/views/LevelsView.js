@@ -72,8 +72,8 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    
 	    //turn ON triggers for current object
 	    if(this.currentItem){
-		console.log('LISTENING TO MODEL:');
-		console.log(this.currentItem);
+		//console.log('LISTENING TO MODEL:');
+		//console.log(this.currentItem);
 
 		this.currentItem.on("change:indexX", this.setIndexX, this);
 		this.currentItem.on("change:indexY", this.setIndexY, this);

@@ -342,10 +342,12 @@ define(["views/CanvasViewer3D",
 
 		   //check if recursive loop is already running
 		   if(!this.renderRunning){
-		       //console.log('START RENDER');
+		       console.log('START RENDER');
 		       this.update();
 		       this.renderRunning = true;   //set to renderRunning
 		   }
+		   else
+		       console.log('RENDER ALREADY RUNNING!');
 	       },
 	       stopAnimation:function(){
 		   this.doRender = false;
