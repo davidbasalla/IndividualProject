@@ -11,11 +11,14 @@ TODAY:
         parsing the file structure, so not clear how interactive the
 	swapping of files would be... NEED TO TEST
 
-	Next steps:
-	- get colorTables working for actual files
-	- talk to Ben about importance of this feature
-	- requires separate loading of these maps?
-	- need to fully understand the flow of control of Xtk
+- GOT IT SORT OF WORKING NOW!
+
+  todo:
+  - get jet map working
+  - fix resetting of index when loading again
+    - need to find where the initial loading is done
+  - have some sort of wait animation, progress bar?
+    - progress bar should already be in the XTK viewers, investigate!
 	  
     
      
