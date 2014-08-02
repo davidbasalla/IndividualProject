@@ -1,0 +1,31 @@
+# Color table file E:/Program Files/Slicer3 3.6.2010-09-29/share/Slicer3/SlicerBaseLogic/Resources/ColorFiles/PETCT_Labels.txt
+# 27 values
+0 Background 0 0 0 0
+1 R_caudate_head 99 184 255 255
+2 L_caudate_head 10 10 255 255
+3 R_thalamus 152 245 255 255
+4 L_thalamus 0 134 139 255
+5 R_frontal_cortex 124 205 124 255
+6 L_frontal_cortex 69 139 0 255
+7 R_parietal_cortex 124 252 10 255
+8 L_parietal_cortex 205 205 0 255
+9 R_cerebellum 255 236 139 255
+10 L_cerebellum  255 153 18 255
+11 R_hippo 205 133 63 255
+12 L_hippo 233 150 122 255
+13 R_paraventric_WM 255 106 106 255
+14 L_paraventric_WM 205 0 0 255
+15 CC 255 52 179 255
+16 R_olfactory_gyrus 205 105 201 255
+17 L_olfactory_gyrus 137 104 205 255
+18 All_CSF_space 154 50 205 255
+19 R_SVZ 225 245 36 255
+20 L_SVZ 242 245 41 255
+21 R_Subortical_WM 255 165 153 255
+22 L_Subortical_WM 255 187 128 255
+23 Total_Counts_in_brain 0 255 51 255
+24 R_GM 74 241 233 255
+25 L_GM 206 241 179 255
+26 Label_26 241 209 234 255
+200 BLAH 255 255 255 255
+#EOF

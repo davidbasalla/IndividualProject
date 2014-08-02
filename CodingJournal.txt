@@ -1,0 +1,25 @@
+Coding Journal:
+============
+
+
+02/08/14:
+=======
+
+
+Learnt interesting thing, the renderers are not hooked up to receive events from a modified volume, ONLY the first one is. This stumped me for quite a while.
+Still generally unsure how updating works, there’s a strange goog.base(this, ‘modified’) function that seems to be doing some magic other than just calling ‘update(…)’
+
+had a thought about caching generated groups of slices...
+
+------------
+
+Finished some work on colorLookup today
+still some stuff left to do on it
+	figure out how to reset the volume to use no colorlookup
+should be simple but so far proving illusive
+	create a JET map
+use python to modulate the colours more easily
+looked into 3DSlicer but no real help
+Generally wondering whether the lookup should be happening on a 2D level rather than at a ‘3D’ level… 
+look into the code to see if it’s feasible to change the pixel values at a pixel by pixel level…, not reloading the volume every time. Could prove to be 
+issue that a lookup in the current way is very absolute, not really a lookup but more like a colouring. Should be a mapping of pixels really…? Could get confusing
