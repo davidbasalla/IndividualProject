@@ -580,14 +580,15 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    var colTableFile = null;
 
 	    if(value == 'Lookup_IDs')
-		colTableFile = 'http://x.babymri.org/?genericanatomy.txt';
-
-
-	   
+		colTableFile = 'http://x.babymri.org/?genericanatomy.txt';	   
 
 	    //if... else...
 	   
+	    var viewerArray = [this.viewerX, this.viewerY, this.viewerZ];
 
+	    this.volume.setColortable(colTableFile, viewerArray);
+
+	    /*
 	    this.volume.colortable.file = colTableFile;
 
 	    //this.volume.clearChildren(0);
@@ -595,7 +596,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //this.volume.clearChildren(2);
 
 	    //causes IMAGE to go black - issue here that only viewerX gets updated!?
-	    this.viewerZ.loader.load(this.volume.colortable, this.volume);
+	    this.viewerX.loader.load(this.volume.colortable, this.volume);
+	    */
 
 
 
