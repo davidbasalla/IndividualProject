@@ -418,9 +418,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		//store initial values into the layerModel
 
 
-		//ISSUE with this, it resets the MODEL so causes Xtk volume to reset the index
-		_this.storeValues();
-		
+		//ISSUE with this, it resets the MODEL so causes Xtk volume to reset the inde
+
 		if(_this.viewerY.objects._array.length == 0){
 		    _this.viewerY.add(_this.volume);
 		    _this.viewerY.render();
@@ -436,20 +435,27 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    if(_this.viewer3D.objects._array.length == 0){
 			_this.viewer3D.add(_this.volume);
 			_this.viewer3D.render();
-		    }
+		    }x
 		    
 		}
 		*/
 
-		//update the model
-		_this.model.set({
-		    // modify item defaults
-		    loaded: true
-		});
+		//SET MODEL TO LOADED AND STORE SETTINGS
+		if(!_this.model.get('loaded')){
 
-		_this.storeOriginalViews();
+		    console.log('SET MODEL TO LOADED');
+		    
+		    //update the model
+		    _this.model.set({
+			// modify item defaults
+			loaded: true
+		    });
+		    
+		    _this.storeValues();
+		    _this.storeOriginalViews();
 
-		Backbone.trigger('onShowtime');
+		    Backbone.trigger('onShowtime');
+		}
 	    };
 
 	},
@@ -515,7 +521,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this._numberRead = 0;
 	},
 	changeIndexX:function(model, value, options){
-	    console.log(this.viewerX.objects);
 
 	    if(this.volume){
 		//check if this.volume.index and value are the same
@@ -529,9 +534,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	},
 	changeIndexY:function(model, value, options){
 
-	    //this.viewerY.update(this.volume);
-	    console.log(this.viewerY.objects);
-
 	    if(this.volume){
 		if(this.volume.indexY != value){
 		    this.volume.indexY = value;
@@ -542,8 +544,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    }
 	},
 	changeIndexZ:function(model, value, options){
-
-	    console.log(this.viewerZ.objects);
 
 	    if(this.volume){
 		if(this.volume.indexZ != value){
@@ -577,46 +577,19 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	    console.log('XtkView.setColortable()');
 
+	    //0 - NONE
+	    //1 - IDS
+	    //2 - JET
+
 	    var colTableFile = null;
-
-	    if(value == 'Lookup_IDs')
+	    if(value == 0)
+		colTableFile = null; 
+	    else if(value == 1)
 		colTableFile = 'http://x.babymri.org/?genericanatomy.txt';	   
-
-	    //if... else...
 	   
 	    var viewerArray = [this.viewerX, this.viewerY, this.viewerZ];
 
 	    this.volume.setColortable(colTableFile, viewerArray);
-
-	    /*
-	    this.volume.colortable.file = colTableFile;
-
-	    //this.volume.clearChildren(0);
-	    //this.volume.clearChildren(1);
-	    //this.volume.clearChildren(2);
-
-	    //causes IMAGE to go black - issue here that only viewerX gets updated!?
-	    this.viewerX.loader.load(this.volume.colortable, this.volume);
-	    */
-
-
-
-	    //this.volume.clearChildren(0);
-	    //this.volume.clearChildren(1);
-	    //xthis.volume.clearChildren(2);
-	    /*
-	    this.volume.sliceInfoChanged(0);
-	    this.volume.sliceInfoChanged(1);
-	    this.volume.sliceInfoChanged(2);
-	    */
-
-	    /*//once this has loaded, the volumes needs to be changed and the 
-	    //modified event triggered!
-
-	    */
-	    //this.volume.sliceInfoChanged(0);
-	    //this.viewerX.resetViewAndRender();
-
 	},
 	setPan:function(args){
 	    //console.log('setPan()');

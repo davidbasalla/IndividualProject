@@ -312,8 +312,8 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	},
 	setLookup:function(value){
 	    console.log('LevelsView.setLookup()');
-	    console.log(value.currentTarget.value);
-	    Backbone.trigger('lookupChange', value.currentTarget.value);
+	    console.log(value);
+	    Backbone.trigger('lookupChange', value.currentTarget.selectedIndex);
 
 	},
 
