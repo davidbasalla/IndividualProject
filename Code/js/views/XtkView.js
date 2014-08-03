@@ -587,7 +587,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    else if(value == 1)
 		colTableFile = 'http://x.babymri.org/?genericanatomy.txt';
 	    else if(value == 2)
-		colTableFile = 'file:///Users/davidbasalla/MSc/individualproject/Resources/Colortables/custom_2.txt';	   
+		//colTableFile = 'file:///Users/davidbasalla/MSc/individualproject/Resources/Colortables/custom_2.txt';	   
+		colTableFile = 'file:///Users/davidbasalla/MSc/individualproject/Code/python/colortableJET_01.txt';
 	   
 	    var viewerArray = [this.viewerX, this.viewerY, this.viewerZ];
 
