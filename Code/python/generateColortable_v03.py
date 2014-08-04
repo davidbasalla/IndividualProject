@@ -1,4 +1,4 @@
-file = open("colortableJET_03.txt", "w")
+file = open("colortableJET_04.txt", "w")
 
 jet64 =[
       [ 0.0000000e+000,  0.0000000e+000,  5.6250000e-001],
@@ -67,17 +67,23 @@ jet64 =[
       [ 5.0000000e-001,  0.0000000e+000,  0.0000000e+000]
     ]
 
-file.write("array = [")
 
-for i in range(0,255):
+file.write("[")
+for i in range(0,64):
 
-    red = i
-    green = i
-    blue = i
+    red = jet64[i][0]*255
+    green = jet64[i][1]*255
+    blue = jet64[i][2]*255
     alpha = 255
 
-    file.write(("[%s, %s, %s, %s],\n") % (red, green, blue, alpha))
+    if i != 0:
+        file.write(("[%s, %s, %s, %s],\n") % (red, green, blue, alpha))
+    else:
+        file.write(("[%s, %s, %s, %s],\n") % (0, 0, 0, 0))
 
+    file.write(("[%s, %s, %s, %s],\n") % (red, green, blue, alpha))  
+    file.write(("[%s, %s, %s, %s],\n") % (red, green, blue, alpha))  
+    file.write(("[%s, %s, %s, %s],\n") % (red, green, blue, alpha))  
 
 file.write("]")
 

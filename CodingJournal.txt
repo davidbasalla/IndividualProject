@@ -23,3 +23,22 @@ looked into 3DSlicer but no real help
 Generally wondering whether the lookup should be happening on a 2D level rather than at a ‘3D’ level… 
 look into the code to see if it’s feasible to change the pixel values at a pixel by pixel level…, not reloading the volume every time. Could prove to be 
 issue that a lookup in the current way is very absolute, not really a lookup but more like a colouring. Should be a mapping of pixels really…? Could get confusing
+
+
+
+03/08/14:
+========
+
+- managed to get a JET/HEAT map working, with python to create the txt
+  file and using Ben Glockers Heatmap
+  - seems to look fine, maybe a bit off	
+  - still doubt about application of this lookup, still need to
+    investigate the code to see if different method is possible
+
+- started thinking about - ANNOTATIONS vs PAINTING
+  Annotations seems simpler, mainly due lack of NII file handling
+  - for NII file handling, would need to be able to save
+    out a file
+  - for annotations, XML file format might work fine?
+  - conceptually simpler to think of Annotations	
+

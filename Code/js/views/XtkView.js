@@ -582,17 +582,24 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //2 - JET
 
 	    var colTableFile = null;
-	    if(value == 0)
-		colTableFile = null; 
+	    if(value == 0){
+		this.viewerX.setColortable(0);
+		this.viewerY.setColortable(0);
+		this.viewerZ.setColortable(0);
+	    }
 	    else if(value == 1)
 		colTableFile = 'http://x.babymri.org/?genericanatomy.txt';
-	    else if(value == 2)
-		//colTableFile = 'file:///Users/davidbasalla/MSc/individualproject/Resources/Colortables/custom_2.txt';	   
-		colTableFile = 'file:///Users/davidbasalla/MSc/individualproject/Code/python/colortableJET_01.txt';
+	    else if(value == 2){
+		this.viewerX.setColortable(2);
+		this.viewerY.setColortable(2);
+		this.viewerZ.setColortable(2);
+	    }
 	   
+	    /*
 	    var viewerArray = [this.viewerX, this.viewerY, this.viewerZ];
 
 	    this.volume.setColortable(colTableFile, viewerArray);
+	    */
 	},
 	setPan:function(args){
 	    //console.log('setPan()');
