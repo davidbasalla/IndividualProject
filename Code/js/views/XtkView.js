@@ -582,19 +582,12 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //2 - JET
 
 	    var colTableFile = null;
-	    if(value == 0){
-		this.viewerX.setColortable(0);
-		this.viewerY.setColortable(0);
-		this.viewerZ.setColortable(0);
+	    if(value >= 0 && value <= 2){
+		this.viewerX.setColortable(value);
+		this.viewerY.setColortable(value);
+		this.viewerZ.setColortable(value);
 	    }
-	    else if(value == 1)
-		colTableFile = 'http://x.babymri.org/?genericanatomy.txt';
-	    else if(value == 2){
-		this.viewerX.setColortable(2);
-		this.viewerY.setColortable(2);
-		this.viewerZ.setColortable(2);
-	    }
-	   
+
 	    /*
 	    var viewerArray = [this.viewerX, this.viewerY, this.viewerZ];
 

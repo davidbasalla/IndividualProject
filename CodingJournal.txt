@@ -40,5 +40,7 @@ issue that a lookup in the current way is very absolute, not really a lookup but
   - for NII file handling, would need to be able to save
     out a file
   - for annotations, XML file format might work fine?
-  - conceptually simpler to think of Annotations	
+  - conceptually simpler to think of Annotations
+
+- DID MANAGE TO GET QUICKER LOOKUPS WORKING!!!!!!	
 
