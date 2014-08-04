@@ -42,5 +42,20 @@ issue that a lookup in the current way is very absolute, not really a lookup but
   - for annotations, XML file format might work fine?
   - conceptually simpler to think of Annotations
 
-- DID MANAGE TO GET QUICKER LOOKUPS WORKING!!!!!!	
+- DID MANAGE TO GET QUICKER LOOKUPS WORKING!!!!!!
+  - works great
+  - need to guard against bad inputs (number wise for the lookups)
+    - use like a clipping/flooring to highest/lowest number in lookup
+      array
+  - need to apply this to 3D renderer now	
 
+04/08/14:
+========
+
+- wondering if there is a debugger for JAVASCRIPT!? POSSIBLY A
+  QUESTION AT PRESENTATION - yes it exists, quite handy! should try
+  out more
+
+- looking for 3D color lookup! finally found it
+- it's in shaders, written in glshader language...
+- lots of vec3's and vec4's
