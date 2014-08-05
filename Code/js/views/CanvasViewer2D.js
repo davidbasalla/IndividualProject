@@ -233,8 +233,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	draw:function(){
 	    //update the canvases at 60 frames a second?
 
-	    //console.log('CanvasViewer2D.draw(' + this.mode + ')');
-
 	    //CLEAR - NEED TO FIX THESE COORDS
 	    this.ctx.fillStyle = 'black';
 
@@ -243,10 +241,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    
 	    //SET FIRST ALPHA
 	    this.ctx.globalAlpha = this.alphaB;
-
-
-	    //console.log('srcCanvasB:');
-	    //console.log(this.srcCanvasB);
 
 	    //DRAW BOTTOM CANVAS - offset by 1,1 to fit the border in
 	    if(this.currentLayerItemBottom){
@@ -289,6 +283,10 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    }
 
 	    //do the overlay
+
+	    if(this.annotation)
+		this.drawAnnotation();
+
 	    if(this.showOverlay)
 		this.drawOverlay();
 
@@ -297,6 +295,12 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    if(this.traversing)
 		this.drawCrosshair();
+
+	},
+	drawAnnotation:function(){
+	    console.log('drawAnnotation()');
+
+
 
 	},
 	drawLine:function(){

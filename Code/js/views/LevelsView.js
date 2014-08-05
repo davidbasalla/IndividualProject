@@ -91,7 +91,9 @@ define(["text!templates/Levels.html", "models/AnnotationItem"], function(LevelsT
 	parseXML:function(inputString){
 
 	    console.log('LevelsView.parseXML()');
-	    
+
+	    console.log(this.currentItem.get('annotations'));
+
 	    if (window.DOMParser)
 	    {
 		parser=new DOMParser();
@@ -119,9 +121,11 @@ define(["text!templates/Levels.html", "models/AnnotationItem"], function(LevelsT
 		pointsArray[i] = point;
 	    }
 
+
 	    //LABEL	    
 	    var label = $(xmlDoc).find('label');
 	    label = label[0].childNodes[0].nodeValue;
+
 
 	    //COLOR	    
 	    var colorXML = $(xmlDoc).find('color');
@@ -142,15 +146,18 @@ define(["text!templates/Levels.html", "models/AnnotationItem"], function(LevelsT
 
 
 	    //UPDATE CURRENT ITEM
-	    annoArray = this.currentItem.get('annotations');
-	    annoArray[annoArray.length] = annoItem;
+	    //have to use clone method as otherwise change method does not get fired!
+	    //do with pointer to array!?
+	    //from STACKOVERFLOW...
+	    var annoArray = _.clone(this.currentItem.get('annotations'));
+	    annoArray.push(annoItem);
 
 	    this.currentItem.set({
 		annotations: annoArray,
 	    });
 
+	    console.log(this.currentItem.get('annotations'));
 	    console.log(this.currentItem);
-
 	},
 	setCurrentItem:function(currentItem){
 	    console.log('LevelsView.setCurrentItem()');

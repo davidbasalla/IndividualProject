@@ -300,19 +300,25 @@ define(["views/CanvasViewer3D",
 	       setCurrentLayer:function(layersModel, value, options){
 
 		   console.log('ViewerWindowView.setCurrentLayer()');
+		   console.log(this.currentItem);
 
 		   //turn OFF triggers for previous object
 		       
-		   if(this.currentItem)
+		   if(this.currentItem){
 		       this.currentItem.off("change:opacity", this.setOpacity, this);
+		       this.currentItem.off("change:annotations", this.setAnnotations, this);
+		   }
 		   
 		   //get new object
 		   this.currentItem = layersModel.getCurrentItem();
 		   
 		   //turn ON triggers for current object
-		   if(this.currentItem)
+		   if(this.currentItem){
 		       this.currentItem.on("change:opacity", this.setOpacity, this);
+		       this.currentItem.on("change:annotations", this.setAnnotations, this);
+		   }
 		   
+
 		   //declare vars
 		   
 		   var itemA = layersModel.getCurrentItem();
@@ -392,7 +398,7 @@ define(["views/CanvasViewer3D",
 		   
 	       },
 	       setOpacity:function(model, value, options){
-		   //console.log('setOpacity(' + value + ')');
+		   console.log('setOpacity(' + value + ')');
 
 		   this.viewer0.setOpacity();
 		   this.viewer1.setOpacity();
@@ -405,6 +411,27 @@ define(["views/CanvasViewer3D",
 		   this.viewer1.setToBlack();
 		   this.viewer2.setToBlack();
 		   this.viewer3.setToBlack();
+
+	       },
+	       setAnnotations:function(model, value, options){
+		   console.log('ViewerWindowView.setAnnotations()');
+		   
+		   //check if array is non-empty
+		   if(value){
+		   //if(this.currentItem.get('annotations')){
+		       console.log(value);
+		       
+		       this.viewer0.annotation = true;
+		       this.viewer1.annotation = true;
+		       this.viewer2.annotation = true;
+		       this.viewer3.annotation = true;
+		   }
+		   else{
+		       this.viewer0.annotation = false;
+		       this.viewer1.annotation = false;
+		       this.viewer2.annotation = false;
+		       this.viewer3.annotation = false;
+		   }
 
 	       },
 	       scroll:function(){

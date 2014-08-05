@@ -51,6 +51,8 @@ define(function() {
 	    this.mouseDown = false;
 	    this.traversing = false;
 
+	    this.annotation = false;
+
 	    _.bindAll(this, 'mouseWheelHandler');
 	    
 	    //DISABLE MIDDLE MOUSE FOR THIS ELEMENT

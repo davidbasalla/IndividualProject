@@ -78,7 +78,7 @@ issue that a lookup in the current way is very absolute, not really a lookup but
 - working on reading in XML files
   - going okay so far, seems cumbersome to deal with, with nested
     jquery calls
-  - invesitgate JSON format
+  - investigate JSON format (DEFINITELY SEEMS LIKE A BETTER ALTERNATIVE!!)
 
 - need to have a separate model for these annotations?
 - renderer views need to know about the annotation
