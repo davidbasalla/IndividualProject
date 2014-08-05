@@ -59,3 +59,15 @@ issue that a lookup in the current way is very absolute, not really a lookup but
 - looking for 3D color lookup! finally found it
 - it's in shaders, written in glshader language...
 - lots of vec3's and vec4's
+
+- balls, managed to get it working in the renderer3D.update_()
+  function, but it needs to happen in the render phase...
+  
+  so means I would have to do this work in the shader...?
+  maybe not, not need to test forcing an update when changing the
+  window for 3D
+
+- MAYBE GIVE IT A REST FOR NOW, CHECK WITH BEN GLOCKER ABOUT DESIRED
+  BEHAVIOUR OF THESE BASTARDS...
+  2D and 3D apply the brightness/windowing at different stages,
+  so different effect when using different color maps!

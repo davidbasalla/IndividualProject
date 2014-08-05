@@ -420,7 +420,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 		//ISSUE with this, it resets the MODEL so causes Xtk volume to reset the inde
 
-		/*
+
 		if(_this.viewerY.objects._array.length == 0){
 		    _this.viewerY.add(_this.volume);
 		    _this.viewerY.render();
@@ -429,7 +429,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		if(_this.viewerZ.objects._array.length == 0){
 		    _this.viewerZ.add(_this.volume);
 		    _this.viewerZ.render();
-		}*/
+		}
 		
 	
 		if (_this.webGLFriendly) {
@@ -587,6 +587,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		this.viewerX.setColortable(value);
 		this.viewerY.setColortable(value);
 		this.viewerZ.setColortable(value);
+		if (_this.webGLFriendly)
+		    this.viewer3D.setColortable(value);
 	    }
 
 	    /*
