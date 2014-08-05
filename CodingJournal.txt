@@ -71,3 +71,17 @@ issue that a lookup in the current way is very absolute, not really a lookup but
   BEHAVIOUR OF THESE BASTARDS...
   2D and 3D apply the brightness/windowing at different stages,
   so different effect when using different color maps!
+
+05/08/14:
+========
+
+- working on reading in XML files
+  - going okay so far, seems cumbersome to deal with, with nested
+    jquery calls
+  - invesitgate JSON format
+
+- need to have a separate model for these annotations?
+- renderer views need to know about the annotation
+- a way to store annotations as part of the layer item? INVESTIGATE
+  
+- NEED TO GET ONTO THIS USERCASE STUDY SOON!! ASK BEN IF HE KNOWS ANY PEOPLE?

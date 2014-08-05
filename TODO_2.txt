@@ -1,44 +1,53 @@
-TODAY:
+TODO:
+-----
 
-- Colortables:
-  - problematic
-      - XTK does not support applying ColorTable to loaded file
-      - XTK only supports ColorTables for labelmaps
-      -	have managed to apply color lookup to one slice only, need to
-        delve deeper
 
-      - also application of colormaps happens at the beginning when
-        parsing the file structure, so not clear how interactive the
-	swapping of files would be... NEED TO TEST
+HIGH PRIORITY:
 
-- GOT IT SORT OF WORKING NOW!
-
-  todo:
-  - get standard lookup working
-  - get jet map working
-  - fix resetting of index when loading again
-    - need to find where the initial loading is done
-  - have some sort of wait animation, progress bar?
-    - progress bar should already be in the XTK viewers, investigate!
-  - figure out why its slower to load with LUT than normal
-    
-
-     
+- implement annotation!!! SEE BELOW
+- hook up mouse keys in Chrome
+- talk to Ben Glocker about color lookups, when brightness is being applied
+- talk to James Booth about annotation software
 
 
 
-GENERAL WIP:
+LOW PRIORITY:
 
+- make custom slider for brightness/threshold
 - work on providing online sample files
 - add navigation panel feedback (for setting camera specifically)
 - work on brightness!
+- Protect against no WebGL
+- Implement testing!!! Coverage etc
+- Sort of errorhandler in XtkView
 
 
 
+ANNOTATIONS:
+------------
+
+- decide on format - XML
+
+Plan:
+	1.)
+	- create a dummy file with a sample cube and label
+	- create temp interface to load annotation file
+	- load and view this file in the viewer
+
+	- loader
+	  - use loader, read XML as string, then do stuff with it.
+
+
+
+
+
+
+
+====================================================================================
 
 DONE:
 -----
-
+- work on brightness!
 - Fix Layout Swapping
 - Cap indices when middle-mouse scrolling
 - Fixed a redundancy in the code re update function, was being called
@@ -59,9 +68,6 @@ DONE:
 NEXT STEPS:
 -----------
 
-- Investigate why Chrome not supporting WebGL
-  - seems to work fine on visual09 (lab machine)
-
 - Add warning window when not able to load file
   - COMPLEX, LEAVE THIS SHIT TIL LATER, NEED TO DEBUG THOROUGHLY
   - should I only support NII for now?
@@ -69,14 +75,7 @@ NEXT STEPS:
       - would need a file loader
       - would need the whole loading malarchy
 
-- Lookup Behaviour
-  - create more colortables
-  - store colortables so they can be accessed
-    - look into same origin policy/load local files/need to be in txt
-      format
-  - figure out how to reload image
-  
-- Fix brightness for 2D renderers!
+
   
     
 
@@ -85,12 +84,8 @@ NEXT STEPS:
 
 - Work on overlaying of label maps
 
-- Bring whole project online
-    - Support usage of custom data
-
 - Tutorials? Guide?
 
-- MAKE SURE COMMANDS WORK IN CHROME ALSO!
 
 
 

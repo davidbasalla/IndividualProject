@@ -1,4 +1,4 @@
-define(["text!templates/Levels.html"], function(LevelsTemplate) {
+define(["text!templates/Levels.html", "models/AnnotationItem"], function(LevelsTemplate, AnnoItem) {
     
     var LevelsView = Backbone.View.extend({
 	//define the template
@@ -16,7 +16,8 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    'change input#levelHigh': 'setLevelInputHandler',
 	    'change input#thresholdLow': 'setThresholdInputHandler',
 	    'change input#thresholdHigh': 'setThresholdInputHandler',
-	    'change select': "setLookup",
+	    'change select': "setLookup",	    
+	    'change input#xmlInput': 'xmlFileSelected',
 	},
 	render:function() {
 	    //write the template into the website
@@ -57,6 +58,99 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 		    Backbone.trigger('opacityChange', ui.value);
 		}
 	    });
+
+	    
+	    //set up listener to change of file field
+
+	},
+	xmlFileSelected:function(e){
+	    console.log('LevelsView.xmlFileSelected()');
+
+	    console.log(e);
+
+	    var xmlFile = e.currentTarget.files[0];
+
+	    /*
+	    this.currentItem.set({
+		annoFileName: e.currentTarget.files[0].name,
+		annoFile : e.currentTarget.files[0]
+	    });*/
+
+	    
+	    //XML FILE READING
+	    var reader = new FileReader();
+
+	    var _this = this;
+	    reader.onload = function(e){
+		(_this.parseXML(reader.result)); // bind the current type
+	    }
+
+	    reader.readAsText(xmlFile);
+
+	},
+	parseXML:function(inputString){
+
+	    console.log('LevelsView.parseXML()');
+	    
+	    if (window.DOMParser)
+	    {
+		parser=new DOMParser();
+		xmlDoc=parser.parseFromString(inputString, "text/xml");
+	    }
+	    else // Internet Explorer
+	    {
+		xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+		xmlDoc.async=false;
+		xmlDoc.loadXML(inputString);
+	    }
+
+
+	    //USE JQUERY TO FIND POINTS
+	    //console.log(xmlDoc.getElementsByTagName("points")[0].childNodes[0]);
+	    
+	    var pointsArray = [];
+	    var points = $(xmlDoc).find('point');
+	    console.log(points);
+	    for (var i = 0; i < points.length; i++){
+		var point = [];
+		point[0] = Number($(points[i]).find('X')[0].childNodes[0].nodeValue);
+		point[1] = Number($(points[i]).find('Y')[0].childNodes[0].nodeValue);
+		point[2] = Number($(points[i]).find('Z')[0].childNodes[0].nodeValue);
+		pointsArray[i] = point;
+	    }
+
+	    //LABEL	    
+	    var label = $(xmlDoc).find('label');
+	    label = label[0].childNodes[0].nodeValue;
+
+	    //COLOR	    
+	    var colorXML = $(xmlDoc).find('color');
+	    var color =[];
+	    color[0] = Number($(colorXML).find('R')[0].childNodes[0].nodeValue);  
+	    color[1] = Number($(colorXML).find('G')[0].childNodes[0].nodeValue);  
+	    color[2] = Number($(colorXML).find('B')[0].childNodes[0].nodeValue);  
+
+
+	    //CREATE ANNOTATION MODEL INSTANCE
+	    var annoItem = new AnnoItem();
+	    annoItem.set({
+		// modify item defaults
+		label: label,
+		points: pointsArray,
+		color: color
+	    });
+
+
+	    //UPDATE CURRENT ITEM
+	    annoArray = this.currentItem.get('annotations');
+	    annoArray[annoArray.length] = annoItem;
+
+	    this.currentItem.set({
+		annotations: annoArray,
+	    });
+
+	    console.log(this.currentItem);
+
 	},
 	setCurrentItem:function(currentItem){
 	    console.log('LevelsView.setCurrentItem()');

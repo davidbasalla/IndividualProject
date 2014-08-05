@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<annotation>
+  <shape>Cube
+
+    <cube>
+      <points>
+	<point>
+	  <X>-1</X>
+	  <Y>-1</Y>
+	  <Z>-1</Z>
+	</point>
+	<point>
+	  <X>1</X>
+	  <Y>-1</Y>
+	  <Z>-1</Z>
+	</point>
+	<point>
+	  <X>-1</X>
+	  <Y>1</Y>
+	  <Z>-1</Z>
+	</point>	
+	<point>
+	  <X>-1</X>
+	  <Y>-1</Y>
+	  <Z>1</Z>
+	</point>
+	<point>
+	  <X>1</X>
+	  <Y>1</Y>
+	  <Z>-1</Z>
+	</point>
+	<point>
+	  <X>1</X>
+	  <Y>-1</Y>
+	  <Z>1</Z>
+	</point>
+	<point>
+	  <X>-1</X>
+	  <Y>1</Y>
+	  <Z>1</Z>
+	</point>
+	<point>
+	  <X>1</X>
+	  <Y>1</Y>
+	  <Z>1</Z>
+	</point>
+      </points>
+    </cube>
+  </shape>      
+
+  <color>
+    <R>255</R>
+    <G>128</G>
+    <B>0</B>
+  </color>
+
+  <label>Hello World</label>
+
+</annotation>

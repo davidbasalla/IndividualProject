@@ -7,6 +7,8 @@ define(function() {
 	    visible: true,
 	    file: null,
 	    fileName: 'dummyFileName',
+	    annoFile: null,
+	    annoFileName: 'dummyFileName2',
 	    type: 'scan',
 	    index: 0,
 	    windowLow: 0,
@@ -23,6 +25,7 @@ define(function() {
 	    loaded: false,
 	    opacity: 100,
 	    colortable: null,
+	    annotations: [],
 	}
     });
     return LayerItem;
