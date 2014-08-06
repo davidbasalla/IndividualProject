@@ -84,4 +84,13 @@ issue that a lookup in the current way is very absolute, not really a lookup but
 - renderer views need to know about the annotation
 - a way to store annotations as part of the layer item? INVESTIGATE
   
-- NEED TO GET ONTO THIS USERCASE STUDY SOON!! ASK BEN IF HE KNOWS ANY PEOPLE?
+- NEED TO GET ONTO THIS USERCASE STUDY SOON!! ASK BEN IF HE KNOWS ANY
+  PEOPLE?
+
+
+06/08/14:
+=========
+
+- awkward handling of anno model to anno object...
+  - easier to keep annotations as objects and not models?
+  - JSON seems really intuitive to use for this...

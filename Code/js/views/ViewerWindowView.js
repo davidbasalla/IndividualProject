@@ -415,24 +415,19 @@ define(["views/CanvasViewer3D",
 	       },
 	       setAnnotations:function(model, value, options){
 		   console.log('ViewerWindowView.setAnnotations()');
-		   
+		   //passing annotation item to CanvasViewers
+
 		   //check if array is non-empty
 		   if(value){
 		   //if(this.currentItem.get('annotations')){
-		       console.log(value);
+		       var annoArray = value;
+		       console.log(annoArray);
 		       
-		       this.viewer0.annotation = true;
-		       this.viewer1.annotation = true;
-		       this.viewer2.annotation = true;
-		       this.viewer3.annotation = true;
+		       this.viewer0.setAnnotations(annoArray);
+		       this.viewer1.setAnnotations(annoArray);
+		       this.viewer2.setAnnotations(annoArray);
+		       this.viewer3.setAnnotations(annoArray);
 		   }
-		   else{
-		       this.viewer0.annotation = false;
-		       this.viewer1.annotation = false;
-		       this.viewer2.annotation = false;
-		       this.viewer3.annotation = false;
-		   }
-
 	       },
 	       scroll:function(){
 		   

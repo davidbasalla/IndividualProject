@@ -51,7 +51,7 @@ define(function() {
 	    this.mouseDown = false;
 	    this.traversing = false;
 
-	    this.annotation = false;
+	    this.annotations = [];
 
 	    _.bindAll(this, 'mouseWheelHandler');
 	    

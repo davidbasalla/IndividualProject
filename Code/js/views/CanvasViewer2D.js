@@ -195,6 +195,31 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		this.alphaB = this.currentLayerItemBottom.get('opacity')/100;
 	    };
 	},
+	setAnnotations:function(annoItems){
+	    console.log('CanvasViewer2D.setAnnotations()');
+
+	    //convert annotation item to object for easier handling
+	    
+	    //wipe local array
+	    this.annotations = [];
+
+	    for(var i = 0; i < annoItems.length; i++){
+		var annoObject = this.convertToObject(annoItems[i]);
+		
+		console.log(annoObject);
+		
+		this.annotations.push(annoObject);
+	    }
+	},
+	convertToObject:function(modelItem){
+	    var object = {
+		color: modelItem.get('color'),
+		points3D: modelItem.get('points'),
+		points2D: [],
+		label: modelItem.get('label')
+	    };
+	    return object;
+	},
 	setToBlack:function(){	    
 	    
 	    //console.log('CanvasViewer2D.setToBlack()');
@@ -284,8 +309,9 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    //do the overlay
 
-	    if(this.annotation)
+	    if(this.annotations){
 		this.drawAnnotation();
+	    }
 
 	    if(this.showOverlay)
 		this.drawOverlay();
@@ -298,10 +324,63 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	},
 	drawAnnotation:function(){
-	    console.log('drawAnnotation()');
+	    //console.log('drawAnnotation()');
+
+	    //draw a bunch of given points
+	    //need a way to convert the points from the annotation into 2D points
+
+
+	    //do this loop per annotation
+
+	    for(var j = 0; j < this.annotations.length; j++){
+
+		//console.log(this.annotations);
+		//console.log(this.annotations[j]);
+		var pointsArray2D = this.annotations[j]["points3D"];
+		//var pointsArray2D = this.convertPoints(annos[j]);
+
+		var pointsArray2D = [[10,10],
+				     [0,100],
+				     [100,100],
+				     [100,0]];
+
+		this.ctx.globalAlpha = 1;
+		this.ctx.lineWidth = 2;
+		this.ctx.beginPath();
+		
+		//first point
+		this.ctx.moveTo(pointsArray2D[0][0], pointsArray2D[0][1]);
+		
+		//loop through rest of points
+		for(var i = 1; i < pointsArray2D.length; i++){
+		    this.ctx.lineTo(pointsArray2D[i][0], pointsArray2D[i][1]);
+		}
+		//close loop
+		this.ctx.lineTo(pointsArray2D[0][0], pointsArray2D[0][1]);
+		
+		
+		//get color here from model
+		this.ctx.strokeStyle = this.annotations[j]["color"];
+		
+		//draw and finish
+		this.ctx.stroke();
+		this.ctx.closePath();
+	    }
+
+	},
+	convertPoints:function(annotation){
+	    var points2D = [];
+	    var points3D = annotation.get('points');
+
+	    for(var i = 0; i < points3D.length; i++){
 
 
 
+
+	    };
+
+
+	    return points2D;
 	},
 	drawLine:function(){
 	    //console.log('drawingLine()');

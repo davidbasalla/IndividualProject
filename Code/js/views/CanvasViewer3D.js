@@ -148,6 +148,20 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 		this.alphaB = this.currentLayerItemBottom.get('opacity')/100;
 	    };
 	},
+	setAnnotations:function(){
+	    this.annotation = true;
+
+	    
+
+
+
+
+	    //this.annotations
+
+
+
+
+	},
 	setToBlack:function(){	    
 	    
 	    //console.log('CanvasViewer2D.setToBlack()');
