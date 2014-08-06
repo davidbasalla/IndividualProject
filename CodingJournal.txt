@@ -94,3 +94,14 @@ issue that a lookup in the current way is very absolute, not really a lookup but
 - awkward handling of anno model to anno object...
   - easier to keep annotations as objects and not models?
   - JSON seems really intuitive to use for this...
+
+- FIGURE OUT HOW TO CONVERT POINTS FROM 3D to 2D
+  - how to figure out 3D position of stuff!??????
+
+- feels like Im making fairly good progress with getting the structure
+  set up, just need to work on the actual conversion now, but seems
+  possible at least
+
+- slightly worried now about making this thing interactive, but need
+  to take one step at a time...
+

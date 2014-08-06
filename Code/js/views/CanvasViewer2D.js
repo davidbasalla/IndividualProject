@@ -185,6 +185,8 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		    else
 			this.currentLayerItemTop.set({indexZ: oldVal + 1});
 		}
+
+		this.setAnnotations(this.annos);
 	    }
 
 	},
@@ -197,6 +199,9 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	},
 	setAnnotations:function(annoItems){
 	    console.log('CanvasViewer2D.setAnnotations()');
+	    //NEED TO FORCE THIS TO REDRAW WHENEVER CHANGING INDEX...
+
+	    this.annos = annoItems;
 
 	    //convert annotation item to object for easier handling
 	    
@@ -215,10 +220,101 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    var object = {
 		color: modelItem.get('color'),
 		points3D: modelItem.get('points'),
-		points2D: [],
+		points2D: this.convertPoints(modelItem.get('points')),
 		label: modelItem.get('label')
 	    };
 	    return object;
+	},
+	convertPoints:function(points3D){
+	    console.log('CanvasViewer2D.convertPoints()');
+
+
+	    var points2D = [];
+
+	    //given 8 points, need to extract the 4 corner points of the drawn cube
+
+	    //depth coord = Z
+	    // XY = Z
+	    // YZ = X
+	    // XZ = Y
+
+	    //X-Dir
+
+	    depthCoords = [];
+	    if (this.mode == 1){
+
+		//do depth matching
+		var maxDepth = 0;
+		var minDepth = Number.POSITIVE_INFINITY;
+
+		for(var i = 0; i < points3D.length; i++){
+
+		    if(points3D[i][0] > maxDepth)
+			maxDepth = points3D[i][0];
+		    else if(points3D[i][0] < minDepth)
+			minDepth = points3D[i][0];
+
+		}
+		
+		//console.log('CUR_INDEX = ' + this.currentLayerItemTop.get('indexX'));
+		//console.log('MAXDEPTH = ' + maxDepth);		
+		//console.log('MINDEPTH = ' + minDepth);
+
+		var curIndex =  this.currentLayerItemTop.get('indexX');
+		if(minDepth <= curIndex && curIndex <= maxDepth){
+		    console.log('DEPTH-WISE INSIDE THE ANNOTATION!!!');
+
+		    //discard etra points, return 4 2D points based on sliceIndex
+		    
+		    var culledPoints = [];
+		    for(var i = 0; i < points3D.length; i++){
+
+			var point = [points3D[i][1], points3D[i][2]];
+			
+			var pointExists = false;
+			for(var j = 0; j < culledPoints.length; j++){
+			    if(_.isEqual(point, culledPoints[j]))
+				pointExists = true;
+			}
+			
+			if(!pointExists)
+			    culledPoints.push(point);
+			
+
+		    }
+
+		    console.log('CULLED POINTS = ');
+		    console.log(culledPoints);
+
+		    //expecting an XtkView here
+		    if(!this.Xrenderer){
+			console.log('No Xtk Viewer found');
+			return;
+		    }
+		    else{
+			//determine which XtkViewer to use
+			console.log('Xrenderer = ');
+			console.log(this.Xrenderer);
+			//convert these points to XY format
+			//need to run a ij2xy function
+			for (var i = 0; i < culledPoints.length; i++){
+
+			    var point = this.Xrenderer.ij2xy(
+				culledPoints[i][0], culledPoints[i][1]);
+			    
+			    console.log(point);
+			    points2D.push(point);
+  
+			}
+		    }
+		}
+		else 
+		    console.log('DEPTH-WISE OUTSIDE THE ANNOTATION!!!');
+	    };
+
+
+
+	    return points2D;
 	},
 	setToBlack:function(){	    
 	    
@@ -336,13 +432,18 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 		//console.log(this.annotations);
 		//console.log(this.annotations[j]);
-		var pointsArray2D = this.annotations[j]["points3D"];
+		var pointsArray2D = this.annotations[j]["points2D"];
+
+		if(pointsArray2D.length == 0)
+		    return;
+
 		//var pointsArray2D = this.convertPoints(annos[j]);
 
+		/*
 		var pointsArray2D = [[10,10],
 				     [0,100],
 				     [100,100],
-				     [100,0]];
+				     [100,0]];*/
 
 		this.ctx.globalAlpha = 1;
 		this.ctx.lineWidth = 2;
@@ -367,20 +468,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		this.ctx.closePath();
 	    }
 
-	},
-	convertPoints:function(annotation){
-	    var points2D = [];
-	    var points3D = annotation.get('points');
-
-	    for(var i = 0; i < points3D.length; i++){
-
-
-
-
-	    };
-
-
-	    return points2D;
 	},
 	drawLine:function(){
 	    //console.log('drawingLine()');

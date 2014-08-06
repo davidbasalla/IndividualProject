@@ -53,6 +53,9 @@ define(function() {
 
 	    this.annotations = [];
 
+	    //link the currently linked xtkview 
+	    this.Xrenderer = null;
+	    
 	    _.bindAll(this, 'mouseWheelHandler');
 	    
 	    //DISABLE MIDDLE MOUSE FOR THIS ELEMENT
@@ -94,12 +97,34 @@ define(function() {
 
 	    if(this.currentLayerItemTop && this.currentLayerItemBottom){
 		
+		//set current Xrenderer for this viewer, used for annotion view
+
 		//SRC CANVASES
 		var layerIndexTop = this.currentLayerItemTop.get('index');
 		var layerIndexBtm = this.currentLayerItemBottom.get('index');
 		
 		this.srcCanvasA = document.getElementById("xtkCanvas_L" + layerIndexTop + "_" + this.mode);
 		this.srcCanvasB = document.getElementById("xtkCanvas_L" + layerIndexBtm + "_" + this.mode);
+
+		//ISSUE HERE - COULD BE PROBLEMATIC WHEN HAVING MORE THAN
+		//DELETED LAYER, INDEX AND ARRAY ORDER WOULD BE OUT OF SYNC
+		//INSTEAD SHOULD LOOP THROUGH AND SEE WHERE THE INDEX FITS
+		for(var i = 0; i < this.viewerWindowView.xtkViewArray.length; i++){
+		    var curXtkView = this.viewerWindowView.xtkViewArray[i];
+		    console.log(curXtkView);
+		    if(curXtkView.layerIndex == layerIndexTop){
+			
+			if(this.mode == 0)
+			    this.Xrenderer = curXtkView.viewer3D;
+			else if (this.mode == 1)
+			    this.Xrenderer = curXtkView.viewerX;
+			else if (this.mode == 2)
+			    this.Xrenderer = curXtkView.viewerY;
+			else if (this.mode == 3)
+			    this.Xrenderer = curXtkView.viewerZ;
+
+		    }
+		}
 	    }
 	},
 	setModeHandler:function(e){
