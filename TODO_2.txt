@@ -42,14 +42,19 @@ Plan:
 	  - need to translate the points into WORLD SPACE?
 	  - investigate!
 
-	  - COORDS ARE ACTUALLY SLICE INDECES!!!
-
 	2.)
-	- enable the other 2D viewers
+	- enable the other 2D viewers	
+	  - deal with navigation
+	  - okay, but little bit hacky, as in unresponsive		
 	- add text (determine text coordinate)
 	  - various options for placing the text, test thoroughly
 	- enable color change
+
+
 	- look into 3D viewer notation?
+	  - involved
+	    - use cubes... wireframe render?
+	    - need to be able to add cube on the fly. add support for this...
 
 
 	3.)

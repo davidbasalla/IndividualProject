@@ -80,6 +80,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 				      this.mouseY,
 				      this.currentLayerItemTop, 
 				      this.mode]);
+		    this.setAnnotations(this.annotations);
 		}
 		else if(e.buttons == 4){
 		    //console.log('Panning!');
@@ -92,6 +93,8 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 		    this.mouseXPrev = e.clientX;
 		    this.mouseYPrev = e.clientY;
+
+		    this.setAnnotations(this.annotations);
 		}
 		else if(e.buttons == 2){
 		    //console.log('Zooming!');
@@ -102,6 +105,8 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		    Backbone.trigger('zoom', [z, this.currentLayerItemTop, this.mode]);
 
 		    this.mouseZPrev = e.clientY;
+
+		    this.setAnnotations(this.annotations);
 		}
 	    }
 	},
@@ -111,6 +116,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    
 	    if(e.which == 70){
 		Backbone.trigger('focus', [this.currentLayerItemTop, this.mode]);
+		this.setAnnotations(this.annotations);
 	    }
 	    if(e.which == 79){
 		this.toggleOverlay();
@@ -211,6 +217,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		annoObject["label"] = annoArray[i]["label"];
 		annoObject["points3D"] = annoArray[i]["points3D"];
 		annoObject["points2D"] = this.convertPoints(annoObject["points3D"]);
+		annoObject["labelPos"] = this.calculateLabelPoint(annoObject["points2D"]);
 		annoObject["color"] = annoArray[i]["color"];
 
 		//update local array
@@ -225,11 +232,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    var points2D = [];
 
 	    //given 8 points, need to extract the 4 corner points of the drawn cube
-
-	    //depth coord = Z
-	    // XY = Z
-	    // YZ = X
-	    // XZ = Y
 
 	    //X-Dir
 
@@ -268,7 +270,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		    maxDepth = points3D[i][a];
 		else if(points3D[i][a] < minDepth)
 		    minDepth = points3D[i][a];
-
 	    }
 
 	    console.log('DEPTH = ' + minDepth + ' - ' + maxDepth);
@@ -315,10 +316,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    else 
 		console.log('DEPTH-WISE OUTSIDE THE ANNOTATION!!!');
 
-	    console.log('POINTS');
-	    console.log(points2D);
-
-
+	    //need to sort the points, so no Z-formation gets created
 	    points2D = this.sortPointsForRectangle(points2D);
 
 	    return points2D;
@@ -338,7 +336,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    while(pointsArray.length != 0){
 
 		var point = pointsArray.shift()
-		console.log(point);
 		if(!sortedPoints.length){
 		    sortedPoints.push(point);
 		}
@@ -354,6 +351,39 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    }
 	    return sortedPoints;
 
+	},
+	calculateLabelPoint:function(pointsArray2D){
+
+	    console.log('CanvasViewer2D.calculateLabelPoint()');
+	    console.log(pointsArray2D);
+
+	    //if space at top left, put there
+
+	    var labelPoint = [];
+
+	    var xArray = [], yArray = [];
+	    
+	    for(var i = 0; i < pointsArray2D.length; i++){
+		console.log(pointsArray2D[i]);
+		xArray.push(pointsArray2D[i][0]);
+		yArray.push(pointsArray2D[i][1]);
+	    }	
+
+	    console.log(xArray);
+	    console.log(yArray);
+
+	    var Xmin = Math.min.apply(Math, xArray);
+	    var Ymin = Math.min.apply(Math, yArray);
+
+	    if (Ymin > 20){
+		console.log('setting point!');
+		labelPoint[0] = Xmin;
+		labelPoint[1] = Ymin - 5;
+	    }
+	    
+	    console.log('RETURNING LABEL POINT');
+	    console.log(labelPoint);
+	    return labelPoint;
 	},
 	setToBlack:function(){	    
 	    
@@ -505,6 +535,18 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		//draw and finish
 		this.ctx.stroke();
 		this.ctx.closePath();
+
+		//do label
+		
+		if(this.annotations[j].label || this.annotations[j].labelPos){
+		    this.ctx.font="15px Arial";
+		    this.ctx.fillStyle = 'red';
+		    this.ctx.fillText(this.annotations[j].label, 
+				 this.annotations[j].labelPos[0], 
+				 this.annotations[j].labelPos[1]);
+		}
+
+
 	    }
 
 	},

@@ -431,21 +431,26 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    _this.viewerZ.render();
 		}
 		
-			/*
+
 		if (_this.webGLFriendly) {
 		    if(_this.viewer3D.objects._array.length == 0){
 
 
 			cube = new X.cube();
-			
+			cube.opacity = 0.5;
+
+
 			// setting the edge length can also be skipped since 20 is the default
-			cube.lengthX = cube.lengthY = cube.lengthZ = 20;
+			cube.lengthX = 13;
+			cube.lengthY = 43;
+			cube.lengthZ = 22;
 			
 			// can also be skipped since [0,0,0] is the default center
-			cube.center = [0, 30, 0];
+			cube.center = [-5, -3, -42];
 			
 			// [1,1,1] (== white) is also the default so this can be skipped aswell
-			cube.color = [1, 1, 1];
+			cube.color = [1, 0, 0];
+			cube.type = "LINES";
 			
 			_this.viewer3D.add(cube); // add the cube to the renderer
 
@@ -455,7 +460,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 			_this.viewer3D.render();
 		    }
 		}
-		*/
+
 
 
 		//SET MODEL TO LOADED AND STORE SETTINGS
