@@ -186,7 +186,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 			this.currentLayerItemTop.set({indexZ: oldVal + 1});
 		}
 
-		this.setAnnotations(this.annos);
+		this.setAnnotations(this.annotations);
 	    }
 
 	},
@@ -197,33 +197,25 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		this.alphaB = this.currentLayerItemBottom.get('opacity')/100;
 	    };
 	},
-	setAnnotations:function(annoItems){
+	setAnnotations:function(annoArray){
 	    console.log('CanvasViewer2D.setAnnotations()');
 	    //NEED TO FORCE THIS TO REDRAW WHENEVER CHANGING INDEX...
-
-	    this.annos = annoItems;
-
-	    //convert annotation item to object for easier handling
 	    
 	    //wipe local array
 	    this.annotations = [];
 
-	    for(var i = 0; i < annoItems.length; i++){
-		var annoObject = this.convertToObject(annoItems[i]);
-		
-		console.log(annoObject);
-		
+	    for(var i = 0; i < annoArray.length; i++){
+		//create new object to avoid issues with same reference objects
+		var annoObject = {};
+
+		annoObject["label"] = annoArray[i]["label"];
+		annoObject["points3D"] = annoArray[i]["points3D"];
+		annoObject["points2D"] = this.convertPoints(annoObject["points3D"]);
+		annoObject["color"] = annoArray[i]["color"];
+
+		//update local array
 		this.annotations.push(annoObject);
 	    }
-	},
-	convertToObject:function(modelItem){
-	    var object = {
-		color: modelItem.get('color'),
-		points3D: modelItem.get('points'),
-		points2D: this.convertPoints(modelItem.get('points')),
-		label: modelItem.get('label')
-	    };
-	    return object;
 	},
 	convertPoints:function(points3D){
 	    console.log('CanvasViewer2D.convertPoints()');
@@ -255,10 +247,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 			minDepth = points3D[i][0];
 
 		}
-		
-		//console.log('CUR_INDEX = ' + this.currentLayerItemTop.get('indexX'));
-		//console.log('MAXDEPTH = ' + maxDepth);		
-		//console.log('MINDEPTH = ' + minDepth);
 
 		var curIndex =  this.currentLayerItemTop.get('indexX');
 		if(minDepth <= curIndex && curIndex <= maxDepth){
@@ -404,7 +392,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    }
 
 	    //do the overlay
-
+	    
 	    if(this.annotations){
 		this.drawAnnotation();
 	    }

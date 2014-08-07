@@ -135,6 +135,7 @@ define(["text!templates/Levels.html", "models/AnnotationItem"], function(LevelsT
 	    color[2] = Number($(colorXML).find('B')[0].childNodes[0].nodeValue);  
 
 
+	    /*
 	    //CREATE ANNOTATION MODEL INSTANCE
 	    var annoItem = new AnnoItem();
 	    annoItem.set({
@@ -143,6 +144,16 @@ define(["text!templates/Levels.html", "models/AnnotationItem"], function(LevelsT
 		points: pointsArray,
 		color: color
 	    });
+	    */
+
+	    var annoObject = {
+		label: label,
+		points3D: pointsArray,
+		points2D: [],
+		color: color
+	    };
+
+
 
 
 	    //UPDATE CURRENT ITEM
@@ -150,14 +161,14 @@ define(["text!templates/Levels.html", "models/AnnotationItem"], function(LevelsT
 	    //do with pointer to array!?
 	    //from STACKOVERFLOW...
 	    var annoArray = _.clone(this.currentItem.get('annotations'));
-	    annoArray.push(annoItem);
+	    annoArray.push(annoObject);
 
 	    this.currentItem.set({
 		annotations: annoArray,
 	    });
 
-	    console.log(this.currentItem.get('annotations'));
-	    console.log(this.currentItem);
+	    //console.log(this.currentItem.get('annotations'));
+	    //console.log(this.currentItem);
 	},
 	setCurrentItem:function(currentItem){
 	    console.log('LevelsView.setCurrentItem()');

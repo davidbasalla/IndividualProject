@@ -44,6 +44,20 @@ Plan:
 
 	  - COORDS ARE ACTUALLY SLICE INDECES!!!
 
+	2.)
+	- enable the other 2D viewers
+	- add text (determine text coordinate)
+	  - various options for placing the text, test thoroughly
+	- enable color change
+	- look into 3D viewer notation?
+
+
+	3.)
+	- enable modification of notation - hovering - TRICKY!!
+	- implement modification of class
+	- implement saving out of document (XML, JSON)
+
+
 
 
 
