@@ -220,6 +220,9 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		annoObject["labelPos"] = this.calculateLabelPoint(annoObject["points2D"]);
 		annoObject["color"] = annoArray[i]["color"];
 
+		console.log("COLOR = ");
+		console.log(	annoObject["color"]);
+
 		//update local array
 		this.annotations.push(annoObject);
 	    }
@@ -375,11 +378,17 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    var Xmin = Math.min.apply(Math, xArray);
 	    var Ymin = Math.min.apply(Math, yArray);
 
+	    //IF SPACE AT TOP
 	    if (Ymin > 20){
 		console.log('setting point!');
 		labelPoint[0] = Xmin;
 		labelPoint[1] = Ymin - 5;
 	    }
+	    //IF SPACE AT BOTTOM
+
+
+
+
 	    
 	    console.log('RETURNING LABEL POINT');
 	    console.log(labelPoint);
@@ -393,6 +402,11 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	    this.ctx.globalAlpha = 1;
 	    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+	},
+	update:function(){
+
+	    this.setAnnotations(this.annotations);
 
 	},
 	drawTest:function(){
@@ -540,7 +554,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		
 		if(this.annotations[j].label || this.annotations[j].labelPos){
 		    this.ctx.font="15px Arial";
-		    this.ctx.fillStyle = 'red';
+		    this.ctx.fillStyle = this.annotations[j]["color"];
 		    this.ctx.fillText(this.annotations[j].label, 
 				 this.annotations[j].labelPos[0], 
 				 this.annotations[j].labelPos[1]);

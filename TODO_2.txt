@@ -20,6 +20,7 @@ LOW PRIORITY:
 - Protect against no WebGL
 - Implement testing!!! Coverage etc
 - Sort of errorhandler in XtkView
+- Fix updating of LOOKUP for 3D VIEW - thought this was working!?
 
 
 
@@ -63,6 +64,13 @@ Plan:
 	- implement saving out of document (XML, JSON)
 
 
+	-----------------------------------------------------------------------
+
+	THINGS TO LOOK INTO LATER:
+	- anyway to improve performance when navigating?
+	- cater for case when label can not be shown up top
+	- rescale text when zooming?
+	- improve point sorting for cube!
 
 
 

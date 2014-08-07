@@ -49,11 +49,9 @@
   </shape>      
 
   <color>
-    <R>255</R>
-    <G>128</G>
-    <B>0</B>
+    #ffaa00
   </color>
 
-  <label>Hello World</label>
+  <label>test label</label>
 
 </annotation>

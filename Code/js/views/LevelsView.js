@@ -128,12 +128,8 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 
 
 	    //COLOR	    
-	    var colorXML = $(xmlDoc).find('color');
-	    var color =[];
-	    color[0] = Number($(colorXML).find('R')[0].childNodes[0].nodeValue);  
-	    color[1] = Number($(colorXML).find('G')[0].childNodes[0].nodeValue);  
-	    color[2] = Number($(colorXML).find('B')[0].childNodes[0].nodeValue);  
-
+	    var color = $(xmlDoc).find('color');
+	    color = color[0].childNodes[0].nodeValue;
 
 	    var annoObject = {
 		label: label,

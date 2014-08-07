@@ -192,6 +192,10 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 
 	},
+	update:function(){
+
+
+	},
 	draw:function(){
 	    //update the canvases at 60 frames a second?
 

@@ -237,6 +237,11 @@ define(["views/CanvasViewer3D",
 		   this.setSizeViewerCanvas();
 
 
+		   this.viewer0.update();
+		   this.viewer1.update();
+		   this.viewer2.update();
+		   this.viewer3.update();
+
 	       },
 	       setSizeViewerCanvas:function(){
 		   //console.log('ViewerWindowView.setSizeViewerCanvas()');
