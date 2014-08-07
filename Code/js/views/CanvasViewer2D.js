@@ -219,6 +219,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	},
 	convertPoints:function(points3D){
 	    console.log('CanvasViewer2D.convertPoints()');
+	    console.log('MODE = ' + this.mode);
 
 
 	    var points2D = [];
@@ -232,77 +233,127 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    //X-Dir
 
+	    var a = 0, b = 1, c = 2;
+	    var curIndex = 0;
+
 	    depthCoords = [];
 	    if (this.mode == 1){
+		//X
+		a = 0;
+		b = 1;
+		c = 2;
+		curIndex =  this.currentLayerItemTop.get('indexX');
+	    }
+	    else if (this.mode == 2){
+		//Y
+		a = 1;
+		b = 0;
+		c = 2;		
+		curIndex =  this.currentLayerItemTop.get('indexY');
+	    }
+	    else if (this.mode == 3){
+		//Z
+		a = 2;
+		b = 0;
+		c = 1;		
+		curIndex =  this.currentLayerItemTop.get('indexZ');
+	    }
+	    //do depth matching
+	    var maxDepth = 0;
+	    var minDepth = Number.POSITIVE_INFINITY;
 
-		//do depth matching
-		var maxDepth = 0;
-		var minDepth = Number.POSITIVE_INFINITY;
+	    for(var i = 0; i < points3D.length; i++){
 
+		if(points3D[i][a] > maxDepth)
+		    maxDepth = points3D[i][a];
+		else if(points3D[i][a] < minDepth)
+		    minDepth = points3D[i][a];
+
+	    }
+
+	    console.log('DEPTH = ' + minDepth + ' - ' + maxDepth);
+
+	    if(minDepth <= curIndex && curIndex <= maxDepth){
+		console.log('DEPTH-WISE INSIDE THE ANNOTATION!!!');
+
+		//discard etra points, return 4 2D points based on sliceIndex
+		
+		var culledPoints = [];
 		for(var i = 0; i < points3D.length; i++){
 
-		    if(points3D[i][0] > maxDepth)
-			maxDepth = points3D[i][0];
-		    else if(points3D[i][0] < minDepth)
-			minDepth = points3D[i][0];
-
-		}
-
-		var curIndex =  this.currentLayerItemTop.get('indexX');
-		if(minDepth <= curIndex && curIndex <= maxDepth){
-		    console.log('DEPTH-WISE INSIDE THE ANNOTATION!!!');
-
-		    //discard etra points, return 4 2D points based on sliceIndex
+		    var point = [points3D[i][b], points3D[i][c]];
 		    
-		    var culledPoints = [];
-		    for(var i = 0; i < points3D.length; i++){
-
-			var point = [points3D[i][1], points3D[i][2]];
-			
-			var pointExists = false;
-			for(var j = 0; j < culledPoints.length; j++){
-			    if(_.isEqual(point, culledPoints[j]))
-				pointExists = true;
-			}
-			
-			if(!pointExists)
-			    culledPoints.push(point);
-			
-
+		    var pointExists = false;
+		    for(var j = 0; j < culledPoints.length; j++){
+			if(_.isEqual(point, culledPoints[j]))
+			    pointExists = true;
 		    }
+		    if(!pointExists)
+			culledPoints.push(point);	    
+		}
+		
+		//console.log('CULLED POINTS = ');
+		//console.log(culledPoints);
 
-		    console.log('CULLED POINTS = ');
-		    console.log(culledPoints);
+		//expecting an XtkView here
+		if(!this.Xrenderer){
+		    console.log('No Xtk Viewer found');
+		    return;
+		}
+		else{
+		    //convert these points to XY format
+		    //need to run a ij2xy function
+		    for (var i = 0; i < culledPoints.length; i++){
 
-		    //expecting an XtkView here
-		    if(!this.Xrenderer){
-			console.log('No Xtk Viewer found');
-			return;
-		    }
-		    else{
-			//determine which XtkViewer to use
-			console.log('Xrenderer = ');
-			console.log(this.Xrenderer);
-			//convert these points to XY format
-			//need to run a ij2xy function
-			for (var i = 0; i < culledPoints.length; i++){
-
-			    var point = this.Xrenderer.ij2xy(
-				culledPoints[i][0], culledPoints[i][1]);
-			    
-			    console.log(point);
-			    points2D.push(point);
-  
-			}
+			var point = this.Xrenderer.ij2xy(
+			    culledPoints[i][0], culledPoints[i][1]);
+			
+			points2D.push(point);		
 		    }
 		}
-		else 
-		    console.log('DEPTH-WISE OUTSIDE THE ANNOTATION!!!');
-	    };
+	    }
+	    else 
+		console.log('DEPTH-WISE OUTSIDE THE ANNOTATION!!!');
+
+	    console.log('POINTS');
+	    console.log(points2D);
 
 
+	    points2D = this.sortPointsForRectangle(points2D);
 
 	    return points2D;
+	},
+	sortPointsForRectangle:function(pointsArray){
+	    //super simplistic at the moment
+	    //assumes that the points are legal, could go into a loop!
+	    //compares x and y, sorts by assuming that one dimensions of
+	    //next point is equal to last point
+
+	    //use the method that takes a centre point and then measures the angle of each new
+	    //point and sort by angle distance!
+
+
+	    var sortedPoints = [];
+
+	    while(pointsArray.length != 0){
+
+		var point = pointsArray.shift()
+		console.log(point);
+		if(!sortedPoints.length){
+		    sortedPoints.push(point);
+		}
+		else{
+		    if(point[0] == sortedPoints[sortedPoints.length - 1][0] ||
+		       point[1] == sortedPoints[sortedPoints.length - 1][1]){
+			sortedPoints.push(point)
+		    }
+		    else{
+			pointsArray.push(point);
+		    }
+		}
+	    }
+	    return sortedPoints;
+
 	},
 	setToBlack:function(){	    
 	    

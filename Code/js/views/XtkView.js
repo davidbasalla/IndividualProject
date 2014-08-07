@@ -420,25 +420,42 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 		//ISSUE with this, it resets the MODEL so causes Xtk volume to reset the inde
 
-		/*
 		if(_this.viewerY.objects._array.length == 0){
 		    _this.viewerY.add(_this.volume);
 		    _this.viewerY.render();
 		}
 	    
+
 		if(_this.viewerZ.objects._array.length == 0){
 		    _this.viewerZ.add(_this.volume);
 		    _this.viewerZ.render();
 		}
 		
-	
+			/*
 		if (_this.webGLFriendly) {
 		    if(_this.viewer3D.objects._array.length == 0){
+
+
+			cube = new X.cube();
+			
+			// setting the edge length can also be skipped since 20 is the default
+			cube.lengthX = cube.lengthY = cube.lengthZ = 20;
+			
+			// can also be skipped since [0,0,0] is the default center
+			cube.center = [0, 30, 0];
+			
+			// [1,1,1] (== white) is also the default so this can be skipped aswell
+			cube.color = [1, 1, 1];
+			
+			_this.viewer3D.add(cube); // add the cube to the renderer
+
+
+
 			_this.viewer3D.add(_this.volume);
 			_this.viewer3D.render();
 		    }
-		    
-		}*/
+		}
+		*/
 
 
 		//SET MODEL TO LOADED AND STORE SETTINGS

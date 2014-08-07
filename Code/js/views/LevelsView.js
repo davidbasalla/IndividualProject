@@ -1,4 +1,4 @@
-define(["text!templates/Levels.html", "models/AnnotationItem"], function(LevelsTemplate, AnnoItem) {
+define(["text!templates/Levels.html"], function(LevelsTemplate) {
     
     var LevelsView = Backbone.View.extend({
 	//define the template
@@ -135,25 +135,12 @@ define(["text!templates/Levels.html", "models/AnnotationItem"], function(LevelsT
 	    color[2] = Number($(colorXML).find('B')[0].childNodes[0].nodeValue);  
 
 
-	    /*
-	    //CREATE ANNOTATION MODEL INSTANCE
-	    var annoItem = new AnnoItem();
-	    annoItem.set({
-		// modify item defaults
-		label: label,
-		points: pointsArray,
-		color: color
-	    });
-	    */
-
 	    var annoObject = {
 		label: label,
 		points3D: pointsArray,
 		points2D: [],
 		color: color
 	    };
-
-
 
 
 	    //UPDATE CURRENT ITEM
