@@ -220,9 +220,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		annoObject["labelPos"] = this.calculateLabelPoint(annoObject["points2D"]);
 		annoObject["color"] = annoArray[i]["color"];
 
-		console.log("COLOR = ");
-		console.log(	annoObject["color"]);
-
 		//update local array
 		this.annotations.push(annoObject);
 	    }
@@ -357,9 +354,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	},
 	calculateLabelPoint:function(pointsArray2D){
 
-	    console.log('CanvasViewer2D.calculateLabelPoint()');
-	    console.log(pointsArray2D);
-
 	    //if space at top left, put there
 
 	    var labelPoint = [];
@@ -367,31 +361,17 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    var xArray = [], yArray = [];
 	    
 	    for(var i = 0; i < pointsArray2D.length; i++){
-		console.log(pointsArray2D[i]);
+		//console.log(pointsArray2D[i]);
 		xArray.push(pointsArray2D[i][0]);
 		yArray.push(pointsArray2D[i][1]);
 	    }	
-
-	    console.log(xArray);
-	    console.log(yArray);
-
 	    var Xmin = Math.min.apply(Math, xArray);
 	    var Ymin = Math.min.apply(Math, yArray);
 
 	    //IF SPACE AT TOP
-	    if (Ymin > 20){
-		console.log('setting point!');
-		labelPoint[0] = Xmin;
-		labelPoint[1] = Ymin - 5;
-	    }
-	    //IF SPACE AT BOTTOM
+	    labelPoint[0] = Xmin;
+	    labelPoint[1] = Ymin - 5;
 
-
-
-
-	    
-	    console.log('RETURNING LABEL POINT');
-	    console.log(labelPoint);
 	    return labelPoint;
 	},
 	setToBlack:function(){	    

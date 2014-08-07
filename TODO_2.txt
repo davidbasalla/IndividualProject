@@ -38,7 +38,6 @@ Plan:
 	- loader
 	  - use loader, read XML as string, then do stuff with it
 	    (DONE)
-
 	  - renderer, now ready to interpret the annotation
 	  - need to translate the points into WORLD SPACE?
 	  - investigate!
@@ -50,6 +49,7 @@ Plan:
 	- add text (determine text coordinate)
 	  - various options for placing the text, test thoroughly
 	- enable color change
+
 
 
 	- look into 3D viewer notation?

@@ -430,7 +430,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    _this.viewerZ.add(_this.volume);
 		    _this.viewerZ.render();
 		}
-		
+
 
 		if (_this.webGLFriendly) {
 		    if(_this.viewer3D.objects._array.length == 0){
@@ -441,12 +441,15 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 
 			// setting the edge length can also be skipped since 20 is the default
-			cube.lengthX = 13;
+			/*cube.lengthX = 13;
 			cube.lengthY = 43;
 			cube.lengthZ = 22;
-			
-			// can also be skipped since [0,0,0] is the default center
-			cube.center = [-5, -3, -42];
+			cube.center = [-5, -3, -42];*/
+
+			cube.lengthX = 10;
+			cube.lengthY = 70;
+			cube.lengthZ = 15;
+			cube.center = [-85, -120, 55];
 			
 			// [1,1,1] (== white) is also the default so this can be skipped aswell
 			cube.color = [1, 0, 0];
