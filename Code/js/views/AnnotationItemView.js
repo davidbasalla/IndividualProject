@@ -8,8 +8,9 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 
 	    console.log('AnnoLayerItemView.init()');
 	    this.model = options.model;
+	    this.annoObject = options.annoObject;
 	    this.layersModel = options.layersModel;
-	    this.render();
+	    console.log(this.annoObject);
 	},
 	events: {
 	    //event for toggling visibility
@@ -27,6 +28,11 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    
 	    //template - set title
 	    this.$el.html(this.template);
+
+	    //set the label
+	    $('#labelInput', this.el).val(this.annoObject.label);
+
+
 
 	    return this; // for chainable calls, like .render().el
 	},

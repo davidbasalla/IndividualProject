@@ -13,7 +13,7 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    this.render();
 	},	
 	events: {	    
-	    'change input#xmlInput': 'jsonFileSelected',	    
+	    'change input#xmlInput': 'fileSelected',	    
 	    'click button#loadAnnoFile': 'loadXmlFile',
 	},
 	render:function() {
@@ -26,107 +26,45 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    $('#xmlInput',this.el).trigger('click');
 	    event.stopPropagation(); 
 	},
-	jsonFileSelected:function(e){
+	fileSelected:function(e){
 	    console.log('AnnotationView.xmlFileSelected()');
 
 	    console.log(e);
 
-	    var xmlFile = e.currentTarget.files[0];
+	    var file = e.currentTarget.files[0];
 
 	    
-	    //XML FILE READING
+	    // FILE READING
 	    var reader = new FileReader();
 
 	    var _this = this;
 	    reader.onload = function(e){
-		(_this.parseXML(reader.result)); // bind the current type
+		(_this.parseJSON(reader.result)); // bind the current type
 	    }
 
-	    reader.readAsText(xmlFile);
+	    reader.readAsText(file);
 
 	},
-	parseXML:function(inputString){
+	parseJSON:function(inputString){
+	    console.log('AnnotationView.parseJSON()');
 
-	    console.log('AnnotationView.parseXML()');
-
-	    console.log(this.currentItem.get('annotations'));
-
-	    if (window.DOMParser)
-	    {
-		parser=new DOMParser();
-		xmlDoc=parser.parseFromString(inputString, "text/xml");
-	    }
-	    else // Internet Explorer
-	    {
-		xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
-		xmlDoc.async=false;
-		xmlDoc.loadXML(inputString);
-	    }
-
-
-	    //USE JQUERY TO FIND POINTS
-	    //console.log(xmlDoc.getElementsByTagName("points")[0].childNodes[0]);
+	    var annos = JSON.parse(inputString);
+	    annos = annos.annotations;
+	    console.log(annos);
 	    
-	    var pointsArray = [];
-	    var points = $(xmlDoc).find('point');
-	    console.log(points);
-	    for (var i = 0; i < points.length; i++){
-		var point = [];
-		point[0] = Number($(points[i]).find('X')[0].childNodes[0].nodeValue);
-		point[1] = Number($(points[i]).find('Y')[0].childNodes[0].nodeValue);
-		point[2] = Number($(points[i]).find('Z')[0].childNodes[0].nodeValue);
-		pointsArray[i] = point;
-	    }
-
-
-	    //LABEL	    
-	    var label = $(xmlDoc).find('label');
-	    label = label[0].childNodes[0].nodeValue;
-
-
-	    //COLOR	    
-	    var color = $(xmlDoc).find('color');
-	    color = color[0].childNodes[0].nodeValue.trim();
-
-	    var annoObject = {
-		label: label,
-		points3D: pointsArray,
-		points2D: [],
-		color: color
-	    };
-
-
-	    //UPDATE CURRENT ITEM
-	    //have to use clone method as otherwise change method does not get fired!
-	    //do with pointer to array!?
-	    //from STACKOVERFLOW...
 	    var annoArray = _.clone(this.currentItem.get('annotations'));
-	    annoArray.push(annoObject);
-
+	    
+	    //loop through, add to new array and create a display layer
+	    for(var i = 0; i < annos.length; i++){
+		console.log('ADDING ANNOTATION');
+		annoArray.push(annos[i]);
+		this.createLayer(annos[i]);
+	    }
+	    
+	    //update current item with loaded objects
 	    this.currentItem.set({
 		annotations: annoArray,
-	    });
-
-	    //console.log(this.currentItem.get('annotations'));
-	    //console.log(this.currentItem);
-
-
-	    this.createLayers(annoArray);
-
-	},
-	createLayers:function(annoArray){
-	    console.log('AnnotationView.createLayers()');
-	    console.log(annoArray);
-
-	    //add to annoLayers array
-
-	    for(var i = 0; i < annoArray.length; i++){
-		console.log('Adding layer');
-
-		this.createLayer(annoArray[i]);
-	    }
-
-
+	    }); 
 
 	},
 	createLayer:function(annoObject){

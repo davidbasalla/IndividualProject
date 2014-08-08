@@ -227,6 +227,11 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		//update local array
 		this.annotations.push(annoObject);
 	    }
+
+	    console.log('CONVERTED POINTS');
+	    console.log(this.annotations);
+
+
 	},
 	convertPoints:function(points3D){
 	    console.log('CanvasViewer2D.convertPoints()');
@@ -339,7 +344,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    while(pointsArray.length != 0){
 
-		var point = pointsArray.shift()
+		var point = pointsArray.shift();
 		if(!sortedPoints.length){
 		    sortedPoints.push(point);
 		}
@@ -502,7 +507,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		var pointsArray2D = this.annotations[j]["points2D"];
 
 		if(pointsArray2D.length == 0)
-		    return;
+		    continue;
 
 		//var pointsArray2D = this.convertPoints(annos[j]);
 
