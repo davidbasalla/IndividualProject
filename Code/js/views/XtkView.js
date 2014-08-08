@@ -436,10 +436,10 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    if(_this.viewer3D.objects._array.length == 0){
 
 
-			cube = new X.cube();
-			cube.opacity = 0.5;
 
 
+
+			/*
 			// setting the edge length can also be skipped since 20 is the default
 			cube.lengthX = 13;
 			cube.lengthY = 43;
@@ -448,15 +448,15 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 			cube.center = [-5, -3, -42];
 
-			/*
+
 			cube.lengthX = 10;
 			cube.lengthY = 70;
 			cube.lengthZ = 15;
-			cube.center = [-85, -120, 55];*/
+			cube.center = [-85, -120, 55]
 			
 			// [1,1,1] (== white) is also the default so this can be skipped aswell
 			cube.color = [1, 0, 0];
-			cube.type = "LINES";
+			cube.type = "LINES";;*/
 			
 
 

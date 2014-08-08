@@ -60,8 +60,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    $(e.target).focus();
 	},
 	mouseHandler:function(e){
-	    console.log('mouseHandler');
-	    console.log(e);
 
 	    if(this.mouseDown){
 		this.mouseX = e.clientX - this.canvas.offsetLeft;

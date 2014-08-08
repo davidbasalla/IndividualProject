@@ -29,6 +29,7 @@ define(["models/LayerItem",
 	    
 	    this.layersModel = options.layersModel;
 	    this.levelsView = options.levelsView;
+	    this.annotationView = options.annotationView;
 
 	    //set viewerWindowView, required for managing XTKViews
 	    this.viewerWindowView = options.viewerWindowView;
@@ -160,7 +161,9 @@ define(["models/LayerItem",
 	       once a file has loaded */
 	    console.log('LayersView.setLevelsSettings()');
 
+	    //should sideBar handle this?
 	    this.levelsView.setCurrentItem(currentItem);
+	    this.annotationView.setCurrentItem(currentItem);
 	},
 	thresholdChange: function(args){
 	    ////console.log('triggering layerThresholdChange');

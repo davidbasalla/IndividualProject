@@ -2,9 +2,11 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
     
     var LevelsView = Backbone.View.extend({
 	//define the template
-	template: _.template(LevelsTemplate),
+	template1: _.template(LevelsTemplate),
 	initialize:function() {
 	    this.currentItem = null;//item for detecting changes
+
+	    this.currentTab = 0;
 
 	    this.render();
 	},	
@@ -21,44 +23,47 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	},
 	render:function() {
 	    //write the template into the website
-	    this.$el.html(this.template);
 
-	    $( "#rangeSlider1" ).slider({
-		range: true,
-		min: 0,
-		max: 100,
-		values: [ 0, 100 ],
-		//onslide
-		slide: function( event, ui ) {
-		    $( "#levelLow" ).val(ui.values[0]);
-		    $( "#levelHigh" ).val(ui.values[1]);
-		    Backbone.trigger('levelsChange', [ui.values[0],ui.values[1]]);
-		}
-	    });
+	    if(this.currentTab == 0){
 
-	    $( "#rangeSlider2" ).slider({
-		range: true,
-		min: 0,
-		max: 100,
-		values: [ 0, 100 ],
-		//onslide
-		slide: function( event, ui ) {
-		    $( "#thresholdLow" ).val(ui.values[0]);
-		    $( "#thresholdHigh" ).val(ui.values[1]);
-		    Backbone.trigger('thresholdChange', [ui.values[0],ui.values[1]]);
-		}
-	    });
+		this.$el.html(this.template1);
 
-	    $( "#opacitySlider" ).slider({
-		min: 0,
-		max: 100,
-		value: 100,
-		slide: function( event, ui ) {
-		    $( "#opacityInput" ).val(ui.value);
-		    Backbone.trigger('opacityChange', ui.value);
-		}
-	    });
+		$( "#rangeSlider1" ).slider({
+		    range: true,
+		    min: 0,
+		    max: 100,
+		    values: [ 0, 100 ],
+		    //onslide
+		    slide: function( event, ui ) {
+			$( "#levelLow" ).val(ui.values[0]);
+			$( "#levelHigh" ).val(ui.values[1]);
+			Backbone.trigger('levelsChange', [ui.values[0],ui.values[1]]);
+		    }
+		});
 
+		$( "#rangeSlider2" ).slider({
+		    range: true,
+		    min: 0,
+		    max: 100,
+		    values: [ 0, 100 ],
+		    //onslide
+		    slide: function( event, ui ) {
+			$( "#thresholdLow" ).val(ui.values[0]);
+			$( "#thresholdHigh" ).val(ui.values[1]);
+			Backbone.trigger('thresholdChange', [ui.values[0],ui.values[1]]);
+		    }
+		});
+
+		$( "#opacitySlider" ).slider({
+		    min: 0,
+		    max: 100,
+		    value: 100,
+		    slide: function( event, ui ) {
+			$( "#opacityInput" ).val(ui.value);
+			Backbone.trigger('opacityChange', ui.value);
+		    }
+		});
+	    }
 	    
 	    //set up listener to change of file field
 
@@ -71,10 +76,10 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    var xmlFile = e.currentTarget.files[0];
 
 	    /*
-	    this.currentItem.set({
-		annoFileName: e.currentTarget.files[0].name,
-		annoFile : e.currentTarget.files[0]
-	    });*/
+	      this.currentItem.set({
+	      annoFileName: e.currentTarget.files[0].name,
+	      annoFile : e.currentTarget.files[0]
+	      });*/
 
 	    
 	    //XML FILE READING
