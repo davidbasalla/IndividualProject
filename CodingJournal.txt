@@ -105,3 +105,20 @@ issue that a lookup in the current way is very absolute, not really a lookup but
 - slightly worried now about making this thing interactive, but need
   to take one step at a time...
 
+
+08/08/14:
+=========
+
+- annoMaps working in concept, but refresh draw is very slow
+- need to investigate if I can embed it in the actual XTK renderer?
+  - check out how text or lines are handled...
+  - currently anno-maps look slightly out of sync with objects
+
+- implementing annoMaps for 3D a little bit trickier, since need to be
+  able to add extra pieces of geo to renderer while already rendering
+
+- issue with performance...? possible to do adaptive updating per
+  renderer, ie whenever an update is required!? stop and start the
+  update function? Currently running for all at the same time and
+  speed, not strictly necessary if the image is not changing!
+

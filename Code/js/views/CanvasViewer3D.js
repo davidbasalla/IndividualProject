@@ -148,19 +148,118 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 		this.alphaB = this.currentLayerItemBottom.get('opacity')/100;
 	    };
 	},
-	setAnnotations:function(){
-	    this.annotation = true;
+	setAnnotations:function(annoArray){
+	    console.log('CanvasViewer3D.setAnnotations() ===================');
 
-	    
+	    //convert 3D data to an XCube!
+
+	    this.annotations = [];
+
+	    for(var i = 0; i < annoArray.length; i++){
+		//create new object to avoid issues with same reference objects
+		var annoObject = {};
+
+		annoObject["label"] = annoArray[i]["label"];
+		annoObject["points3D"] = annoArray[i]["points3D"];
+		annoObject["color"] = annoArray[i]["color"];
+
+		//update local array
+		this.annotations.push(annoObject);
+		
+
+		//add cube
+		cube = new X.cube();
+		cube.opacity = 0.5;
+
+		//determine center of XML OBJ
+		
+		var annoCenter = this.getAnnoCenter(annoObject["points3D"]);
+		console.log('ANNO CENTER = ');
+		console.log(annoCenter);
+					
+		var volume = this.Xrenderer.topLevelObjects[0];
+		var x = annoCenter[0] * volume._childrenInfo[0]._sliceSpacing - 
+		    volume._childrenInfo[0]._originD;
+		var y = annoCenter[1] * volume._childrenInfo[1]._sliceSpacing -
+		    volume._childrenInfo[1]._originD;
+		var z = annoCenter[2] * volume._childrenInfo[2]._sliceSpacing -
+		    volume._childrenInfo[2]._originD;
+
+		cube.center = [x, y, z];
+
+		console.log('CUBE CENTER = ');
+		console.log(cube.center);
+
+		//determine dimensions
+
+		var dimensions = this.getAnnoDimensions(annoObject["points3D"]);
+
+		cube.lengthX = dimensions[0];
+		cube.lengthY = dimensions[1];
+		cube.lengthZ = dimensions[2];
+
+		console.log(this.getAnnoColorArray(annoObject["color"]));
+		cube.color = this.getAnnoColorArray(annoObject["color"]);
+		//console.log(cube.color);
+
+		//add cube to viewer
+
+		this.Xrenderer.add(cube);
 
 
 
-
+	    }
 	    //this.annotations
+	},
+	getAnnoColorArray:function(hexString){
+	    //SHOULD REALLY BE INSIDE THE annoObject CLASS
 
+	    console.log(typeof hexString);
+	    hexString = String(hexString.trim());
+	    console.log(hexString.trim());
 
+	    var test = "#00FFAA";
+	    console.log(typeof test);
+	    console.log(test);
 
+	    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexString);
+	    console.log(result);
 
+	    return [parseInt(result[1], 16)/255,
+		    parseInt(result[2], 16)/255,
+		    parseInt(result[3], 16)/255];
+	},
+	getAnnoDimensions:function(pointsArray3D){
+	    //SHOULD REALLY BE INSIDE THE annoObject CLASS
+
+	    var xArray = [], yArray = [], zArray = [];
+
+	    for(var i = 0; i < pointsArray3D.length; i++){
+		xArray.push(pointsArray3D[i][0]);
+		yArray.push(pointsArray3D[i][1]);
+		zArray.push(pointsArray3D[i][2]);
+	    }
+
+	    var xLength = Math.max.apply(Math, xArray) - Math.min.apply(Math, xArray);
+	    var yLength = Math.max.apply(Math, yArray) - Math.min.apply(Math, yArray);
+	    var zLength = Math.max.apply(Math, zArray) - Math.min.apply(Math, zArray);
+
+	    return [xLength, yLength, zLength];
+
+	},
+	getAnnoCenter:function(pointsArray3D){
+	    //SHOULD REALLY BE INSIDE THE annoObject CLASS
+
+	    var xSum = 0, ySum = 0, zSum = 0;
+
+	    for(var i = 0; i < pointsArray3D.length; i++){
+		xSum += pointsArray3D[i][0];
+		ySum += pointsArray3D[i][1];
+		zSum += pointsArray3D[i][2];
+	    }
+
+	    return([xSum/8, ySum/8, zSum/8]);
+	
 	},
 	setToBlack:function(){	    
 	    

@@ -5,6 +5,10 @@ TODO:
 HIGH PRIORITY:
 
 - implement annotation!!! SEE BELOW
+
+- WORK ON SMOOTHER INTERACTION - MOUSE-BASED... currently very slow, 
+  compared to XTK navigation
+
 - hook up mouse keys in Chrome
 - talk to Ben Glocker about color lookups, when brightness is being applied
 - talk to James Booth about annotation software

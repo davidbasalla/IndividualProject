@@ -441,26 +441,31 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 
 			// setting the edge length can also be skipped since 20 is the default
-			/*cube.lengthX = 13;
+			cube.lengthX = 13;
 			cube.lengthY = 43;
 			cube.lengthZ = 22;
-			cube.center = [-5, -3, -42];*/
 
+
+			cube.center = [-5, -3, -42];
+
+			/*
 			cube.lengthX = 10;
 			cube.lengthY = 70;
 			cube.lengthZ = 15;
-			cube.center = [-85, -120, 55];
+			cube.center = [-85, -120, 55];*/
 			
 			// [1,1,1] (== white) is also the default so this can be skipped aswell
 			cube.color = [1, 0, 0];
 			cube.type = "LINES";
 			
-			_this.viewer3D.add(cube); // add the cube to the renderer
+
 
 
 
 			_this.viewer3D.add(_this.volume);
 			_this.viewer3D.render();
+
+			//_this.viewer3D.add(cube); // add the cube to the renderer
 		    }
 		}
 

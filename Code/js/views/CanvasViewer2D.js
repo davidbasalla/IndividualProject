@@ -89,7 +89,12 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		    var x = this.mouseXPrev - e.clientX;
 		    var y = this.mouseYPrev - e.clientY;
 
-		    Backbone.trigger('pan', [x, y, this.currentLayerItemTop, this.mode]);
+
+		    //Backbone.trigger('pan', [x, y, this.currentLayerItemTop, this.mode]);
+
+		    //tap into renderer directly, should be faster!
+		    this.Xrenderer.camera.view[12] += -x/4;
+		    this.Xrenderer.camera.view[13] += y/4;
 
 		    this.mouseXPrev = e.clientX;
 		    this.mouseYPrev = e.clientY;
@@ -204,7 +209,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    };
 	},
 	setAnnotations:function(annoArray){
-	    console.log('CanvasViewer2D.setAnnotations()');
+	    //console.log('CanvasViewer2D.setAnnotations()');
 	    //NEED TO FORCE THIS TO REDRAW WHENEVER CHANGING INDEX...
 	    
 	    //wipe local array
