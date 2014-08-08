@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<annotation>
+  <shape>Cube
+    <cube>
+      <points>
+	<point>
+	  <X>95</X>
+	  <Y>100</Y>
+	  <Z>45</Z>
+	</point>
+	<point>
+	  <X>95</X>
+	  <Y>170</Y>
+	  <Z>45</Z>
+	</point>
+	<point>
+	  <X>95</X>
+	  <Y>170</Y>
+	  <Z>30</Z>
+	</point>	
+	<point>
+	  <X>95</X>
+	  <Y>100</Y>
+	  <Z>30</Z>
+	</point>
+	<point>
+	  <X>85</X>
+	  <Y>100</Y>
+	  <Z>45</Z>
+	</point>
+	<point>
+	  <X>85</X>
+	  <Y>170</Y>
+	  <Z>45</Z>
+	</point>
+	<point>
+	  <X>85</X>
+	  <Y>170</Y>
+	  <Z>30</Z>
+	</point>	
+	<point>
+	  <X>85</X>
+	  <Y>100</Y>
+	  <Z>30</Z>
+	</point>
+      </points>
+    </cube>
+  </shape>      
+
+  <color>
+    #00FFAA
+  </color>
+
+  <label>test label</label>
+
+</annotation>

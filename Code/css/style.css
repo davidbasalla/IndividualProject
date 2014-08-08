@@ -110,6 +110,13 @@ html, body {
     float: right;
     float: up;
 }
+.annoButton{
+    width: 32%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
 .textBold{
     font-weight:bold
 }

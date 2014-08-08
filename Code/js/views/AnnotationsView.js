@@ -1,33 +1,37 @@
-define(["text!templates/Annotation.html"], function(AnnotationTemplate) {
+define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(AnnotationTemplate, AnnoItemView) {
     
     var AnnotationView = Backbone.View.extend({
 	//define the template
 	template: _.template(AnnotationTemplate),
-	initialize:function() {
+	initialize:function(options) {
 	    this.currentItem = null;//item for detecting changes
+	    this.layersModel = options.layersModel;
+
+	    //array for keeping track of annoLayerItemViews
+	    this.annoLayerViews = [];
 
 	    this.render();
 	},	
 	events: {	    
-	    'change input#xmlInput': 'xmlFileSelected',
+	    'change input#xmlInput': 'jsonFileSelected',	    
+	    'click button#loadAnnoFile': 'loadXmlFile',
 	},
 	render:function() {
 
 	    this.$el.html(this.template);
-
+	    $('#xmlInput', this.el).hide();
+	},	
+	loadXmlFile: function(event){
+	    //trigger the hidden fileLoader
+	    $('#xmlInput',this.el).trigger('click');
+	    event.stopPropagation(); 
 	},
-	xmlFileSelected:function(e){
+	jsonFileSelected:function(e){
 	    console.log('AnnotationView.xmlFileSelected()');
 
 	    console.log(e);
 
 	    var xmlFile = e.currentTarget.files[0];
-
-	    /*
-	      this.currentItem.set({
-	      annoFileName: e.currentTarget.files[0].name,
-	      annoFile : e.currentTarget.files[0]
-	      });*/
 
 	    
 	    //XML FILE READING
@@ -82,7 +86,7 @@ define(["text!templates/Annotation.html"], function(AnnotationTemplate) {
 
 	    //COLOR	    
 	    var color = $(xmlDoc).find('color');
-	    color = color[0].childNodes[0].nodeValue;
+	    color = color[0].childNodes[0].nodeValue.trim();
 
 	    var annoObject = {
 		label: label,
@@ -105,6 +109,43 @@ define(["text!templates/Annotation.html"], function(AnnotationTemplate) {
 
 	    //console.log(this.currentItem.get('annotations'));
 	    //console.log(this.currentItem);
+
+
+	    this.createLayers(annoArray);
+
+	},
+	createLayers:function(annoArray){
+	    console.log('AnnotationView.createLayers()');
+	    console.log(annoArray);
+
+	    //add to annoLayers array
+
+	    for(var i = 0; i < annoArray.length; i++){
+		console.log('Adding layer');
+
+		this.createLayer(annoArray[i]);
+	    }
+
+
+
+	},
+	createLayer:function(annoObject){
+
+	    var annoLayerItem = new AnnoItemView({
+		index: this.annoLayerViews.length,
+		layersModel: this.layersModel, //NEED TO PASS THIS
+		annoObject: annoObject
+	    });
+	    $('#annolayerList', this.el).append(annoLayerItem.render().el);
+
+	    this.annoLayerViews.push(annoLayerItem);
+
+	},
+	updateLayers:function(){
+	    /* FUNCTION FOR MANAGING ARRAY AND INDECES IN CASE OF
+	       OUT OF ORDER DELETION */
+
+
 	},
 	setCurrentItem:function(currentItem){
 	    console.log('AnnotationView.setCurrentItem()');

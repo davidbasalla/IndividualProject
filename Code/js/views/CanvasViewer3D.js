@@ -213,10 +213,7 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	},
 	getAnnoColorArray:function(hexString){
 	    //SHOULD REALLY BE INSIDE THE annoObject CLASS
-
-	    console.log(typeof hexString);
-	    hexString = String(hexString.trim());
-	    console.log(hexString.trim());
+	    //TAKEN THIS FROM STACK OVERFLOW
 
 	    var test = "#00FFAA";
 	    console.log(typeof test);

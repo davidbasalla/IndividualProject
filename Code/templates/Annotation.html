@@ -8,18 +8,22 @@
   <div class="panel-footer">
     <ul class="list-group" id="levelsPanel">
 
-      <p>
+    
+      <button type="button" class="btn btn-default annoButton">New</button> 
+      <button type="button" id="loadAnnoFile" class="btn btn-default annoButton">Load</button>      
+      <button type="button" class="btn btn-default annoButton">Save</button>
 
-	<span class="subMenuHeader">
-	  Annotation Map
-	</span>
-	
-	<input type="file" name="xmlInput" id="xmlInput">
+
+      <!-- HIDDEN FILE PICKER -->
+      <input type="file" name="xmlInput" id="xmlInput">
 	
 	
-      </p>
-      
+
+
+
     </ul>
+    <ul class="list-group" id="annolayerList"></ul>
+
   </div>
 
 </div>

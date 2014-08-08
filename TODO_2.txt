@@ -53,25 +53,41 @@ Plan:
 	  - various options for placing the text, test thoroughly
 	- enable color change
 
-
-
 	- look into 3D viewer notation?
 	  - involved
 	    - use cubes... wireframe render?
 	    - need to be able to add cube on the fly. add support for this...
 
 
-	3.)
+	3.)	  
+	- Switch XML to JSON
+
+	- layer management for annotations
+	  - annotations should be:
+	    - selectable		       	  
+	    - set visibility
+	    - deletable
+	    - loadable
+	    - editable
+
+
+
+
+
+	4.)
 	- enable modification of notation - hovering - TRICKY!!
 	- implement modification of class
 	- implement saving out of document (XML, JSON)
 
 
+	5.) - CLEANUP
+	- update display when traversing
+	- be able to remove cubes when turning annotations on and off!
+
 	-----------------------------------------------------------------------
 
 	THINGS TO LOOK INTO LATER:
 	- anyway to improve performance when navigating?
-	- cater for case when label can not be shown up top
 	- rescale text when zooming?
 	- improve point sorting for cube!
 	- be able to remove cubes when turning annotations on and off!
