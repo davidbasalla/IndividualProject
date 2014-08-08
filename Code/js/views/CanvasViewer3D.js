@@ -64,7 +64,7 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 		this.mouseX = e.clientX - this.canvas.offsetLeft;
 		this.mouseY = e.clientY - this.canvas.offsetTop;
 
-		if(e.buttons == 1){
+		if(e.button == 0){
 		    //rotating - LEFT CLICK
 		
 		    Backbone.trigger('rotate', 
@@ -76,7 +76,7 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 		    this.mouseXPrev = this.mouseX;
 		    this.mouseYPrev = this.mouseY;
 		}
-		else if(e.buttons == 4){
+		else if(e.button == 1){
 		    //panning - MIDDLE MOUSE CLICK
 		    Backbone.trigger('pan3D', 
 				     [this.mouseXPrev - this.mouseX,
@@ -87,7 +87,7 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 		    this.mouseXPrev = this.mouseX;
 		    this.mouseYPrev = this.mouseY;
 		}
-		else if(e.buttons == 2){
+		else if(e.button == 2){
 		    //zooming - RIGHT CLICK		   
 		    Backbone.trigger('zoom3D', 
 				     [false,

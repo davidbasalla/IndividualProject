@@ -60,7 +60,8 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    $(e.target).focus();
 	},
 	mouseHandler:function(e){
-
+	    console.log('mouseHandler');
+	    console.log(e);
 
 	    if(this.mouseDown){
 		this.mouseX = e.clientX - this.canvas.offsetLeft;
@@ -71,7 +72,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		    
 		    this.showLine = true;
 		}
-		else if(e.buttons == 1){
+		else if(e.button == 0){
 
 		    this.traversing = true;
 
@@ -82,7 +83,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 				      this.mode]);
 		    this.setAnnotations(this.annotations);
 		}
-		else if(e.buttons == 4){
+		else if(e.button == 1){
 		    //console.log('Panning!');
 
 		    //return normalised/relative mouse data
@@ -101,7 +102,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 		    this.setAnnotations(this.annotations);
 		}
-		else if(e.buttons == 2){
+		else if(e.button == 2){
 		    //console.log('Zooming!');
 
 		    //return normalised/relative mouse data

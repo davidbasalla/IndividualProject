@@ -9,9 +9,8 @@ HIGH PRIORITY:
 - WORK ON SMOOTHER INTERACTION - MOUSE-BASED... currently very slow, 
   compared to XTK navigation
 
-- hook up mouse keys in Chrome
+- hook up mouse keys in Chrome!!
 - talk to Ben Glocker about color lookups, when brightness is being applied
-- talk to James Booth about annotation software
 - FIX THE AUTOSCALING WHEN SWITCHING VIEWS
 
 
@@ -75,6 +74,7 @@ Plan:
 	- cater for case when label can not be shown up top
 	- rescale text when zooming?
 	- improve point sorting for cube!
+	- be able to remove cubes when turning annotations on and off!
 
 
 
