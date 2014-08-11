@@ -9,3 +9,23 @@ X
 *.txt#
 
 *.js#
+
+Colorpicker/colorpicker-master/demo.html
+
+Colorpicker/colorpicker-master/bower.json
+
+Colorpicker/colorpicker-master/i18n/jquery.ui.colorpicker-de.js
+
+Colorpicker/colorpicker-master/i18n/jquery.ui.colorpicker-en.js
+
+Colorpicker/colorpicker-master/i18n/jquery.ui.colorpicker-fr.js
+
+Colorpicker/colorpicker-master/i18n/jquery.ui.colorpicker-nl.js
+
+Colorpicker/colorpicker-master/i18n/jquery.ui.colorpicker-ru.js
+
+Colorpicker/colorpicker-master/i18n/jquery.ui.colorpicker-pt-br.js
+
+Colorpicker/colorpicker-master/images/128/map.png
+
+Colorpicker/colorpicker-master/images/bar-alpha.png

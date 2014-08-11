@@ -14,6 +14,8 @@ require.config({
 	templates: "../templates",
 	xtk: "../../X/xtk-deps",
 	closure: "../../X/lib/google-closure-library/closure/goog/base",
+	//colorpicker: "../../Colorpicker/colorpicker-master/jquery.colorpicker",
+	colorpicker: "../../Colorpicker/colpick/js/colpick",
 	//xtk: "../../X/utils/xtk",
     },
     shim: {
@@ -33,8 +35,11 @@ require.config({
 	    deps: ['jquery'],
 	    exports: "Bootstrap"
 	},
+	"colorpicker":{
+	    deps: ['jquery', 'jqueryUI']
+	},
 	"views/MainView": {
-	    deps: ['Backbone','Bootstrap','jqueryUI']
+	    deps: ['Backbone','Bootstrap','jqueryUI','colorpicker']
 	},
     },
 });

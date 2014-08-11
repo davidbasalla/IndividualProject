@@ -126,3 +126,13 @@ html, body {
     padding-left: 15px;
     padding-right: 0px;
 }
+.color-box {    
+    display: inline-block;
+    width:23px;
+    height:23px;    
+    padding-left: 10px;
+    padding-right: 10px;    
+    margin-right: 5px;
+    margin-left: 5px;
+    border: 1px solid black;
+}

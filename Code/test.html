@@ -1,6 +1,19 @@
-<script src="../X/lib/google-closure-library/closure/goog/base.js"></script> <script src="../X/xtk-deps.js"></script>
+<html>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js"></script>
+<script src="../Colorpicker/colorpicker-master/jquery.colorpicker.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<link href="../Colorpicker/colorpicker-master/jquery.colorpicker.css" rel="stylesheet" type="text/css"/>
+
+
+  <input type="text" id="colorpicker-popup" value="fe9810"> 
+
 <script>
-    goog.require("X.vector");
- </script>
-<script type="text/javascript" src="demo.js"></script>
-x
+$( function() {
+$('#colorpicker-popup').colorpicker();
+});
+</script>
+
+</body>
+</html>

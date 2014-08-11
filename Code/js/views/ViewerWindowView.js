@@ -422,9 +422,13 @@ define(["views/CanvasViewer3D",
 		   console.log('ViewerWindowView.setAnnotations()');
 		   //passing annotation item to CanvasViewers
 
+		   //fill the value in case the trigger event was called
+		   //explicitely
+		   if(!value)
+		       value = this.currentItem.get('annotations');
+
 		   //check if array is non-empty
 		   if(value){
-		   //if(this.currentItem.get('annotations')){
 		       var annoArray = value;
 		       console.log(annoArray);
 		       

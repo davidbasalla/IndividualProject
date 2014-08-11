@@ -124,4 +124,12 @@ issue that a lookup in the current way is very absolute, not really a lookup but
 
 - reinstated the Chrome mouse controls, works for FIREFOX also
   ODD that I had to change it previously, maybe something to do with
-  the Linux version of Firefox? Mouse clicks handled different on that machine?
+  the Linux version of Firefox? Mouse clicks handled different on that
+  machine?
+
+
+11/08/14:
+=========
+
+- when loading new Annotation, do I do a complete wipe, or just leave
+  it as a sort of import?

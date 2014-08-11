@@ -18,6 +18,7 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    //event for toggling visibility
 	    'click button#delete': 'deleteLayer',
 	    'change input#filePicker': 'fileLoaded',
+	    'change input#labelInput': 'setLabelText',
 	    'click': 'clickSelected',
 	},
 	render: function(){
@@ -31,6 +32,26 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    //template - set title
 	    this.$el.html(this.template);
 
+	    //should set the color to the appropriate color
+	    $('.color-box', this.el).css('background-color', this.annoObject.color);
+
+	    //$("#colorpicker-popup", this.el).colorpicker();
+	    $("#picker", this.el).colpick();
+
+	    var _this = this;
+	    $('.color-box', this.el).colpick({
+		colorScheme:'dark',
+		layout:'rgbhex',
+		color:'ff8800',
+		onSubmit:function(hsb,hex,rgb,el) {
+		    $(el).css('background-color', '#'+hex);
+		    $(el).colpickHide();
+		    _this.setColor(hex);
+		}
+	    })
+
+
+
 	    //set the label
 	    $('#labelInput', this.el).val(this.annoObject.label);
 
@@ -42,7 +63,7 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    //console.log('LayerItemView.clickSelected()');
 	    //console.log(e.target);
 
-	    this.layersView.setSelected(this.model, this);
+	    //this.layersView.setSelected(this.model, this);
 	},
 	setSelected: function(){
 	    //console.log('LayerItemView.setSelected()');
@@ -71,6 +92,27 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    //causing multiple click events!
 	    event.stopPropagation(); 
 	},
+	setLabelText:function(e){
+	    console.log(e);
+	    
+	    //set the current
+	    this.annoObject.label = e.target.value;
+	    this.parent.update();
+
+
+
+	},
+	setColor:function(hex){
+	    console.log(hex.toUpperCase());	    
+
+	    this.annoObject.color = '#' + hex.toUpperCase();
+	    this.parent.update();
+	}
+	
+
+
+
+
     });
 
     return AnnotationItemView;

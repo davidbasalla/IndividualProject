@@ -28,6 +28,8 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 
 		this.$el.html(this.template1);
 
+		console.log($( "#rangeSlider1" ));
+
 		$( "#rangeSlider1" ).slider({
 		    range: true,
 		    min: 0,

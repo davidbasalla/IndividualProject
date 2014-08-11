@@ -7,6 +7,10 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    this.currentItem = null;//item for detecting changes
 	    this.layersModel = options.layersModel;
 
+
+	    _.bindAll(this, 'fileSelected');
+
+
 	    //array for keeping track of annoLayerItemViews
 	    this.annoLayerViews = [];
 
@@ -20,8 +24,22 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 
 	    this.$el.html(this.template);
 	    $('#xmlInput', this.el).hide();
+
+	    console.log(document.getElementById('xmlInput'));
+	    var input = document.getElementById('xmlInput');
+	    
+	    input.onclick = function () {
+		console.log("CLEAR!!!");
+		this.value = null;
+	    };
+
+
+
 	},	
 	loadXmlFile: function(event){
+	    console.log('AnnotationView.loadXmlFile()');
+	    console.log(this);
+
 	    //trigger the hidden fileLoader
 	    $('#xmlInput',this.el).trigger('click');
 	    event.stopPropagation(); 
@@ -43,6 +61,8 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    }
 
 	    reader.readAsText(file);
+
+	    //reset value of fileLoader to null
 
 	},
 	parseJSON:function(inputString){
@@ -89,24 +109,14 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    var annoObject = annoItemView.annoObject;
 	    var annoArray =  _.clone(this.currentItem.get('annotations'));
 
-	    console.log(_.clone(this.currentItem.get('annotations')));
-
-	    console.log("DELETING:");
-	    console.log(annoObject);
-	    console.log(annoItemView);
-	    console.log(annoItemView.index);
-
 	    annoArray.splice(annoItemView.index, 1);
 		    
 	    this.currentItem.set({
 		annotations: annoArray,
 	    }); 
 
-	    console.log(this.currentItem.get('annotations'));
-
 	    this.annoLayerViews.splice(annoItemView.index, 1);
 	    $(annoItemView.el).remove();
-	    console.log(this.annoLayerViews);
 
 	    this.updateLayers();
 
@@ -122,6 +132,29 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    }
 
 
+
+	},
+	update:function(){
+	    //update the model with current annotations
+	    
+	    //step through the layerViews
+	    //copy the objects into array
+	    //push array into current model
+
+	    //var annoArray =  _.clone(this.currentItem.get('annotations'));
+	    annoArray = [];
+	    
+
+	    for(var i = 0; i < this.annoLayerViews.length; i++){
+		annoArray.push(this.annoLayerViews[i].annoObject);
+	    }
+	    
+	    console.log(annoArray);
+
+	    this.currentItem.set({
+		annotations: annoArray,
+	    });  
+	    this.currentItem.trigger("change:annotations");
 
 	},
 	setCurrentItem:function(currentItem){
