@@ -70,6 +70,12 @@ Plan:
 	    - loadable
 	    - editable
 
+	    - PLAN:
+	      - delete Layer
+	      - edit Label name
+	      - edit color
+
+
 
 
 

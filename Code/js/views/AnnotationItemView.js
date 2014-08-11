@@ -7,9 +7,11 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	initialize: function(options){
 
 	    console.log('AnnoLayerItemView.init()');
+	    this.index = options.index;
 	    this.model = options.model;
 	    this.annoObject = options.annoObject;
 	    this.layersModel = options.layersModel;
+	    this.parent = options.annosView;
 	    console.log(this.annoObject);
 	},
 	events: {
@@ -54,25 +56,16 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    $(this.el).removeClass('layer-selected');
 	    $(this.el).addClass('layer');
 	},
-	fileLoaded: function(e){
-	    console.log('fileLoaded()')
-	    //add text to layer preview
-	    $('#textHolder', this.el).html(e.currentTarget.files[0].name);
+	deleteLayer: function(event){	    
+	    console.log('AnnonationItemView.deleteLayer()');
+	    //this.layersView.removeItem(this.model, this);
+	    //$(this.el).remove();
 
-	    this.model.set({
-		fileName: e.currentTarget.files[0].name,
-		file : e.currentTarget.files[0]
-	    });
+	    this.parent.deleteLayerView(this);
 
-	    //console.log(this.model);
-	    
-	    //trigger event that file has loaded, expected by XtkViewer
-	    //send file along as a parameter
-	    //Backbone.trigger('fileLoaded', [e.currentTarget.files[0], this.model.attributes.index]);
-	},
-	deleteLayer: function(event){
-	    this.layersView.removeItem(this.model, this);
-	    $(this.el).remove();
+	    //remove object from array
+	    //remove layer from display
+
 
 	    //cool stuff, stops the event from continuing (thereby
 	    //causing multiple click events!

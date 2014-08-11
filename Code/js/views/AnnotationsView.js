@@ -58,7 +58,7 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    for(var i = 0; i < annos.length; i++){
 		console.log('ADDING ANNOTATION');
 		annoArray.push(annos[i]);
-		this.createLayer(annos[i]);
+		this.createLayerView(annos[i]);
 	    }
 	    
 	    //update current item with loaded objects
@@ -67,21 +67,60 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    }); 
 
 	},
-	createLayer:function(annoObject){
+	createLayerView:function(annoObject){
 
 	    var annoLayerItem = new AnnoItemView({
 		index: this.annoLayerViews.length,
 		layersModel: this.layersModel, //NEED TO PASS THIS
-		annoObject: annoObject
+		annoObject: annoObject,
+		annosView: this
 	    });
 	    $('#annolayerList', this.el).append(annoLayerItem.render().el);
 
 	    this.annoLayerViews.push(annoLayerItem);
 
 	},
+	deleteLayerView:function(annoItemView){
+	    console.log('AnnotationsView.deleteLayer()');
+
+	    //remove object from array
+	    //force a reevaluation of the XTKRenderers
+	    
+	    var annoObject = annoItemView.annoObject;
+	    var annoArray =  _.clone(this.currentItem.get('annotations'));
+
+	    console.log(_.clone(this.currentItem.get('annotations')));
+
+	    console.log("DELETING:");
+	    console.log(annoObject);
+	    console.log(annoItemView);
+	    console.log(annoItemView.index);
+
+	    annoArray.splice(annoItemView.index, 1);
+		    
+	    this.currentItem.set({
+		annotations: annoArray,
+	    }); 
+
+	    console.log(this.currentItem.get('annotations'));
+
+	    this.annoLayerViews.splice(annoItemView.index, 1);
+	    $(annoItemView.el).remove();
+	    console.log(this.annoLayerViews);
+
+	    this.updateLayers();
+
+	    //remove object from array
+	    //remove layer from display
+	},
 	updateLayers:function(){
 	    /* FUNCTION FOR MANAGING ARRAY AND INDECES IN CASE OF
 	       OUT OF ORDER DELETION */
+
+	    for(var i = 0; i < this.annoLayerViews.length; i++){
+		this.annoLayerViews[i].index = i;
+	    }
+
 
 
 	},

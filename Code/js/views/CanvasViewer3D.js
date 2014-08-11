@@ -153,7 +153,30 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 	    //convert 3D data to an XCube!
 
+	    //wipe the current annotations
 	    this.annotations = [];
+	    //remove all cubes!!
+	    console.log(this.Xrenderer.topLevelObjects);
+	    console.log(this.Xrenderer.objects);
+
+	    //DELETE ALL OBJECTS AND TOPLEVEL OBJECTS
+	    for(var j = 0; j < this.Xrenderer.topLevelObjects.length; j++){
+		console.log(this.Xrenderer.topLevelObjects[j]);
+		if(this.Xrenderer.topLevelObjects[j]._classname == "cube"){
+		    this.Xrenderer.topLevelObjects.splice(j, 1);		    
+		    j -= 1;
+		}
+	    }
+
+	    for(var j = 0; j < this.Xrenderer.objects._array.length; j++){
+		if(this.Xrenderer.objects._array[j]._classname == "cube"){
+		    console.log("DELETE from objects");		    
+		    
+		    this.Xrenderer.objects.remove(this.Xrenderer.objects._array[j]);
+		    j -= 1;
+		}
+	    }
+
 
 	    for(var i = 0; i < annoArray.length; i++){
 		//create new object to avoid issues with same reference objects
@@ -187,8 +210,6 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 		cube.center = [x, y, z];
 
-		console.log('CUBE CENTER = ');
-		console.log(cube.center);
 
 		//determine dimensions
 
@@ -200,8 +221,6 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 		console.log(this.getAnnoColorArray(annoObject["color"]));
 		cube.color = this.getAnnoColorArray(annoObject["color"]);
-		//console.log(cube.color);
-
 		//add cube to viewer
 
 		this.Xrenderer.add(cube);
