@@ -71,9 +71,10 @@ Plan:
 	    - editable
 
 	    - PLAN:
-	      - delete Layer
-	      - edit Label name
-	      - edit color
+	      - delete Layer (DONE)
+	      - edit Label name (DONE)
+	      - edit color (DONE)
+	      - save out changes!!
 
 
 

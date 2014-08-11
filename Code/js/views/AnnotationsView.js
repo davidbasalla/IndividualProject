@@ -18,7 +18,8 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	},	
 	events: {	    
 	    'change input#xmlInput': 'fileSelected',	    
-	    'click button#loadAnnoFile': 'loadXmlFile',
+	    'click button#loadAnnoFile': 'loadXmlFile',	    
+	    'click button#saveAnnoFile': 'saveXmlFile',
 	},
 	render:function() {
 
@@ -32,16 +33,44 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 		console.log("CLEAR!!!");
 		this.value = null;
 	    };
+	},
+	saveXmlFile:function(event){
+	    console.log('AnnotationView.saveXmlFile()');
+
+	    var annosArray = this.currentItem.get('annotations');
+	    console.log(annosArray);
+	    console.log(JSON.stringify(annosArray));
+
+	    var text = JSON.stringify(annosArray);
+	    var data = new Blob([text], {type: 'text/plain'});
+	    var textFile = null;
+
+	    // If we are replacing a previously generated file we need to
+	    // manually revoke the object URL to avoid memory leaks.
+	    if (textFile !== null) {
+		window.URL.revokeObjectURL(textFile);
+	    }
+
+	    textFile = window.URL.createObjectURL(data);
+
+	    //return textFile;
 
 
+	    var link = document.getElementById('downloadlink');
+	    link.href = textFile;
+	    //link.style.display = 'block';	    
 
-	},	
+	    link.click();
+	    
+
+	    //event.stopPropagation(); 
+	},
 	loadXmlFile: function(event){
 	    console.log('AnnotationView.loadXmlFile()');
 	    console.log(this);
 
 	    //trigger the hidden fileLoader
-	    $('#xmlInput',this.el).trigger('click');
+	    $('#xmlInput', this.el).trigger('click');
 	    event.stopPropagation(); 
 	},
 	fileSelected:function(e){
@@ -69,7 +98,6 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    console.log('AnnotationView.parseJSON()');
 
 	    var annos = JSON.parse(inputString);
-	    annos = annos.annotations;
 	    console.log(annos);
 	    
 	    var annoArray = _.clone(this.currentItem.get('annotations'));
