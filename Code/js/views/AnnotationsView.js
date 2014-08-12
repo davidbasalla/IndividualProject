@@ -7,6 +7,9 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    this.currentItem = null;//item for detecting changes
 	    this.layersModel = options.layersModel;
 
+	    //current annotation array
+	    this.annotations = [];
+
 
 	    _.bindAll(this, 'fileSelected');
 
@@ -66,15 +69,7 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 		] 
 	    };
 	    
-	    var annoArray = _.clone(this.currentItem.get('annotations'));
-	    
-	    //loop through, add to new array and create a display layer
-	    annoArray.push(annoObject);
-	    
-	    //update current item with loaded objects
-	    this.currentItem.set({
-		annotations: annoArray,
-	    }); 	    
+	    this.currentItem.addAnnos([annoObject]);	    
 	    this.createLayerView(annoObject);
 
 	},
@@ -146,22 +141,12 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    console.log('AnnotationView.parseJSON()');
 
 	    var annos = JSON.parse(inputString);
-	    console.log(annos);
-	    
-	    var annoArray = _.clone(this.currentItem.get('annotations'));
-	    
-	    //loop through, add to new array and create a display layer
+	    this.currentItem.setAnnos(annos);
+
+	    //loop through,create a display layer
 	    for(var i = 0; i < annos.length; i++){
-		console.log('ADDING ANNOTATION');
-		annoArray.push(annos[i]);
 		this.createLayerView(annos[i]);
 	    }
-	    
-	    //update current item with loaded objects
-	    this.currentItem.set({
-		annotations: annoArray,
-	    }); 
-
 	},
 	createLayerView:function(annoObject){
 
@@ -178,26 +163,15 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	},
 	deleteLayerView:function(annoItemView){
 	    console.log('AnnotationsView.deleteLayer()');
-
-	    //remove object from array
-	    //force a reevaluation of the XTKRenderers
 	    
-	    var annoObject = annoItemView.annoObject;
-	    var annoArray =  _.clone(this.currentItem.get('annotations'));
+	    //remove object from currentItem.annotations
+	    this.currentItem.removeAnno(annoItemView.index);
 
-	    annoArray.splice(annoItemView.index, 1);
-		    
-	    this.currentItem.set({
-		annotations: annoArray,
-	    }); 
-
+	    //remove the layerView
 	    this.annoLayerViews.splice(annoItemView.index, 1);
 	    $(annoItemView.el).remove();
 
 	    this.updateLayers();
-
-	    //remove object from array
-	    //remove layer from display
 	},
 	updateLayers:function(){
 	    /* FUNCTION FOR MANAGING ARRAY AND INDECES IN CASE OF
@@ -206,11 +180,22 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    for(var i = 0; i < this.annoLayerViews.length; i++){
 		this.annoLayerViews[i].index = i;
 	    }
-
-
-
 	},
-	update:function(){
+	updateFromModel:function(model, value, options){
+	    console.log('AnnotationsView.updateFromModel()');
+
+	    //step through layerViews and update their objects!
+	    //or just remove and redraw?
+
+	    console.log(model);
+	    console.log(value);
+
+
+	    for(var i = 0; i < this.annoLayerViews.length; i++){
+		this.annoLayerViews[i].annoObject = value[i];
+	    }
+	},
+	updateModel:function(){
 	    //update the model with current annotations
 	    
 	    //step through the layerViews
@@ -218,28 +203,18 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    //push array into current model
 
 	    //var annoArray =  _.clone(this.currentItem.get('annotations'));
-	    annoArray = [];
-	    
-
+	    var annoArray = [];
 	    for(var i = 0; i < this.annoLayerViews.length; i++){
 		annoArray.push(this.annoLayerViews[i].annoObject);
 	    }
 	    
-	    console.log(annoArray);
-
-	    this.currentItem.set({
-		annotations: annoArray,
-	    });  
-	    this.currentItem.trigger("change:annotations");
-
+	    this.currentItem.setAnnos(annoArray);
 	},
 	setCurrentItem:function(currentItem){
 	    console.log('AnnotationView.setCurrentItem()');
 
 	    if(this.currentItem){
-		this.currentItem.off("change:indexX", this.setIndexX, this);
-		this.currentItem.off("change:indexY", this.setIndexY, this);
-		this.currentItem.off("change:indexZ", this.setIndexZ, this);
+		this.currentItem.off("change:annotations", this.updateFromModel, this);
 	    }
 	    
 	    //get new object
@@ -247,19 +222,17 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    
 	    //turn ON triggers for current object
 	    if(this.currentItem){
-		//console.log('LISTENING TO MODEL:');
-		//console.log(this.currentItem);
-
-		this.currentItem.on("change:indexX", this.setIndexX, this);
-		this.currentItem.on("change:indexY", this.setIndexY, this);
-		this.currentItem.on("change:indexZ", this.setIndexZ, this);
+		this.currentItem.on("change:annotations", this.updateFromModel, this);
 	    }
-	    //make it listen to changes in the currentitem model
 
 	    this.setSettings(currentItem);
 	},
 	setSettings:function(currentItem){
+	    //would have to reset the annotations here!!
+
+
 	    //set text value
+	    /*
 	    var wL = currentItem.get("windowLow");
 	    var wH = currentItem.get("windowHigh");
 	    var tL = currentItem.get("thresholdLow");
@@ -284,6 +257,7 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    $("#rangeSlider2").slider('values',0,tL); 
 	    $("#rangeSlider2").slider('values',1,tH);
 	    $("#opacitySlider").slider('value',o);
+	    */
 	},
     });
     return AnnotationView;

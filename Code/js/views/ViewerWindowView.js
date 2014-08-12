@@ -430,7 +430,7 @@ define(["views/CanvasViewer3D",
 		   //check if array is non-empty
 		   if(value){
 		       var annoArray = value;
-		       console.log(annoArray);
+		       //console.log(annoArray);
 		       
 		       this.viewer0.setAnnotations(annoArray);
 		       this.viewer1.setAnnotations(annoArray);

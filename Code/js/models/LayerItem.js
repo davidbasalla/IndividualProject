@@ -26,7 +26,33 @@ define(function() {
 	    opacity: 100,
 	    colortable: null,
 	    annotations: [],
-	}
+	},
+	setAnnos:function(annoArray){
+	    //console.log('LayersItem.getCurrentItem()');
+	    
+	    this.set({
+		annotations: annoArray
+	    });
+	    this.trigger("change:annotations");
+	},
+	addAnnos:function(newArray){
+
+	    //clone it to trigger the change
+	    var oldArray = _.clone(this.get('annotations'));
+
+	    //add new array
+	    for(var i = 0; i < newArray.length; i++){
+		oldArray.push(newArray[i])
+	    };
+	    
+	    this.set({annotations: oldArray});
+	},
+	removeAnno:function(index){
+
+	    var oldArray = _.clone(this.get('annotations'));
+	    oldArray.splice(index, 1);
+	    this.set({annotations: oldArray});
+	},
     });
     return LayerItem;
 });

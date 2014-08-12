@@ -97,7 +97,7 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    
 	    //set the current
 	    this.annoObject.label = e.target.value;
-	    this.parent.update();
+	    this.parent.updateModel();
 
 
 
@@ -106,7 +106,7 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    console.log(hex.toUpperCase());	    
 
 	    this.annoObject.color = '#' + hex.toUpperCase();
-	    this.parent.update();
+	    this.parent.updateModel();
 	}
 	
 

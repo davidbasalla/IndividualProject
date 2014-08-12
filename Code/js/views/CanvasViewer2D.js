@@ -404,11 +404,11 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		
 	    //reset the points!
 	    parent["points3D"] = points3D;
-	    console.log(this.annotations);
+	    //console.log(this.annotations);
 	    this.currentLayerItemTop.set({
 		annotations: this.annotations
 	    });
-	    console.log(this.currentLayerItemTop.get('annotations'));
+	    //console.log(this.currentLayerItemTop.get('annotations'));
 
 	},
 	convertPoints:function(points3D){
