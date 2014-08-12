@@ -20,26 +20,68 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    'change input#xmlInput': 'fileSelected',	    
 	    'click button#loadAnnoFile': 'loadXmlFile',	    
 	    'click button#saveAnnoFile': 'saveXmlFile',
+	    'click button#newAnnotation': 'newAnnotation',
 	},
 	render:function() {
 
 	    this.$el.html(this.template);
 	    $('#xmlInput', this.el).hide();
 
-	    console.log(document.getElementById('xmlInput'));
 	    var input = document.getElementById('xmlInput');
 	    
+	    //clear filepicker for same input again
 	    input.onclick = function () {
-		console.log("CLEAR!!!");
 		this.value = null;
 	    };
 	},
+	newAnnotation:function(){
+	    /* when creating a new annotation, place it in the
+	       center of the current indeces, with a given size as
+	       offset. Make sure to take bad verts into account */
+
+
+	    console.log('AnnotationView.newAnnotation()');
+	    
+	    
+	    //create a new annotation object
+
+	    var curX = this.currentItem.get('indexX');
+	    var curY = this.currentItem.get('indexY');
+	    var curZ = this.currentItem.get('indexZ');
+	    var offset = 5;
+
+	    var annoObject = {
+		"shape":"cube",
+		"label":"annotation_" + this.currentItem.get('annotations').length,
+		"color":"#888888",
+		"points3D":[
+		    [curX - offset, curY - offset, curZ + offset],
+		    [curX - offset, curY + offset, curZ + offset],
+		    [curX - offset, curY + offset, curZ - offset],
+		    [curX - offset, curY - offset, curZ - offset],  
+		    [curX + offset, curY - offset, curZ + offset],
+		    [curX + offset, curY + offset, curZ + offset],
+		    [curX + offset, curY + offset, curZ - offset],
+		    [curX + offset, curY - offset, curZ - offset]
+		] 
+	    };
+	    
+	    var annoArray = _.clone(this.currentItem.get('annotations'));
+	    
+	    //loop through, add to new array and create a display layer
+	    annoArray.push(annoObject);
+	    
+	    //update current item with loaded objects
+	    this.currentItem.set({
+		annotations: annoArray,
+	    }); 	    
+	    this.createLayerView(annoObject);
+
+	},
 	saveXmlFile:function(event){
 	    console.log('AnnotationView.saveXmlFile()');
-
+	    
 	    var annosArray = this.currentItem.get('annotations');
-	    console.log(annosArray);
-	    console.log(JSON.stringify(annosArray));
 
 	    var text = JSON.stringify(annosArray);
 	    var data = new Blob([text], {type: 'text/plain'});
@@ -67,7 +109,6 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	},
 	loadXmlFile: function(event){
 	    console.log('AnnotationView.loadXmlFile()');
-	    console.log(this);
 
 	    //trigger the hidden fileLoader
 	    $('#xmlInput', this.el).trigger('click');
@@ -75,8 +116,6 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	},
 	fileSelected:function(e){
 	    console.log('AnnotationView.xmlFileSelected()');
-
-	    console.log(e);
 
 	    var file = e.currentTarget.files[0];
 

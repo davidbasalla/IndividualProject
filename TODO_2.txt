@@ -74,7 +74,8 @@ Plan:
 	      - delete Layer (DONE)
 	      - edit Label name (DONE)
 	      - edit color (DONE)
-	      - save out changes!!
+	      - save out changes!! (DONE!)
+	      - create a new annotation (DONE)
 
 
 

@@ -133,3 +133,18 @@ issue that a lookup in the current way is very absolute, not really a lookup but
 
 - when loading new Annotation, do I do a complete wipe, or just leave
   it as a sort of import?
+- nice progress with JSON annotation loading and saving, BUT probably
+  need to implement a lot more defensive measures to guard against bad
+  inputs!
+- guard against illegal annotation points - cap them? or give warning!
+- seems to be a bit messy of how I'm dealing with the annotationLayers
+  in AnnotationView... should be a single interface for changing them!
+- add visibilty to annotations? could be useful... definitely add
+  them!
+
+
+- INTERACTIVE MANIPULATION OF ANNOTATIONS
+  - tricky, complex subject
+
+  - could use plugin? need to assess difficulty of this...
+  - OR possible to make custom hover tester?

@@ -50,6 +50,7 @@ define(function() {
 
 	    this.mouseDown = false;
 	    this.traversing = false;
+	    this.manipulatorSelected = false;
 
 	    this.annotations = [];
 
