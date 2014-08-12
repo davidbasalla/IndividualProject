@@ -141,7 +141,12 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	setMouseUp:function(e){
 	    this.mouseDown = false;
 	    this.traversing = false;
-	    this.manipulatorSelected = null;
+
+	    if(this.manipulatorSelected){
+		
+		this.updateAnnoPoints3D();
+		this.manipulatorSelected = null;
+	    }
 	},
 	storeMousePos:function(e){
 	    //console.log('storeMousePos');
@@ -330,24 +335,80 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 
 	    parent.labelPos = this.calculateLabelPoint(parent.points2D);
+	},
+	updateAnnoPoints3D:function(){	    
+	    console.log('CanvasViewer2D.updateAnnoPoints3D()');
+	    /*convert new points2D to points3D to save in annotation and update
+	      throughout program */
 
-	    //do related points next
+	    //need to use xy2ijk
+
+	    var points3D = [];
+	    var parent = this.manipulatorSelected.parent;
+
+	    var _x = 0, _y = 1, _z = 2;
+	    if(this.mode == 1){
+		console.log('MODE 1!');
+		_z = 0;
+		_x = 1;
+		_y = 2;
+	    }
+	    /*
+	    else if(this.mode == 2){
+		console.log('MODE 2!');
+		_z = 0;
+		_x = 1;
+		_y = 2;
+	    }*/
+	    
+	    //do depth matching
+	    var maxDepth = 0;
+	    var minDepth = 99999999;
+	    
+	    for(var i = 0; i < parent.points3D.length; i++){
+		
+		if(parent.points3D[i][_z] > maxDepth)
+		    maxDepth = parent.points3D[i][_z];
+		else if(parent.points3D[i][_z] < minDepth)
+		    minDepth = parent.points3D[i][_z];
+	    }
+
+	    console.log('depth = ' + minDepth + ', ' + maxDepth);
 
 
+	    for(var i = 0; i < parent.points2D.length; i++){
+		
+		var _ijk = this.Xrenderer.xy2ijk(parent.points2D[i][0],
+						 parent.points2D[i][1])[0];
+
+		console.log('IJK = ' + _ijk);
+	    
+		var point1 = [0,0,0];
+		point1[_z] = minDepth;
+		point1[_x] = _ijk[_x];
+		point1[_y] = _ijk[_y];
+	    
+		var point2 = [0,0,0];
+		point2[_z] = maxDepth;
+		point2[_x] = _ijk[_x];
+		point2[_y] = _ijk[_y];
 
 
+		console.log(point1);
+		console.log(point2);
 
-	    //reset the manip points
-	    //reset the indeces!
-
-
-
-	    //transform the manipulator to the appropriate position
-	    //handle redrawing, storing, etc
-	    //probably enough to store the data at the end, at mouseup?
-
-
-
+		points3D.push(point1);
+		points3D.push(point2);
+		//convert point to xyk
+	    }
+		
+	    //reset the points!
+	    parent["points3D"] = points3D;
+	    console.log(this.annotations);
+	    this.currentLayerItemTop.set({
+		annotations: this.annotations
+	    });
+	    console.log(this.currentLayerItemTop.get('annotations'));
 
 	},
 	convertPoints:function(points3D){
@@ -388,7 +449,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    }
 	    //do depth matching
 	    var maxDepth = 0;
-	    var minDepth = Number.POSITIVE_INFINITY;
+	    var minDepth = 99999999;
 
 	    for(var i = 0; i < points3D.length; i++){
 

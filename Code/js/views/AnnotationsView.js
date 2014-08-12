@@ -81,7 +81,16 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	saveXmlFile:function(event){
 	    console.log('AnnotationView.saveXmlFile()');
 	    
+	    console.log( this.currentItem.get('annotations'));
+	    
+	    //remove redundancies...
 	    var annosArray = this.currentItem.get('annotations');
+	    for(var i = 0; i < annosArray.length; i++){
+		if(annosArray[i].manipulators)
+		    delete annosArray[i].manipulators;
+	    }
+
+
 
 	    var text = JSON.stringify(annosArray);
 	    var data = new Blob([text], {type: 'text/plain'});
