@@ -1,4 +1,9 @@
-define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(AnnotationTemplate, AnnoItemView) {
+define(["text!templates/Annotation.html", 
+	"classes/Annotation",
+	"views/AnnotationItemView"], 
+       function(AnnotationTemplate, 
+		Annotation,
+		AnnoItemView) {
     
     var AnnotationView = Backbone.View.extend({
 	//define the template
@@ -9,7 +14,6 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 
 	    //current annotation array
 	    this.annotations = [];
-
 
 	    _.bindAll(this, 'fileSelected');
 
@@ -53,25 +57,21 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	    var curZ = this.currentItem.get('indexZ');
 	    var offset = 5;
 
-	    var annoObject = {
-		"shape":"cube",
-		"label":"annotation_" + this.currentItem.get('annotations').length,
-		"color":"#888888",
-		"points3D":[
-		    [curX - offset, curY - offset, curZ + offset],
-		    [curX - offset, curY + offset, curZ + offset],
-		    [curX - offset, curY + offset, curZ - offset],
-		    [curX - offset, curY - offset, curZ - offset],  
-		    [curX + offset, curY - offset, curZ + offset],
-		    [curX + offset, curY + offset, curZ + offset],
-		    [curX + offset, curY + offset, curZ - offset],
-		    [curX + offset, curY - offset, curZ - offset]
-		] 
-	    };
+	    var annoObject = new Annotation();
+	    annoObject.label = "annotation_" + this.currentItem.get('annotations').length;
+	    annoObject.points3D = [[curX - offset, curY - offset, curZ + offset],
+				   [curX - offset, curY + offset, curZ + offset],
+				   [curX - offset, curY + offset, curZ - offset],
+				   [curX - offset, curY - offset, curZ - offset],  
+				   [curX + offset, curY - offset, curZ + offset],
+				   [curX + offset, curY + offset, curZ + offset],
+				   [curX + offset, curY + offset, curZ - offset],
+				   [curX + offset, curY - offset, curZ - offset]
+				  ];
+	    annoObject.print();
 	    
 	    this.currentItem.addAnnos([annoObject]);	    
 	    this.createLayerView(annoObject);
-
 	},
 	saveXmlFile:function(event){
 	    console.log('AnnotationView.saveXmlFile()');
@@ -140,13 +140,23 @@ define(["text!templates/Annotation.html", "views/AnnotationItemView"], function(
 	parseJSON:function(inputString){
 	    console.log('AnnotationView.parseJSON()');
 
-	    var annos = JSON.parse(inputString);
-	    this.currentItem.setAnnos(annos);
+	    var annoString = JSON.parse(inputString);
+	    var annos = [];
 
-	    //loop through,create a display layer
-	    for(var i = 0; i < annos.length; i++){
-		this.createLayerView(annos[i]);
+
+	    //loop through,create a display anno layer
+	    for(var i = 0; i < annoString.length; i++){
+		var annoObj = new Annotation();
+		annoObj.label = annoString[i].label;
+		annoObj.shape = annoString[i].shape;
+		annoObj.color = annoString[i].color;
+		annoObj.points3D = annoString[i].points3D;
+		annos.push(annoObj);
+
+		this.createLayerView(annoString[i]);
 	    }
+	    this.currentItem.setAnnos(annos);
+	    
 	},
 	createLayerView:function(annoObject){
 

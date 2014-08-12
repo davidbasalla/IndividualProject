@@ -1,6 +1,7 @@
 //need to pass a variable here
 
-define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(CanvasViewer2DTemplate, CanvasViewer) {
+define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Annotation"], 
+       function(CanvasViewer2DTemplate, CanvasViewer, Annotation) {
     var CanvasViewer2D = CanvasViewer.extend({
 	template: _.template(CanvasViewer2DTemplate),
 	events: function(){
@@ -133,7 +134,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    }
 	},
 	setMouseDown:function(e){
-	    console.log('mouseDown');
 	    this.mouseDown = true;
 	    this.storeMousePos(e);
 	    this.checkForManipulator(e);
@@ -221,50 +221,47 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    };
 	},
 	setAnnotations:function(annoArray){
-	    //console.log('CanvasViewer2D.setAnnotations()');
-	    //NEED TO FORCE THIS TO REDRAW WHENEVER CHANGING INDEX...
+	    console.log('CanvasViewer2D.setAnnotations() =====================');
+	    //need to create a copy of the array here, as we're changing
+	    //attrs like points2D per renderer!
 	    
 	    //wipe local array
 	    this.annotations = [];
 
 	    for(var i = 0; i < annoArray.length; i++){
-		//create new object to avoid issues with same reference objects
-		var annoObject = {};
 
-		annoObject["label"] = annoArray[i]["label"];
-		annoObject["points3D"] = annoArray[i]["points3D"];
-		annoObject["points2D"] = this.convertPoints(annoObject["points3D"]);
-		annoObject["labelPos"] = this.calculateLabelPoint(annoObject["points2D"]);
-		annoObject["color"] = annoArray[i]["color"];
-		annoObject["manipulators"] = this.setManipulators(annoObject);
+		var annoObj = annoArray[i].clone();
 
-		//update local array	    
-		console.log(annoObject);
-		this.annotations.push(annoObject);
-	    }
+		annoObj.points2D = this.convertPoints(annoArray[i])
+		annoObj.labelPos = this.calculateLabelPoint(annoObj.points2D);	
+		annoObj.manipulators = this.setManipulators(annoObj);
+
+		this.annotations.push(annoObj);
+	    };
 	},
 	setManipulators:function(annoObject){	    
 	    console.log('CanvasViewer.setManipulators()');
 
 	    //possible another function that should be part of 
 	    //annoObject class?
-
 	    var manipArray = [];
-	    
-	    //per corner, create one manipulatorRect
-	    var pointsArray = annoObject.points2D;
-	    for(var i = 0; i < pointsArray.length; i++){
+	    if(annoObject.points2D){
 		
-		//add manipArray
-		var manipulator = {
-		    x:pointsArray[i][0],
-		    y:pointsArray[i][1],
-		    width: 5,
-		    parent:annoObject,
-		    color: '#FFFFFF',
-		    //put intersect function here
-		};
-		manipArray.push(manipulator);
+		//per corner, create one manipulatorRect
+		var pointsArray = annoObject.points2D;
+		for(var i = 0; i < pointsArray.length; i++){
+		    
+		    //add manipArray
+		    var manipulator = {
+			x:pointsArray[i][0],
+			y:pointsArray[i][1],
+			width: 5,
+			parent:annoObject,
+			color: '#FFFFFF',
+			//put intersect function here
+		    };
+		    manipArray.push(manipulator);
+		}
 	    }
 	    return manipArray;
 	},
@@ -287,7 +284,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 			       mouseX < manip.x + manip.width &&
 			       mouseY > manip.y - manip.width &&
 			       mouseY < manip.y + manip.width){
-				console.log('HIT!!!!');
+				//console.log('HIT!!!!');
 
 				//set currently selected manipulator
 				this.manipulatorSelected = manip;
@@ -348,19 +345,23 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	    var _x = 0, _y = 1, _z = 2;
 	    if(this.mode == 1){
-		console.log('MODE 1!');
+		//console.log('MODE 1!');
 		_z = 0;
 		_x = 1;
 		_y = 2;
 	    }
-	    /*
 	    else if(this.mode == 2){
-		console.log('MODE 2!');
-		_z = 0;
-		_x = 1;
+		//console.log('MODE 2!');
+		_z = 1;
+		_x = 0;
 		_y = 2;
-	    }*/
-	    
+	    }
+	    else if(this.mode == 3){
+		//console.log('MODE 3!');
+		_z = 2;
+		_x = 0;
+		_y = 1;
+	    }	    
 	    //do depth matching
 	    var maxDepth = 0;
 	    var minDepth = 99999999;
@@ -373,7 +374,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		    minDepth = parent.points3D[i][_z];
 	    }
 
-	    console.log('depth = ' + minDepth + ', ' + maxDepth);
+	    //console.log('depth = ' + minDepth + ', ' + maxDepth);
 
 
 	    for(var i = 0; i < parent.points2D.length; i++){
@@ -381,7 +382,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		var _ijk = this.Xrenderer.xy2ijk(parent.points2D[i][0],
 						 parent.points2D[i][1])[0];
 
-		console.log('IJK = ' + _ijk);
+		//console.log('IJK = ' + _ijk);
 	    
 		var point1 = [0,0,0];
 		point1[_z] = minDepth;
@@ -392,10 +393,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		point2[_z] = maxDepth;
 		point2[_x] = _ijk[_x];
 		point2[_y] = _ijk[_y];
-
-
-		console.log(point1);
-		console.log(point2);
 
 		points3D.push(point1);
 		points3D.push(point2);
@@ -411,12 +408,11 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 	    //console.log(this.currentLayerItemTop.get('annotations'));
 
 	},
-	convertPoints:function(points3D){
+	convertPoints:function(annoObj){
 	    console.log('CanvasViewer2D.convertPoints()');
-	    console.log('MODE = ' + this.mode);
-
 
 	    var points2D = [];
+	    var points3D = annoObj.points3D;
 
 	    //given 8 points, need to extract the 4 corner points of the drawn cube
 
@@ -447,21 +443,11 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 		c = 1;		
 		curIndex =  this.currentLayerItemTop.get('indexZ');
 	    }
+
 	    //do depth matching
-	    var maxDepth = 0;
-	    var minDepth = 99999999;
+	    var minMaxDepth = annoObj.getMinMaxValues(a);
 
-	    for(var i = 0; i < points3D.length; i++){
-
-		if(points3D[i][a] > maxDepth)
-		    maxDepth = points3D[i][a];
-		else if(points3D[i][a] < minDepth)
-		    minDepth = points3D[i][a];
-	    }
-
-	    console.log('DEPTH = ' + minDepth + ' - ' + maxDepth);
-
-	    if(minDepth <= curIndex && curIndex <= maxDepth){
+	    if(minMaxDepth[0] <= curIndex && curIndex <= minMaxDepth[1]){
 		console.log('DEPTH-WISE INSIDE THE ANNOTATION!!!');
 
 		//discard etra points, return 4 2D points based on sliceIndex
@@ -480,8 +466,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 			culledPoints.push(point);	    
 		}
 		
-		//console.log('CULLED POINTS = ');
-		//console.log(culledPoints);
 
 		//expecting an XtkView here
 		if(!this.Xrenderer){
@@ -540,26 +524,30 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer"], function(Can
 
 	},
 	calculateLabelPoint:function(pointsArray2D){
-
+	    //console.log('CanvasViewer2D.setToBlack()');
 	    //if space at top left, put there
 
-	    var labelPoint = [];
-
-	    var xArray = [], yArray = [];
-	    
-	    for(var i = 0; i < pointsArray2D.length; i++){
-		//console.log(pointsArray2D[i]);
-		xArray.push(pointsArray2D[i][0]);
-		yArray.push(pointsArray2D[i][1]);
-	    }	
+	    if(pointsArray2D){
+		var labelPoint = [];
+		
+		var xArray = [], yArray = [];
+		
+		for(var i = 0; i < pointsArray2D.length; i++){
+		    //console.log(pointsArray2D[i]);
+		    xArray.push(pointsArray2D[i][0]);
+		    yArray.push(pointsArray2D[i][1]);
+		}	
 	    var Xmin = Math.min.apply(Math, xArray);
-	    var Ymin = Math.min.apply(Math, yArray);
-
-	    //IF SPACE AT TOP
-	    labelPoint[0] = Xmin;
-	    labelPoint[1] = Ymin - 5;
-
-	    return labelPoint;
+		var Ymin = Math.min.apply(Math, yArray);
+		
+		//IF SPACE AT TOP
+		labelPoint[0] = Xmin;
+		labelPoint[1] = Ymin - 5;
+		
+		return labelPoint;
+	    }
+	    else
+		return[0,0];
 	},
 	setToBlack:function(){	    
 	    

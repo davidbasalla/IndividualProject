@@ -12,7 +12,6 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    this.annoObject = options.annoObject;
 	    this.layersModel = options.layersModel;
 	    this.parent = options.annosView;
-	    console.log(this.annoObject);
 	},
 	events: {
 	    //event for toggling visibility
@@ -79,17 +78,9 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	},
 	deleteLayer: function(event){	    
 	    console.log('AnnonationItemView.deleteLayer()');
-	    //this.layersView.removeItem(this.model, this);
-	    //$(this.el).remove();
 
 	    this.parent.deleteLayerView(this);
 
-	    //remove object from array
-	    //remove layer from display
-
-
-	    //cool stuff, stops the event from continuing (thereby
-	    //causing multiple click events!
 	    event.stopPropagation(); 
 	},
 	setLabelText:function(e){
@@ -98,9 +89,6 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    //set the current
 	    this.annoObject.label = e.target.value;
 	    this.parent.updateModel();
-
-
-
 	},
 	setColor:function(hex){
 	    console.log(hex.toUpperCase());	    
@@ -108,11 +96,6 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    this.annoObject.color = '#' + hex.toUpperCase();
 	    this.parent.updateModel();
 	}
-	
-
-
-
-
     });
 
     return AnnotationItemView;
