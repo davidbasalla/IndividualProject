@@ -226,6 +226,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	    //attrs like points2D per renderer!
 	    
 	    //wipe local array
+	    console.log(this.annotations);
 	    this.annotations = [];
 
 	    for(var i = 0; i < annoArray.length; i++){
@@ -240,7 +241,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	    };
 	},
 	setManipulators:function(annoObject){	    
-	    console.log('CanvasViewer.setManipulators()');
+	    console.log('CanvasViewer2D(' + this.mode + ').setManipulators()');
 
 	    //possible another function that should be part of 
 	    //annoObject class?
@@ -330,15 +331,12 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	    this.manipulatorSelected.x = this.mouseX;
 	    this.manipulatorSelected.y = this.mouseY;
 
-
 	    parent.labelPos = this.calculateLabelPoint(parent.points2D);
 	},
 	updateAnnoPoints3D:function(){	    
 	    console.log('CanvasViewer2D.updateAnnoPoints3D()');
 	    /*convert new points2D to points3D to save in annotation and update
 	      throughout program */
-
-	    //need to use xy2ijk
 
 	    var points3D = [];
 	    var parent = this.manipulatorSelected.parent;
@@ -362,41 +360,27 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 		_x = 0;
 		_y = 1;
 	    }	    
+
 	    //do depth matching
-	    var maxDepth = 0;
-	    var minDepth = 99999999;
-	    
-	    for(var i = 0; i < parent.points3D.length; i++){
-		
-		if(parent.points3D[i][_z] > maxDepth)
-		    maxDepth = parent.points3D[i][_z];
-		else if(parent.points3D[i][_z] < minDepth)
-		    minDepth = parent.points3D[i][_z];
-	    }
-
-	    //console.log('depth = ' + minDepth + ', ' + maxDepth);
-
+	    var minMaxDepth = parent.getMinMaxValues(_z);
 
 	    for(var i = 0; i < parent.points2D.length; i++){
 		
 		var _ijk = this.Xrenderer.xy2ijk(parent.points2D[i][0],
 						 parent.points2D[i][1])[0];
-
-		//console.log('IJK = ' + _ijk);
 	    
 		var point1 = [0,0,0];
-		point1[_z] = minDepth;
+		point1[_z] = minMaxDepth[0];
 		point1[_x] = _ijk[_x];
 		point1[_y] = _ijk[_y];
 	    
 		var point2 = [0,0,0];
-		point2[_z] = maxDepth;
+		point2[_z] = minMaxDepth[1];
 		point2[_x] = _ijk[_x];
 		point2[_y] = _ijk[_y];
 
 		points3D.push(point1);
 		points3D.push(point2);
-		//convert point to xyk
 	    }
 		
 	    //reset the points!
@@ -501,7 +485,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	    //use the method that takes a centre point and then measures the angle of each new
 	    //point and sort by angle distance!
 
-
 	    var sortedPoints = [];
 
 	    while(pointsArray.length != 0){
@@ -521,7 +504,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 		}
 	    }
 	    return sortedPoints;
-
 	},
 	calculateLabelPoint:function(pointsArray2D){
 	    //console.log('CanvasViewer2D.setToBlack()');
@@ -542,7 +524,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 		
 		//IF SPACE AT TOP
 		labelPoint[0] = Xmin;
-		labelPoint[1] = Ymin - 5;
+		labelPoint[1] = Ymin - 10;
 		
 		return labelPoint;
 	    }

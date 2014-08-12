@@ -28,15 +28,25 @@ define(function() {
 	    annotations: [],
 	},
 	setAnnos:function(annoArray){
-	    //console.log('LayersItem.getCurrentItem()');
+	    console.log('LayersItem.setAnnos()');
 	    
 	    this.set({
 		annotations: annoArray
 	    });
+	    //this.trigger("change:annotations");
+	},	
+	setAndTriggerAnnos:function(annoArray){
+	    console.log('LayersItem.setAndTriggerAnnos()');
+	    
+	    this.set({
+		annotations: annoArray
+	    });
+
+	    console.log(annoArray);
 	    this.trigger("change:annotations");
 	},
 	addAnnos:function(newArray){
-
+	    console.log('LayersItem.addAnnos()');
 	    //clone it to trigger the change
 	    var oldArray = _.clone(this.get('annotations'));
 
@@ -48,6 +58,7 @@ define(function() {
 	    this.set({annotations: oldArray});
 	},
 	removeAnno:function(index){
+	    console.log('LayersItem.removeAnnos()');
 
 	    var oldArray = _.clone(this.get('annotations'));
 	    oldArray.splice(index, 1);

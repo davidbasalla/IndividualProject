@@ -196,16 +196,19 @@ define(["text!templates/Annotation.html",
 
 	    //step through layerViews and update their objects!
 	    //or just remove and redraw?
-
-	    console.log(model);
-	    console.log(value);
+	    
+	    if(!model)
+		model = this.currentItem;
+	    if(!value)
+		value = this.currentItem.get('annotations');
 
 
 	    for(var i = 0; i < this.annoLayerViews.length; i++){
 		this.annoLayerViews[i].annoObject = value[i];
 	    }
 	},
-	updateModel:function(){
+	updateModel:function(){	    
+	    console.log('AnnotationView.updateModel()');
 	    //update the model with current annotations
 	    
 	    //step through the layerViews
@@ -218,7 +221,7 @@ define(["text!templates/Annotation.html",
 		annoArray.push(this.annoLayerViews[i].annoObject);
 	    }
 	    
-	    this.currentItem.setAnnos(annoArray);
+	    this.currentItem.setAndTriggerAnnos(annoArray);
 	},
 	setCurrentItem:function(currentItem){
 	    console.log('AnnotationView.setCurrentItem()');
