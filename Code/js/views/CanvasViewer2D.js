@@ -62,7 +62,14 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	},
 	mouseHandler:function(e){
 
-	    if(this.mouseDown){
+	    if(!this.mouseDown){
+		this.checkForManipulator(e);
+
+
+
+
+	    }
+	    else if(this.mouseDown){
 		this.mouseX = e.clientX - this.canvas.offsetLeft;
 		this.mouseY = e.clientY - this.canvas.offsetTop;
 
@@ -75,8 +82,10 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 
 
 		    //test for annotation overlap first!!	    
-		    if(this.manipulatorSelected)
+		    if(this.manipulatorSelected){
 			this.setManipulatorTransformation();
+			//this.updateAnnoPoints3D();
+		    }
 		    else{
 			this.traversing = true;
 
@@ -136,7 +145,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	setMouseDown:function(e){
 	    this.mouseDown = true;
 	    this.storeMousePos(e);
-	    this.checkForManipulator(e);
+	    //this.checkForManipulator(e);
 	},
 	setMouseUp:function(e){
 	    this.mouseDown = false;
@@ -158,7 +167,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	},
 	toggleOverlay:function(){
 
-	    console.log('CanvasViewer2D.toggleOverlay()');
+	    //console.log('CanvasViewer2D.toggleOverlay()');
 
 	    if (!this.showOverlay){
 		this.showOverlay = true;
@@ -226,7 +235,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	    //attrs like points2D per renderer!
 	    
 	    //wipe local array
-	    console.log(this.annotations);
+	    //console.log(this.annotations);
 	    this.annotations = [];
 
 	    for(var i = 0; i < annoArray.length; i++){
@@ -267,7 +276,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	    return manipArray;
 	},
 	checkForManipulator:function(mouseEvent){
-	    console.log('CanvasViewer.checkForManipulator()');
+	    //console.log('CanvasViewer.checkForManipulator()');
 
 	    //check for annotations
 	    if(this.annotations){
@@ -275,36 +284,37 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 		var mouseY = mouseEvent.clientY - this.canvas.offsetTop;
 
 		for(var i = 0; i < this.annotations.length; i++){
-		    //check for manipulators
-		    if(this.annotations[i].manipulators){
-			for(var j = 0; j < this.annotations[i].manipulators.length; j++){
+		    if(this.annotations[i].visible){
+			//check for manipulators
+			if(this.annotations[i].manipulators){
+			    for(var j = 0; j < this.annotations[i].manipulators.length; j++){
 
-			    var manip = this.annotations[i].manipulators[j];
-			    
-			    if(mouseX > manip.x - manip.width &&
-			       mouseX < manip.x + manip.width &&
-			       mouseY > manip.y - manip.width &&
-			       mouseY < manip.y + manip.width){
-				//console.log('HIT!!!!');
+				var manip = this.annotations[i].manipulators[j];
+				
+				if(mouseX > manip.x - manip.width &&
+				   mouseX < manip.x + manip.width &&
+				   mouseY > manip.y - manip.width &&
+				   mouseY < manip.y + manip.width){
+				    //console.log('HIT!!!!');
 
-				//set currently selected manipulator
-				this.manipulatorSelected = manip;
+				    //set currently selected manipulator
+				    this.manipulatorSelected = manip;
+				    return;
+				}
+				else
+				    this.manipulatorSelected = null;
 			    }
-			    	
-			}
+			}		    
 		    }
 		}
 	    }
 	},
 	setManipulatorTransformation:function(){
-	    console.log('CanvasViewer2D.setManipulatorTransformation()');
-	    //grab global manipulator
-	    //grab global mouse coords
-
-
+	    //console.log('CanvasViewer2D.setManipulatorTransformation()');
 
 	    //find points in annoObject that match this
 
+	    //same as current top Item?
 	    var parent = this.manipulatorSelected.parent;
 	    for(var i = 0; i < parent.points2D.length; i++){
 		if(parent.points2D[i][0] == this.manipulatorSelected.x)
@@ -432,7 +442,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	    var minMaxDepth = annoObj.getMinMaxValues(a);
 
 	    if(minMaxDepth[0] <= curIndex && curIndex <= minMaxDepth[1]){
-		console.log('DEPTH-WISE INSIDE THE ANNOTATION!!!');
+		//console.log('DEPTH-WISE INSIDE THE ANNOTATION!!!');
 
 		//discard etra points, return 4 2D points based on sliceIndex
 		
@@ -650,47 +660,49 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 
 	    for(var j = 0; j < this.annotations.length; j++){
 
-		var pointsArray2D = this.annotations[j]["points2D"];
+		if(this.annotations[j].visible){
 
-		if(pointsArray2D.length == 0)
-		    continue;
+		    var pointsArray2D = this.annotations[j]["points2D"];
 
-		this.ctx.globalAlpha = 1;
-		this.ctx.lineWidth = 2;
-		this.ctx.beginPath();
-		
-		//first point
-		this.ctx.moveTo(pointsArray2D[0][0], pointsArray2D[0][1]);
-		
-		//loop through rest of points
-		for(var i = 1; i < pointsArray2D.length; i++){
-		    this.ctx.lineTo(pointsArray2D[i][0], pointsArray2D[i][1]);
-		}
-		//close loop
-		this.ctx.lineTo(pointsArray2D[0][0], pointsArray2D[0][1]);
-			
-		//get color here from model
-		this.ctx.strokeStyle = this.annotations[j]["color"];
-		
-		//draw and finish
-		this.ctx.stroke();
-		this.ctx.closePath();
+		    if(pointsArray2D.length == 0)
+			continue;
 
-		//draw manipulators
+		    this.ctx.globalAlpha = 1;
+		    this.ctx.lineWidth = 2;
+		    this.ctx.beginPath();
+		    
+		    //first point
+		    this.ctx.moveTo(pointsArray2D[0][0], pointsArray2D[0][1]);
+		    
+		    //loop through rest of points
+		    for(var i = 1; i < pointsArray2D.length; i++){
+			this.ctx.lineTo(pointsArray2D[i][0], pointsArray2D[i][1]);
+		    }
+		    //close loop
+		    this.ctx.lineTo(pointsArray2D[0][0], pointsArray2D[0][1]);
+		    
+		    //get color here from model
+		    this.ctx.strokeStyle = this.annotations[j]["color"];
+		    
+		    //draw and finish
+		    this.ctx.stroke();
+		    this.ctx.closePath();
 
-		for(var i = 0; i < this.annotations[j].manipulators.length; i++){
-		    this.drawManipulator(this.annotations[j].manipulators[i]);
-		}
+		    //draw manipulators
+
+		    for(var i = 0; i < this.annotations[j].manipulators.length; i++){
+			this.drawManipulator(this.annotations[j].manipulators[i]);
+		    }
 
 
-
-		//do label		
-		if(this.annotations[j].label || this.annotations[j].labelPos){
-		    this.ctx.font="15px Arial";
-		    this.ctx.fillStyle = this.annotations[j]["color"];
-		    this.ctx.fillText(this.annotations[j].label, 
-				 this.annotations[j].labelPos[0], 
-				 this.annotations[j].labelPos[1]);
+		    //do label		
+		    if(this.annotations[j].label || this.annotations[j].labelPos){
+			this.ctx.font="15px Arial";
+			this.ctx.fillStyle = this.annotations[j]["color"];
+			this.ctx.fillText(this.annotations[j].label, 
+					  this.annotations[j].labelPos[0], 
+					  this.annotations[j].labelPos[1]);
+		    }
 		}
 	    }
 	},
@@ -703,16 +715,31 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 			  manipulator.y - manipulator.width, 
 			  manipulator.width*2, 
 			  manipulator.width*2);
-	    //this.ctx.stroke();
-
             this.ctx.fill();
+
+
+	    if(manipulator == this.manipulatorSelected){
+		this.ctx.beginPath();
+		this.ctx.lineWidth="1px";
+		this.ctx.strokeStyle = manipulator.parent.color;
+		this.ctx.rect(manipulator.x - manipulator.width*1.5, 
+			      manipulator.y - manipulator.width*1.5, 
+			      manipulator.width*3, 
+			      manipulator.width*3);
+		this.ctx.stroke();
+	    }
+	    
+
+	   
+
+            //this.ctx.fill();
 	    
 	},
 	drawLine:function(){
 	    //console.log('drawingLine()');
 
 	    this.ctx.globalAlpha = 1;
-	    this.ctx.lineWidth = 2;
+	    this.ctx.lineWidth = 1;
 	    this.ctx.beginPath();
 	    this.ctx.moveTo(this.mouseX, 0);
 	    this.ctx.lineTo(this.mouseX, this.canvas.height);
@@ -729,7 +756,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 
 	},
 	drawCrosshair:function(){
-	    console.log('TRAVERSE');
+	    //console.log('TRAVERSE');
 
 	    this.ctx.globalAlpha = 1;
 	    this.ctx.lineWidth = 2;

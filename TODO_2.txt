@@ -4,18 +4,19 @@ TODO:
 
 HIGH PRIORITY:
 
-- implement annotation!!! SEE BELOW
-
+- Work on Annotations - See below
 - WORK ON SMOOTHER INTERACTION - MOUSE-BASED... currently very slow, 
-  compared to XTK navigation
-
-- hook up mouse keys in Chrome!!
+  compared to XTK navigation - seems to be down to how many times the
+  screen is updated
 - talk to Ben Glocker about color lookups, when brightness is being applied
 - FIX THE AUTOSCALING WHEN SWITCHING VIEWS
+- COUNTERACT SCALING OF ELEMENTS (LAYERS/ANNOS) - Have layout options?
+- WORK ON LAYOUT
 
 
 LOW PRIORITY:
 
+- create hotkeys for everything?
 - make custom slider for brightness/threshold
 - work on providing online sample files
 - add navigation panel feedback (for setting camera specifically)
@@ -30,67 +31,24 @@ LOW PRIORITY:
 ANNOTATIONS:
 ------------
 
-- decide on format - XML
-
 Plan:
-	1.)
-	- create a dummy file with a sample cube and label
-	- create temp interface to load annotation file
-	- load and view this file in the viewer
 
-	- loader
-	  - use loader, read XML as string, then do stuff with it
-	    (DONE)
-	  - renderer, now ready to interpret the annotation
-	  - need to translate the points into WORLD SPACE?
-	  - investigate!
+	- check if visual updating can happen faster, simultaneous in
+          all renderers?
+	  - for 3D, would need to change the transform of the cube!
+	- modifiers in 3D view? DIFFICULT, NOT WORTH IT?
+	- add visibility toggle to annotation class
+	  - 2D Viewer
+	  - 3D Viewer
+	- refine multiple loading of files?
+	  - load = reset or load = import?
+	- fix offsetting box when making tiny change!
+	- fix collapsed verts!
+	- set correct annos when switching layer
+	- check multiple layers with annos
+	- think about custom shapes?
+	- have layer light up when selected in the viewer?
 
-	2.)
-	- enable the other 2D viewers	
-	  - deal with navigation
-	  - okay, but little bit hacky, as in unresponsive		
-	- add text (determine text coordinate)
-	  - various options for placing the text, test thoroughly
-	- enable color change
-
-	- look into 3D viewer notation?
-	  - involved
-	    - use cubes... wireframe render?
-	    - need to be able to add cube on the fly. add support for this...
-
-
-	3.)	  
-	- Switch XML to JSON
-
-	- layer management for annotations
-	  - annotations should be:
-	    - selectable		       	  
-	    - set visibility
-	    - deletable
-	    - loadable
-	    - editable
-
-	    - PLAN:
-	      - delete Layer (DONE)
-	      - edit Label name (DONE)
-	      - edit color (DONE)
-	      - save out changes!! (DONE!)
-	      - create a new annotation (DONE)
-
-
-
-
-
-
-	4.)
-	- enable modification of notation - hovering - TRICKY!!
-	- implement modification of class
-	- implement saving out of document (XML, JSON)
-
-
-	5.) - CLEANUP
-	- update display when traversing
-	- be able to remove cubes when turning annotations on and off!
 
 	-----------------------------------------------------------------------
 
@@ -98,7 +56,11 @@ Plan:
 	- anyway to improve performance when navigating?
 	- rescale text when zooming?
 	- improve point sorting for cube!
-	- be able to remove cubes when turning annotations on and off!
+
+
+
+
+
 
 
 

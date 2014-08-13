@@ -15,6 +15,7 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	},
 	events: {
 	    //event for toggling visibility
+	    'change input#annoVisible': 'setVisibility',
 	    'click button#delete': 'deleteLayer',
 	    'change input#filePicker': 'fileLoaded',
 	    'change input#labelInput': 'setLabelText',
@@ -37,6 +38,7 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    //$("#colorpicker-popup", this.el).colorpicker();
 	    $("#picker", this.el).colpick();
 
+	    //add colorpicker
 	    var _this = this;
 	    $('.color-box', this.el).colpick({
 		colorScheme:'dark',
@@ -49,6 +51,14 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 		}
 	    })
 
+	    //check the visibility checkbox if visible
+	    console.log(this.annoObject);
+
+	    if(!this.annoObject.visible){		
+		$('#annoVisible', this.el).prop("checked", false);
+	    }
+	    else
+		$('#annoVisible', this.el).prop("checked", true);	
 
 
 	    //set the label
@@ -95,7 +105,18 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 
 	    this.annoObject.color = '#' + hex.toUpperCase();
 	    this.parent.updateModel();
-	}
+	},	
+	setVisibility:function(e){
+	    console.log('AnnotationItemView.setVisibility');
+
+	    //set the current
+	    if(this.annoObject.visible)
+		this.annoObject.visible = false;
+	    else
+		this.annoObject.visible = true;
+
+	    this.parent.updateModel();
+	},
     });
 
     return AnnotationItemView;

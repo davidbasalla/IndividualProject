@@ -175,45 +175,49 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 	    for(var i = 0; i < annoArray.length; i++){
 		//create new object to avoid issues with same reference objects
-		var annoObject = {};
 
-		annoObject["label"] = annoArray[i]["label"];
-		annoObject["points3D"] = annoArray[i]["points3D"];
-		annoObject["color"] = annoArray[i]["color"];
+		if(annoArray[i].visible){
 
-		//update local array
-		this.annotations.push(annoObject);
-		
-		//add cube
-		cube = new X.cube();
-		cube.opacity = 0.5;
+		    var annoObject = {};
 
-		//determine center of XML OBJ
-		
-		var annoCenter = this.getAnnoCenter(annoObject["points3D"]);
-					
-		var volume = this.Xrenderer.topLevelObjects[0];
-		var x = annoCenter[0] * volume._childrenInfo[0]._sliceSpacing - 
-		    volume._childrenInfo[0]._originD;
-		var y = annoCenter[1] * volume._childrenInfo[1]._sliceSpacing -
-		    volume._childrenInfo[1]._originD;
-		var z = annoCenter[2] * volume._childrenInfo[2]._sliceSpacing -
-		    volume._childrenInfo[2]._originD;
+		    annoObject["label"] = annoArray[i]["label"];
+		    annoObject["points3D"] = annoArray[i]["points3D"];
+		    annoObject["color"] = annoArray[i]["color"];
 
-		cube.center = [x, y, z];
+		    //update local array
+		    this.annotations.push(annoObject);
+		    
+		    //add cube
+		    cube = new X.cube();
+		    cube.opacity = 0.5;
 
-		//determine dimensions
+		    //determine center of XML OBJ
+		    
+		    var annoCenter = this.getAnnoCenter(annoObject["points3D"]);
+		    
+		    var volume = this.Xrenderer.topLevelObjects[0];
+		    var x = annoCenter[0] * volume._childrenInfo[0]._sliceSpacing - 
+			volume._childrenInfo[0]._originD;
+		    var y = annoCenter[1] * volume._childrenInfo[1]._sliceSpacing -
+			volume._childrenInfo[1]._originD;
+		    var z = annoCenter[2] * volume._childrenInfo[2]._sliceSpacing -
+			volume._childrenInfo[2]._originD;
 
-		var dimensions = this.getAnnoDimensions(annoObject["points3D"]);
+		    cube.center = [x, y, z];
 
-		cube.lengthX = dimensions[0];
-		cube.lengthY = dimensions[1];
-		cube.lengthZ = dimensions[2];
+		    //determine dimensions
 
-		cube.color = this.getAnnoColorArray(annoObject["color"]);
-		//add cube to viewer
+		    var dimensions = this.getAnnoDimensions(annoObject["points3D"]);
 
-		this.Xrenderer.add(cube);
+		    cube.lengthX = dimensions[0];
+		    cube.lengthY = dimensions[1];
+		    cube.lengthZ = dimensions[2];
+
+		    cube.color = this.getAnnoColorArray(annoObject["color"]);
+		    //add cube to viewer
+
+		    this.Xrenderer.add(cube);
+		}
 	    }
 	    //this.annotations
 	},

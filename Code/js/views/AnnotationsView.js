@@ -23,7 +23,7 @@ define(["text!templates/Annotation.html",
 
 	    this.render();
 	},	
-	events: {	    
+	events: {	    		
 	    'change input#xmlInput': 'fileSelected',	    
 	    'click button#loadAnnoFile': 'loadXmlFile',	    
 	    'click button#saveAnnoFile': 'saveXmlFile',
@@ -151,9 +151,10 @@ define(["text!templates/Annotation.html",
 		annoObj.shape = annoString[i].shape;
 		annoObj.color = annoString[i].color;
 		annoObj.points3D = annoString[i].points3D;
+		annoObj.visible = annoString[i].visible;
 		annos.push(annoObj);
 
-		this.createLayerView(annoString[i]);
+		this.createLayerView(annoObj);
 	    }
 	    this.currentItem.setAnnos(annos);
 	    
@@ -220,7 +221,9 @@ define(["text!templates/Annotation.html",
 	    for(var i = 0; i < this.annoLayerViews.length; i++){
 		annoArray.push(this.annoLayerViews[i].annoObject);
 	    }
+
 	    
+	    console.log(annoArray);
 	    this.currentItem.setAndTriggerAnnos(annoArray);
 	},
 	setCurrentItem:function(currentItem){

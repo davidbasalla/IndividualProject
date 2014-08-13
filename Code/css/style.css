@@ -104,6 +104,13 @@ html, body {
     float: left;
     float: up;
 }
+.sidePanelComponent{
+    width: 95%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:10px;
+    padding-bottom:0px;
+}
 #viewerWindow{
     background-color: #BBB;
     padding-top: 5px;
@@ -135,4 +142,13 @@ html, body {
     margin-right: 5px;
     margin-left: 5px;
     border: 1px solid black;
+}
+.list-group-item{
+    padding-right: 6px;    
+    padding-left: 6px;    
+    padding-top: 6px;    
+    padding-bottom: 6px;
+}
+.list-group{
+    margin-bottom: 0px;
 }

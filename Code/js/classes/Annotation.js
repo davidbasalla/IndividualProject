@@ -4,7 +4,7 @@ define([], function(){
 	this.label = "test";
 	this.color = "#888888";
 	this.points3D = [];
-
+	this.visible = true;
 
 	this.print = function () {
 	    console.log('BLAH');

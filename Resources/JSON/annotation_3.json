@@ -3,6 +3,7 @@
 	"shape":"cube",
 	"label":"test_label1",
 	"color":"#00FFAA",
+	"visible":true,
 	"points3D":[
 	    [95, 100, 45],
 	    [95, 170, 45],
@@ -17,7 +18,8 @@
     {
 	"shape":"cube",
 	"label":"test_label2",
-	"color":"#FFAA00",
+	"color":"#FFAA00",	
+	"visible":false,
 	"points3D":[
 	    [70, 80, 60],
 	    [70, 90, 60],
