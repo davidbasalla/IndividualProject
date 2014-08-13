@@ -53,6 +53,7 @@ Plan:
 	- improved hover look for manips
 	- add visibility toggle to annotation class
 	- refine multiple loading of files?
+	- track down error when deleting/turning invisible!
 
 	-----------------------------------------------------------------------
 

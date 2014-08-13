@@ -57,11 +57,11 @@ define(function() {
 	    
 	    this.set({annotations: oldArray});
 	},
-	removeAnno:function(index){
-	    console.log('LayersItem.removeAnnos()');
+	removeAnno:function(annoObject){
+	    console.log('LayersItem.removeAnno()');
 
 	    var oldArray = _.clone(this.get('annotations'));
-	    oldArray.splice(index, 1);
+	    oldArray = _.without(oldArray, annoObject);
 	    this.set({annotations: oldArray});
 	},
     });

@@ -186,7 +186,6 @@ define(["text!templates/Annotation.html",
 	createLayerView:function(annoObject){
 
 	    var annoLayerItem = new AnnoItemView({
-		index: this.annoLayerViews.length,
 		layersModel: this.layersModel, //NEED TO PASS THIS
 		annoObject: annoObject,
 		annosView: this
@@ -200,10 +199,10 @@ define(["text!templates/Annotation.html",
 	    console.log('AnnotationsView.deleteLayer()');
 	    
 	    //remove object from currentItem.annotations
-	    this.currentItem.removeAnno(annoItemView.index);
+	    this.currentItem.removeAnno(annoItemView.annoObject);
 
 	    //remove the layerView
-	    this.annoLayerViews.splice(annoItemView.index, 1);
+	    this.annoLayerViews = _.without(this.annoLayerViews, annoItemView);
 	    $(annoItemView.el).remove();
 
 	    this.updateLayers();
@@ -211,9 +210,12 @@ define(["text!templates/Annotation.html",
 	updateLayers:function(){
 	    /* FUNCTION FOR MANAGING ARRAY AND INDECES IN CASE OF
 	       OUT OF ORDER DELETION */
+	    //SLIGHTLY DODGY IN TERMS OF HANDLING
+
+	    var annos = this.currentItem.get('annotations');
 
 	    for(var i = 0; i < this.annoLayerViews.length; i++){
-		this.annoLayerViews[i].index = i;
+		this.annoLayerViews[i].annoObject = annos[i];
 	    }
 	},
 	updateFromModel:function(model, value, options){

@@ -7,7 +7,6 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	initialize: function(options){
 
 	    console.log('AnnoLayerItemView.init()');
-	    this.index = options.index;
 	    this.model = options.model;
 	    this.annoObject = options.annoObject;
 	    this.layersModel = options.layersModel;
