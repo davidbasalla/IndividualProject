@@ -37,18 +37,22 @@ Plan:
           all renderers?
 	  - for 3D, would need to change the transform of the cube!
 	- modifiers in 3D view? DIFFICULT, NOT WORTH IT?
-	- add visibility toggle to annotation class
-	  - 2D Viewer
-	  - 3D Viewer
 	- refine multiple loading of files?
-	  - load = reset or load = import?
 	- fix offsetting box when making tiny change!
 	- fix collapsed verts!
 	- set correct annos when switching layer
 	- check multiple layers with annos
 	- think about custom shapes?
 	- have layer light up when selected in the viewer?
+	- track down error when deleting/turning invisible!
 
+
+	-----------------------------------------------------------------------
+
+	DONE:
+	- improved hover look for manips
+	- add visibility toggle to annotation class
+	- refine multiple loading of files?
 
 	-----------------------------------------------------------------------
 
@@ -56,7 +60,6 @@ Plan:
 	- anyway to improve performance when navigating?
 	- rescale text when zooming?
 	- improve point sorting for cube!
-
 
 
 

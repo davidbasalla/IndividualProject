@@ -25,7 +25,8 @@ define(["text!templates/Annotation.html",
 	},	
 	events: {	    		
 	    'change input#xmlInput': 'fileSelected',	    
-	    'click button#loadAnnoFile': 'loadXmlFile',	    
+	    'click button#loadAnnoFile': 'loadXmlFile',	    	    
+	    'click button#importAnnoFile': 'importXmlFile',	 
 	    'click button#saveAnnoFile': 'saveXmlFile',
 	    'click button#newAnnotation': 'newAnnotation',
 	},
@@ -110,9 +111,20 @@ define(["text!templates/Annotation.html",
 	    
 
 	    //event.stopPropagation(); 
+	},	
+	importXmlFile: function(event){
+	    console.log('AnnotationView.importXmlFile()');
+
+	    this.loadType = 1;
+
+	    //trigger the hidden fileLoader
+	    $('#xmlInput', this.el).trigger('click');
+	    event.stopPropagation(); 
 	},
 	loadXmlFile: function(event){
 	    console.log('AnnotationView.loadXmlFile()');
+
+	    this.loadType = 0;
 
 	    //trigger the hidden fileLoader
 	    $('#xmlInput', this.el).trigger('click');
@@ -141,8 +153,20 @@ define(["text!templates/Annotation.html",
 	    console.log('AnnotationView.parseJSON()');
 
 	    var annoString = JSON.parse(inputString);
-	    var annos = [];
 
+	    var annos = [];
+	    if(this.loadType == 0){  //LOAD
+
+		//deleteAllLayerViews
+		for(var j = 0; j < this.annoLayerViews.length; j++){
+		    this.deleteLayerView(this.annoLayerViews[j]);
+		    j--; //since length is being altered on the fly
+		};
+		    
+	    }
+	    else{                   //IMPORT		
+		annos = this.currentItem.get('annotations');
+	    }
 
 	    //loop through,create a display anno layer
 	    for(var i = 0; i < annoString.length; i++){
@@ -156,7 +180,7 @@ define(["text!templates/Annotation.html",
 
 		this.createLayerView(annoObj);
 	    }
-	    this.currentItem.setAnnos(annos);
+	    this.currentItem.setAndTriggerAnnos(annos);
 	    
 	},
 	createLayerView:function(annoObject){

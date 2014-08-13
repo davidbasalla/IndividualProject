@@ -707,28 +707,33 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	    }
 	},
 	drawManipulator:function(manipulator){
-
+	   
 	    this.ctx.beginPath();
-	    this.ctx.lineWidth="10px";
-	    this.ctx.fillStyle = manipulator.parent.color;
+	    this.ctx.lineWidth="1px";	    
+	    if(manipulator == this.manipulatorSelected)	    
+		this.ctx.fillStyle = "#FFFFFF";
+	    else
+		this.ctx.fillStyle = "#000000";			
+	    //this.ctx.strokeStyle = manipulator.parent.color;
 	    this.ctx.rect(manipulator.x - manipulator.width, 
 			  manipulator.y - manipulator.width, 
 			  manipulator.width*2, 
 			  manipulator.width*2);
-            this.ctx.fill();
-
-
-	    if(manipulator == this.manipulatorSelected){
-		this.ctx.beginPath();
-		this.ctx.lineWidth="1px";
-		this.ctx.strokeStyle = manipulator.parent.color;
-		this.ctx.rect(manipulator.x - manipulator.width*1.5, 
-			      manipulator.y - manipulator.width*1.5, 
-			      manipulator.width*3, 
-			      manipulator.width*3);
-		this.ctx.stroke();
-	    }
+	    this.ctx.fill();
 	    
+
+	    this.ctx.beginPath();
+	    this.ctx.lineWidth="2px";
+	    this.ctx.strokeStyle = manipulator.parent.color;
+	    //this.ctx.strokeStyle = "#00FFAA";	    
+	    this.ctx.rect(manipulator.x - manipulator.width, 
+			  manipulator.y - manipulator.width, 
+			  manipulator.width * 2, 
+			  manipulator.width * 2);
+            this.ctx.stroke();
+
+
+
 
 	   
 

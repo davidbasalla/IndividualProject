@@ -118,7 +118,7 @@ html, body {
     float: up;
 }
 .annoButton{
-    width: 32%;
+    /*width: 24%;*/
     margin-right: auto;
     margin-left: auto;
 }
