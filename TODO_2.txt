@@ -12,7 +12,6 @@ HIGH PRIORITY:
 - FIX THE AUTOSCALING WHEN SWITCHING VIEWS
 - COUNTERACT SCALING OF ELEMENTS (LAYERS/ANNOS) - Have layout options?
 - WORK ON LAYOUT
-- FIX colorLookup per Layer
 
 
 LOW PRIORITY:
@@ -38,13 +37,15 @@ Plan:
           all renderers?
 	  - for 3D, would need to change the transform of the cube!
 	- modifiers in 3D view? DIFFICULT, NOT WORTH IT?
+	- refine multiple loading of files?
 	- fix offsetting box when making tiny change!
 	- fix collapsed verts!
 	- set correct annos when switching layer
 	- check multiple layers with annos
 	- think about custom shapes?
 	- have layer light up when selected in the viewer?
-	- investigate if I can get rid of this.annotations in CanvasViewer2D!
+	- track down error when deleting/turning invisible!
+
 
 	-----------------------------------------------------------------------
 

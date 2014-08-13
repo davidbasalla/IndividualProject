@@ -64,6 +64,10 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 
 	    if(!this.mouseDown){
 		this.checkForManipulator(e);
+
+
+
+
 	    }
 	    else if(this.mouseDown){
 		this.mouseX = e.clientX - this.canvas.offsetLeft;
@@ -727,6 +731,11 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 			  manipulator.width * 2, 
 			  manipulator.width * 2);
             this.ctx.stroke();
+
+
+
+
+	   
 
             //this.ctx.fill();
 	    

@@ -7,7 +7,7 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	initialize: function(options){
 
 	    console.log('AnnoLayerItemView.init()');
-	    this.currentItem = options.currentItem;
+	    this.model = options.model;
 	    this.annoObject = options.annoObject;
 	    this.layersModel = options.layersModel;
 	    this.parent = options.annosView;
@@ -87,8 +87,6 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	},
 	deleteLayer: function(event){	    
 	    console.log('AnnonationItemView.deleteLayer()');
-
-	    this.currentItem.removeAnno(this.annoObject);
 
 	    this.parent.deleteLayerView(this);
 

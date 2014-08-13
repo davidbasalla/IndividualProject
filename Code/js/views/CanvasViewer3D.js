@@ -225,16 +225,14 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    //SHOULD REALLY BE INSIDE THE annoObject CLASS
 	    //TAKEN THIS FROM STACK OVERFLOW
 
+
 	    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexString);
 
 	    return [parseInt(result[1], 16)/255,
 		    parseInt(result[2], 16)/255,
 		    parseInt(result[3], 16)/255];
-
 	},
 	getAnnoDimensions:function(pointsArray3D){
-
-
 	    //SHOULD REALLY BE INSIDE THE annoObject CLASS
 
 	    var xArray = [], yArray = [], zArray = [];
@@ -253,8 +251,6 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 	},
 	getAnnoCenter:function(pointsArray3D){
-
-
 	    //SHOULD REALLY BE INSIDE THE annoObject CLASS
 
 	    var xSum = 0, ySum = 0, zSum = 0;
@@ -266,7 +262,6 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    }
 
 	    return([xSum/8, ySum/8, zSum/8]);
-
 	
 	},
 	setToBlack:function(){	    
@@ -309,10 +304,11 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    //console.log('CanvasViewer2D.draw()');
 
 	    //CLEAR - NEED TO FIX THESE COORDS
-	    //this.ctx.fillStyle = 'black';
+	    this.ctx.fillStyle = 'black';
 
 	    //DRAW BLACK BACKGROUND - SO ALWAYS A BLACK BACKGROUND
-	    this.setToBlack();	    
+	    this.setToBlack();
+	    
 
 	    //SET SECOND ALPHA
 	    this.ctx.globalAlpha = this.alphaA;
@@ -320,9 +316,8 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    //DRAW TOP CANVAS
 	    if(this.currentLayerItemTop){
 		if(this.currentLayerItemTop.get('loaded')){
-
-		    // NOT WORKING CURRENTLY	    
-
+		    //this.ctx.drawImage(this.srcCanvasA, 0, 0);
+		    
 		    this.ctx.drawImage(this.srcCanvasA,
 				       0, 0,
 				       this.canvas.width - this.clipPosX,
@@ -330,8 +325,6 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 				       1, 1,
 				       this.canvas.width - this.clipPosX,
 				       this.canvas.height - this.clipPosY);
-
-				       
 		}
 	    }
 

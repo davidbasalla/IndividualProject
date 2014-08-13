@@ -68,7 +68,7 @@ define(["models/LayerItem",
 
 	    //adding as layerIndex and as model
 	    this.viewerWindowView.addXtkView(this.counter, item);
-
+	    
 	    this.collection.add(item);
 	    this.appendItem(item);
 	    this.counter++;
