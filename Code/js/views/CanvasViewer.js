@@ -58,6 +58,7 @@ define(function() {
 	    this.Xrenderer = null;
 	    
 	    _.bindAll(this, 'mouseWheelHandler');
+
 	    
 	    //DISABLE MIDDLE MOUSE FOR THIS ELEMENT
 	    $(this.el).mousedown(function(e){if(e.button==1)return false});
@@ -88,10 +89,18 @@ define(function() {
 	    this.currentLayerItemBottom = itemB;
 
 	    this.setSrcCanvases();
+
+	    //reset annotations
+
+	    this.annotations = [];
+
+	    if(this.currentLayerItemTop.get('annotations').length)
+		this.setAnnotations(this.currentLayerItemTop.get('annotations'));
+
+
 	},
 	setSrcCanvases:function(){
-	    console.log('CanvasViewer.setSrcCanvases()');
-	    console.log('MODE = ' + this.mode);
+	    console.log('CanvasViewer(' + this.mode + ').setSrcCanvases()');
 
 	    //console.log(this.currentLayerItemTop);
 	    //console.log(this.currentLayerItemBottom);
@@ -123,6 +132,9 @@ define(function() {
 			    this.Xrenderer = curXtkView.viewerY;
 			else if (this.mode == 3)
 			    this.Xrenderer = curXtkView.viewerZ;
+
+			console.log('XRENDERER(' + this.mode + ') = ');
+			console.log(this.Xrenderer);
 
 		    }
 		}

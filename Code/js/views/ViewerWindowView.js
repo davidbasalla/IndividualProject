@@ -324,10 +324,17 @@ define(["views/CanvasViewer3D",
 		   }
 		   
 
-		   //declare vars
-		   
+		   //declare vars		   
 		   var itemA = layersModel.getCurrentItem();
 		   var itemB = layersModel.getOtherItem();
+		   
+
+		   //AT THIS POINT CHECK TO SEE IF WE CAN PAUSE THE RENDER
+		   if(!itemA.get('loaded'))
+		       this.stopAnimation();
+		   else
+		       this.startAnimation();
+
 		   
 		   //if currently A
 		   if(layersModel.getCurrentItem() == itemA){
@@ -345,23 +352,28 @@ define(["views/CanvasViewer3D",
 		   if(this.currentItem)
 		       this.setOpacity(null, this.currentItem.get('opacity'), null);
 	       
+		   this.setToBlack();
 
 	       },
-	       startAnimation:function(){
+	       startAnimation:function(){		       
+		   console.log('START RENDER');
+		   
 		   this.doRender = true;
 		   //this.update();               //start render
 
 		   //check if recursive loop is already running
 		   if(!this.renderRunning){
-		       console.log('START RENDER');
 		       this.update();
 		       this.renderRunning = true;   //set to renderRunning
 		   }
 		   else
 		       console.log('RENDER ALREADY RUNNING!');
 	       },
-	       stopAnimation:function(){
+	       stopAnimation:function(){		  
+		   console.log('STOP RENDER');
+
 		   this.doRender = false;
+		   //this.renderRunning = false;
 	       },
 	       update:function(){
 		   console.log('ViewerWindowView.update() - start animation loop');
@@ -411,6 +423,8 @@ define(["views/CanvasViewer3D",
 		   this.viewer3.setOpacity();
 	       },
 	       setToBlack:function(){
+		   console.log('ViewerWindowView.setToBlack()');
+
 
 		   this.viewer0.setToBlack();
 		   this.viewer1.setToBlack();

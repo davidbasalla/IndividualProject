@@ -187,6 +187,7 @@ define(["text!templates/Annotation.html",
 
 	    var annoLayerItem = new AnnoItemView({
 		layersModel: this.layersModel, //NEED TO PASS THIS
+		currentItem: this.currentItem,
 		annoObject: annoObject,
 		annosView: this
 	    });
@@ -198,9 +199,6 @@ define(["text!templates/Annotation.html",
 	deleteLayerView:function(annoItemView){
 	    console.log('AnnotationsView.deleteLayer()');
 	    
-	    //remove object from currentItem.annotations
-	    this.currentItem.removeAnno(annoItemView.annoObject);
-
 	    //remove the layerView
 	    this.annoLayerViews = _.without(this.annoLayerViews, annoItemView);
 	    $(annoItemView.el).remove();
@@ -271,35 +269,20 @@ define(["text!templates/Annotation.html",
 	},
 	setSettings:function(currentItem){
 	    //would have to reset the annotations here!!
+	    console.log('AnnotationView.setSettings()');
 
+	    //need to refresh/refill the annotations here
 
-	    //set text value
-	    /*
-	    var wL = currentItem.get("windowLow");
-	    var wH = currentItem.get("windowHigh");
-	    var tL = currentItem.get("thresholdLow");
-	    var tH = currentItem.get("thresholdHigh");
-	    var o = currentItem.get("opacity");
-	    var indexX = currentItem.get("indexX");
-	    var indexY = currentItem.get("indexY");
-	    var indexZ = currentItem.get("indexZ");
+	    //deleteAllLayerViews
+	    for(var j = 0; j < this.annoLayerViews.length; j++){
+		this.deleteLayerView(this.annoLayerViews[j]);
+		j--; //since length is being altered on the fly
+	    };
 
-	    $( "#levelLow" ).val(wL);
-	    $( "#levelHigh" ).val(wH);
-	    $( "#thresholdLow" ).val(tL);
-	    $( "#thresholdHigh" ).val(tH);
-	    $( "#opacityInput" ).val(o);
-	    $( "#indexX" ).val(indexX);
-	    $( "#indexY" ).val(indexY);
-	    $( "#indexZ" ).val(indexZ);
-
-    	    //set slider value
-	    $("#rangeSlider1").slider('values',0,wL); 
-	    $("#rangeSlider1").slider('values',1,wH);
-	    $("#rangeSlider2").slider('values',0,tL); 
-	    $("#rangeSlider2").slider('values',1,tH);
-	    $("#opacitySlider").slider('value',o);
-	    */
+	    var annoArray = this.currentItem.get('annotations');		    	    
+	    for(var i = 0; i < annoArray.length; i++){
+		this.createLayerView(annoArray[i]);
+	    }
 	},
     });
     return AnnotationView;

@@ -159,8 +159,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    var height2 = $('#canvasPanels').height();
 	    var width2 = $('#canvasPanels').width();
 	    
-	    $('#xtkViewer_L' + this.layerIndex).css({ "height": height2});
-	    $('#xtkViewer_L' + this.layerIndex).css({ "width": width2});
+	    //$('#xtkViewer_L' + this.layerIndex).css({ "height": height2});
+	    //$('#xtkViewer_L' + this.layerIndex).css({ "width": width2});
 
 	},
 	applyDimensions:function(){
@@ -216,11 +216,11 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //create all 4 viewers
 
 	    //set width and height according to original canvas, need to update the size!!
-	    var height = $("#canvasViewer0").height();
-	    var width = $("#canvasViewer0").width();
+	    //var height = $("#canvasViewer0").height();
+	    //var width = $("#canvasViewer0").width();
 	    
-	    document.getElementById("xtkViewer_L" + this.layerIndex).style.width = width;
-	    document.getElementById("xtkViewer_L" + this.layerIndex).style.height = height;
+	    //document.getElementById("xtkViewer_L" + this.layerIndex).style.width = width;
+	    //document.getElementById("xtkViewer_L" + this.layerIndex).style.height = height;
 	    
 
 	    // 3D
@@ -420,6 +420,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 		//ISSUE with this, it resets the MODEL so causes Xtk volume to reset the inde
 
+		/*
 		if(_this.viewerY.objects._array.length == 0){
 		    _this.viewerY.add(_this.volume);
 		    _this.viewerY.render();
@@ -430,42 +431,16 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    _this.viewerZ.add(_this.volume);
 		    _this.viewerZ.render();
 		}
+		*/
 
 
 		if (_this.webGLFriendly) {
 		    if(_this.viewer3D.objects._array.length == 0){
 
-
-
-
-
-			/*
-			// setting the edge length can also be skipped since 20 is the default
-			cube.lengthX = 13;
-			cube.lengthY = 43;
-			cube.lengthZ = 22;
-
-
-			cube.center = [-5, -3, -42];
-
-
-			cube.lengthX = 10;
-			cube.lengthY = 70;
-			cube.lengthZ = 15;
-			cube.center = [-85, -120, 55]
-			
-			// [1,1,1] (== white) is also the default so this can be skipped aswell
-			cube.color = [1, 0, 0];
-			cube.type = "LINES";;*/
-			
-
-
-
-
+			//ADDING RENDERER
 			_this.viewer3D.add(_this.volume);
 			_this.viewer3D.render();
 
-			//_this.viewer3D.add(cube); // add the cube to the renderer
 		    }
 		}
 
