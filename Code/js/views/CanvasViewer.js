@@ -88,6 +88,16 @@ define(function() {
 	    this.currentLayerItemBottom = itemB;
 
 	    this.setSrcCanvases();
+
+	    //reset annos
+
+	    this.annotations = [];
+
+	    if(this.currentLayerItemTop.get('annotations').length)
+		this.setAnnotations(this.currentLayerItemTop.get('annotations'));
+
+
+
 	},
 	setSrcCanvases:function(){
 	    console.log('CanvasViewer.setSrcCanvases()');

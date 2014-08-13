@@ -328,6 +328,15 @@ define(["views/CanvasViewer3D",
 		   
 		   var itemA = layersModel.getCurrentItem();
 		   var itemB = layersModel.getOtherItem();
+
+
+		   //check if rendering can be paused!
+		   if(!itemA.get('loaded'))
+		       this.stopAnimation();
+		   else
+		       this.startAnimation();
+
+
 		   
 		   //if currently A
 		   if(layersModel.getCurrentItem() == itemA){

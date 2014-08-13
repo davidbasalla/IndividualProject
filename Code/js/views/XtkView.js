@@ -156,11 +156,11 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.applyDimensions();
 
 	    //resize the topLayer
-	    var height2 = $('#canvasPanels').height();
-	    var width2 = $('#canvasPanels').width();
+	    //var height2 = $('#canvasPanels').height();
+	    //var width2 = $('#canvasPanels').width();
 	    
-	    $('#xtkViewer_L' + this.layerIndex).css({ "height": height2});
-	    $('#xtkViewer_L' + this.layerIndex).css({ "width": width2});
+	    //$('#xtkViewer_L' + this.layerIndex).css({ "height": height2});
+	    //$('#xtkViewer_L' + this.layerIndex).css({ "width": width2});
 
 	},
 	applyDimensions:function(){
@@ -216,11 +216,11 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //create all 4 viewers
 
 	    //set width and height according to original canvas, need to update the size!!
-	    var height = $("#canvasViewer0").height();
-	    var width = $("#canvasViewer0").width();
+	    //var height = $("#canvasViewer0").height();
+	    //var width = $("#canvasViewer0").width();
 	    
-	    document.getElementById("xtkViewer_L" + this.layerIndex).style.width = width;
-	    document.getElementById("xtkViewer_L" + this.layerIndex).style.height = height;
+	    //document.getElementById("xtkViewer_L" + this.layerIndex).style.width = width;
+	    //document.getElementById("xtkViewer_L" + this.layerIndex).style.height = height;
 	    
 
 	    // 3D
