@@ -156,7 +156,6 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    //wipe the current annotations
 	    this.annotations = [];
 
-
 	    //DELETE ALL OBJECTS AND TOPLEVEL OBJECTS
 	    for(var j = 0; j < this.Xrenderer.topLevelObjects.length; j++){
 		if(this.Xrenderer.topLevelObjects[j]._classname == "cube"){

@@ -331,17 +331,17 @@ define(["text!templates/CanvasViewer2D.html",
 	    for(var i = 0; i < parent.points2D.length; i++){
 		
 		var _ijk = this.Xrenderer.xy2ijk(parent.points2D[i].x,
-						 parent.points2D[i].y)[0];
-	    
+						 parent.points2D[i].y);
+
 		var point1 = [0,0,0];
 		point1[_z] = minMaxDepth[0];
-		point1[_x] = _ijk[_x];
-		point1[_y] = _ijk[_y];
+		point1[_x] = _ijk[0][_x];
+		point1[_y] = _ijk[0][_y];
 	    
 		var point2 = [0,0,0];
 		point2[_z] = minMaxDepth[1];
-		point2[_x] = _ijk[_x];
-		point2[_y] = _ijk[_y];
+		point2[_x] = _ijk[0][_x];
+		point2[_y] = _ijk[0][_y];
 
 		points3D.push(point1);
 		points3D.push(point2);
@@ -425,9 +425,30 @@ define(["text!templates/CanvasViewer2D.html",
 		    //need to run a ij2xy function
 		    for (var i = 0; i < culledPoints.length; i++){
 
-			var point = this.Xrenderer.ij2xy(
-			    culledPoints[i][0], culledPoints[i][1]);
+			console.log('RUNNING CONVERSIONS!');
 
+			console.log('CULLED POINT = ' + culledPoints[i]);
+
+
+			var point = this.Xrenderer.ijk2xy([
+			    curIndex,
+			    culledPoints[i][0], 
+			    culledPoints[i][1]]);
+
+
+			console.log('2D_POINT = ' + point);
+			
+
+			//FOR TESTING
+			/*
+			var _ijk = this.Xrenderer.xy2ijk(point[0],
+							 point[1]);
+
+			console.log('IJK0 = ' + _ijk[0]);*/
+			//console.log('IJK1 = ' + _ijk[1]);
+			//console.log('IJK2 = ' + _ijk[2]);
+
+			////////////////////////////////////
 
 			var point2D = new Point2D();
 			point2D.x = point[0];
@@ -435,7 +456,9 @@ define(["text!templates/CanvasViewer2D.html",
 			point2D.width = 5;
 			//point2D.parent = annoObj;
 
-			//console.log('PUSHING:');
+			//console.log('PUSHING:' + point[0] + ', ' + point[1]);
+			
+
 			//console.log(point2D);
 
 			points2D.push(point2D);		
