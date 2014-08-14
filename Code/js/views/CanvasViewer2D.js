@@ -1,8 +1,14 @@
 //need to pass a variable here
 
-define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Annotation"], 
-       function(CanvasViewer2DTemplate, CanvasViewer, Annotation) {
-    var CanvasViewer2D = CanvasViewer.extend({
+define(["text!templates/CanvasViewer2D.html",
+	"views/CanvasViewer",
+	"classes/Annotation",
+	"classes/Point2D"], 
+       function(CanvasViewer2DTemplate, 
+		CanvasViewer, 
+		Annotation,
+		Point2D){
+	var CanvasViewer2D = CanvasViewer.extend({
 	template: _.template(CanvasViewer2DTemplate),
 	events: function(){
 	    return _.extend({}, CanvasViewer.prototype.events,{
@@ -63,11 +69,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	mouseHandler:function(e){
 
 	    if(!this.mouseDown){
-		this.checkForManipulator(e);
-
-
-
-
+		this.checkForPoint2DHit(e);
 	    }
 	    else if(this.mouseDown){
 		this.mouseX = e.clientX - this.canvas.offsetLeft;
@@ -82,8 +84,8 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 
 
 		    //test for annotation overlap first!!	    
-		    if(this.manipulatorSelected){
-			this.setManipulatorTransformation();
+		    if(this.point2DSelected){
+			this.setPoint2DTransformation();
 			//this.updateAnnoPoints3D();
 		    }
 		    else{
@@ -151,10 +153,10 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	    this.mouseDown = false;
 	    this.traversing = false;
 
-	    if(this.manipulatorSelected){
+	    if(this.point2DSelected){
 		
 		this.updateAnnoPoints3D();
-		this.manipulatorSelected = null;
+		this.point2DSelected = null;
 	    }
 	},
 	storeMousePos:function(e){
@@ -242,40 +244,15 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 
 		var annoObj = annoArray[i].clone();
 
-		annoObj.points2D = this.convertPoints(annoArray[i])
-		annoObj.labelPos = this.calculateLabelPoint(annoObj.points2D);	
-		annoObj.manipulators = this.setManipulators(annoObj);
+		annoObj.points2D = this.convertTo2DPoints(annoArray[i])
+		annoObj.sort2DPointsForRect();
+		annoObj.set2DPointParents();
+		annoObj.calculateLabelPos();
 
 		this.annotations.push(annoObj);
 	    };
 	},
-	setManipulators:function(annoObject){	    
-	    console.log('CanvasViewer2D(' + this.mode + ').setManipulators()');
-
-	    //possible another function that should be part of 
-	    //annoObject class?
-	    var manipArray = [];
-	    if(annoObject.points2D){
-		
-		//per corner, create one manipulatorRect
-		var pointsArray = annoObject.points2D;
-		for(var i = 0; i < pointsArray.length; i++){
-		    
-		    //add manipArray
-		    var manipulator = {
-			x:pointsArray[i][0],
-			y:pointsArray[i][1],
-			width: 5,
-			parent:annoObject,
-			color: '#FFFFFF',
-			//put intersect function here
-		    };
-		    manipArray.push(manipulator);
-		}
-	    }
-	    return manipArray;
-	},
-	checkForManipulator:function(mouseEvent){
+	checkForPoint2DHit:function(mouseEvent){
 	    //console.log('CanvasViewer.checkForManipulator()');
 
 	    //check for annotations
@@ -286,70 +263,47 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 		for(var i = 0; i < this.annotations.length; i++){
 		    if(this.annotations[i].visible){
 			//check for manipulators
-			if(this.annotations[i].manipulators){
-			    for(var j = 0; j < this.annotations[i].manipulators.length; j++){
+			if(this.annotations[i].points2D){
+			    for(var j = 0; j < this.annotations[i].points2D.length; j++){
 
-				var manip = this.annotations[i].manipulators[j];
+				var point = this.annotations[i].points2D[j];
 				
-				if(mouseX > manip.x - manip.width &&
-				   mouseX < manip.x + manip.width &&
-				   mouseY > manip.y - manip.width &&
-				   mouseY < manip.y + manip.width){
+				if(mouseX > point.x - point.width &&
+				   mouseX < point.x + point.width &&
+				   mouseY > point.y - point.width &&
+				   mouseY < point.y + point.width){
 				    //console.log('HIT!!!!');
 
 				    //set currently selected manipulator
-				    this.manipulatorSelected = manip;
+				    this.point2DSelected = point;
 				    return;
 				}
 				else
-				    this.manipulatorSelected = null;
+				    this.point2DSelected = null;
 			    }
 			}		    
 		    }
 		}
 	    }
 	},
-	setManipulatorTransformation:function(){
+	setPoint2DTransformation:function(){
 	    //console.log('CanvasViewer2D.setManipulatorTransformation()');
 
-	    //find points in annoObject that match this
+	    //move the actual point - other points handled internally
+	    this.point2DSelected.parent.move2DPoint(
+		this.point2DSelected, this.mouseX, this.mouseY);
 
-	    //same as current top Item?
-	    var parent = this.manipulatorSelected.parent;
-	    for(var i = 0; i < parent.points2D.length; i++){
-		if(parent.points2D[i][0] == this.manipulatorSelected.x)
-		    parent.points2D[i][0] = this.mouseX;
-		if(parent.points2D[i][1] == this.manipulatorSelected.y)
-		    parent.points2D[i][1] = this.mouseY;
-	    }
+	    //UPDATE LABEL POS
+	    this.point2DSelected.parent.calculateLabelPos();
 
-
-	    //find other manips who match this
-	    for(var j = 0; j < parent.manipulators.length; j++){
-		if(this.manipulatorSelected == parent.manipulators[j])
-		    continue;
-		else{
-		    if(parent.manipulators[j].x == this.manipulatorSelected.x)
-			parent.manipulators[j].x = this.mouseX;
-		    if(parent.manipulators[j].y == this.manipulatorSelected.y)
-			parent.manipulators[j].y = this.mouseY;
-		}	
-	    }
-
-
-	    //do the main manipulator
-	    this.manipulatorSelected.x = this.mouseX;
-	    this.manipulatorSelected.y = this.mouseY;
-
-	    parent.labelPos = this.calculateLabelPoint(parent.points2D);
 	},
 	updateAnnoPoints3D:function(){	    
-	    console.log('CanvasViewer2D.updateAnnoPoints3D()');
+	    //console.log('CanvasViewer2D.updateAnnoPoints3D()');
 	    /*convert new points2D to points3D to save in annotation and update
 	      throughout program */
 
 	    var points3D = [];
-	    var parent = this.manipulatorSelected.parent;
+	    var parent = this.point2DSelected.parent;
 
 	    var _x = 0, _y = 1, _z = 2;
 	    if(this.mode == 1){
@@ -376,8 +330,8 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 
 	    for(var i = 0; i < parent.points2D.length; i++){
 		
-		var _ijk = this.Xrenderer.xy2ijk(parent.points2D[i][0],
-						 parent.points2D[i][1])[0];
+		var _ijk = this.Xrenderer.xy2ijk(parent.points2D[i].x,
+						 parent.points2D[i].y)[0];
 	    
 		var point1 = [0,0,0];
 		point1[_z] = minMaxDepth[0];
@@ -402,7 +356,7 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	    //console.log(this.currentLayerItemTop.get('annotations'));
 
 	},
-	convertPoints:function(annoObj){
+	convertTo2DPoints:function(annoObj){
 	    console.log('CanvasViewer2D.convertPoints()');
 
 	    var points2D = [];
@@ -473,8 +427,18 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 
 			var point = this.Xrenderer.ij2xy(
 			    culledPoints[i][0], culledPoints[i][1]);
-			
-			points2D.push(point);		
+
+
+			var point2D = new Point2D();
+			point2D.x = point[0];
+			point2D.y = point[1];
+			point2D.width = 5;
+			//point2D.parent = annoObj;
+
+			//console.log('PUSHING:');
+			//console.log(point2D);
+
+			points2D.push(point2D);		
 		    }
 		}
 	    }
@@ -482,64 +446,9 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 		console.log('DEPTH-WISE OUTSIDE THE ANNOTATION!!!');
 
 	    //need to sort the points, so no Z-formation gets created
-	    points2D = this.sortPointsForRectangle(points2D);
+	    //points2D = this.sortPointsForRectangle(points2D);
 
 	    return points2D;
-	},
-	sortPointsForRectangle:function(pointsArray){
-	    //super simplistic at the moment
-	    //assumes that the points are legal, could go into a loop!
-	    //compares x and y, sorts by assuming that one dimensions of
-	    //next point is equal to last point
-
-	    //use the method that takes a centre point and then measures the angle of each new
-	    //point and sort by angle distance!
-
-	    var sortedPoints = [];
-
-	    while(pointsArray.length != 0){
-
-		var point = pointsArray.shift();
-		if(!sortedPoints.length){
-		    sortedPoints.push(point);
-		}
-		else{
-		    if(point[0] == sortedPoints[sortedPoints.length - 1][0] ||
-		       point[1] == sortedPoints[sortedPoints.length - 1][1]){
-			sortedPoints.push(point)
-		    }
-		    else{
-			pointsArray.push(point);
-		    }
-		}
-	    }
-	    return sortedPoints;
-	},
-	calculateLabelPoint:function(pointsArray2D){
-	    //console.log('CanvasViewer2D.setToBlack()');
-	    //if space at top left, put there
-
-	    if(pointsArray2D){
-		var labelPoint = [];
-		
-		var xArray = [], yArray = [];
-		
-		for(var i = 0; i < pointsArray2D.length; i++){
-		    //console.log(pointsArray2D[i]);
-		    xArray.push(pointsArray2D[i][0]);
-		    yArray.push(pointsArray2D[i][1]);
-		}	
-	    var Xmin = Math.min.apply(Math, xArray);
-		var Ymin = Math.min.apply(Math, yArray);
-		
-		//IF SPACE AT TOP
-		labelPoint[0] = Xmin;
-		labelPoint[1] = Ymin - 10;
-		
-		return labelPoint;
-	    }
-	    else
-		return[0,0];
 	},
 	setToBlack:function(){	    
 	    
@@ -672,14 +581,14 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 		    this.ctx.beginPath();
 		    
 		    //first point
-		    this.ctx.moveTo(pointsArray2D[0][0], pointsArray2D[0][1]);
-		    
+		    this.ctx.moveTo(pointsArray2D[0].x, pointsArray2D[0].y);
+
 		    //loop through rest of points
 		    for(var i = 1; i < pointsArray2D.length; i++){
-			this.ctx.lineTo(pointsArray2D[i][0], pointsArray2D[i][1]);
+			this.ctx.lineTo(pointsArray2D[i].x, pointsArray2D[i].y);
 		    }
 		    //close loop
-		    this.ctx.lineTo(pointsArray2D[0][0], pointsArray2D[0][1]);
+		    this.ctx.lineTo(pointsArray2D[0].x, pointsArray2D[0].y);
 		    
 		    //get color here from model
 		    this.ctx.strokeStyle = this.annotations[j]["color"];
@@ -688,11 +597,10 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 		    this.ctx.stroke();
 		    this.ctx.closePath();
 
-		    //draw manipulators
 
-		    for(var i = 0; i < this.annotations[j].manipulators.length; i++){
-			this.drawManipulator(this.annotations[j].manipulators[i]);
-		    }
+		    //draw manipulators
+		    for(var i = 0; i < pointsArray2D.length; i++)
+			this.drawManipulator(pointsArray2D[i], this.annotations[j].color);
 
 
 		    //do label		
@@ -706,42 +614,34 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 		}
 	    }
 	},
-	drawManipulator:function(manipulator){
+	drawManipulator:function(point2D, color){
 	   
 	    this.ctx.beginPath();
 	    this.ctx.lineWidth="1px";	    
-	    if(manipulator == this.manipulatorSelected)	    
+	    if(point2D == this.point2DSelected)	    
 		this.ctx.fillStyle = "#FFFFFF";
 	    else
 		this.ctx.fillStyle = "#000000";			
-	    //this.ctx.strokeStyle = manipulator.parent.color;
-	    this.ctx.rect(manipulator.x - manipulator.width, 
-			  manipulator.y - manipulator.width, 
-			  manipulator.width*2, 
-			  manipulator.width*2);
+
+	    this.ctx.rect(point2D.x - point2D.width, 
+			  point2D.y - point2D.width, 
+			  point2D.width*2, 
+			  point2D.width*2);
 	    this.ctx.fill();
 	    
-
+	    //OUTLINE
 	    this.ctx.beginPath();
 	    this.ctx.lineWidth="2px";
-	    this.ctx.strokeStyle = manipulator.parent.color;
-	    //this.ctx.strokeStyle = "#00FFAA";	    
-	    this.ctx.rect(manipulator.x - manipulator.width, 
-			  manipulator.y - manipulator.width, 
-			  manipulator.width * 2, 
-			  manipulator.width * 2);
+	    this.ctx.strokeStyle = color;
+    
+	    this.ctx.rect(point2D.x - point2D.width, 
+			  point2D.y - point2D.width, 
+			  point2D.width*2, 
+			  point2D.width*2)
             this.ctx.stroke();
-
-
-
-
-	   
-
-            //this.ctx.fill();
-	    
+	    this.ctx.closePath();
 	},
 	drawLine:function(){
-	    //console.log('drawingLine()');
 
 	    this.ctx.globalAlpha = 1;
 	    this.ctx.lineWidth = 1;
@@ -752,10 +652,6 @@ define(["text!templates/CanvasViewer2D.html","views/CanvasViewer", "classes/Anno
 	    this.ctx.strokeStyle = 'red';
 	    this.ctx.stroke();
 	    this.ctx.closePath();
-
-	    
-	    //this.ctx.moveTo(this.lineStartX, this.lineStartY);
-	    //this.ctx.lineTo(this.lineEndX, this.lineEndY);
 	    
 	    this.showLine = false;
 

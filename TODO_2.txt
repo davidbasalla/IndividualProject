@@ -16,6 +16,7 @@ HIGH PRIORITY:
 
 LOW PRIORITY:
 
+- fix 3DCanvas mouse behaviour
 - create hotkeys for everything?
 - make custom slider for brightness/threshold
 - work on providing online sample files
@@ -25,6 +26,7 @@ LOW PRIORITY:
 - Implement testing!!! Coverage etc
 - Sort of errorhandler in XtkView
 - Fix updating of LOOKUP for 3D VIEW - thought this was working!?
+- NEED MORE FEEDBACK ON THE ACTUAL DATA?
 
 
 
@@ -37,14 +39,10 @@ Plan:
           all renderers?
 	  - for 3D, would need to change the transform of the cube!
 	- modifiers in 3D view? DIFFICULT, NOT WORTH IT?
-	- refine multiple loading of files?
 	- fix offsetting box when making tiny change!
-	- fix collapsed verts!
-	- set correct annos when switching layer
-	- check multiple layers with annos
-	- think about custom shapes?
+	- think about custom shapes? (sphere?)
 	- have layer light up when selected in the viewer?
-	- track down error when deleting/turning invisible!
+	- clean up functions in 3DcanvasViewer
 
 
 	-----------------------------------------------------------------------
@@ -54,6 +52,11 @@ Plan:
 	- add visibility toggle to annotation class
 	- refine multiple loading of files?
 	- track down error when deleting/turning invisible!
+	- set correct annos when switching layer
+	- fixed annoying bug with 3D View when loading a new layer item 
+	- fix collapsed verts!
+	- refactored, got rid of manipulators, Point2D now separate class!
+
 
 	-----------------------------------------------------------------------
 
