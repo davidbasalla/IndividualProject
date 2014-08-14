@@ -177,11 +177,13 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 		if(annoArray[i].visible){
 
-		    var annoObject = {};
+		    var annoObject = annoArray[i].clone();
 
-		    annoObject["label"] = annoArray[i]["label"];
-		    annoObject["points3D"] = annoArray[i]["points3D"];
-		    annoObject["color"] = annoArray[i]["color"];
+
+
+		    //annoObject["label"] = annoArray[i]["label"];
+		    //annoObject["points3D"] = annoArray[i]["points3D"];
+		    //annoObject["color"] = annoArray[i]["color"];
 
 		    //update local array
 		    this.annotations.push(annoObject);
@@ -192,7 +194,8 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 		    //determine center of XML OBJ
 		    
-		    var annoCenter = this.getAnnoCenter(annoObject["points3D"]);
+		    //var annoCenter = this.getAnnoCenter(annoObject["points3D"]);
+		    var annoCenter = annoObject.getCenterPoint3D();
 		    
 		    var volume = this.Xrenderer.topLevelObjects[0];
 		    var x = annoCenter[0] * volume._childrenInfo[0]._sliceSpacing - 
@@ -206,62 +209,19 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 		    //determine dimensions
 
-		    var dimensions = this.getAnnoDimensions(annoObject["points3D"]);
+		    var dimensions = annoObject.getDimensions3D();
 
 		    cube.lengthX = dimensions[0];
 		    cube.lengthY = dimensions[1];
 		    cube.lengthZ = dimensions[2];
 
-		    cube.color = this.getAnnoColorArray(annoObject["color"]);
+		    cube.color = annoObject.getColorArray();
 		    //add cube to viewer
 
 		    this.Xrenderer.add(cube);
 		}
 	    }
 	    //this.annotations
-	},
-	getAnnoColorArray:function(hexString){
-	    //SHOULD REALLY BE INSIDE THE annoObject CLASS
-	    //TAKEN THIS FROM STACK OVERFLOW
-
-
-	    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexString);
-
-	    return [parseInt(result[1], 16)/255,
-		    parseInt(result[2], 16)/255,
-		    parseInt(result[3], 16)/255];
-	},
-	getAnnoDimensions:function(pointsArray3D){
-	    //SHOULD REALLY BE INSIDE THE annoObject CLASS
-
-	    var xArray = [], yArray = [], zArray = [];
-
-	    for(var i = 0; i < pointsArray3D.length; i++){
-		xArray.push(pointsArray3D[i][0]);
-		yArray.push(pointsArray3D[i][1]);
-		zArray.push(pointsArray3D[i][2]);
-	    }
-
-	    var xLength = Math.max.apply(Math, xArray) - Math.min.apply(Math, xArray);
-	    var yLength = Math.max.apply(Math, yArray) - Math.min.apply(Math, yArray);
-	    var zLength = Math.max.apply(Math, zArray) - Math.min.apply(Math, zArray);
-
-	    return [xLength, yLength, zLength];
-
-	},
-	getAnnoCenter:function(pointsArray3D){
-	    //SHOULD REALLY BE INSIDE THE annoObject CLASS
-
-	    var xSum = 0, ySum = 0, zSum = 0;
-
-	    for(var i = 0; i < pointsArray3D.length; i++){
-		xSum += pointsArray3D[i][0];
-		ySum += pointsArray3D[i][1];
-		zSum += pointsArray3D[i][2];
-	    }
-
-	    return([xSum/8, ySum/8, zSum/8]);
-	
 	},
 	setToBlack:function(){	    
 	    

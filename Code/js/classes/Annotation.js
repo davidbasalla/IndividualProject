@@ -30,6 +30,20 @@ define([], function(){
 	    return [min, max];
 	};
 
+	this.getDimensions3D = function(){
+
+	    var xLen = 0, yLen = 0, zLen = 0;
+	    var xMinMax = [], yMinMax = [], zMinMax = [];
+
+	    var xMinMax = this.getMinMaxValues(0);
+	    var yMinMax = this.getMinMaxValues(1);
+	    var zMinMax = this.getMinMaxValues(2);
+
+	    return [xMinMax[1] - xMinMax[0],
+		    yMinMax[1] - yMinMax[0],
+		    zMinMax[1] - zMinMax[0]];	   
+	};
+
 	//MINMAX 2D
 	this.getMinMax2D = function(dir){
 	    //0 = X
@@ -125,7 +139,6 @@ define([], function(){
 	this.getNeighbor2DPoint = function(point2D, dir){
 	    //get the neighboring points on either side
 
-
 	    var neighbor = null;
 	    var val = null;
 	    var valSrc = null;
@@ -150,6 +163,28 @@ define([], function(){
 	    return null;
 	};
 
+	this.getCenterPoint3D = function(){
+
+	    var xSum = 0, ySum = 0, zSum = 0;
+
+	    for(var i = 0; i < this.points3D.length; i++){
+		xSum += this.points3D[i][0];
+		ySum += this.points3D[i][1];
+		zSum += this.points3D[i][2];
+	    }
+
+	    return([xSum/8, ySum/8, zSum/8]);
+	};
+	
+	this.getColorArray = function(){
+	    
+	    
+	    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(this.color);
+	    
+	    return [parseInt(result[1], 16)/255,
+		    parseInt(result[2], 16)/255,
+		    parseInt(result[3], 16)/255];	    
+	};
     };
     return Annotation;
 });

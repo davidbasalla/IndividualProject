@@ -401,6 +401,8 @@ define(["text!templates/CanvasViewer2D.html",
 		//discard etra points, return 4 2D points based on sliceIndex
 		
 		var culledPoints = [];
+		var culledPoints3D = [];
+
 		for(var i = 0; i < points3D.length; i++){
 
 		    var point = [points3D[i][b], points3D[i][c]];
@@ -410,8 +412,10 @@ define(["text!templates/CanvasViewer2D.html",
 			if(_.isEqual(point, culledPoints[j]))
 			    pointExists = true;
 		    }
-		    if(!pointExists)
+		    if(!pointExists){
 			culledPoints.push(point);	    
+			culledPoints3D.push(points3D[i]);
+		    }
 		}
 		
 
@@ -423,18 +427,20 @@ define(["text!templates/CanvasViewer2D.html",
 		else{
 		    //convert these points to XY format
 		    //need to run a ij2xy function
-		    for (var i = 0; i < culledPoints.length; i++){
+		    for (var i = 0; i < culledPoints3D.length; i++){
 
 			console.log('RUNNING CONVERSIONS!');
 
-			console.log('CULLED POINT = ' + culledPoints[i]);
+			console.log('CULLED POINT = ' + culledPoints3D[i]);
 
 
+			/*
 			var point = this.Xrenderer.ijk2xy([
 			    curIndex,
 			    culledPoints[i][0], 
-			    culledPoints[i][1]]);
+			    culledPoints[i][1]]);*/
 
+			var point = this.Xrenderer.ijk2xy(culledPoints3D[i]);
 
 			console.log('2D_POINT = ' + point);
 			
