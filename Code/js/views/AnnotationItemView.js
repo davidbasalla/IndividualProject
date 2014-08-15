@@ -27,10 +27,15 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    //add style to rendering of the layer item
 	    $(this.el).addClass('list-group-item');
 	    $(this.el).addClass('layer');
-
+	    
 	    
 	    //template - set title
 	    this.$el.html(this.template);
+
+	    console.log(this.annoObject);
+	    console.log(this.annoObject.identifier);
+
+	    $(this.el).attr("id", this.annoObject.identifier);
 
 	    //should set the color to the appropriate color
 	    $('.color-box', this.el).css('background-color', this.annoObject.color);

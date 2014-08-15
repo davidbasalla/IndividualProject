@@ -69,6 +69,7 @@ define(["text!templates/Annotation.html",
 				   [curX + offset, curY + offset, curZ - offset],
 				   [curX + offset, curY - offset, curZ - offset]
 				  ];
+	    annoObject.identifier = 'annoLayerId_' + this.currentItem.get('annotations').length;
 	    annoObject.print();
 	    
 	    this.currentItem.addAnnos([annoObject]);	    
@@ -175,7 +176,8 @@ define(["text!templates/Annotation.html",
 		annoObj.shape = annoString[i].shape;
 		annoObj.color = annoString[i].color;
 		annoObj.points3D = annoString[i].points3D;
-		annoObj.visible = annoString[i].visible;
+		annoObj.visible = annoString[i].visible;	   
+		annoObj.identifier = 'annoLayerId_' + this.currentItem.get('annotations').length;
 		annos.push(annoObj);
 
 		this.createLayerView(annoObj);

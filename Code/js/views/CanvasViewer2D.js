@@ -96,7 +96,8 @@ define(["text!templates/CanvasViewer2D.html",
 					  this.mouseY,
 					  this.currentLayerItemTop, 
 					  this.mode]);
-			this.setAnnotations(this.annotations);
+			this.setAnnotations(this.annotations);		
+
 		    }
 		}
 		else if(e.button == 1){
@@ -272,14 +273,23 @@ define(["text!templates/CanvasViewer2D.html",
 				   mouseX < point.x + point.width &&
 				   mouseY > point.y - point.width &&
 				   mouseY < point.y + point.width){
-				    //console.log('HIT!!!!');
 
 				    //set currently selected manipulator
 				    this.point2DSelected = point;
+				    
+				    //grab the layer from here - not great, but works
+				    ($('#' + this.point2DSelected.parent.identifier)).removeClass('layer');
+				    ($('#' + this.point2DSelected.parent.identifier)).addClass('layer-selected');
+
 				    return;
 				}
-				else
+				else{
+				    if(this.point2DSelected){
+					($('#' + this.point2DSelected.parent.identifier)).removeClass('layer-selected');
+					($('#' + this.point2DSelected.parent.identifier)).addClass('layer');
+				    };
 				    this.point2DSelected = null;
+				}
 			    }
 			}		    
 		    }
@@ -348,11 +358,13 @@ define(["text!templates/CanvasViewer2D.html",
 	    }
 		
 	    //reset the points!
+
 	    parent["points3D"] = points3D;
 	    //console.log(this.annotations);
 	    this.currentLayerItemTop.set({
 		annotations: this.annotations
 	    });
+
 	    //console.log(this.currentLayerItemTop.get('annotations'));
 
 	},
@@ -645,23 +657,17 @@ define(["text!templates/CanvasViewer2D.html",
 	},
 	drawManipulator:function(point2D, color){
 	   
-	    this.ctx.beginPath();
-	    this.ctx.lineWidth="1px";	    
-	    if(point2D == this.point2DSelected)	    
-		this.ctx.fillStyle = "#FFFFFF";
-	    else
-		this.ctx.fillStyle = "#000000";			
-
-	    this.ctx.rect(point2D.x - point2D.width, 
-			  point2D.y - point2D.width, 
-			  point2D.width*2, 
-			  point2D.width*2);
-	    this.ctx.fill();
-	    
 	    //OUTLINE
 	    this.ctx.beginPath();
-	    this.ctx.lineWidth="2px";
-	    this.ctx.strokeStyle = color;
+	    this.ctx.lineWidth=2;	    
+	    
+	    if(point2D == this.point2DSelected)	 
+		this.ctx.lineWidth=3;	
+	
+	    if(point2D == this.point2DSelected)	    
+	    	this.ctx.strokeStyle = "#FFFFFF";
+	    else
+		this.ctx.strokeStyle = color;
     
 	    this.ctx.rect(point2D.x - point2D.width, 
 			  point2D.y - point2D.width, 
