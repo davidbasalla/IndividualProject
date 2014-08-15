@@ -15,17 +15,14 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.webGLFriendly = true;
 	    this.panVector = new X.vector(0,0,0);  //x, y, d
 
-	    this.viewerX_OrigX = 0;
-	    this.viewerX_OrigY = 0;
-	    this.viewerX_OrigZ = 0;
+	    //store XTKviewer's camera view (4x4 Matrix)
+	    this.viewer3D_OrigView = [];
+	    this.viewerX_OrigView = [];
+	    this.viewerY_OrigView = [];
+	    this.viewerZ_OrigView = [];
 
-	    this.viewerY_OrigX = 0;
-	    this.viewerY_OrigY = 0;
-	    this.viewerY_OrigZ = 0;
 
-	    this.viewerZ_OrigX = 0;
-	    this.viewerZ_OrigY = 0;
-	    this.viewerZ_OrigZ = 0;
+	    //var test = goog.vec.Matrix4.create();
 
 
 	    //settings for xtkContainers
@@ -456,21 +453,13 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	},
 	storeOriginalViews:function(){
+	    console.log('XtkView.storeOriginalViews()');
 	    
-	    this.viewerX_OrigX = this.viewerX.camera.view[12];
-	    this.viewerX_OrigY = this.viewerX.camera.view[13];
-	    this.viewerX_OrigZ = this.viewerX.camera.view[14];
-	    //console.log(this.viewerX.camera.view);
+	    this.viewer3D_OrigView = goog.vec.Mat4.clone(this.viewer3D.camera.view);
+	    this.viewerX_OrigView = goog.vec.Mat4.clone(this.viewerX.camera.view);
+	    this.viewerY_OrigView = goog.vec.Mat4.clone(this.viewerY.camera.view);
+	    this.viewerZ_OrigView = goog.vec.Mat4.clone(this.viewerZ.camera.view);
 
-	    this.viewerY_OrigX = this.viewerY.camera.view[12];
-	    this.viewerY_OrigY = this.viewerY.camera.view[13];
-	    this.viewerY_OrigZ = this.viewerY.camera.view[14];
-	    //console.log(this.viewerY.camera.view);
-
-	    this.viewerZ_OrigX = this.viewerZ.camera.view[12];
-	    this.viewerZ_OrigY = this.viewerZ.camera.view[13];
-	    this.viewerZ_OrigZ = this.viewerZ.camera.view[14];
-	    //console.log(this.viewerZ.camera.view);
 	},
 	storeValues:function(){
 	    //console.log('XtkView.storeValues()');
@@ -627,21 +616,21 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 		if(args[2] == 1){
 
-		    var distanceFactor = Math.max(0, Math.min(0.5, this.viewerX.camera.view[14] - this.viewerX_OrigZ));
+		    var distanceFactor = Math.max(0, Math.min(0.5, this.viewerX.camera.view[14] - this.viewerX_OrigView[14]));
 		    var zoomFactor = args[0] *  Math.max(0, Math.pow(Math.abs(args[0]), distanceFactor));
 		    zoomFactor = zoomFactor/500; //reduce factor by a constant
 
 		    this.viewerX.camera.view[14] += zoomFactor;		    
 		}
 		else if(args[2] == 2){
-		    var distanceFactor = Math.max(0, Math.min(0.5, this.viewerY.camera.view[14] - this.viewerY_OrigZ));
+		    var distanceFactor = Math.max(0, Math.min(0.5, this.viewerY.camera.view[14] - this.viewerY_OrigView[14]));
 		    var zoomFactor = args[0] *  Math.max(0, Math.pow(Math.abs(args[0]), distanceFactor));
 		    zoomFactor = zoomFactor/500; //reduce factor by a constant
 
 		    this.viewerY.camera.view[14] += zoomFactor;
 		}
 		else if(args[2] == 3){
-		    var distanceFactor = Math.max(0, Math.min(0.5, this.viewerZ.camera.view[14] - this.viewerZ_OrigZ));
+		    var distanceFactor = Math.max(0, Math.min(0.5, this.viewerZ.camera.view[14] - this.viewerZ_OrigView[14]));
 		    var zoomFactor = args[0] *  Math.max(0, Math.pow(Math.abs(args[0]), distanceFactor));
 		    zoomFactor = zoomFactor/500; //reduce factor by a constant
 
@@ -650,23 +639,28 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    }
 	},
 	setFocus:function(args){
+	    console.log('XtkView.setFocus(' + args + ')');
+	    console.log(args);
 
 	    if(this.layerIndex == args[0].get('index')){
 
-		if(args[1] == 1){
-		    this.viewerX.camera.view[12] = this.viewerX_OrigX;
-		    this.viewerX.camera.view[13] = this.viewerX_OrigY;
-		    this.viewerX.camera.view[14] = this.viewerX_OrigZ;
+		console.log(this.layerIndex);
+
+		if(args[1] == 0){
+
+		    console.log('0!');
+		    console.log(this.viewer3D.camera);
+
+		    this.viewer3D.camera.view = goog.vec.Mat4.clone(this.viewer3D_OrigView);
+		}
+		else if(args[1] == 1){
+		    this.viewerX.camera.view = goog.vec.Mat4.clone(this.viewerX_OrigView);
 		}
 		else if(args[1] == 2){
-		    this.viewerY.camera.view[12] = this.viewerY_OrigX;
-		    this.viewerY.camera.view[13] = this.viewerY_OrigY;
-		    this.viewerY.camera.view[14] = this.viewerY_OrigZ;
-			}
+		    this.viewerY.camera.view = goog.vec.Mat4.clone(this.viewerY_OrigView);
+		}
 		else if(args[1] == 3){
-		    this.viewerZ.camera.view[12] = this.viewerZ_OrigX;
-		    this.viewerZ.camera.view[13] = this.viewerZ_OrigY;
-		    this.viewerZ.camera.view[14] = this.viewerZ_OrigZ;
+		    this.viewerZ.camera.view = goog.vec.Mat4.clone(this.viewerZ_OrigView);
 		}
 	    }
 	},

@@ -117,11 +117,14 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 	},
 	keyHandler:function(e){
-	    //console.log('CanvasViewer2D.keyHandler()');
-	    //console.log(e.which);
-	    
-	    if(e.which == 70){
-		Backbone.trigger('focus', [this.currentLayerItemTop, this.mode]);
+	    console.log('CanvasViewer3D.keyHandler()');
+	    console.log(e.which);
+
+	    //call parent function
+	    this.constructor.__super__.keyHandler.apply(this, [e]);	    
+
+	    if(e.which == 86){
+		this.toggleVolumeRender();
 	    }
 	},
 	setMouseDown:function(e){

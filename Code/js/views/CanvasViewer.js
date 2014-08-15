@@ -71,7 +71,15 @@ define(function() {
 	    'click button#ThreeDtoggle': 'setModeHandler',
 	    'click button#Xtoggle': 'setModeHandler',
 	    'click button#Ytoggle': 'setModeHandler',
-	    'click button#Ztoggle': 'setModeHandler',
+	    'click button#Ztoggle': 'setModeHandler',		
+	},	
+	keyHandler:function(e){
+	    console.log('CanvasViewer.keyHandler()');
+	    
+	    if(e.which == 70){
+		Backbone.trigger('focus', [this.currentLayerItemTop, this.mode]);
+		this.setAnnotations(this.annotations);
+	    }
 	},
 	setPanel:function(panel){
 	    /* NEW - for reassigning el and $el */

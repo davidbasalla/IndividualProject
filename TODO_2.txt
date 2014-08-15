@@ -15,7 +15,7 @@ HIGH PRIORITY:
 - WORK ON LAYOUT
 - FIX MOUSE BEHAVIOUR WHEN ROTATING AND LEAVING THE SCREEN
 - Work on Annotations - See below
-- Implemenent F-Button to reset!
+- Implement correct mouse movement when panning in CanvasViewer2D
 
 
 
@@ -37,7 +37,7 @@ LOW PRIORITY:
 DONE:
 
 - USE FASTER ZOOM FOR 2D CANVASES
-
+- Implemenent F-Button to reset!
 
 
 

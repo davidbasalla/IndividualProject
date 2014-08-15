@@ -134,16 +134,14 @@ define(["text!templates/CanvasViewer2D.html",
 	    }
 	},
 	keyHandler:function(e){
-	    //console.log('CanvasViewer2D.keyHandler()');
-	    //console.log(e.which);
+	    console.log('CanvasViewer2D.keyHandler()');
 	    
-	    if(e.which == 70){
-		Backbone.trigger('focus', [this.currentLayerItemTop, this.mode]);
-		this.setAnnotations(this.annotations);
-	    }
+	    //call parent function
+	    this.constructor.__super__.keyHandler.apply(this, [e]);
+
 	    if(e.which == 79){
 		this.toggleOverlay();
-	    }
+	    }	    
 	},
 	setMouseDown:function(e){
 	    this.mouseDown = true;
