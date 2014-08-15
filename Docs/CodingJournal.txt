@@ -156,3 +156,17 @@ issue that a lookup in the current way is very absolute, not really a lookup but
 - seem to be very close now... some annoying things to fix still
 - could be useful to have a line showing where abouts the other
   indeces are in each viewer...?
+
+
+15/08/14:
+=========
+
+- managed to get annotations to a good place for now, involving some
+  tricky bug fixing and having to reverse engineer a function from
+  the XTK functions
+- refactored some code nicely to do with refocusing the 2D and 3D
+  views, involved calling parent function for a overloaded functions
+  and making use of goog.vec.Mat4 library functions. Should probably
+  add this to the report somehow.
+
+

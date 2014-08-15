@@ -6,11 +6,8 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	events: function(){
 	    return _.extend({}, CanvasViewer.prototype.events,{
 		'change input#volumeRender': 'toggleVolumeRender',
-		'mousedown': 'setMouseDown',
-		'mouseup': 'setMouseUp',
 		'mousemove': 'mouseHandler',
-		'mouseenter canvas': 'mouseEnter',
-		'keydown': 'keyHandler',
+		'keydown': 'keyHandler',	    
 	    });
 	},
 	render:function() {
@@ -53,10 +50,6 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 		
 	    }
 	    return this; //to enable chain calling
-	},
-	mouseEnter:function(e){
-	    //need to focus the canvas here
-	    $(e.target).focus();
 	},
 	mouseHandler:function(e){
 
@@ -116,9 +109,14 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    }
 
 	},
+	storeMousePos:function(e){
+	    //console.log('storeMousePos');
+
+	    this.mouseXPrev = e.clientX - this.canvas.offsetLeft;
+	    this.mouseYPrev = e.clientY - this.canvas.offsetTop;	    
+	},
 	keyHandler:function(e){
-	    console.log('CanvasViewer3D.keyHandler()');
-	    console.log(e.which);
+	    //console.log('CanvasViewer3D.keyHandler()');
 
 	    //call parent function
 	    this.constructor.__super__.keyHandler.apply(this, [e]);	    
@@ -126,23 +124,6 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    if(e.which == 86){
 		this.toggleVolumeRender();
 	    }
-	},
-	setMouseDown:function(e){
-	    this.mouseDown = true;
-	    this.storeMousePos(e);
-
-	},
-	setMouseUp:function(e){
-	    this.mouseDown = false;
-	    this.traversing = false;
-	},
-	storeMousePos:function(e){
-	    //console.log('storeMousePos');
-
-	    this.mouseXPrev = e.clientX - this.canvas.offsetLeft;
-	    this.mouseYPrev = e.clientY - this.canvas.offsetTop;
-
-	    
 	},
 	setOpacity:function(){
 
@@ -152,7 +133,7 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    };
 	},
 	setAnnotations:function(annoArray){
-	    console.log('CanvasViewer3D.setAnnotations() ===================');
+	    //console.log('CanvasViewer3D.setAnnotations() ===================');
 
 	    //convert 3D data to an XCube!
 
@@ -238,7 +219,7 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	},
 	toggleVolumeRender:function(){
 
-	    console.log('CanvasViewer3D.toggleVolumeRender()');
+	    //console.log('CanvasViewer3D.toggleVolumeRender()');
 
 	    if (!this.doVolumeRender){
 		this.doVolumeRender = true;

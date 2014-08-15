@@ -49,6 +49,7 @@ define(function() {
 	    this.mouseY = 0;
 
 	    this.mouseDown = false;
+	    this.mouseDownOnExit = false;
 	    this.traversing = false;
 	    this.manipulatorSelected = false;
 
@@ -71,15 +72,48 @@ define(function() {
 	    'click button#ThreeDtoggle': 'setModeHandler',
 	    'click button#Xtoggle': 'setModeHandler',
 	    'click button#Ytoggle': 'setModeHandler',
-	    'click button#Ztoggle': 'setModeHandler',		
+	    'click button#Ztoggle': 'setModeHandler',			
+	    'mouseenter canvas': 'mouseEnter',	
+	    'mousedown': 'setMouseDown',
+	    'mouseout': 'setMouseOut',
+	    'mouseup': 'setMouseUp',
 	},	
 	keyHandler:function(e){
-	    console.log('CanvasViewer.keyHandler()');
+	    //console.log('CanvasViewer.keyHandler()');
 	    
 	    if(e.which == 70){
 		Backbone.trigger('focus', [this.currentLayerItemTop, this.mode]);
 		this.setAnnotations(this.annotations);
 	    }
+	},
+	mouseEnter:function(e){
+
+	    //console.log('ENTER');
+
+	    if(e.which == 1 && this.mouseDownOnExit)
+		this.mouseDown = true;	
+
+	    //need to focus the canvas here
+	    $(e.target).focus();
+	},
+	setMouseDown:function(e){
+	    this.mouseDown = true;
+	    this.storeMousePos(e);
+
+	},
+	setMouseUp:function(e){	    
+	    //console.log('setMouseUp');
+	    this.mouseDown = false;
+	    this.traversing = false;
+	},
+	setMouseOut:function(){
+	    //console.log('setMouseOut');
+
+	    if(this.mouseDown)
+		this.mouseDownOnExit = true;
+
+	    this.mouseDown = false;
+
 	},
 	setPanel:function(panel){
 	    /* NEW - for reassigning el and $el */
@@ -90,7 +124,7 @@ define(function() {
 
 	},
 	setCurrentLayers:function(itemA, itemB){
-	    console.log('CanvasViewer.setCurrentLayers()');
+	    //console.log('CanvasViewer.setCurrentLayers()');
 	    
 	    this.currentLayerItemTop = itemA;
 	    this.currentLayerItemBottom = itemB;
@@ -108,11 +142,8 @@ define(function() {
 
 	},
 	setSrcCanvases:function(){
-	    console.log('CanvasViewer.setSrcCanvases()');
-	    console.log('MODE = ' + this.mode);
-
-	    //console.log(this.currentLayerItemTop);
-	    //console.log(this.currentLayerItemBottom);
+	    //console.log('CanvasViewer.setSrcCanvases()');
+	    //console.log('MODE = ' + this.mode);
 
 	    if(this.currentLayerItemTop && this.currentLayerItemBottom){
 		
@@ -130,7 +161,6 @@ define(function() {
 		//INSTEAD SHOULD LOOP THROUGH AND SEE WHERE THE INDEX FITS
 		for(var i = 0; i < this.viewerWindowView.xtkViewArray.length; i++){
 		    var curXtkView = this.viewerWindowView.xtkViewArray[i];
-		    console.log(curXtkView);
 		    if(curXtkView.layerIndex == layerIndexTop){
 			
 			if(this.mode == 0)
@@ -148,13 +178,7 @@ define(function() {
 	},
 	setModeHandler:function(e){
 
-	    console.log('CanvasView.setModelHandler()');
-
-	    console.log(this);
-	    console.log('MODE = ' + this.mode);
-	    console.log('EL = ' + this.el);
-	    console.log('E.DELTARGET.ID = ' + e.delegateTarget.id);
-	    console.log(e);
+	    //console.log('CanvasView.setModelHandler()');
 
 
 	    var srcIndex = this.mode;
@@ -176,7 +200,7 @@ define(function() {
 
 	},
 	setModeCSS:function(){
-	    console.log('setMode(' + this.mode + ')');
+	    //console.log('setMode(' + this.mode + ')');
 
 	    this.$el.find("#ThreeDtoggle").removeClass('layer-selected');
 	    this.$el.find("#Xtoggle").removeClass('layer-selected');	    

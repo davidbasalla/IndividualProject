@@ -13,10 +13,8 @@ define(["text!templates/CanvasViewer2D.html",
 	events: function(){
 	    return _.extend({}, CanvasViewer.prototype.events,{
 		'change input#overlayCheckbox': 'toggleOverlay',
-		'mousedown': 'setMouseDown',
 		'mouseup': 'setMouseUp',
 		'mousemove': 'mouseHandler',
-		'mouseenter canvas': 'mouseEnter',
 		'keydown': 'keyHandler',
 	    });
 	},
@@ -61,10 +59,6 @@ define(["text!templates/CanvasViewer2D.html",
 	    }
 	
 	    return this; //to enable chain calling
-	},
-	mouseEnter:function(e){
-	    //need to focus the canvas here
-	    $(e.target).focus();
 	},
 	mouseHandler:function(e){
 
@@ -134,7 +128,7 @@ define(["text!templates/CanvasViewer2D.html",
 	    }
 	},
 	keyHandler:function(e){
-	    console.log('CanvasViewer2D.keyHandler()');
+	    //console.log('CanvasViewer2D.keyHandler()');
 	    
 	    //call parent function
 	    this.constructor.__super__.keyHandler.apply(this, [e]);
@@ -143,14 +137,9 @@ define(["text!templates/CanvasViewer2D.html",
 		this.toggleOverlay();
 	    }	    
 	},
-	setMouseDown:function(e){
-	    this.mouseDown = true;
-	    this.storeMousePos(e);
-	    //this.checkForManipulator(e);
-	},
 	setMouseUp:function(e){
-	    this.mouseDown = false;
-	    this.traversing = false;
+
+	    this.constructor.__super__.setMouseUp.apply(this, [e]);
 
 	    if(this.point2DSelected){
 		
@@ -183,7 +172,7 @@ define(["text!templates/CanvasViewer2D.html",
 	    }
 	},
 	mouseWheelHandler:function(e){
-	    console.log('CanvasViewer2D.mouseWheelHandler()');
+	    //console.log('CanvasViewer2D.mouseWheelHandler()');
 
 	    //only scroll if a layerItem is set
 	    if(this.currentLayerItemTop){
@@ -231,7 +220,7 @@ define(["text!templates/CanvasViewer2D.html",
 	    };
 	},
 	setAnnotations:function(annoArray){
-	    console.log('CanvasViewer2D.setAnnotations() =====================');
+	    //console.log('CanvasViewer2D.setAnnotations() =====================');
 	    //need to create a copy of the array here, as we're changing
 	    //attrs like points2D per renderer!
 	    
@@ -367,7 +356,7 @@ define(["text!templates/CanvasViewer2D.html",
 
 	},
 	convertTo2DPoints:function(annoObj){
-	    console.log('CanvasViewer2D.convertPoints()');
+	    //console.log('CanvasViewer2D.convertPoints()');
 
 	    var points2D = [];
 	    var points3D = annoObj.points3D;
@@ -428,7 +417,6 @@ define(["text!templates/CanvasViewer2D.html",
 		    }
 		}
 		
-
 		//expecting an XtkView here
 		if(!this.Xrenderer){
 		    console.log('No Xtk Viewer found');
@@ -439,50 +427,20 @@ define(["text!templates/CanvasViewer2D.html",
 		    //need to run a ij2xy function
 		    for (var i = 0; i < culledPoints3D.length; i++){
 
-			//console.log('RUNNING CONVERSIONS!');
-
-			//console.log('CULLED POINT = ' + culledPoints3D[i]);
-
-
-			/*
-			var point = this.Xrenderer.ijk2xy([
-			    curIndex,
-			    culledPoints[i][0], 
-			    culledPoints[i][1]]);*/
-
 			var point = this.Xrenderer.ijk2xy(culledPoints3D[i]);
-
-			//console.log('2D_POINT = ' + point);
-			
-
-			//FOR TESTING
-			/*
-			var _ijk = this.Xrenderer.xy2ijk(point[0],
-							 point[1]);
-
-			console.log('IJK0 = ' + _ijk[0]);*/
-			//console.log('IJK1 = ' + _ijk[1]);
-			//console.log('IJK2 = ' + _ijk[2]);
-
-			////////////////////////////////////
 
 			var point2D = new Point2D();
 			point2D.x = point[0];
 			point2D.y = point[1];
 			point2D.width = 5;
-			//point2D.parent = annoObj;
-
-			//console.log('PUSHING:' + point[0] + ', ' + point[1]);
-			
-
-			//console.log(point2D);
 
 			points2D.push(point2D);		
 		    }
 		}
 	    }
+	    /*
 	    else 
-		console.log('DEPTH-WISE OUTSIDE THE ANNOTATION!!!');
+		console.log('DEPTH-WISE OUTSIDE THE ANNOTATION!!!');*/
 
 	    //need to sort the points, so no Z-formation gets created
 	    //points2D = this.sortPointsForRectangle(points2D);
