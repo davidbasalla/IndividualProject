@@ -32,7 +32,6 @@ define([], function(){
 
 	this.getDimensions3D = function(){
 
-	    var xLen = 0, yLen = 0, zLen = 0;
 	    var xMinMax = [], yMinMax = [], zMinMax = [];
 
 	    var xMinMax = this.getMinMaxValues(0);

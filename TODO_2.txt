@@ -12,6 +12,8 @@ HIGH PRIORITY:
 - FIX THE AUTOSCALING WHEN SWITCHING VIEWS
 - COUNTERACT SCALING OF ELEMENTS (LAYERS/ANNOS) - Have layout options?
 - WORK ON LAYOUT
+- USE FASTER ZOOM FOR 2D CANVASES
+- FIX MOUSE BEHAVIOUR WHEN ROTATING AND LEAVING THE SCREEN
 
 
 LOW PRIORITY:
@@ -41,10 +43,10 @@ Plan:
 	- modifiers in 3D view? DIFFICULT, NOT WORTH IT?
 	- fix offsetting box when making tiny change!
 	  - still working on this, need to check scaling offset!
-
+	  - Z axis seems fine, others dont?
 	- think about custom shapes? (sphere?)
 	- have layer light up when selected in the viewer?
-	- clean up functions in 3DcanvasViewer
+
 
 
 	-----------------------------------------------------------------------
@@ -58,7 +60,7 @@ Plan:
 	- fixed annoying bug with 3D View when loading a new layer item 
 	- fix collapsed verts!
 	- refactored, got rid of manipulators, Point2D now separate class!
-
+	- clean up functions in 3DcanvasViewer
 
 	-----------------------------------------------------------------------
 

@@ -82,8 +82,8 @@ define(["text!templates/Annotation.html",
 	    //remove redundancies...
 	    var annosArray = this.currentItem.get('annotations');
 	    for(var i = 0; i < annosArray.length; i++){
-		if(annosArray[i].manipulators)
-		    delete annosArray[i].manipulators;
+		if(annosArray[i].points2D)
+		    delete annosArray[i].points2D;
 	    }
 
 

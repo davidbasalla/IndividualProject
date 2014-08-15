@@ -429,9 +429,9 @@ define(["text!templates/CanvasViewer2D.html",
 		    //need to run a ij2xy function
 		    for (var i = 0; i < culledPoints3D.length; i++){
 
-			console.log('RUNNING CONVERSIONS!');
+			//console.log('RUNNING CONVERSIONS!');
 
-			console.log('CULLED POINT = ' + culledPoints3D[i]);
+			//console.log('CULLED POINT = ' + culledPoints3D[i]);
 
 
 			/*
@@ -442,7 +442,7 @@ define(["text!templates/CanvasViewer2D.html",
 
 			var point = this.Xrenderer.ijk2xy(culledPoints3D[i]);
 
-			console.log('2D_POINT = ' + point);
+			//console.log('2D_POINT = ' + point);
 			
 
 			//FOR TESTING

@@ -211,9 +211,9 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 		    var dimensions = annoObject.getDimensions3D();
 
-		    cube.lengthX = dimensions[0];
-		    cube.lengthY = dimensions[1];
-		    cube.lengthZ = dimensions[2];
+		    cube.lengthX = Math.abs(dimensions[0] * volume._childrenInfo[0]._sliceSpacing);
+		    cube.lengthY = Math.abs(dimensions[1] * volume._childrenInfo[1]._sliceSpacing);
+		    cube.lengthZ = Math.abs(dimensions[2] * volume._childrenInfo[2]._sliceSpacing);
 
 		    cube.color = annoObject.getColorArray();
 		    //add cube to viewer
