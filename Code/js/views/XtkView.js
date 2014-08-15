@@ -618,21 +618,34 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    }
 	},
 	setZoom:function(args){
+	    console.log('XtkView.setZoom(' + args + ')');
 
 	    ////console.log(this.layerIndex);
 	    ////console.log(args[2].get('index'));
 
-
 	    if(this.layerIndex == args[1].get('index')){
 
 		if(args[2] == 1){
-		    this.viewerX.camera.view[14] += args[0]/500;
+
+		    var distanceFactor = Math.max(0, Math.min(0.5, this.viewerX.camera.view[14] - this.viewerX_OrigZ));
+		    var zoomFactor = args[0] *  Math.max(0, Math.pow(Math.abs(args[0]), distanceFactor));
+		    zoomFactor = zoomFactor/500; //reduce factor by a constant
+
+		    this.viewerX.camera.view[14] += zoomFactor;		    
 		}
 		else if(args[2] == 2){
-		    this.viewerY.camera.view[14] += args[0]/500;
+		    var distanceFactor = Math.max(0, Math.min(0.5, this.viewerY.camera.view[14] - this.viewerY_OrigZ));
+		    var zoomFactor = args[0] *  Math.max(0, Math.pow(Math.abs(args[0]), distanceFactor));
+		    zoomFactor = zoomFactor/500; //reduce factor by a constant
+
+		    this.viewerY.camera.view[14] += zoomFactor;
 		}
 		else if(args[2] == 3){
-		    this.viewerZ.camera.view[14] += args[0]/500;
+		    var distanceFactor = Math.max(0, Math.min(0.5, this.viewerZ.camera.view[14] - this.viewerZ_OrigZ));
+		    var zoomFactor = args[0] *  Math.max(0, Math.pow(Math.abs(args[0]), distanceFactor));
+		    zoomFactor = zoomFactor/500; //reduce factor by a constant
+
+		    this.viewerZ.camera.view[14] += zoomFactor;
 		}
 	    }
 	},

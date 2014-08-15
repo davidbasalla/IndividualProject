@@ -4,16 +4,19 @@ TODO:
 
 HIGH PRIORITY:
 
-- Work on Annotations - See below
 - WORK ON SMOOTHER INTERACTION - MOUSE-BASED... currently very slow, 
   compared to XTK navigation - seems to be down to how many times the
   screen is updated
 - talk to Ben Glocker about color lookups, when brightness is being applied
 - FIX THE AUTOSCALING WHEN SWITCHING VIEWS
-- COUNTERACT SCALING OF ELEMENTS (LAYERS/ANNOS) - Have layout options?
+- COUNTERACT LAYOUT SCALING OF ELEMENTS (LAYERS/ANNOS) - Have layout
+  options?
+  - needs to have a scroll bar at the right
 - WORK ON LAYOUT
-- USE FASTER ZOOM FOR 2D CANVASES
 - FIX MOUSE BEHAVIOUR WHEN ROTATING AND LEAVING THE SCREEN
+- Work on Annotations - See below
+- Implemenent F-Button to reset!
+
 
 
 LOW PRIORITY:
@@ -31,6 +34,12 @@ LOW PRIORITY:
 - NEED MORE FEEDBACK ON THE ACTUAL DATA?
 
 
+DONE:
+
+- USE FASTER ZOOM FOR 2D CANVASES
+
+
+
 
 ANNOTATIONS:
 ------------
@@ -38,11 +47,13 @@ ANNOTATIONS:
 Plan:
 
 	- check if visual updating can happen faster, simultaneous in
-          all renderers?
-	  - for 3D, would need to change the transform of the cube!
+          all renderers? - SEEMS TRICKY, ASK BEN
 	- modifiers in 3D view? DIFFICULT, NOT WORTH IT?
-	- think about custom shapes? (sphere?)
-	- have layer light up when selected in the viewer?
+	- think about custom shapes? (sphere?) DIFFICULT?
+	  - eg Sphere...
+	    - how to edit? Scaling only? Or control points?
+	    
+
 
 	-----------------------------------------------------------------------
 
@@ -57,20 +68,15 @@ Plan:
 	- refactored, got rid of manipulators, Point2D now separate class!
 	- clean up functions in 3DcanvasViewer
 	- fix offsetting box when making tiny change!
+	- have layer light up when selected in the viewer?
 
 	-----------------------------------------------------------------------
 
 	THINGS TO LOOK INTO LATER:
 	- anyway to improve performance when navigating?
-	- rescale text when zooming?
+	  - ASK Ben, check if possible to embed the annotation into
+	    the volume object   
 	- improve point sorting for cube!
-
-
-
-
-
-
-
 
 
 
