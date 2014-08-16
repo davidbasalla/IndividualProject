@@ -370,20 +370,27 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.volume = new X.volume();
 
 
+	    /*
 	    this.volume.file = data['volume']['file'].map(function(v) {
 		return v.name;
 	    });
 	    this.volume.filedata = data['volume']['filedata'];
+	    */
+
 	    //this.volume.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
 
+	    /*
+	    this.volume.file = 'http://x.babymri.org/?vol.nrrd';
+	    this.volume.labelmap.file = 'http://x.babymri.org/?seg.nrrd';
+	    this.volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';*/
 
 	    //this.volume.file = 'http://x.babymri.org/?seg.nrrd';
-
-
+	    this.volume.file = 'http://x.babymri.org/?vol.nrrd';
+	    // we also attach a label map to show segmentations on a slice-by-slice base
+	    this.volume.labelmap.file = 'http://x.babymri.org/?seg.nrrd';
 	    // .. and use a color table to map the label map values to colors
-
-
 	    //this.volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
+
 
 	    //this.volume.labelmap.colortable.file = 'https://www.slicer.org/slicerWiki/images/c/ca/PETCT_Labels.txt';
 	    //this.volume.labelmap.colortable.file = 'file://homes/db913/individualproject/Resources/Data/colorExample.txt';

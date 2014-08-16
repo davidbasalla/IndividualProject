@@ -2,8 +2,14 @@ define(["models/LayersItem",
 	"views/LayersView", 
 	"views/LevelsView",
 	"views/AnnotationsView",
+	"views/LabelmapView",
 	"text!templates/SidePanel.html"],
-       function(LayersItem, LayersView, LevelsView, AnnotationView, SidePanelTemplate) {
+       function(LayersItem, 
+		LayersView, 
+		LevelsView, 
+		AnnotationView,
+		LabelmapView,
+		SidePanelTemplate) {
 	   var SidePanelView = Backbone.View.extend({
 	       template: _.template(SidePanelTemplate),
 	       events: {
@@ -32,6 +38,12 @@ define(["models/LayersItem",
 		   //INIT ANNOTATIONS
 		   this.annotationView = new AnnotationView({
 		       el: $('#annotationTab'),
+		       layersModel: this.layersModel,
+		   });
+
+		   //INIT ANNOTATIONS
+		   this.labelmapView = new LabelmapView({
+		       el: $('#labelmapTab'),
 		       layersModel: this.layersModel,
 		   });
 

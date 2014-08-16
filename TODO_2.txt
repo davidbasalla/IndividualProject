@@ -4,40 +4,63 @@ TODO:
 
 HIGH PRIORITY:
 
+- talk to Ben about ColorLookups
+- talk to Ben about Annotations
+
 - WORK ON SMOOTHER INTERACTION - MOUSE-BASED... currently very slow, 
   compared to XTK navigation - seems to be down to how many times the
   screen is updated
-- talk to Ben Glocker about color lookups, when brightness is being applied
 - FIX THE AUTOSCALING WHEN SWITCHING VIEWS
 - COUNTERACT LAYOUT SCALING OF ELEMENTS (LAYERS/ANNOS) - Have layout
   options?
   - needs to have a scroll bar at the right
 - WORK ON LAYOUT
-- FIX MOUSE BEHAVIOUR WHEN ROTATING AND LEAVING THE SCREEN
-- Work on Annotations - See below
 - Implement correct mouse movement when panning in CanvasViewer2D
+- Work on overlaying of label maps!!!!? BIG ISSUE POTENTIALLY
+  - when to load
+  - how to display within UI
+  - how to apply colortable!
+- Protect against multiple file inputs on all inputs!
 
 
+LOW PRIORITY
 
-LOW PRIORITY:
-
-- fix 3DCanvas mouse behaviour
+- Tutorials? Guide?
 - create hotkeys for everything?
 - make custom slider for brightness/threshold
 - work on providing online sample files
 - add navigation panel feedback (for setting camera specifically)
-- work on brightness!
-- Protect against no WebGL
+- Protect against no WebGL!
 - Implement testing!!! Coverage etc
-- Sort of errorhandler in XtkView
+- Sort of errorhandler in XtkView - display error message with bad load!
 - Fix updating of LOOKUP for 3D VIEW - thought this was working!?
-- NEED MORE FEEDBACK ON THE ACTUAL DATA?
+- NEED MORE ACCURATE FEEDBACK ON THE ACTUAL DATA?
 
 
 DONE:
 
 - USE FASTER ZOOM FOR 2D CANVASES
 - Implemenent F-Button to reset!
+- FIX MOUSE BEHAVIOUR WHEN ROTATING AND LEAVING THE SCREEN
+- Work on Annotations - See below
+
+
+====================================================================================
+
+LABELMAPS:
+----------
+
+	1.) design interface for Labelmap
+
+	2.) test how color lookups affect the label map?
+	    - should be okay since on different buffer
+
+	3.) implement adding this to volume on the fly
+	    should be able to reuse code from colortable lookup!
+	    implement removing colormap!
+
+
+
 
 
 
@@ -53,8 +76,6 @@ Plan:
 	  - eg Sphere...
 	    - how to edit? Scaling only? Or control points?
 	    
-
-
 	-----------------------------------------------------------------------
 
 	DONE:
@@ -117,8 +138,6 @@ NEXT STEPS:
   
     
 
-
-- Build custom slider to slider around for window level and threshold
 
 - Work on overlaying of label maps
 

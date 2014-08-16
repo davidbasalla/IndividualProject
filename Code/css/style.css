@@ -79,7 +79,7 @@ html, body {
 .menuHeader{
     font-weight:bold;
     text-decoration: underline;
-    font-size:medium;
+    /*font-size:medium;*/
     font-family:sans-serif;
 }
 .subMenuHeader{
