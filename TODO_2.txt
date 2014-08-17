@@ -17,10 +17,10 @@ HIGH PRIORITY:
 - WORK ON LAYOUT
 - Implement correct mouse movement when panning in CanvasViewer2D
 - Work on overlaying of label maps!!!!? BIG ISSUE POTENTIALLY
-  - when to load
-  - how to display within UI
-  - how to apply colortable!
 - Protect against multiple file inputs on all inputs!
+- CHECK WHY COLORLOOKUP DOESNT WORK ON NRRD FROM ONLINE
+- Fix the -1 index in Levels, use the max numbers from volume!
+- Figure out bug with low level brightness for JET map and NRRD
 
 
 LOW PRIORITY
@@ -60,6 +60,16 @@ LABELMAPS:
 	3.) implement adding this to volume on the fly
 	    should be able to reuse code from colortable lookup!
 	    implement removing colormap!
+	    - WIP BUT PROMISING!
+
+	    - Need to fix initial load
+
+
+
+	4.) Figure out local file loading!
+
+	5.) - check annotations
+	    - figure out bad file load! what happens, when, why?
 
 
 

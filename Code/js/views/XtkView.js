@@ -63,7 +63,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.model.on("change:windowHigh", this.setWindowHigh, this);
 	    this.model.on("change:thresholdLow", this.setThresholdLow, this);
 	    this.model.on("change:thresholdHigh", this.setThresholdHigh, this);
-	    //this.model.on("change:colortable", this.setColortable, this);
+	    this.model.on("change:colortable", this.setColortable, this);
 	    this.model.on("change:labelmap", this.setLabelmap, this);
 
 
@@ -371,17 +371,17 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.volume = new X.volume();
 
 
-	    /*
+	    
 	    this.volume.file = data['volume']['file'].map(function(v) {
 		return v.name;
 	    });
 	    this.volume.filedata = data['volume']['filedata'];
-	    */
+	    
 
 	    //this.volume.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
 
 
-	    this.volume.file = 'http://x.babymri.org/?vol.nrrd';
+	    //this.volume.file = 'http://x.babymri.org/?vol.nrrd';
 	    
 	    //this.volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';*/
 

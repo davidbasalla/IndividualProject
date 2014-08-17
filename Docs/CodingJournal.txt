@@ -176,4 +176,7 @@ issue that a lookup in the current way is very absolute, not really a lookup but
   actually seems to be working fine! almost anyway, similar symptoms
   as with colortables, that initial load turns out black, but when
   reslicing, works fine. Pretty fucking cool! Just need to find that problem...
-  
+- SHIT - local file loading could prove to be a pain in the
+  ass... although maybe fine as it should just be same procedure as
+  with normal volume file loading!
+- ALSO need to figure out whats up with annotations and labelmaps
