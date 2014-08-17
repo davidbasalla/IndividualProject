@@ -53,6 +53,7 @@ define(["models/LayersItem",
 		       layersModel: this.layersModel,
 		       levelsView: this.levelsView,
 		       annotationView: this.annotationView,
+		       labelmapView: this.labelmapView,
 		       viewerWindowView: this.viewerWindowView,
 		   });
 

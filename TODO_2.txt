@@ -51,9 +51,11 @@ LABELMAPS:
 ----------
 
 	1.) design interface for Labelmap
+	    - DONE!
 
 	2.) test how color lookups affect the label map?
 	    - should be okay since on different buffer
+	    - DONE!
 
 	3.) implement adding this to volume on the fly
 	    should be able to reuse code from colortable lookup!

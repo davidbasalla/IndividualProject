@@ -30,6 +30,7 @@ define(["models/LayerItem",
 	    this.layersModel = options.layersModel;
 	    this.levelsView = options.levelsView;
 	    this.annotationView = options.annotationView;
+	    this.labelmapView = options.labelmapView;
 
 	    //set viewerWindowView, required for managing XTKViews
 	    this.viewerWindowView = options.viewerWindowView;
@@ -41,6 +42,9 @@ define(["models/LayerItem",
 	    Backbone.on('opacityChange', this.opacityChange, this);
 	    Backbone.on('initValuesStored', this.setLevelsSettings, this);
 	    Backbone.on('lookupChange', this.setLookup, this);
+	    Backbone.on('labelmapChange', this.setLabelmap, this);
+
+
 	    //Backbone.on('xtkInitialised', this.updateCurrentIndex, this);
 
 	    this.collection = new LayerList();
@@ -164,6 +168,7 @@ define(["models/LayerItem",
 	    //should sideBar handle this?
 	    this.levelsView.setCurrentItem(currentItem);
 	    this.annotationView.setCurrentItem(currentItem);
+	    this.labelmapView.setCurrentItem(currentItem);
 	},
 	thresholdChange: function(args){
 	    ////console.log('triggering layerThresholdChange');

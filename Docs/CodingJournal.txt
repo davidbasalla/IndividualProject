@@ -169,4 +169,11 @@ issue that a lookup in the current way is very absolute, not really a lookup but
   and making use of goog.vec.Mat4 library functions. Should probably
   add this to the report somehow.
 
+17/08/14:
+=========
 
+- attempting to add in labelmap support, seemed kinda risky, but
+  actually seems to be working fine! almost anyway, similar symptoms
+  as with colortables, that initial load turns out black, but when
+  reslicing, works fine. Pretty fucking cool! Just need to find that problem...
+  

@@ -11,7 +11,7 @@ define(["text!templates/Labelmap.html"],
 	    this.render();
 	},	
 	events: {	    		
-
+	    'change input#labelmapVisible': 'setLabelmap',
 	},
 	render:function() {
 
@@ -29,7 +29,7 @@ define(["text!templates/Labelmap.html"],
 	},
 
 	setCurrentItem:function(currentItem){
-	    console.log('AnnotationView.setCurrentItem()');
+	    console.log('LabelmapView.setCurrentItem()');
 
 	    if(this.currentItem){
 		this.currentItem.off("change:annotations", this.updateFromModel, this);
@@ -48,6 +48,16 @@ define(["text!templates/Labelmap.html"],
 	setSettings:function(currentItem){
 	    //would have to reset the annotations here!!
 	    
+	},
+	setLabelmap:function(){
+	    console.log('LabelmapView.setLabelmap()');
+	    //Backbone.trigger('labelmapChange');
+	    
+	    var file = 'http://x.babymri.org/?seg.nrrd';
+	    
+	    this.currentItem.set({labelmap: file});
+
+
 	},
     });
     return LabelmapView;
