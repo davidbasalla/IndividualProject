@@ -400,12 +400,12 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.volume = new X.volume();
 
 
-	    
+	    /*
 	    this.volume.file = data['volume']['file'].map(function(v) {
 		return v.name;
 	    });
 	    this.volume.filedata = data['volume']['filedata'];
-	    
+	    */
 
 	    //this.volume.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
 
@@ -415,7 +415,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //this.volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';*/
 
 	    //this.volume.file = 'http://x.babymri.org/?seg.nrrd';
-	    //this.volume.file = 'http://x.babymri.org/?vol.nrrd';
+	    this.volume.file = 'http://x.babymri.org/?vol.nrrd';
 	    // we also attach a label map to show segmentations on a slice-by-slice base
 	    //this.volume.labelmap.file = 'http://x.babymri.org/?seg.nrrd';
 	    // .. and use a color table to map the label map values to colors
@@ -446,6 +446,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 		console.log('XtkView.parse() - onShowtime!');
 
+
 		/*
 		//show Y
 		if(_this.viewerY.objects._array.length == 0){
@@ -458,7 +459,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		if(_this.viewerZ.objects._array.length == 0){
 		    _this.viewerZ.add(_this.volume);
 		    _this.viewerZ.render();
-		}
+		}*/
 		
 
 		//show 3D
@@ -467,8 +468,12 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 			_this.viewer3D.add(_this.volume);
 			_this.viewer3D.render();
 		    }
+		    else{
+			console.log('UUUPPPDAAATTTTTEEEEEE!!!!');
+			_this.viewer3D.update(_this.volume);
+		    }
 		}
-		*/
+
 
 		//SET MODEL TO LOADED AND STORE SETTINGS
 		if(!_this.model.get('loaded')){
@@ -595,9 +600,17 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //this.volume.labelmap.file = 'http://x.babymri.org/?seg.nrrd';
 	    //this.viewerX.loader.load(this.volume.labelmap.file);
 
-	    this.volume.setLabelmap(file, fileData, this.viewerX);
+	    //this.volume.clearChildren(0);
+	    //this.volume.clearChildren(1);
+	    //this.volume.clearChildren(2);
 
-	    console.log(this.volume);
+	    var xlabelmap= this.volume.setLabelmap(file, fileData, this.viewerX);
+
+	    //this makes the renderer disappear!
+	    //if (_this.webGLFriendly)
+	    //this.viewer3D.update(xlabelmap);
+
+	    console.log(xlabelmap);
 	},
 	setColortable:function(model, value, options){
 

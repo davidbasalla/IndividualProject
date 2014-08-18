@@ -169,7 +169,7 @@ issue that a lookup in the current way is very absolute, not really a lookup but
   and making use of goog.vec.Mat4 library functions. Should probably
   add this to the report somehow.
 
-17/08/14:
+16/08/14:
 =========
 
 - attempting to add in labelmap support, seemed kinda risky, but
@@ -180,3 +180,21 @@ issue that a lookup in the current way is very absolute, not really a lookup but
   ass... although maybe fine as it should just be same procedure as
   with normal volume file loading!
 - ALSO need to figure out whats up with annotations and labelmaps
+
+
+18/08/14:
+========
+
+- made good progress with 2D Maps, BUT 3Drenderer is being a bit of a
+  biatch.
+- apparently when the labelmap is added to the volume, this 3Drenderer
+  does not look the volume again, only through the various children...
+- So for 3Drenderer, all the children get added as listening objects!
+  in terms of updating the 3Drenderer, actually somewhat of a red herring!
+- HAVE TO FIGURE OUT HOW LABELMAPS ARE APPLIED IN 3DRenderer!
+  Do I have to force an update_ with the volume set already?
+
+- TRICKIER THAN I THOUGHT!
+  - wait for a showtime event!?
+  - figure out how basic loading of this shit works
+  - figure out role of renderer and volume in this

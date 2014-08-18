@@ -15,33 +15,39 @@
 	  Labelmap File
 	</span>
 	
-	<div id="labelmapFileContainer">
-
-	  <input type="checkbox" id="labelmapVisible" checked>
-	  
-	  <input type="text" id="labelmapInput" value="No File Selected">
-
-	  <div class="btn-group" style="float:right">
-
-	    <!-- LOAD BUTTON -->
-	    <button type="button"
-		    class="btn btn-default btn-sm"
-		    id="loadLabelmapFile">
-	      <span class="glyphicon glyphicon-floppy-open"> </span>
-	    </button>
-
-	    <input type="file"
-		   id="labelmapPicker"></input>
-
-	    <!-- DELETE BUTTON -->
-	    <button type="button"
-		    class="btn btn-default btn-sm"
-		    id="delete">
-	      <span class="glyphicon glyphicon-trash"></span>
-	    </button>
+	<li class = "list-group-item sublayer">
+	  <div id="labelmapFileContainer">
+	    
+	    <input type="checkbox" id="labelmapVisible" checked>
+	    
+	    <span id="textHolder">
+	      No File Selected
+	    </span>
+	    
+	    <div class="btn-group" style="float:right">
+	      
+	      <!-- LOAD BUTTON -->
+	      <button type="button"
+		      class="btn btn-default btn-sm"
+		      id="loadLabelmapFile">
+		<span class="glyphicon glyphicon-floppy-open"> </span>
+	      </button>
+	      
+	      <input type="file"
+		     id="labelmapPicker"></input>
+	      
+	      <!-- DELETE BUTTON -->
+	      <button type="button"
+		      class="btn btn-default btn-sm"
+		      id="delete">
+		<span class="glyphicon glyphicon-trash"></span>
+	      </button>
+	    </div>
+	    
 	  </div>
-	</div>
+	</li>
       </p>
+
 
       <p>
 

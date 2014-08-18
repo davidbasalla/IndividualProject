@@ -21,6 +21,7 @@ HIGH PRIORITY:
 - CHECK WHY COLORLOOKUP DOESNT WORK ON NRRD FROM ONLINE
 - Fix the -1 index in Levels, use the max numbers from volume!
 - Figure out bug with low level brightness for JET map and NRRD
+- ADD LOCK/UNLOCK OPTION TO INDECES!
 
 
 LOW PRIORITY
@@ -63,20 +64,20 @@ LABELMAPS:
 	    - transparancy
 	    - visibility
 	    - file name in label
+	    DONE!
 	    
-
 	5.) implement adding this to volume on the fly
 	    should be able to reuse code from colortable lookup!
-	    implement removing colormap!
-	    - WIP BUT PROMISING!
+ 	    DONE!
 
-	    - Need to fix initial load
+	    --------
+
+
+	6.) FIGURE OUT HOW 3D LABELMAP IS APPLIED!!!
 
 	6.) Reloading of file/Deleting of file
 
-
-
-	5.) - check annotations
+	7.) - check annotations
 	    - figure out bad file load! what happens, when, why?
 
 
