@@ -43,7 +43,7 @@ define(["models/LayerItem",
 	    Backbone.on('initValuesStored', this.setLevelsSettings, this);
 	    Backbone.on('lookupChange', this.setLookup, this);
 	    Backbone.on('labelmapChange', this.setLabelmap, this);
-
+	    Backbone.on('labelmapOpacityChange', this.labelmapOpacityChange, this);
 
 	    //Backbone.on('xtkInitialised', this.updateCurrentIndex, this);
 
@@ -190,6 +190,13 @@ define(["models/LayerItem",
 	    //update the model
 	    var currentItem = this.layersModel.getCurrentItem();
 	    currentItem.set({opacity: arg});
+	},	
+	labelmapOpacityChange: function(arg){
+	    ////console.log('triggering layerOpacityChange');
+
+	    //update the model
+	    var currentItem = this.layersModel.getCurrentItem();
+	    currentItem.set({labelmapOpacity: arg});
 	},
 	handleClick:function(value){
 	    if (value.currentTarget.id == 'bufferA')
@@ -239,7 +246,7 @@ define(["models/LayerItem",
 	    var currentItem = this.layersModel.getCurrentItem();
 	    currentItem.set({colortable: value});
 
-	},
+	},	
     });
 
     

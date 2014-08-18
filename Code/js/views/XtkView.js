@@ -55,7 +55,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 
 	    //MODEL RELATED EVENTS
-	    this.model.on("change:fileName", this.loadFile, this);
+	    this.model.on("change:file", this.loadVolumeFile, this);	    
 	    this.model.on("change:indexX", this.changeIndexX, this);
 	    this.model.on("change:indexY", this.changeIndexY, this);
 	    this.model.on("change:indexZ", this.changeIndexZ, this);
@@ -64,8 +64,12 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.model.on("change:thresholdLow", this.setThresholdLow, this);
 	    this.model.on("change:thresholdHigh", this.setThresholdHigh, this);
 	    this.model.on("change:colortable", this.setColortable, this);
-	    this.model.on("change:labelmap", this.setLabelmap, this);
 
+	    this.model.on("change:labelmap", this.setLabelmap, this);
+	    this.model.on("change:labelmapFile", this.loadLabelmapFile, this);
+	    this.model.on("change:labelmapVisible", this.setLabelmapVisibility, this);
+	    this.model.on("change:labelmapOpacity", this.setLabelmapOpacity, this);
+	    this.model.on("change:labelmapColortable", this.setLabelmapColortable, this);
 
 	    //GLOBAL EVENTS
 	    Backbone.on('pan', this.setPan, this);
@@ -271,17 +275,28 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    Backbone.trigger('xtkInitialised', this.model);
 	    //set x to be the master viewer
 	},
-	loadFile:function(model, value, options){
+	loadLabelmapFile:function(model, value, options){
+
+	    var file = value;
+	    this.loadFile(file, 1);
+	},
+	loadVolumeFile:function(model, value, options){
+
+	    var file = value;
+	    this.loadFile(file, 0);
+	},
+	loadFile:function(file, mode){
 	    //do file stuff, load it into the master viewer
 	    console.log('XtkView:loadFile()');
 
-	    var file = model.get('file');
+	    //var file = model.get('file');
+	    //var file = value;
 
 	    //create place holder for render data
 	    this.createData();
 	    
 	    var f = file;
-	    var _fileName = value;
+	    var _fileName = file.name;
 	    var _fileExtension = _fileName.split('.').pop().toUpperCase();
 	    
 	    //add data to data_holder
@@ -299,7 +314,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 			var reader = new FileReader();
 			
 			reader.onerror = _this.errorHandler;
-			reader.onload = (_this.loadHandler)(v,u); // bind the current type
+			reader.onload = (_this.loadHandler)(v, u, mode); 
+			// bind the current type
 			
 			// start reading this file
 			reader.readAsArrayBuffer(u);
@@ -307,7 +323,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		}
 	    });
 	},
-	loadHandler:function(type,file){
+	loadHandler:function(type, file, mode){
 	    console.log('XtkView:loadHandler()');
 
 	    _this = this;
@@ -329,8 +345,10 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    //parse(_data);   
 		    
 		    // we have a volume
-		    _this.parse(_this._data);
-
+		    if(mode == 0)
+			_this.parse(_this._data);
+		    else if(mode == 1)
+			_this.parseLabelmap(_this._data);
 		}
 	    };
 	},
@@ -356,6 +374,17 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		}
 	    }
 	    return true;
+
+	},
+	parseLabelmap:function(data){
+	    console.log('XtkView:parseLabelmap()');
+
+	    var file = data['volume']['file'].map(function(v) {
+		return v.name;
+	    });
+	    var filedata = data['volume']['filedata'];
+
+	    this.setLabelmap(file, filedata);
 
 	},
 	parse:function(data){
@@ -559,25 +588,18 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	setThresholdHigh:function(model, value, options){
 	    this.volume.upperThreshold = value;
 	},
-	setLabelmap:function(){
+	setLabelmap:function(file, fileData){
 	    console.log('XtkView.setLabelmap()');
 	    
-	    var file = 'http://x.babymri.org/?seg.nrrd';
+	    //var file = 'http://x.babymri.org/?seg.nrrd';
 	    //this.volume.labelmap.file = 'http://x.babymri.org/?seg.nrrd';
 	    //this.viewerX.loader.load(this.volume.labelmap.file);
 
-	    this.volume.setLabelmap(file, this.viewerX);
+	    this.volume.setLabelmap(file, fileData, this.viewerX);
 
 	    console.log(this.volume);
 	},
 	setColortable:function(model, value, options){
-	    /* can store locations for various color tables here!! 
-	       depending on index, the path changes
-	       force a reload of the color table
-
-	       ALSO need to force a clear of the cache that disables the 
-	       reslicing
-	    */
 
 	    console.log('XtkView.setColortable()');
 
@@ -593,12 +615,24 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		if (_this.webGLFriendly)
 		    this.viewer3D.setColortable(value);
 	    }
+	},
+	setLabelmapColortable:function(model, value, options){
 
-	    /*
-	    var viewerArray = [this.viewerX, this.viewerY, this.viewerZ];
+	    console.log('XtkView.setLabelmapColortable()');
+	    console.log(value);
 
-	    this.volume.setColortable(colTableFile, viewerArray);
-	    */
+	    //0 - NONE
+	    //1 - IDS
+	    //2 - JET
+
+	    var colTableFile = null;
+	    if(value >= 0 && value <= 2){
+		this.viewerX.setLabelmapColortable(value);
+		this.viewerY.setLabelmapColortable(value);
+		this.viewerZ.setLabelmapColortable(value);
+		if (_this.webGLFriendly)
+		    this.viewer3D.setLabelmapColortable(value);
+	    }
 	},
 	setPan:function(args){
 	    //console.log('setPan()');
@@ -747,6 +781,26 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.volume.volumeRendering = val;
 
 	},
+	setLabelmapVisibility:function(model, value, options){
+
+	    console.log('XtkView.setLabelmapVis()');	    
+
+	    var numVal = 0;
+	    if(value)
+		numVal = 1;
+
+
+	    if(this.volume.labelmap)
+		this.volume.labelmap.opacity = numVal;
+	},
+	setLabelmapOpacity:function(model, value, options){
+
+	    console.log('XtkView.setLabelmapOpacity()');	    
+
+	    if(this.volume.labelmap)
+		this.volume.labelmap.opacity = value/100;
+	},
+
     });
     return XtkView;
 });

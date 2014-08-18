@@ -57,16 +57,24 @@ LABELMAPS:
 	    - should be okay since on different buffer
 	    - DONE!
 
-	3.) implement adding this to volume on the fly
+	3.) Figure out local file loading! - DONE
+
+	4.) Figure out 
+	    - transparancy
+	    - visibility
+	    - file name in label
+	    
+
+	5.) implement adding this to volume on the fly
 	    should be able to reuse code from colortable lookup!
 	    implement removing colormap!
 	    - WIP BUT PROMISING!
 
 	    - Need to fix initial load
 
+	6.) Reloading of file/Deleting of file
 
 
-	4.) Figure out local file loading!
 
 	5.) - check annotations
 	    - figure out bad file load! what happens, when, why?

@@ -16,7 +16,6 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    'click button#loadFile': 'loadFile',
 	    'click button#delete': 'deleteLayer',
 	    'change input#filePicker': 'fileLoaded',
-	    'change input#labelPicker': 'labelLoaded',
 	    'click a#addLabelMap': 'addLabelMap',
 	    'click': 'clickSelected',
 	},
@@ -32,7 +31,7 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 
 	    //hide the file pickers
 	    $('#filePicker', this.el).hide();
-	    $('#labelPicker', this.el).hide();
+	    //$('#labelPicker', this.el).hide();
 
 	    return this; // for chainable calls, like .render().el
 	},
@@ -69,15 +68,9 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    $('#textHolder', this.el).html(e.currentTarget.files[0].name);
 
 	    this.model.set({
-		fileName: e.currentTarget.files[0].name,
+		//fileName: e.currentTarget.files[0].name,
 		file : e.currentTarget.files[0]
 	    });
-
-	    //console.log(this.model);
-	    
-	    //trigger event that file has loaded, expected by XtkViewer
-	    //send file along as a parameter
-	    //Backbone.trigger('fileLoaded', [e.currentTarget.files[0], this.model.attributes.index]);
 	},
 	labelLoaded: function(e){
 	    //add text to layer preview

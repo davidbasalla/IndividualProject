@@ -11,7 +11,10 @@ define(["text!templates/Labelmap.html"],
 	    this.render();
 	},	
 	events: {	    		
-	    'change input#labelmapVisible': 'setLabelmap',
+	    'change input#labelmapVisible': 'toggleVisibility',	    
+	    'click button#loadLabelmapFile': 'loadFile',	    
+	    'change input#labelmapPicker': 'fileLoaded',	    
+	    'change select#labelmapLookupSelector': "setLookup",
 	},
 	render:function() {
 
@@ -26,8 +29,26 @@ define(["text!templates/Labelmap.html"],
 		    Backbone.trigger('labelmapOpacityChange', ui.value);
 		}
 	    });
-	},
 
+	    
+	    $('#labelmapPicker', this.el).hide();
+
+
+	},	
+	loadFile: function(event){
+	    //trigger the hidden fileLoader
+	    $('#labelmapPicker',this.el).trigger('click');
+	    event.stopPropagation(); 
+	},	
+	fileLoaded: function(e){
+	    console.log('LabelmapView.fileLoaded()')
+	    //add text to layer preview
+	    $('#textHolder', this.el).html(e.currentTarget.files[0].name);
+	    
+	    this.currentItem.set({
+		labelmapFile : e.currentTarget.files[0]
+	    });
+	},
 	setCurrentItem:function(currentItem){
 	    console.log('LabelmapView.setCurrentItem()');
 
@@ -59,6 +80,24 @@ define(["text!templates/Labelmap.html"],
 
 
 	},
+	toggleVisibility:function(){
+	    console.log('LabelmapView.toggleVis()');
+
+	    var val = this.currentItem.get('labelmapVisible');
+
+	    this.currentItem.set({
+		labelmapVisible: !val
+	    });    
+	},
+	setLookup:function(e){
+	    console.log('LabelmapView.setLookup()');
+	    //console.log(e);
+
+	    this.currentItem.set({
+		labelmapColortable: e.currentTarget.selectedIndex
+	    });    
+	},
+
     });
     return LabelmapView;
     
