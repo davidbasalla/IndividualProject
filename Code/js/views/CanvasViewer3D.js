@@ -141,6 +141,10 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    this.annotations = [];
 
 	    //DELETE ALL OBJECTS AND TOPLEVEL OBJECTS
+
+	    this.Xrenderer.deleteObjectsByClass("cube");
+
+	    /*
 	    for(var j = 0; j < this.Xrenderer.topLevelObjects.length; j++){
 		if(this.Xrenderer.topLevelObjects[j]._classname == "cube"){
 		    this.Xrenderer.topLevelObjects.splice(j, 1);		    
@@ -148,12 +152,13 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 		}
 	    }
 
-	    for(var j = 0; j < this.Xrenderer.objects._array.length; j++){
+	    for(var j = 0; j < this.Xrenderer.objectsLength; j++){
 		if(this.Xrenderer.objects._array[j]._classname == "cube"){
 		    this.Xrenderer.objects.remove(this.Xrenderer.objects._array[j]);
 		    j -= 1;
 		}
 	    }
+	    */
 
 
 	    for(var i = 0; i < annoArray.length; i++){
@@ -182,12 +187,22 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 		    var annoCenter = annoObject.getCenterPoint3D();
 		    
 		    var volume = this.Xrenderer.topLevelObjects[0];
+		    console.log(volume);
+
+		    /*
 		    var x = annoCenter[0] * volume._childrenInfo[0]._sliceSpacing - 
 			volume._childrenInfo[0]._originD;
 		    var y = annoCenter[1] * volume._childrenInfo[1]._sliceSpacing -
 			volume._childrenInfo[1]._originD;
 		    var z = annoCenter[2] * volume._childrenInfo[2]._sliceSpacing -
 			volume._childrenInfo[2]._originD;
+			*/
+
+		    var x = annoCenter[0] * volume.xSpacing - volume.xOriginD;
+		    var y = annoCenter[1] * volume.ySpacing - volume.yOriginD;
+		    var z = annoCenter[2] * volume.zSpacing - volume.zOriginD;
+
+
 
 		    cube.center = [x, y, z];
 
@@ -195,9 +210,9 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 		    var dimensions = annoObject.getDimensions3D();
 
-		    cube.lengthX = Math.abs(dimensions[0] * volume._childrenInfo[0]._sliceSpacing);
-		    cube.lengthY = Math.abs(dimensions[1] * volume._childrenInfo[1]._sliceSpacing);
-		    cube.lengthZ = Math.abs(dimensions[2] * volume._childrenInfo[2]._sliceSpacing);
+		    cube.lengthX = Math.abs(dimensions[0] * volume.xSpacing);
+		    cube.lengthY = Math.abs(dimensions[1] * volume.ySpacing);
+		    cube.lengthZ = Math.abs(dimensions[2] * volume.zSpacing);
 
 		    cube.color = annoObject.getColorArray();
 		    //add cube to viewer

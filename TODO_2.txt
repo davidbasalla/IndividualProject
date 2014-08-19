@@ -16,7 +16,6 @@ HIGH PRIORITY:
   - needs to have a scroll bar at the right
 - WORK ON LAYOUT
 - Implement correct mouse movement when panning in CanvasViewer2D
-- Work on overlaying of label maps!!!!? BIG ISSUE POTENTIALLY
 - Protect against multiple file inputs on all inputs!
 - CHECK WHY COLORLOOKUP DOESNT WORK ON NRRD FROM ONLINE
 - Fix the -1 index in Levels, use the max numbers from volume!
@@ -44,6 +43,25 @@ DONE:
 - Implemenent F-Button to reset!
 - FIX MOUSE BEHAVIOUR WHEN ROTATING AND LEAVING THE SCREEN
 - Work on Annotations - See below
+- Work on overlaying of label maps!!!!? BIG ISSUE POTENTIALLY
+
+===================================================================================
+
+Upload website to my webspace
+
+- compile XTK!
+- IT's ALIVE!!!!
+- FIX THE LABELMAP CODE FOR ONLINE
+
+
+
+
+
+
+
+
+
+
 
 
 ====================================================================================

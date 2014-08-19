@@ -16,7 +16,8 @@ require.config({
 	closure: "../../X/lib/google-closure-library/closure/goog/base",
 	//colorpicker: "../../Colorpicker/colorpicker-master/jquery.colorpicker",
 	colorpicker: "../../Colorpicker/colpick/js/colpick",
-	//xtk: "../../X/utils/xtk",
+	xtk: "../../X/utils/xtk",
+	//goog: "../../X/lib/google-closure-library/closure/goog/base"
     },
     shim: {
 	/* used to fix dependency order */
@@ -39,7 +40,8 @@ require.config({
 	    deps: ['jquery', 'jqueryUI']
 	},
 	"views/MainView": {
-	    deps: ['Backbone','Bootstrap','jqueryUI','colorpicker']
+	    deps: ['Backbone','Bootstrap','jqueryUI','colorpicker','xtk']
+	    //deps: ['Backbone','Bootstrap','jqueryUI','colorpicker']
 	},
     },
 });
@@ -52,7 +54,7 @@ require(["views/MainView"], function(MainView) {
     //goog.require("X");
     // goog.require("X.renderer3D");
     //goog.require("X.renderer2D");
-    goog.require("X.vector");
+    //goog.require("X.vector");
 
 
     var main = new MainView();

@@ -13,7 +13,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.layout = options.layout;//current layout
 	    this.model = options.model;
 	    this.webGLFriendly = true;
-	    this.panVector = new X.vector(0,0,0);  //x, y, d
+	    //this.panVector = new X.vector(0,0,0);  //x, y, d
 
 	    //store XTKviewer's camera view (4x4 Matrix)
 	    this.viewer3D_OrigView = [];
@@ -443,17 +443,18 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		// add the volume to the other 3 renderers
 
 		console.log('XtkView.parse() - onShowtime!');
+		console.log(_this.viewerY.objects);
 
 
 		//show Y
-		if(_this.viewerY.objects._array.length == 0){
+		if(_this.viewerY.objectsLength == 0){
 		    _this.viewerY.add(_this.volume);
 		    _this.viewerY.render();
 		}
 	    
 
 		//show Z
-		if(_this.viewerZ.objects._array.length == 0){
+		if(_this.viewerZ.objectsLength == 0){
 		    _this.viewerZ.add(_this.volume);
 		    _this.viewerZ.render();
 		}
@@ -462,7 +463,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		//show 3D
 		if (_this.webGLFriendly) {
 		    //THIS IS SOMEWHAT HACKY!!!!!
-		    if(_this.viewer3D.objects._array.length == 0){
+		    if(_this.viewer3D.objectsLength == 0){
 			_this.viewer3D.add(_this.volume);
 			_this.viewer3D.render();
 		    }
@@ -495,10 +496,21 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	storeOriginalViews:function(){
 	    console.log('XtkView.storeOriginalViews()');
 	    
+	    this.viewer3D_OrigView = this.viewer3D.cloneCameraView();
+	    this.viewerX_OrigView = this.viewerX.cloneCameraView();
+	    this.viewerY_OrigView = this.viewerY.cloneCameraView();
+	    this.viewerZ_OrigView = this.viewerZ.cloneCameraView();
+	    
+	    console.log(this.viewerX_OrigView);
+	    console.log(this.viewerY_OrigView);
+	    console.log(this.viewerZ_OrigView);
+
+	    /*
 	    this.viewer3D_OrigView = goog.vec.Mat4.clone(this.viewer3D.camera.view);
 	    this.viewerX_OrigView = goog.vec.Mat4.clone(this.viewerX.camera.view);
 	    this.viewerY_OrigView = goog.vec.Mat4.clone(this.viewerY.camera.view);
 	    this.viewerZ_OrigView = goog.vec.Mat4.clone(this.viewerZ.camera.view);
+	    */
 
 	},
 	storeValues:function(){
@@ -715,16 +727,20 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		    console.log('0!');
 		    console.log(this.viewer3D.camera);
 
-		    this.viewer3D.camera.view = goog.vec.Mat4.clone(this.viewer3D_OrigView);
+		    this.viewer3D.camera.view = this.viewer3D_OrigView;
+		    this.viewer3D_OrigView = this.viewer3D.cloneCameraView();
 		}
 		else if(args[1] == 1){
-		    this.viewerX.camera.view = goog.vec.Mat4.clone(this.viewerX_OrigView);
+		    this.viewerX.camera.view = this.viewerX_OrigView;	
+		    this.viewerX_OrigView = this.viewerX.cloneCameraView();
 		}
 		else if(args[1] == 2){
-		    this.viewerY.camera.view = goog.vec.Mat4.clone(this.viewerY_OrigView);
+		    this.viewerY.camera.view = this.viewerY_OrigView;		    
+		    this.viewerY_OrigView = this.viewerY.cloneCameraView();
 		}
 		else if(args[1] == 3){
-		    this.viewerZ.camera.view = goog.vec.Mat4.clone(this.viewerZ_OrigView);
+		    this.viewerZ.camera.view = this.viewerZ_OrigView;		   
+		    this.viewerZ_OrigView = this.viewerZ.cloneCameraView();
 		}
 	    }
 	},
