@@ -614,13 +614,12 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //this.volume.clearChildren(1);
 	    //this.volume.clearChildren(2);
 
-	    var xlabelmap= this.volume.setLabelmap(file, fileData, this.viewerX);
+	    this.volume.setLabelmap(file, fileData, this.viewerX);
 
 	    //this makes the renderer disappear!
 	    //if (_this.webGLFriendly)
 	    //this.viewer3D.update(xlabelmap);
 
-	    console.log(xlabelmap);
 	},
 	setColortable:function(model, value, options){
 
