@@ -400,12 +400,10 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    this.volume = new X.volume();
 
 
-	    /*
 	    this.volume.file = data['volume']['file'].map(function(v) {
 		return v.name;
 	    });
 	    this.volume.filedata = data['volume']['filedata'];
-	    */
 
 	    //this.volume.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
 
@@ -415,7 +413,7 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //this.volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';*/
 
 	    //this.volume.file = 'http://x.babymri.org/?seg.nrrd';
-	    this.volume.file = 'http://x.babymri.org/?vol.nrrd';
+	    //this.volume.file = 'http://x.babymri.org/?vol.nrrd';
 	    // we also attach a label map to show segmentations on a slice-by-slice base
 	    //this.volume.labelmap.file = 'http://x.babymri.org/?seg.nrrd';
 	    // .. and use a color table to map the label map values to colors
@@ -447,7 +445,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		console.log('XtkView.parse() - onShowtime!');
 
 
-		/*
 		//show Y
 		if(_this.viewerY.objects._array.length == 0){
 		    _this.viewerY.add(_this.volume);
@@ -459,11 +456,12 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		if(_this.viewerZ.objects._array.length == 0){
 		    _this.viewerZ.add(_this.volume);
 		    _this.viewerZ.render();
-		}*/
+		}
 		
-
+		
 		//show 3D
 		if (_this.webGLFriendly) {
+		    //THIS IS SOMEWHAT HACKY!!!!!
 		    if(_this.viewer3D.objects._array.length == 0){
 			_this.viewer3D.add(_this.volume);
 			_this.viewer3D.render();
@@ -473,8 +471,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 			_this.viewer3D.update(_this.volume);
 		    }
 		}
-
-
+		
+		
 		//SET MODEL TO LOADED AND STORE SETTINGS
 		if(!_this.model.get('loaded')){
 
