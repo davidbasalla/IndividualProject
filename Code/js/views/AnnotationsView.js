@@ -284,8 +284,6 @@ define(["text!templates/Annotation.html",
 	setSettings:function(currentItem){
 	    //would have to reset the annotations here!!
 	    
-
-
 	    for(var j = 0; j < this.annoLayerViews.length; j++){
 		this.deleteLayerView(this.annoLayerViews[j]);
 		j--; //since length is being altered on the fly

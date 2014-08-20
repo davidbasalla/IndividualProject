@@ -250,6 +250,7 @@ define(["models/LayerItem",
 	    var currentItem = this.layersModel.getCurrentItem();
 	    currentItem.set({colortable: value});
 
+	    console.log(currentItem);
 	},	
     });
 

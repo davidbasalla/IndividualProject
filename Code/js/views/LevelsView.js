@@ -189,7 +189,6 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 
 
 	    this.setReadOnly(false);
-
 	    if(!currentItem)
 		this.setReadOnly(true);
 	    else
@@ -211,7 +210,7 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    var indexX = 0;
 	    var indexY = 0
 	    var indexZ = 0;
-
+	    var selectIndex = 0;
 
 	    if(currentItem){
 		wL = currentItem.get("windowLow");
@@ -222,6 +221,7 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 		indexX = currentItem.get("indexX");
 		indexY = currentItem.get("indexY");
 		indexZ = currentItem.get("indexZ");
+		selectIndex = currentItem.get("colortable");
 	    }
 
 	    $( "#levelLow" ).val(wL);
@@ -239,6 +239,9 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    $("#rangeSlider2").slider('values',0,tL); 
 	    $("#rangeSlider2").slider('values',1,tH);
 	    $("#opacitySlider").slider('value',o);
+
+	    $('#lookupSelector option').eq(selectIndex).prop('selected', true);
+
 	},
 	setIndexX:function(model, indexX, options){
 	    $( "#indexX" ).val(indexX);
@@ -457,6 +460,9 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	setLookup:function(value){
 	    console.log('LevelsView.setLookup()');
 	    console.log(value);
+
+	    console.log(value.currentTarget.selectedIndex);
+
 	    Backbone.trigger('lookupChange', value.currentTarget.selectedIndex);
 
 	},
@@ -472,8 +478,6 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    $("#indexX").attr("disabled", value);
 	    $("#indexY").attr("disabled", value);
 	    $("#indexZ").attr("disabled", value);
-
-
 
 
 	    $("#levelLow").attr("disabled", value);

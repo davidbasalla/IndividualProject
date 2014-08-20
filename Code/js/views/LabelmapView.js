@@ -33,7 +33,7 @@ define(["text!templates/Labelmap.html"],
 	    
 	    $('#labelmapPicker', this.el).hide();
 
-
+	    this.setReadOnly(true);
 	},	
 	loadFile: function(event){
 	    //trigger the hidden fileLoader
@@ -64,11 +64,37 @@ define(["text!templates/Labelmap.html"],
 		this.currentItem.on("change:annotations", this.updateFromModel, this);
 	    }
 
+	    this.setReadOnly(false);
+	    if(!currentItem)
+		this.setReadOnly(true);
+	    else
+		if(!currentItem.get('file') || !currentItem.get('loaded'))
+		    this.setReadOnly(true);
+
 	    this.setSettings(currentItem);
 	},
 	setSettings:function(currentItem){
 	    //would have to reset the annotations here!!
 	    
+	    //need to restore labelmap file name
+	    //need to restore opacity 
+	    //need to restore colorindex
+
+	    var selectIndex = 0;
+	    var label = "No File Selected";
+	    var opacity = 100;
+
+	    if(currentItem){
+		selectIndex = currentItem.get("labelmapColortable");
+		if(currentItem.get("labelmapFile"))
+		   label = currentItem.get("labelmapFile").name;
+		opacity = currentItem.get("labelmapOpacity");
+	    }
+	    $('#textHolder', this.el).html(label);
+	    $( "#labelmapOpacityInput" ).val(opacity);
+	    $( "#labelmapOpacitySlider").slider('value', opacity);
+
+	    $('#labelmapLookupSelector option').eq(selectIndex).prop('selected', true);
 	},
 	setLabelmap:function(){
 	    console.log('LabelmapView.setLabelmap()');
@@ -96,6 +122,27 @@ define(["text!templates/Labelmap.html"],
 	    this.currentItem.set({
 		labelmapColortable: e.currentTarget.selectedIndex
 	    });    
+	},
+	setReadOnly:function(value){
+
+
+	    //disable file buttons	    
+	    $("#loadLabelmapFile", this.el).attr("disabled", value);
+	    $("#delete", this.el).attr("disabled", value);
+
+
+	    if(value){
+		$("#labelmapOpacitySlider").slider("disable");
+	    }
+	    else{
+		$("#labelmapOpacitySlider").slider("enable");
+	    }
+	    
+	    //disable settings
+	    $("#labelmapOpacityInput").attr("disabled", value);
+
+
+	    $("#labelmapLookupSelector").attr("disabled", value);
 	},
 
     });
