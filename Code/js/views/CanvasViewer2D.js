@@ -57,7 +57,16 @@ define(["text!templates/CanvasViewer2D.html",
 		$('#overlayCheckbox', this.el).prop("checked", true);
 		
 	    }
-	
+
+
+	    $("#ThreeDtoggle", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#Xtoggle", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#Ytoggle", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#Ztoggle", this.el).tooltip({delay: { show: 500, hide: 100 }});
+
+	    $("#swipeSelector", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#overlayCheckbox", this.el).tooltip({delay: { show: 500, hide: 100 }});
+
 	    return this; //to enable chain calling
 	},
 	mouseHandler:function(e){

@@ -48,7 +48,15 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 		//if not toggled, set toggle
 		$('#volumeRender', this.el).prop("checked", true);
 		
-	    }
+	    }	    
+
+	    $("#ThreeDtoggle", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#Xtoggle", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#Ytoggle", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#Ztoggle", this.el).tooltip({delay: { show: 500, hide: 100 }});
+
+	    $("#volumeRender", this.el).tooltip({delay: { show: 500, hide: 100 }});
+
 	    return this; //to enable chain calling
 	},
 	mouseHandler:function(e){

@@ -2,10 +2,29 @@
 <div id= <%= topbarId %> class="topbar">
 
   <div class="btn-group">
-    <button type="button" id="ThreeDtoggle" class="btn mode-btn btn-xs ">3D</button>
-    <button type="button" id="Xtoggle" class="btn mode-btn btn-xs ">X</button>
-    <button type="button" id="Ytoggle" class="btn mode-btn btn-xs ">Y</button>
-    <button type="button" id="Ztoggle" class="btn mode-btn btn-xs ">Z</button>
+    <button type="button" 
+	    id="ThreeDtoggle" 
+	    title="Set 3D Camera"
+	    data-container="body"
+	    class="btn mode-btn btn-xs ">3D</button>
+
+    <button type="button" 
+	    id="Xtoggle" 
+	    title="Set X Camera"
+	    data-container="body"
+	    class="btn mode-btn btn-xs ">X</button>
+
+    <button type="button" 
+	    id="Ytoggle"
+	    title="Set Y Camera"
+	    data-container="body"
+	    class="btn mode-btn btn-xs ">Y</button>
+
+    <button type="button" 
+	    id="Ztoggle" 
+	    title="Set Z Camera"
+	    data-container="body"
+	    class="btn mode-btn btn-xs ">Z</button>
   </div>
 
 
@@ -23,9 +42,11 @@
 	      margin-left:10px;">
     Swipe:
     
-    <select id="swipeSelector">
-      <option value="Layer1">Horizontal</option>
-      <option value="Layer2">Vertical</option>
+    <select id="swipeSelector" title="Set Buffer Swipe Mode">
+      <option value="Layer1">
+	Horizontal
+      </option>
+      <!--<option value="Layer2">Vertical</option>-->
     </select>
   </div>
   

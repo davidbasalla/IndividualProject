@@ -6,7 +6,8 @@ define(["text!templates/NavBar.html"], function(NavBarTemplate) {
 	    'click button#layoutButton1':'setLayout',
 	    'click button#layoutButton2':'setLayout',
 	    'click button#layoutButton3':'setLayout',
-	    'click button#layoutButton4':'setLayout',
+	    'click button#layoutButton4':'setLayout',	    
+	    //'click a#sampleData':'setSampleData',
 	},
 	initialize:function() {
 	    this.render();
@@ -18,6 +19,14 @@ define(["text!templates/NavBar.html"], function(NavBarTemplate) {
 	    $("#layoutButton2").tooltip({delay: { show: 500, hide: 100 }});
 	    $("#layoutButton3").tooltip({delay: { show: 500, hide: 100 }});
 	    $("#layoutButton4").tooltip({delay: { show: 500, hide: 100 }});
+
+	},
+	setSampleData:function(){
+
+	    //new sampleDataView
+
+	    
+
 
 	},
 	setLayout:function(e){

@@ -39,7 +39,7 @@ define(["views/CanvasViewer3D",
 		   console.log('ViewerWindowView.render()');
 		   //load the template
 
-		   this.$el.append(this.template);
+		   this.$el.html(this.template);
 		   
 		   //create the 4 different views here
 
