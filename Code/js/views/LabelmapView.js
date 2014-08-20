@@ -30,10 +30,15 @@ define(["text!templates/Labelmap.html"],
 		}
 	    });
 
-	    //$( document ).tooltip();
-
-
 	    $('#labelmapPicker', this.el).hide();
+
+
+	    $("#textHolder", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#loadLabelMapFile", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#delete", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#labelmapOpacityInput", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#labelmapLookupSelector", this.el).tooltip({delay: { show: 500, hide: 100 }});
+
 
 	    this.setReadOnly(true);
 	},	

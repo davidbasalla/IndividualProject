@@ -42,6 +42,12 @@ define(["text!templates/Annotation.html",
 		this.value = null;
 	    };
 
+
+	    $("#newAnnotation", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#loadAnnoFile", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#importAnnoFile", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#saveAnnoFile", this.el).tooltip({delay: { show: 500, hide: 100 }});
+
 	    this.setReadOnly(true);
 
 	},

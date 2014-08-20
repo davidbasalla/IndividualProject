@@ -33,7 +33,7 @@ require.config({
 	    exports: "xtk"
 	},
 	"Bootstrap": {
-	    deps: ['jquery'],
+	    deps: ['jquery', 'jqueryUI'],
 	    exports: "Bootstrap"
 	},
 	"colorpicker":{

@@ -317,6 +317,9 @@ To keep track of my project, I used Git. This was an obvious choice since it has
 
 \subsubsection{RequireJS}
 
+RequireJS proved invaluable for determining correct dependencies for loading JavaScript libraries.
+As I am using more than a handful of libraries which are also dependent on one another, I needed the ability to ensure that they had loaded correctly. The issue is that the modules are loaded asynchronously, so a module that depends on a another module could easily load before the other (as opposed to in sequence loading from function programming). A good exampe for this is the tooltips that I implemented towards the final stages of the project. Both jQueryUI and twitter-bootstrap provide tooltips. In both cases they are initiated by the same function call, however they look quite distinctly different. I wanted to use the twitter-bootstrap tooltips as they seem more aesthetically pleasing. Without determining the load order with RequireJS, whenever I reloaded the software a different tooltip style would pop up, depending on which library loaded first. This kind of race condition is of course undesirable.
+Another example is of course XTK itself which relies on JQuery and UnderscoreJS. RequireJS really was a life saver for these situations.
 
 
 
@@ -339,6 +342,11 @@ The library provides a host of useful icons and button presets, such as button g
 Adding the tooltips proved more involved than initially thought. For dynamically added HTML elements such as the Display Layers, custom tooltip options would have to be used and set in order to make them work correctly.
 
 All things considered, this libary proved to be very useful and saved a lot of time.
+
+
+\subsubsection{Custom Colorpicker}
+
+I downloaded a couple of ColorPickers from the web, and deemed Blah's colorpicker to be better suited.
 
 
 \subsubsection{User Experience}

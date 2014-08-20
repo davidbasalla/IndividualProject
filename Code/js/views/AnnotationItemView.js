@@ -69,6 +69,14 @@ define(["text!templates/AnnotationLayer.html"], function(AnnotationLayerTemplate
 	    //set the label
 	    $('#labelInput', this.el).val(this.annoObject.label);
 
+	    $("#annoVisible", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#labelInput", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#annoColorPicker", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#delete", this.el).tooltip({delay: { show: 500, hide: 100 }});
+
+
+	    $( document ).tooltip({delay: { show: 500, hide: 100 }});
+
 
 
 	    return this; // for chainable calls, like .render().el

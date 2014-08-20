@@ -22,7 +22,8 @@
 		 id="indexX"
 		 style="width:45px; 
 			display:inline-block;"
-		 value="0">
+		 value="0"
+		 title="X Index of Volume">
 	  </input>
 
 	  <div style="width:5px;
@@ -33,7 +34,8 @@
 		 id="indexY"
 		 style="width:45px; 
 			display:inline-block;"
-		 value="0">
+		 value="0"		 
+		 title="Y Index of Volume">
 	  </input>
 
 	  <div style="width:5px;
@@ -44,8 +46,9 @@
 		 id="indexZ"
 		 style="width:45px; 
 			display:inline-block;"
-		 value="0">
-	  </input>
+		 value="0"
+		 title="Z Index of Volume">
+	  </input>		 
 
 
 	</div>
@@ -60,6 +63,7 @@
 	<div id="sliderContainer">
 	  <input type="number"
 		 id="levelLow"
+		 title="Lower Limit Level"
 		 style="width:50px; 
 			display:inline-block;"
 		 value="0">
@@ -75,7 +79,8 @@
 		      margin-right:auto;">
 	  </div>
 	  <input type="number"
-		 id="levelHigh"
+		 id="levelHigh"		 
+		 title="Upper Limit Level"
 		 style="width:50px;
 			display:inline-block;
 			float: right;"
@@ -93,7 +98,8 @@
 	
 	<div id="sliderContainer">
 	  <input type="number"
-		 id="thresholdLow"
+		 id="thresholdLow"		 
+		 title="Lower Limit Threshold"
 		 style="width:50px; 
 			display:inline-block;"
 		 value="0">
@@ -109,7 +115,8 @@
 		      margin-right:auto;">
 	  </div>
 	  <input type="number"
-		 id="thresholdHigh"
+		 id="thresholdHigh"		 
+		 title="Upper Limit Threshold"
 		 style="width:50px;
 			display:inline-block;
 			float: right;"
@@ -128,6 +135,7 @@
 
 	  <input type="number"
 		 id="opacityInput"
+		 title="Set Opacity Value"
 		 style="width:45px; 
 			display:inline-block;"
 		 value="100"
@@ -154,7 +162,9 @@
 	</span>
 	
 	
-	<select id="lookupSelector" style="float:right">
+	<select id="lookupSelector" 		 
+		title="Select A ColorLookup Table"	
+		style="float:right">
 	  <option value="Lookup_None">None</option>
 	  <option value="Lookup_IDs">IDs</option>
 	  <option value="Lookup_JET">Heatmap (JET)</option>

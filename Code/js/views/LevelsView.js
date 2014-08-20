@@ -67,6 +67,21 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 		});
 	    }
 
+
+	    $("#indexX", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#indexY", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#indexZ", this.el).tooltip({delay: { show: 500, hide: 100 }});
+
+	    $("#levelLow", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#levelHigh", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#thresholdLow", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#thresholdHigh", this.el).tooltip({delay: { show: 500, hide: 100 }});
+
+	    $("#opacityInput", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#lookupSelector", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    //$("#textHolder", this.el).tooltip({delay: { show: 500, hide: 100 }});
+
+
 	    //set to readyOnly by default
 	    this.setReadOnly(true);
 	    

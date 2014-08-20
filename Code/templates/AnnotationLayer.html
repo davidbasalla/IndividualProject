@@ -1,16 +1,28 @@
 
-<input type="checkbox" id="annoVisible" checked>
+<input type="checkbox" id="annoVisible" 
+       title="Toggle Visibility"
+       data-container="body"
+       checked>
 
 <!-- LABEL TEXT -->
 <input type="text" id="labelInput" value="labelText"
+       title="Set Label Text"
+       data-container="body"
+
        style="width:130px;">
 
 <!--<div class="color-box"></div>-->
-<input type="text" class="color-box" readonly>
+<input type="text" class="color-box" 
+       title="Set Color"
+       data-container="body"
+       id="annoColorPicker"
+       readonly>
 
 <!-- DELETE BUTTON -->
 <button type="button"
 	class="btn btn-default btn-sm"
+	title="Delete Annotation"
+	data-container="body"
         id="delete">
   <span class="glyphicon glyphicon-trash"></span>
 </button>
