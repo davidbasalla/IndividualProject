@@ -28,9 +28,10 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    
 	    //template - set title
 	    this.$el.html(this.template({layer_title: this.model.attributes.title}));
+	    
+	    $("#loadFile", this.el).tooltip({delay: { show: 500, hide: 100 }});
+	    $("#delete", this.el).tooltip({delay: { show: 500, hide: 100 }});
 
-	    $("#loadFile", this.el).tooltip({delay: { show: 500, hide: 100, container: 'body'}});
-	    $("#delete", this.el).tooltip({delay: { show: 500, hide: 100, container: 'body' }});
 	    $("#textHolder", this.el).tooltip({delay: { show: 500, hide: 100 }});
 
 

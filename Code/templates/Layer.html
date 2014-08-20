@@ -1,7 +1,7 @@
 <li class="list-group-item sublayer">
   <input type="file"
 	 id="filePicker"></input>
-  <span id="textHolder" title="BLAAAH">
+  <span id="textHolder" title="Filename">
     <%= layer_title %>
   </span>
 
@@ -10,13 +10,15 @@
 	    class="btn btn-default btn-sm"
             id="loadFile"
 	    data-toggle="tooltip"
+	    data-container="body"
 	    title="Load a Volume File">
       <span class="glyphicon glyphicon-floppy-open"> </span>
     </button>
     <button type="button"
 	    class="btn btn-default btn-sm"
             id="delete"
-	    data-toggle="tooltip"
+	    data-toggle="tooltip"	    
+	    data-container="body"
 	    title="Delete this Layer">
       <span class="glyphicon glyphicon-trash"></span>
     </button>
