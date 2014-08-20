@@ -7,7 +7,8 @@ FINISH CODING ON PROJECT:
 - make drag and drop of files possible?
 - make sure that NoWEBGL works!
 - tweak size of number fields
-
+- disable buttons to toggle between buffers
+  - or just fix buffer toggling!
 
 - Check it works in Firefox
 - Check it works in Internet Explorer

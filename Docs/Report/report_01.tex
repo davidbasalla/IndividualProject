@@ -38,24 +38,285 @@
 
 \section{Introduction}
 
+Medical imaging is a type of scientific visualisation that deals with analysis, representation and exploration of medical image data. It should aid in diagnosis, treatment planning, support in actual operations, documentation and educational purposes. Medical imaging is primarily based on 3D volume data acquired by scanning devices such as computed tomography and magnetic resonance imaging. The resulting data files are viewed with specific computer software and contain a wealth of data. Users are therefore required to have the appropriate software installed on their local desktop computer. Additionally software developers have to cater for different operating systems. To overcome these issues, the goal of this project is to provide a medical image viewer that runs in any web browser. This web-app will aim to provide the functionality as a desktop solution without being tied to a specific operating system. It furthermore aims to provide an intuitive and complete set of tools for viewing multiple files and allowing for creation, viewing and manipulation of label maps and other methods of annotating these images. The rationale behind this is to facilitate users to conveniently view, edit and annotate medical image files independently of location or type of computer, following the "Software as a Service" paradigm.
+
 \subsection{Motivations}
 
-\subsection{Aims}
+\subsection{Requirements}
+
+
+The goal of this project is to build a web browser based Medical Image Viewer. This will be achieved by making use of \textit{WebGL} to display 2D and 3D graphics. In general the project aims to provide similar functionality and user experience as the desktop application \textit{MITK} (discussed earlier). The essential requirements are as follows:
+
+\begin{itemize}
+\item The user can load and view a scan file (of type \textit{NIfTI})
+\item The user can view a file in 2D and 3D
+\item The user can easily navigate through the 2D and 3D viewers, with emphasis on intuitive user experience
+\item The web-app provides controls for viewing the scan files at different brightness and contrast levels
+\item The user can load and view a labelmap for a given scan file
+\item The user can load additional scan or label maps into the viewer and compare them to previously loaded files with a set of intuitive controls
+\item Provide different color-lookups (for label-maps, heat maps)
+\item Provide sample data to use if user has no files of his own
+\end{itemize}
+
+Given enough time, secondary requirements can be implemented, which are considered to be more complicated:
+
+\begin{itemize}
+\item The user can paint a custom labelmap for a given scan file with a set of intuitive tools. The primary goal will be that the user can paint areas manually on individual slices. Provided there is enough time, some semi-automatic painting tools will also be implemented that will allow the user to specify regions in the 3D space with automatic selection tools. 
+\item The user can save a labelmap to his computer
+\item The user can create and save custom annotation maps to label given scans
+\item The web app provides a method for sharing  means of sharing data across the internet (similar to the DropBox implementation in SliceDrop)
+\item The web app provides image filters that can be applied to a scan or label map
+\item The web app provides measuring tools that can be applied to a scan or label map
+\item A three dimensional, parameterised model of the scan be viewed in the 3D view
+\item The 'cine mode' feature allows for an animation along a specified axis
+\end{itemize}
+
+
+
+
 
 \subsection{Contributions}
+
+The final software represents a comprehensive tool for viewing medical image data as well as adding custom annotations . All of the primary aims as stated above have been met, as well as a couple of secondary requirements (see full feature list in the Implementation Section). It is designed to be used with intuitive control as advised for use by radiologists, mimicking convential controls in other software. Judging by similar software online, the software provides many more features than its competition. It has also been tested to successfully run across several operating systems and web browsers, thereby fulfilling the requirement of being more widely useable independent of computer configuration of the user. The project was built on using the XTK library, which appears to be the most comprehensive library for viewing medical image data to date. However since missing a lot of critical functionality as required by this project, the library had to be extended to provide tools for more dynamic application building.
 
 
 \section{Background}
 
 
 
+\subsection{Medical Imaging}
+
+
+
+As mentioned, medical image files are acquired by scanning devices that output data at a given resolution of data points. A typical medical image file contains a stack of individual images. Each image represents a thin slice of the scanned body part and is made up of pixels. For a volume data set the stack of images can be usually subdivided into cross sections along the three Cartesian axes X, Y and Z and together form a 3D Grid. In medical terms, these orthogonal views are called axial, sagittal and coronal. A constant pixel distance along X and Y allows for accurate measuring of distances and areas along a slice. The slice distance is the measurement in space from one slice to the next along its cross section. The three distances in every direction is called the voxel distance. If the pixel distance is equal to the voxel distance, the dataset is called isotropic. However in practice datasets usually exhibit a much smaller pixel distance than slice distance, which is called anisotropic.
+Measuring cross-sectional areas and volumes are valuable for example in diagnosis of vascular diseases. The quality of these measurements is highly dependent on the quality of the image data. Typically diagnosis has been performed these slices one at a time, meaning looking at every slice. These views support precise exploration and analysis and it is a legal requirement for radiologists to inspect every slice. However for spatially complex cases a purely slice-based presentation might not be very helpful. In this case 3D visualisation or volume rendering gives a better overview. The two different visualisations can be helpful for different users, such that radiologists would rely more on the 2D Views and physicians who carry out interventions might find benefit from 3D visualisations. Therefore any software that aims to display such medical image data should provide both views.
+
+
+
+\subsection{Guidelines for Medical Image Viewer Software}
+
+As defined in 'Visual Computing in Medicine'\cite{book}, a program needs to provide the following functionality in order to be of use when displaying this kind of medical imaging data. 
+
+First, a certain mapping of data to gray values has to occur, called 'windowing'. This is customisable, but the goal is to display an image with meaningful values so that a user can visually perceive the files. Different mappings or lookup tables (LUTs) can be applied to render the same data with different color or level ranges.
+
+Secondly, the user should be able to easily browse through the slices. The axial, sagittal and coronal views should be provided as well as a 3D dimensional view of these slices in either card-based or volume form. All slices should update accordingly as the user browses through them. However in order to examine a view in detail, it should be possible to enlarge a desired view. Displaying all views at the same usually only serves to give an overview. Additionally a feature called 'cine mode' could be provided which is an animation through one of the slice stacks. This could aid in understanding the spatial relationship of the slices.
+
+
+
+Furthermore, the software should provide means to take measurements of the image data, such as distance, area or volume measurements. In this case it is helpful to specify a region of interest (ROI) that can be focused on. Also intensity distribution can be measured to give indications of severity of disease in certain cases (such as osteoporosis)\cite{book}.
+
+ For advanced tools, the book suggests providing segmentation tools for identification and marking of certain structures. These tools could be manual so that the user has to paint a region for each slice, or semi-automatic where algorithms select regions following specific rules given by the user, such as threshold-based segmentation or region growing. The resulting segmentation (or label maps) should be overlaid on top of the scan data in a clear manner.
+ 
+ It is also suggested to have tools for annotating files with information. Examples would be creating a region around a specific organ or an arrow pointing to a particular area of interest.
+ On the topic of user interaction, the book points out that the most frequently used should be carried out with the mouse. Specifically, browsing through slices could be done by scrolling wheel, right-clicking and moving the mouse affect the windowing, ie contrast and brightness. Zooming and panning should also be implemented in similar fashion. These kind of direct mouse controls are preferable to having to adjust specific sliders, although these may be included for visual feedback.
+ 
+ Additional functionality should be added for pressing down the Alt or Shift key and using the mouse.
+With regards to 3D rendering of the data, different modes are mentioned. Multiplanar Reformatting (MPR) is a way to creating an arbitrary slicing with an orientation that does not follow the cartesian axes. Maximum Intensity Projection (MIP) is a frequently technique which casts out rays from the viewing plane and highlights voxels with the maximum intensity, mostly used for diagnosis of vascular structures. Surface Shaded Display (SSD) is another visualisation technique that renders the data as 3D shaded surfaces based on a  given threshold. This is achieved by connecting adjacent voxels as polygons. Some simple lighting is applied for shading so depth relations are more recognisable. Finally Volume Rendering produces a semi-transparent rendering of the data voxels where individual voxels' brightness determine their opacity. This is often referred to as direct volume rendering (DVR) as opposed to indirect volume rendering of SSD.
+
+\subsection{NIfTI File Format}
+
+After consulting with the project supervisor, it is deemed sufficient to support the \textit{NIfTI} for format for medical image data. \textit{NIfTI} supports the multi-dimensional format of medical image data as described in the previous section. The format is adapted from the widely used \textit{ANALYZE 7.5} file format. The \textit{ANALYZE 7.5} file format has been widely used in the functional neuroimaging field. The files can be used to store voxel-based volumes. An \textit{ANALYZE 7.5} data item consists of a file with the actual data in a binary format (with the filename extension .img) and another header file (header with filename extension .hdr) with information about the data such as voxel size and number of voxel in each dimension. Among other improvements, the \textit{NIfTI} format allows for storing the two files in one file (with the filename extension .nii), which is an obvious advantage for file management.
+In the \textit{NIfTI} format, the first three dimensions are reserved to define the three cartesian spatial dimensions (X, Y, Z). The fourth dimension is reserved to define the time points. The remaining dimensions, from fifth to seventh, are for other uses. 
+
+\subsection{Desktop Applications}
+
+There exists a variety of desktop software to date that allow viewing of medical image data. For this project, a selection of programs have been tested and analysed for functionality.
+
+\subsubsection{MITK 3M3}
+     Firstly, \textit{MITK 3M3} by Mint Medical and German Cancer Research Center allows for easy viewing of a variety of medical image file formats. The layout of the views is customisable and by default shows the X, Y, Z dimension and a 3D view of all 3 dimensions together. (picture) There is a universal range slider that affects all images at once. Labelmaps (called Segmentations) can be added to a scan file, as sub layers and a range of paint tools are provided to colour in regions of the scan. An arbitrary number of layers can be created and saved out as separate files. 
+     Furthermore it can create a 3D volume renderings, applying image filters and supplies measuring tools. In general it is a well rounded product with intuitive controls so will serve as a good benchmark test for the final product.
+
+\subsubsection{Imview}
+\textit{Imview} is a medical image viewer created by Dr. Ben Glocker, which also allows the user to load scan files and inspect the individual slices of each axis. The user can perform flip transformations and apply different colour look-ups to the image, such as Colormap Jet which looks like a heat map. It also provides the option of displaying an information overlay with stats about the image. It would be beneficial if the web-app has similar options as they provide useful data for the user.
+
+
+
+\subsubsection{3DSlicer}
+\textit{3DSlicer} is a free open source software that provides a modular platform for image analysis and visualization. Of all the packages, this tool seems to be the most feature rich, which is not surprising as it is funded by a number of American organisations such as  the National Alliance for Medical Image Computing, Neuroimage Analysis Center and others. Although it features a wide variety of tools, the focus will be on the ones relevant to this project. \textit{3DSlicer} allows for loading of different files of different formats. It provides options to composite different slices on top of each other for comparison. It supports hardware accelerated volumetric rendering of medical image data. It is widely customisable with global settings. Layouts are also customisable. It has an extensive set of tools for manual and automatic image segmentation. It has an in-built feature to download sample data, which would be a useful inclusion for the web app project. Another powerful feature is that \textit{3DSlicer} allows the addition of new functionality and provides a number of generic features not available in competing tools. All in all, \textit{3DSlicer} appears like a well designed, user-friendly program that has an overwhelming amount of functionality. It will be another good benchmark and inspiration for this project.
+
+\subsubsection{MIview}
+\textit{MIView} was programmed by Greg Book, is open source and provides much the same functionality as \textit{MITK}. \textit{MIView} is an \textit{OpenGL} based medical image viewer which aims to support a wide range of medical imaging files such as \textit{NIfTI}, and raster images. The main goal of \textit{MIView} is to provide a platform to load any type of medical image and be able to view and manipulate the image. Volume rendering is also supported. Control-wise, support for mouse-wheel scrolling seems erratic, which makes navigation through the slices more cumbersome. Also the buttons tend to be quite small which also does not improve the user experience. It does not appear to support the loading of multiple files together. A number of predefined color look-up tables are provided.
+
+\subsubsection{Photoshop}
+Looking further afield to some graphical editing software programs, some interesting functionality can be discovered. Adobe's \textit{Photoshop} is well known software for creating and manipulating 2D imagery. When editing an image, the user works with a document. The user can add as many layers as required and edit each layer individually. The layers are composited to form the whole picture. Each layer's opacity and compositing/blending mode can be specified. This could be a worth while to emulate for comparing different medical image files in the web app.
+
+
+
+\subsubsection{Nuke}
+The Foundry's \textit{Nuke} is a compositing package which is used in the Visual Effects Industry to edit and composite 2D images with each other. It is used among others at high profile Visual Effects companies such as Industrial Light and Magic and Weta Digital\cite{nuke1} \cite{nuke2}). The interface differs from \textit{Photoshop} in that it provides the user with a workplace where any number of nodes can be created. When selecting any node, a graphical display will appear. These nodes can be linked together and do anything from loading a specific image file, transforming the whole node tree or applying an image filter such a film grain. The power of this approach is the modular nature of a tree. Any node can be taken out and reinserted at another place into the tree, thereby changing the final image. Additionally, for comparing different images, by default the software supplies two image buffers which the user can fill with any image of his choice (including of course the result from any node tree in his workspace). Once both buffers are filled, the user can easily toggle between the two images, blend between them by setting the opacity and even use a slider to reveal just a portion of either image. So while \textit{Nuke}'s node-based approach may be overkill for this project, \textit{Nuke}'s image blending seems quite desirable for this project as it would give the user a variety of ways in which he can compare multiple images. 
+
+
+
+
+\subsection{Interactive Web Graphics}
+
+In order to create an interactive web browser application that provides graphical feedback, the available tools for creating 2D and 3D graphics in a web browser have to be considered. Generally, in the past web browsers have provided several different methods to display 2D and 3D graphics on screen, and only recently with the introduction of \textit{HTML5} and \textit{WebGL} has a widely-conformed standard emerged.
+
+\subsubsection{HTML5}
+
+\textit{HTML} or HyperText Markup Language is the standard markup language used to create web pages. \textit{HTML5} is the fifth revision of the standard. \textit{HTML5} introduced a number of important features that were designed to facilitate including and handling multimedia and graphical content on the web without the use of proprietary plugins and APIs. One of these new features is the Canvas element, a scriptable graphical display element which is a low level, procedural model that updates a bitmap element. It was originally introduced by Apple \cite{canvas} .
+
+\subsubsection{2D Graphics}
+
+Displaying 2D graphics has long been an integral part of web browsers. Various aspects and methods allow for the generation and manipulation of 2D graphics in a web browser. Aside from simply displaying an image file, there are various other aspects and methods allow for the generation and manipulation of 2D graphics in a web browser
+
+\textit{CSS} is used to alter an element's style property, but this is not really suitable for creating intricate 2D graphics, as it is typically used to style the look of \textit{HTML} elements. There are no custom draw commands.
+
+Scalable Vector Graphics (\textit{SVG}) is like \textit{HTML} for graphics\cite{svg}. It is a markup language for describing all aspects of an image or Web application, from the geometry of shapes, to the styling of text and shapes, to animation, to multimedia presentations including video and audio. It is fully interactive, and includes a scriptable DOM as well as declarative animation (via the SMIL specification). It supports a wide range of visual features such as gradients, opacity, filters, clipping, and masking.
+The use of \textit{SVG} allows fully scalable, smooth, reusable graphics, from simple graphics to enhance \textit{HTML} pages, to fully interactive chart and data visualization, to games, to standalone high-quality static images. \textit{SVG} is natively supported by most modern browsers (with plugins to allow its use on all browsers), and is widely available on mobile devices and set-top boxes. All major vector graphics drawing tools import and export \textit{SVG}, and they can also be generated through client-side or server-side scripting languages.
+
+Finally, the Canvas API is a client-side scripting technology to allow for the rich creation or alteration of raster images (bitmaps) . It uses vector-based programmatic methods to create shapes, gradients, and other graphical effects, and because it has no DOM, it can perform very quickly. Dedicated scripters can develop games or even full-featured applications using the Canvas API, alone or integrated into \textit{HTML} or \textit{SVG}. It is supported natively in most modern browsers (with script libraries extending support to all major browsers), and even on some mobile devices.
+
+Before the Canvas API became common place, there were different web browser plug-ins which would display more interactive graphics and videos. Adobe's \textit{FlashPlayer} and JavaApplets were very common for this purpose.
+\subsubsection{3D Graphics}
+
+3D Graphics are usually defined by a space in Cartesian coordinates in which reside three-dimensional objects, as well as a camera object through which the scene is viewed with help of a projection matrix. 3D graphics includes lots of maths with matrices and is computationally much more expensive than drawing 2D graphics. Rendering a scene can mean that the image should be refreshed 60 times a second, which poses a challenge for many browsers.
+
+Broadly speaking, the history of 3D Graphics can be divided into the time before and after the standardisation of \textit{WebGL}. Before \textit{WebGL} the standard way to display 3D graphics in a web browser were tied to a browser plug-in that the user would have to download locally to their computer. Adobe's Flashplayer used to be one of the dominant plug-ins. Demonstrating one of the issues with the plug-ins is that they would have to be implemented specifically for each operating system. Furthermore, Apple actually refused to support the format, instead betting on the \textit{HTML5} standard. This shows that there are issues with using browser plug-ins, and a more generalised solution was sought for.
+
+Various other brower-plugins existed or are still around, such as Adobe's \textit{FlashViewer} and \textit{O3D}. \textit{Java Applets} are another alternative, which run on the local machine through the \textit{Java} virtual machine. Microsoft implemented its own plugin \textit{Silverlight}.
+
+With the standardisation of \textit{HTML5}, \textit{WebGL} and the Canvas element became widely used and supported, and helped to reduce the multitude and clutter of browser-plugins. \textit{WebGL} is a \textit{JavaScript} API that exposes a computers GPU to the web browser and allows for displaying of complex three dimensional graphics as seen in comparable desktop applications. Although only initially relased in 2011, \textit{WebGL} is widely supported by most modern browsers (\cite{webGL}), so it's a good time to make use of this for medical visualisation. \textit{WebGL} is based on OpenGL ES 2.0 and uses the \textit{HTML5} canvas element to draw onto and is accessed using Document Object Model interfaces.
+
+Nowadays, most libraries make use of \textit{WebGL} and even libraries that used to require a plug-in (example) have now been ported to use \textit{WebGL}. 
+
+
+
+
+\subsection{Web Framework XTK}
+
+As suggested in the project specification, the goal of this project is to use the \textit{X Toolkit}(\textit{XTK}), a \textit{JavaScript}-based framework for visualizing and interacting with medical imaging data using \textit{WebGL}. It was developed and maintained by Haehn et al of the Fetal-Neonatal Neuroimaging and Developmental Science Center at Childrens Hospital Boston, Harvard Medical School, US (\cite{xtk}). \textit{XTK} provides an API to load medical images, based on \textit{WebGL} technology for displaying 3D graphics and the \textit{HTML5} canvas elements to display 2D components. It hides a lot of the low-level elements of \textit{WebGL} and is designed to load and configure medical image data files of various types (including \textit{NIfTI}). The library is well documented and comes with several tutorials as well as a number of example applications, which will be discussed in the next section. It appears to follow closely the suggestions laid out in section 2.1 (Medical Imaging) in that it provides means to display 2D and 3D slice visualisations (Surface Shaded Display and Volume Rendering are supported), with simple mouse-based controls. It allows for loading of label (segmentation) maps which can overlaid on top of the image data files. It also features color tables (LUTs) to display the data.
+
+The \textit{XTK} library also provides a module for creating User Interface (UI), that can be overlaid on top of the image viewers, with easy controls to connect the image content with the UI controls.
+The popular forum for coding questions Stackoverflow hosts about 100 questions regarding \textit{XTK} to date, and occasionally the \textit{XTK} developers offer up answers.
+
+
+\subsection{Web Applications}
+
+\subsubsection{SliceDrop}
+The \textit{XTK} library also provides links to example applications. One of these is \textit{SliceDrop}\cite{slicedrop} which has written by the \textit{XTK} developers and appears to be a testing bed for many of \textit{XTK}'s features as it is often referred to on the \textit{XTK} Stackoverflow forums. It provides part of the desired functionality and shows off the possibilities provided by \textit{XTK}, but also outlines some of its short comings. Like the desktop software \textit{MITK}, the user can load a file and view it in the standard 4 views, split into 3D and 2D windows. The layout of these views is somewhat customisable, although not to the extent of the \textit{MITK}. The user can interact with the images by scrolling the mouse wheel, which changes the index of the current slice. An interesting feature which has been added lately is the incorporation of popular file sharing site \textit{DropBox} to allow users to share files more easily across the internet.
+
+There appear to be some bugs in \textit{SliceDrop}. When loading \textit{NRRD} files, as the image is offset and not centered. The image brightness controls seem not calibrated correctly, as with little mouse interaction, the brightness will clamp to white or black and can not be reset other than restarting the program (refreshing the page for web-apps). Furthermore the app does not allow to load custom labelmaps. Also the viewers provide some functionality which is not clearly communicated to the user, such as holding the 'shift' button and move the mouse will adjust the slice index of the other viewers. In general \textit{SliceDrop} has less than the minimum functionality required for this project, but shows the potential of the \textit{XTK} library. 
+
+
+\subsection{Brainbook}
+\textit{Brainbook}\cite{brainbook} is a web-app which builds on and extends the features of \textit{SliceDrop} by adding painting tools. It allows the user to paint onto a given file with a standard brush a number of auto selection tools which will fill out a region in 2D or 3D space. The web app offers to save the file, but at time of writing this feature was not working correctly. Since heavily based on \textit{SliceDrop}, it features similar advantages and disadvantages, but provides the painting functionality that is desirable for this project. Therefore it should be of benefit to study this implementation.
+
+\subsection{DWV - DICOM Web Viewer}
+This viewer does not provide much functionality other than scrolling through one stack of slices. The user interface is sparse and does not give sufficient feedback to the use of what is currently happening. It uses the \textit{HTML5} Canvas element to display the file contents.
+
+
+
+\subsection{Papaya}
+Papaya\cite{papaya} is a \textit{JavaScript}-based medical image viewer with limited functionality. It has a clean uncluttered design, is easy to use and gives good visual feedback to the user. It successfully adheres to the user control guidelines outlined in section 2.1. It only displays 2D views of slices and does not allow any customisation in terms of label maps, windowing or compositing. It also uses the \textit{HTML5} Canvas element to render the 2D data.
+
+
+
+\subsection{Other}
+
+The website \url{http://www.idoimaging.com} lists a number of other available browser-based viewers.
+
+
+\subsection{Web Frameworks for Single Page Apps}
+
+Programming for modern webpages which require more complex behaviour than just displaying information can get quite involved. Generally it takes at least \textit{HTML}, \textit{CSS} and \textit{JavaScript} to create a useful website. It is possible to include the code from each language in the main index.html file, but this is undesirable as it lacks modularity and will be hard to test and debug.
+
+At the time of writing, \textit{Backbone} seems to be a good choice to manage the complexity and structure of the project. \textit{Backbone} is used to structure client-side applications (those that run in a web browser). It was written by Jeremy Ashkenas and is designed for developing single-page web applications, and for keeping various parts of web applications synchronized. It is based on the model–view–presenter (MVP) application design paradigm, providing Events, Models, Collections and Views. Models represent the information in class-like structures, Collections are lists of Models and Views handle the visual representation on the actual HTML site. Finally Events are used to keep track of state changes across the website elements, models and views. It builds on \textit{jQuery} and \textit{Underscore.js}, both libraries which simplify dealing with \textit{HTML} elements. It also provides inheritance for its models, collections and views.
+
+Regarding the design aspect, it looks like twitter-bootstrap.js supplies a convenient library for creating visually pleasing user interface elements. This will cut down on having to spend time to design custom elements with \textit{CSS} and \textit{JavaScript}. \textit{Bootstrap.js} supplies buttons, drop-down menus and commonly-used icons. Some specific UI control elements are not provided by \textit{Bootstrap.js}, so \textit{jQueryUI} will be used. It enables the creation and customisation of complex elements such as slider elements with multiple slider tabs, which will allow for a better user experience. Also, it's dependent on the \textit{jQuery} library which is already being used for \textit{Backbone}.
+
+As this project will make of several modules, it will be important to manage the dependencies of the modules. For example \textit{Underscore.js} and \textit{jQuery} will need to load before \textit{Backbone.js} is used. \textit{XTK} and twitter-boostrap are additional modules that will have to be loaded. \textit{RequireJs} is a \textit{JavaScript} library that provide the ability to asynchronously load nested dependencies. Traditionally \textit{JavaScript} files or modules are loaded sequentially, where the order matters in case a module depends on another module. Additionally it will be helpful to manage the different HTML templates required for the various elements of the web app. \textit{RequireJs} will make it possible to split up everything into neat modules and templates and facilitate testing of all the components.
+
+
+
 \section{Design and Theory}
+
+Copy From Literature Review
+Extend?
 
 
 \section{Implementation}
 
+\subsection{Implemented Features}
+
+At the end of the project, the software has the following feature list.
+
+
+\begin{itemize}
+  \item Display Layer Management
+\begin{itemize}
+\item Creation/Deletion of Display Layers
+\item Loading Medical Image Data File per Display Layer
+\end{itemize}
+
+
+\item Loading of NII Volume Files (one per Display Layer)	
+  \item Changing of Brightness
+ \item Changing Image Threshold
+\item Changing indices of NII Volume File
+\item Viewing of NII Volume File through 4 bespoke cameras (X, Y, Z and 3D)
+\item Custom Layouts of the 4 different cameras
+\item Ability to pan/zoom and rotate the NII Volume File through the cameras
+\item Refocus the cameras by pressing 'F'
+\item Two buffers to hold different Display Layers
+\item Buffer Opacity and Buffer Swiping to compare the two Display Layers
+\item Changing the color lookup table for a Display Layer, currently 3 supported Lookups (None, ID's and JET)
+\item Toggle for Volumetric Rendering of the Data in 3D Camera View
+\item Interactive Annotation Management
+\begin{itemize}
+\item Creation/Deletion of Annotation(s)
+\item Support for multiple Annotations
+\item Customisation of Label, Color and Position of Annotation
+\item Saving out of Annotations as JSON file (via file download)
+\item Loading and Importing of Annotation JSON files
+\item Setting visibility of Annotations
+\end{itemize}
+\item Labelmap Management
+
+\begin{itemize}
+\item Loading of Labelmaps
+\item Changing opacity of Labelmap
+\item Changing color lookup of Labelmap
+\end{itemize}
+
+\end{itemize}
+
+
+HAVE DIAGRAMS!
+	- different layouts
+	- diagram explaining features
+
+
+
+\subsection{Development Strategy}
+
+Generally program in modular fashion, tackle problems in a naive fashion first to test for any big problems. Once a certain prototype milestone had been achieved, some time spent refactoring based on insights learned. Arguable if  better planning would have been more time efficient.
+
+\subsubsection{Meetings with Supervisor}
+
+- supervisor seen as client
+- meetings every 1 to 3 weeks
+- notes taken, feature requests taken on board
+
+
+\subsection{Implementation Details}
+
+\subsubsection{XTK}
+
+\subsubsection{Backbone}
+
+\subsubsection{RequireJS}
+
+
+
+
 
 \section{Results and Evaluation}
+
+\subsection{Test Protocols}
+
+
+\subsection{User Feedback}
 
 
 
@@ -70,6 +331,9 @@ numerous improvements:
 - add paint tools
 - add support for 4D data sets
 - tweak performance
+- UX improvements such as smart sliders
+- technical improvements such as specify filtering
+- splitters for the panes
 
 
 
@@ -90,6 +354,9 @@ numerous improvements:
 \newpage
 
 \section{Appendix}
+
+
+- NEED TO MENTION/ADD NOT FOR OFFICIAL USE
 
 
 

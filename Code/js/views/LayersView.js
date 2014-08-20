@@ -103,6 +103,8 @@ define(["models/LayerItem",
 		this.setLevelsSettings(layerItem);
 	    }
 	    else{
+
+		this.setLevelsSettings(null);
 		this.layersModel.set({
 		    bufferALayerItem:null,
 		    bufferBLayerItem:null
@@ -155,6 +157,8 @@ define(["models/LayerItem",
 		}
 		else{
 		    //when nothing left to display
+		    console.log('NOTHING LEFT TO DISPLAY');
+
 		    this.viewerWindowView.stopAnimation();
 		    this.setSelected(null, null);
 		}

@@ -41,6 +41,9 @@ define(["text!templates/Annotation.html",
 	    input.onclick = function () {
 		this.value = null;
 	    };
+
+	    this.setReadOnly(true);
+
 	},
 	newAnnotation:function(){
 	    /* when creating a new annotation, place it in the
@@ -212,10 +215,12 @@ define(["text!templates/Annotation.html",
 	       OUT OF ORDER DELETION */
 	    //SLIGHTLY DODGY IN TERMS OF HANDLING
 
-	    var annos = this.currentItem.get('annotations');
-
-	    for(var i = 0; i < this.annoLayerViews.length; i++){
-		this.annoLayerViews[i].annoObject = annos[i];
+	    if(this.currentItem){
+		var annos = this.currentItem.get('annotations');
+		
+		for(var i = 0; i < this.annoLayerViews.length; i++){
+		    this.annoLayerViews[i].annoObject = annos[i];
+		}
 	    }
 	},
 	updateFromModel:function(model, value, options){
@@ -266,21 +271,43 @@ define(["text!templates/Annotation.html",
 	    if(this.currentItem){
 		this.currentItem.on("change:annotations", this.updateFromModel, this);
 	    }
+	    
+	    this.setReadOnly(false);
+	    if(!currentItem)
+		this.setReadOnly(true);
+	    else
+		if(!currentItem.get('file') || !currentItem.get('loaded'))
+		    this.setReadOnly(true);
 
 	    this.setSettings(currentItem);
 	},
 	setSettings:function(currentItem){
 	    //would have to reset the annotations here!!
 	    
+
+
 	    for(var j = 0; j < this.annoLayerViews.length; j++){
 		this.deleteLayerView(this.annoLayerViews[j]);
 		j--; //since length is being altered on the fly
 	    };
 
-	    var annoArray = this.currentItem.get('annotations');
-	    for(var i = 0; i < annoArray.length; i++)
-		this.createLayerView(annoArray[i]);
+	    if(currentItem){
+		var annoArray = this.currentItem.get('annotations');
+		for(var i = 0; i < annoArray.length; i++)
+		    this.createLayerView(annoArray[i]);
+	    }
+	    
 
+
+	},
+	setReadOnly:function(value){
+	    console.log('AnnotationsView.setReadOnly()');
+	    console.log(value);
+
+	    $("#newAnnotation").attr("disabled", value);
+	    $("#loadAnnoFile").attr("disabled", value);
+	    $("#importAnnoFile").attr("disabled", value);
+	    $("#saveAnnoFile").attr("disabled", value);
 
 
 	},

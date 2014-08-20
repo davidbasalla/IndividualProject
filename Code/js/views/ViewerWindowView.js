@@ -44,7 +44,7 @@ define(["views/CanvasViewer3D",
 		   //create the 4 different views here
 
 		   //need to pass which CanvasSource to look at
-		   console.log('ViewerWindowView.render() 0');
+		   
 		   this.viewer0 = new CanvasViewer3D({
 	    	       el: '#panel0',
 		       viewerWindowView: this,
@@ -52,7 +52,6 @@ define(["views/CanvasViewer3D",
 		       mode: 0  //keep track of mode ie 3D/X/Y/Z, stays the same
 		   });
 
-		   console.log('ViewerWindowView.render() 1');
 		   this.viewer1 = new CanvasViewer2D({
 		       el:'#panel1',
 		       viewerWindowView: this,
@@ -81,7 +80,6 @@ define(["views/CanvasViewer3D",
 		   console.log('ViewerWindowView.renderCanvasViewers()');
 
 		   for(index in this.viewers){
-		       console.log('Rendering - ' + this.viewers[index].el);
 		       this.viewers[index].render();
 		   }
 	       },
@@ -305,7 +303,7 @@ define(["views/CanvasViewer3D",
 	       setCurrentLayer:function(layersModel, value, options){
 
 		   console.log('ViewerWindowView.setCurrentLayer()');
-		   console.log(this.currentItem);
+
 
 		   //turn OFF triggers for previous object
 		       
@@ -414,7 +412,7 @@ define(["views/CanvasViewer3D",
 		   
 	       },
 	       setOpacity:function(model, value, options){
-		   console.log('setOpacity(' + value + ')');
+		   //console.log('setOpacity(' + value + ')');
 
 		   this.viewer0.setOpacity();
 		   this.viewer1.setOpacity();

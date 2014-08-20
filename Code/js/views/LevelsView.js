@@ -30,6 +30,8 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 
 		console.log($( "#rangeSlider1" ));
 
+
+		var _this = this;
 		$( "#rangeSlider1" ).slider({
 		    range: true,
 		    min: 0,
@@ -37,9 +39,7 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 		    values: [ 0, 100 ],
 		    //onslide
 		    slide: function( event, ui ) {
-			$( "#levelLow" ).val(ui.values[0]);
-			$( "#levelHigh" ).val(ui.values[1]);
-			Backbone.trigger('levelsChange', [ui.values[0],ui.values[1]]);
+			_this.setLevels(ui.values[0], ui.values[1]);
 		    }
 		});
 
@@ -66,8 +66,10 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 		    }
 		});
 	    }
+
+	    //set to readyOnly by default
+	    this.setReadOnly(true);
 	    
-	    //set up listener to change of file field
 
 	},
 	xmlFileSelected:function(e){
@@ -183,19 +185,44 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    }
 	    //make it listen to changes in the currentitem model
 
+	    console.log(currentItem);
+
+
+	    this.setReadOnly(false);
+
+	    if(!currentItem)
+		this.setReadOnly(true);
+	    else
+		if(!currentItem.get('file') || !currentItem.get('loaded'))
+		    this.setReadOnly(true);
+
 	    this.setSliders(currentItem);
 	    this.setSettings(currentItem);
 	},
 	setSettings:function(currentItem){
+	    
 	    //set text value
-	    var wL = currentItem.get("windowLow");
-	    var wH = currentItem.get("windowHigh");
-	    var tL = currentItem.get("thresholdLow");
-	    var tH = currentItem.get("thresholdHigh");
-	    var o = currentItem.get("opacity");
-	    var indexX = currentItem.get("indexX");
-	    var indexY = currentItem.get("indexY");
-	    var indexZ = currentItem.get("indexZ");
+
+	    var wL = 0;
+	    var wH = 100;
+	    var tL = 0;
+	    var tH = 100;
+	    var o = 100;
+	    var indexX = 0;
+	    var indexY = 0
+	    var indexZ = 0;
+
+
+	    if(currentItem){
+		wL = currentItem.get("windowLow");
+		wH = currentItem.get("windowHigh");
+		tL = currentItem.get("thresholdLow");
+		tH = currentItem.get("thresholdHigh");
+		o = currentItem.get("opacity");
+		indexX = currentItem.get("indexX");
+		indexY = currentItem.get("indexY");
+		indexZ = currentItem.get("indexZ");
+	    }
 
 	    $( "#levelLow" ).val(wL);
 	    $( "#levelHigh" ).val(wH);
@@ -277,6 +304,14 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 		    this.currentItem.set({opacity: val});
 	    	    $("#opacitySlider").slider('value', val); 
 		}
+	    }
+	},
+	setLevels:function(low, high){
+
+	    if(this.currentItem){
+		$( "#levelLow" ).val(low);
+		$( "#levelHigh" ).val(high);
+		Backbone.trigger('levelsChange', [low, high]);
 	    }
 	},
 	setLevelInputHandler:function(e){
@@ -394,11 +429,18 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	setSliders:function(currentItem){
 	    //console.log('LayersView.resetSliders()');
 
-	    //set original values
-	    var wLO = currentItem.get("windowLowOrig");
-	    var wHO = currentItem.get("windowHighOrig");
-	    var tLO = currentItem.get("thresholdLowOrig");
-	    var tHO = currentItem.get("thresholdHighOrig");	    
+	    var wLO = 0;
+	    var wHO = 100;
+	    var tLO = 0;
+	    var tHO = 100;
+
+	    if(currentItem){
+		wLO = currentItem.get("windowLowOrig");
+		wHO = currentItem.get("windowHighOrig");
+		tLO = currentItem.get("thresholdLowOrig");
+		tHO = currentItem.get("thresholdHighOrig");
+	    }
+
 
 	    $("#rangeSlider1").slider('option',{min: wLO, max: wHO});
 	    $("#rangeSlider2").slider('option',{min: tLO, max: tHO}); 
@@ -418,7 +460,45 @@ define(["text!templates/Levels.html"], function(LevelsTemplate) {
 	    Backbone.trigger('lookupChange', value.currentTarget.selectedIndex);
 
 	},
+	setReadOnly:function(value){
+	    console.log('LevelsView.setReadOnly()');
+	    console.log(value);
 
+	    
+
+	    //1 read only
+	    //0 openUP
+	    //set up listener to change of file field
+	    $("#indexX").attr("disabled", value);
+	    $("#indexY").attr("disabled", value);
+	    $("#indexZ").attr("disabled", value);
+
+
+
+
+	    $("#levelLow").attr("disabled", value);
+	    $("#levelHigh").attr("disabled", value);
+	    $("#thresholdLow").attr("disabled", value);
+	    $("#thresholdHigh").attr("disabled", value);	   
+
+	    if(value){
+		$("#rangeSlider1").slider("disable");
+		$("#rangeSlider2").slider("disable");
+		$("#opacitySlider").slider("disable");
+	    }
+	    else{
+		$("#rangeSlider1").slider("enable");
+		$("#rangeSlider2").slider("enable");
+		$("#opacitySlider").slider("enable");
+	    }
+	    
+
+	    $("#opacityInput").attr("disabled", value);
+
+	    $("#lookupSelector").attr("disabled", value);
+
+
+	}
     });
     return LevelsView;
     
