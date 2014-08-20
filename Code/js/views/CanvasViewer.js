@@ -126,18 +126,20 @@ define(function() {
 	setCurrentLayers:function(itemA, itemB){
 	    //console.log('CanvasViewer.setCurrentLayers()');
 	    
-	    this.currentLayerItemTop = itemA;
-	    this.currentLayerItemBottom = itemB;
-
-	    this.setSrcCanvases();
-
-	    //reset annos
-
-	    this.annotations = [];
-
-	    if(this.currentLayerItemTop.get('annotations').length)
-		this.setAnnotations(this.currentLayerItemTop.get('annotations'));
-
+	    if(itemA && itemB){
+		this.currentLayerItemTop = itemA;
+		this.currentLayerItemBottom = itemB;
+		
+		this.setSrcCanvases();
+		
+		//reset annos
+		
+		this.annotations = [];
+		
+		if(this.currentLayerItemTop.get('annotations').length)
+		    this.setAnnotations(this.currentLayerItemTop.get('annotations'));
+	    }
+		
 
 
 	},

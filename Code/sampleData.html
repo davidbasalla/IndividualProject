@@ -1,0 +1,126 @@
+
+<!-- the container for the renderers -->
+<html>
+
+  <head>
+    <meta charset="utf-8"/>
+    <title> ScanView - Sample Data</title>
+
+    <link rel="brain icon" href="../Design/brainIcon.png"> 
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+	  href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+
+    <link href="css/style.css" rel="stylesheet">
+
+
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+
+    
+    <nav class="navbar navbar-inverse"
+	 role="navigation"
+	 style="border-radius:0">
+
+      <div class="container-fluid">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	    <span class="sr-only">Toggle navigation</span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </button>
+	  <a class="navbar-brand" href="index.html">ScanView</a>
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	  <ul class="nav navbar-nav">
+
+
+	    <li>
+	      <a href="#">Documentation</a>
+	    </li>
+
+	    <li>
+	      <a href="#">About</a>
+	    </li>
+
+
+	    <li class="active">
+	      <a href="sampleData.html">Sample Data</a>
+	    </li>
+
+	  </ul>
+
+	</div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+
+    <div class="sampleText">
+
+      <span class="sampleTextHeader">
+	1.) Medical Image Volume Example Files
+      </span>
+      <br>      <br>
+      For testing of the basic viewing features of
+      ScanView. Download this file to your computer, create a new
+      Layer in ScanView, click on the Open Button in the
+      new Layer and select this file.
+
+      <br>
+      <br>
+
+      <a href="../Resources/Data/brain.nii" download>Brain (.nii)</a>
+      <br>
+      <a href="../Resources/Data/thorax.nrrd" download>Thorax (.nrrd)</a>
+      <br>
+      <br>      
+
+      <span class="sampleTextHeader">
+	2.) Annotation Example Files
+      </span>
+      <br><br>
+      For testing the Annotation feature of ScanView. Download this
+      file to your computer, in ScanView (once you have loaded a
+      medical image data file), go to the Annotations tab and click
+      'Load' or 'Import' and select this file. Alternatively you can
+      just create a new Annotation by clicking on 'New'.
+
+      <br>
+      <br>
+
+      <a href="../Resources/JSON/brain_01.json" download>
+	Brain  Annotations (.json)
+      </a>
+
+      <br>
+      <br>
+
+      <span class="sampleTextHeader">
+	3.) Labelmap Example Files
+      </span>
+      <br><br>
+      For testing the Labelmap feature of ScanView. Download this
+      file to your computer, in ScanView (once you have loaded a
+      medical image data file), go to the Labelmap tab and click
+      the 'Open' button and select this file. 
+
+      <br>
+      <br>
+
+      <a href="../Resources/Data/brain_seg.nii" download>
+	Brain Labelmap (.nii)
+      </a>
+
+      <br>
+      <br>
+
+    </div>
+
+  </body>
+</html>

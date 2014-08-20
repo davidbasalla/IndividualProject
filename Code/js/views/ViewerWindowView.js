@@ -331,10 +331,12 @@ define(["views/CanvasViewer3D",
 
 
 		   //check if rendering can be paused!
-		   if(!itemA.get('loaded'))
-		       this.stopAnimation();
-		   else
-		       this.startAnimation();
+		   if(itemA){
+		       if(!itemA.get('loaded'))
+			   this.stopAnimation();
+		       else
+			   this.startAnimation();
+		   }
 
 
 		   

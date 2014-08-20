@@ -29,3 +29,19 @@ Colorpicker/colorpicker-master/i18n/jquery.ui.colorpicker-pt-br.js
 Colorpicker/colorpicker-master/images/128/map.png
 
 Colorpicker/colorpicker-master/images/bar-alpha.png
+
+*.gz
+
+*.pdf
+
+*.out
+
+*.aux
+
+*.log
+
+*.pdf
+
+Docs/LiteratureSurvey/literatureSurvey.pdf
+
+Resources/JSON/brain_01.json

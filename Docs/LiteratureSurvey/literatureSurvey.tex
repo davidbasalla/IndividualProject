@@ -46,12 +46,7 @@ Medical imaging is a type of scientific visualisation that deals with analysis, 
 As mentioned, medical image files are acquired by scanning devices that output data at a given resolution of data points. A typical medical image file contains a stack of individual images. Each image represents a thin slice of the scanned body part and is made up of pixels. For a volume data set the stack of images can be usually subdivided into cross sections along the three Cartesian axes X, Y and Z and together form a 3D Grid. In medical terms, these orthogonal views are called axial, sagittal and coronal. A constant pixel distance along X and Y allows for accurate measuring of distances and areas along a slice. The slice distance is the measurement in space from one slice to the next along its cross section. The three distances in every direction is called the voxel distance. If the pixel distance is equal to the voxel distance, the dataset is called isotropic. However in practice datasets usually exhibit a much smaller pixel distance than slice distance, which is called anisotropic.
 Measuring cross-sectional areas and volumes are valuable for example in diagnosis of vascular diseases. The quality of these measurements is highly dependent on the quality of the image data. Typically diagnosis has been performed these slices one at a time, meaning looking at every slice. These views support precise exploration and analysis and it is a legal requirement for radiologists to inspect every slice. However for spatially complex cases a purely slice-based presentation might not be very helpful. In this case 3D visualisation or volume rendering gives a better overview. The two different visualisations can be helpful for different users, such that radiologists would rely more on the 2D Views and physicians who carry out interventions might find benefit from 3D visualisations. Therefore any software that aims to display such medical image data should provide both views.
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=100mm]{graphics/book_2d3d_01.jpg}
-\caption{2D View (left) and 3D View (right)}
-\label{fig:UIdesign1}
-\end{figure}
+
 
 \subsection{Guidelines for Medical Image Viewer Software}
 
@@ -61,12 +56,7 @@ First, a certain mapping of data to gray values has to occur, called 'windowing'
 
 Secondly, the user should be able to easily browse through the slices. The axial, sagittal and coronal views should be provided as well as a 3D dimensional view of these slices in either card-based or volume form. All slices should update accordingly as the user browses through them. However in order to examine a view in detail, it should be possible to enlarge a desired view. Displaying all views at the same usually only serves to give an overview. Additionally a feature called 'cine mode' could be provided which is an animation through one of the slice stacks. This could aid in understanding the spatial relationship of the slices.
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=100mm]{graphics/book_4views_01.jpg}
-\caption{2D View (left) and 3D View (right)}
-\label{fig:UIdesign1}
-\end{figure}
+
 
 Furthermore, the software should provide means to take measurements of the image data, such as distance, area or volume measurements. In this case it is helpful to specify a region of interest (ROI) that can be focused on. Also intensity distribution can be measured to give indications of severity of disease in certain cases (such as osteoporosis)\cite{book}.
 
@@ -94,12 +84,7 @@ There exists a variety of desktop software to date that allow viewing of medical
 \subsubsection{Imview}
 \textit{Imview} is a medical image viewer created by Dr. Ben Glocker, which also allows the user to load scan files and inspect the individual slices of each axis. The user can perform flip transformations and apply different colour look-ups to the image, such as Colormap Jet which looks like a heat map. It also provides the option of displaying an information overlay with stats about the image. It would be beneficial if the web-app has similar options as they provide useful data for the user.
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=80mm]{graphics/imview_01.png}
-\caption{Screenshot of Imview}
-\label{fig:UIdesign1}
-\end{figure}
+
 
 \subsubsection{3DSlicer}
 \textit{3DSlicer} is a free open source software that provides a modular platform for image analysis and visualization. Of all the packages, this tool seems to be the most feature rich, which is not surprising as it is funded by a number of American organisations such as  the National Alliance for Medical Image Computing, Neuroimage Analysis Center and others. Although it features a wide variety of tools, the focus will be on the ones relevant to this project. \textit{3DSlicer} allows for loading of different files of different formats. It provides options to composite different slices on top of each other for comparison. It supports hardware accelerated volumetric rendering of medical image data. It is widely customisable with global settings. Layouts are also customisable. It has an extensive set of tools for manual and automatic image segmentation. It has an in-built feature to download sample data, which would be a useful inclusion for the web app project. Another powerful feature is that \textit{3DSlicer} allows the addition of new functionality and provides a number of generic features not available in competing tools. All in all, \textit{3DSlicer} appears like a well designed, user-friendly program that has an overwhelming amount of functionality. It will be another good benchmark and inspiration for this project.
@@ -110,22 +95,12 @@ There exists a variety of desktop software to date that allow viewing of medical
 \subsubsection{Photoshop}
 Looking further afield to some graphical editing software programs, some interesting functionality can be discovered. Adobe's \textit{Photoshop} is well known software for creating and manipulating 2D imagery. When editing an image, the user works with a document. The user can add as many layers as required and edit each layer individually. The layers are composited to form the whole picture. Each layer's opacity and compositing/blending mode can be specified. This could be a worth while to emulate for comparing different medical image files in the web app.
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=80mm]{graphics/photoshop_01.png}
-\caption{Layer compositing in Photoshop}
-\label{fig:UIdesign1}
-\end{figure}
+
 
 \subsubsection{Nuke}
 The Foundry's \textit{Nuke} is a compositing package which is used in the Visual Effects Industry to edit and composite 2D images with each other. It is used among others at high profile Visual Effects companies such as Industrial Light and Magic and Weta Digital\cite{nuke1} \cite{nuke2}). The interface differs from \textit{Photoshop} in that it provides the user with a workplace where any number of nodes can be created. When selecting any node, a graphical display will appear. These nodes can be linked together and do anything from loading a specific image file, transforming the whole node tree or applying an image filter such a film grain. The power of this approach is the modular nature of a tree. Any node can be taken out and reinserted at another place into the tree, thereby changing the final image. Additionally, for comparing different images, by default the software supplies two image buffers which the user can fill with any image of his choice (including of course the result from any node tree in his workspace). Once both buffers are filled, the user can easily toggle between the two images, blend between them by setting the opacity and even use a slider to reveal just a portion of either image. So while \textit{Nuke}'s node-based approach may be overkill for this project, \textit{Nuke}'s image blending seems quite desirable for this project as it would give the user a variety of ways in which he can compare multiple images. 
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=170mm]{graphics/nuke_02.png}
-\caption{Nuke's node-based workspace}
-\label{fig:UIdesign1}
-\end{figure}
+
 
 
 \subsection{Interactive Web Graphics}
@@ -185,22 +160,12 @@ There appear to be some bugs in \textit{SliceDrop}. When loading \textit{NRRD} f
 \subsection{DWV - DICOM Web Viewer}
 This viewer does not provide much functionality other than scrolling through one stack of slices. The user interface is sparse and does not give sufficient feedback to the use of what is currently happening. It uses the \textit{HTML5} Canvas element to display the file contents.
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=100mm]{graphics/webViewer_01.png}
-\caption{DWV User Interface}
-\label{fig:UIdesign1}
-\end{figure}
+
 
 \subsection{Papaya}
 Papaya\cite{papaya} is a \textit{JavaScript}-based medical image viewer with limited functionality. It has a clean uncluttered design, is easy to use and gives good visual feedback to the user. It successfully adheres to the user control guidelines outlined in section 2.1. It only displays 2D views of slices and does not allow any customisation in terms of label maps, windowing or compositing. It also uses the \textit{HTML5} Canvas element to render the 2D data.
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=100mm]{graphics/webViewer_02.png}
-\caption{Papaya Interface}
-\label{fig:UIdesign1}
-\end{figure}
+
 
 \subsection{Other}
 
@@ -353,21 +318,6 @@ Judging from limited previous experience, cross browser compatibility can be a d
 \section{Appendix}
 
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=170mm]{../../Design/UML_design_01.jpg}
-\caption{Early UML design}
-\label{fig:UIdesign1}
-\end{figure}
-
-
-\begin{figure}[ht]
-  \begin{adjustbox}{addcode={\begin{minipage}{\width}}{\caption{%
-     Early UI design
-      }\end{minipage}},rotate=90,center}
-      \includegraphics[scale=.45]{../../Design/UI_design_02.jpg}%
-  \end{adjustbox}
-\end{figure}
 
 
 \end{document}

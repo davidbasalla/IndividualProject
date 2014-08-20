@@ -82,6 +82,24 @@ html, body {
     /*font-size:medium;*/
     font-family:sans-serif;
 }
+.sampleTextHeader{
+    font-weight:bold;
+    text-decoration: underline;
+    font-size:medium;
+    font-family:sans-serif;
+}
+.sampleText{
+
+    margin:20px;
+    padding:20px;
+    width: 40%;    
+    background-color: #DDD;
+}
+.logo{   
+    background-color: #DDD;
+}
+
+
 .subMenuHeader{
     font-weight:bold;
     font-size:small;
