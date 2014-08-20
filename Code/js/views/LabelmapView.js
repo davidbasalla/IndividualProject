@@ -30,7 +30,9 @@ define(["text!templates/Labelmap.html"],
 		}
 	    });
 
-	    
+	    //$( document ).tooltip();
+
+
 	    $('#labelmapPicker', this.el).hide();
 
 	    this.setReadOnly(true);

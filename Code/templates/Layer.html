@@ -1,19 +1,23 @@
 <li class="list-group-item sublayer">
   <input type="file"
 	 id="filePicker"></input>
-  <span id="textHolder">
+  <span id="textHolder" title="BLAAAH">
     <%= layer_title %>
   </span>
 
-  <div class="btn-group" style="float:right">
+  <div class="btn-group" style="float:right" id="testingWithTooltip">
     <button type="button"
 	    class="btn btn-default btn-sm"
-            id="loadFile">
+            id="loadFile"
+	    data-toggle="tooltip"
+	    title="Load a Volume File">
       <span class="glyphicon glyphicon-floppy-open"> </span>
     </button>
     <button type="button"
 	    class="btn btn-default btn-sm"
-            id="delete">
+            id="delete"
+	    data-toggle="tooltip"
+	    title="Delete this Layer">
       <span class="glyphicon glyphicon-trash"></span>
     </button>
 

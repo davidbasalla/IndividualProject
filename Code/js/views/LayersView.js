@@ -57,6 +57,18 @@ define(["models/LayerItem",
 	render:function() {
 	    //write the template into the website
 	    this.$el.html(this.template);
+
+	    //$( document ).tooltip();
+
+	    $("#add").tooltip({delay: { show: 500, hide: 100 }});
+	    $("#bufferToggle").tooltip({delay: { show: 500, hide: 100 }});
+
+
+	    //$("#bufferB").tooltip({delay: { show: 500, hide: 100 }});
+
+	    //$( "#bufferA" ).tooltip({ hide: { effect: "explode", duration: 1000 } });
+	    //$( "#bufferA" ).tooltip( "option", "tooltipClass", "custom-tooltip-styling" )
+
 	},
 	addItem: function(){
 

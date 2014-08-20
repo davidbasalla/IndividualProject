@@ -257,6 +257,7 @@ At the end of the project, the software has the following feature list.
 \item Viewing of NII Volume File through 4 bespoke cameras (X, Y, Z and 3D)
 \item Custom Layouts of the 4 different cameras
 \item Ability to pan/zoom and rotate the NII Volume File through the cameras
+item Ability to traverse by left-click and drag on a 2D-Renderer will update the other 2D Renderers to the current indices
 \item Refocus the cameras by pressing 'F'
 \item Two buffers to hold different Display Layers
 \item Buffer Opacity and Buffer Swiping to compare the two Display Layers
@@ -298,8 +299,17 @@ Generally program in modular fashion, tackle problems in a naive fashion first t
 - meetings every 1 to 3 weeks
 - notes taken, feature requests taken on board
 
+\subsubsection{Coding Journal}
+
+As the project grew more complex, I started writing a Coding Journal in which I would write down any relevant ideas or thoughts. Since working on one aspect usually took more time than thinking of ideas for other aspects, this proved quite valuable in recording them, organising them and going back over later to make sure I had not missed anything important.
+
 
 \subsection{Implementation Details}
+
+\subsubsection{Version Control}
+
+To keep track of my project, I used Git. This was an obvious choice since it has been the DOC-prefered version control system as well as XTK being hosted on Github which I had to fork. I managed my own project code in a separate Version Control from my XTK fork in order to not confuse the two. Github proved as per usual very useful and reliable in tracking down changes from earlier versions as well keep submodules up to date for the XTK library.
+
 
 \subsubsection{XTK}
 
@@ -308,6 +318,34 @@ Generally program in modular fashion, tackle problems in a naive fashion first t
 \subsubsection{RequireJS}
 
 
+
+
+
+
+
+\subsubsection{JQueryUI}
+
+Generally speaking, for any HTML page element, both the look and the functionality have to be considered, as implementing them can be quite complex. This is why a lot of libraries have been created that provide generalised elements such as buttons, file loaders and more complex UI elements. A few like JQueryUI and Twitter-Bootstrap have been become very popular and have been used in this project. They have the benefit of providing both the CSS style definitions as well as predefined JavaScript functionality for the elements. 
+
+Some features from this library were utilised, such as the tab functionality for the 'Levels', 'Annotations' and 'Labelmaps' tabs. Also, the sliders for setting Brightness, Threshold and Opacity were taken from this library, as they provided a convenient solution both for the design and for the functionality.
+
+
+\subsubsection{Twitter-Bootstrap}
+
+This library was used to style the webpage consistently and to make use of their icons, buttons and tooltip functionality.
+
+The library provides a host of useful icons and button presets, such as button groups which were used when grouping buttons close together like the 'Load' and 'Delete' button for each Display Layer. This added a more sophisticated look to the software without the need for individual styling of buttons by writing custom CSS classes.
+
+Adding the tooltips proved more involved than initially thought. For dynamically added HTML elements such as the Display Layers, custom tooltip options would have to be used and set in order to make them work correctly.
+
+All things considered, this libary proved to be very useful and saved a lot of time.
+
+
+\subsubsection{User Experience}
+
+Some effort was put into making the software intuitive for users to use.
+This included the somewhat mundane disabling of all input and buttons when no appropriate medical imaging file had been loaded yet.
+All navigation and traversal was placed on mouse controls. The guidelines from the book helped inform the controls in that radiologist prefer to have as simple controls as possible since their work can consist of dealing with vast quantities of these kind of files, so any intricate control input method would soon get tiresome.
 
 
 

@@ -29,9 +29,14 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    //template - set title
 	    this.$el.html(this.template({layer_title: this.model.attributes.title}));
 
+	    $("#loadFile", this.el).tooltip({delay: { show: 500, hide: 100, container: 'body'}});
+	    $("#delete", this.el).tooltip({delay: { show: 500, hide: 100, container: 'body' }});
+	    $("#textHolder", this.el).tooltip({delay: { show: 500, hide: 100 }});
+
+
 	    //hide the file pickers
 	    $('#filePicker', this.el).hide();
-	    //$('#labelPicker', this.el).hide();
+
 
 	    return this; // for chainable calls, like .render().el
 	},

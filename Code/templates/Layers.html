@@ -5,19 +5,30 @@
     <span class="menuHeader">
       Layers
     </span>
-    <button type="button"
-            class="btn btn-default btn-sm"
-            id="add" style="float:right">
-      <span class="glyphicon glyphicon-plus"></span>
-    </button>
-    
-    <div class="btn-group" style="margin-right:20px; float: right">
-      <button type="button" id="bufferA" class="btn btn-sm mode-btn
-      textBold layer-selected">A
+
+   
+      <button type="button"
+              class="btn btn-default btn-sm"
+              id="add"  title="Add a new Display Layer" style="float:right">
+	<span class="glyphicon glyphicon-plus"></span>
       </button>
-      <button type="button" id="bufferB" class="btn btn-sm mode-btn
-      textBold">B
-      </button>
+      
+      <div class="btn-group" 
+	   id="bufferToggle" 
+	   title="Toggle between Buffers"
+	   style="margin-right:20px; float: right">
+	<button type="button" 
+		id="bufferA" 
+		class="btn 
+		       btn-sm 
+		       mode-btn
+		       textBold 
+		       layer-selected">A
+	</button>
+	<button type="button" id="bufferB" class="btn btn-sm mode-btn
+									      textBold">B
+	</button>
+
     </div>
 
   </div>

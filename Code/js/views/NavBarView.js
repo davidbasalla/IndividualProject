@@ -12,7 +12,13 @@ define(["text!templates/NavBar.html"], function(NavBarTemplate) {
 	    this.render();
 	},
 	render:function() {
-	    this.$el.html(this.template);
+	    this.$el.html(this.template);	    
+
+	    $("#layoutButton1").tooltip({delay: { show: 500, hide: 100 }});
+	    $("#layoutButton2").tooltip({delay: { show: 500, hide: 100 }});
+	    $("#layoutButton3").tooltip({delay: { show: 500, hide: 100 }});
+	    $("#layoutButton4").tooltip({delay: { show: 500, hide: 100 }});
+
 	},
 	setLayout:function(e){
 	    /*send signal to XtkView to set a layout

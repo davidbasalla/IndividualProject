@@ -1,14 +1,15 @@
 FINISH CODING ON PROJECT:
 -------------------------
 
-- make tabs unselectable when no file is loaded
 - restrict file loading
 - need file loading error messages
 - make drag and drop of files possible?
 - make sure that NoWEBGL works!
-- tweak size of number fields
 - disable buttons to toggle between buffers
   - or just fix buffer toggling!
+- Fix annotation redraw when traversing
+
+
 
 - Check it works in Firefox
 - Check it works in Internet Explorer

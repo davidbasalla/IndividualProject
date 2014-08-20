@@ -26,6 +26,7 @@
 	      
 	      <!-- LOAD BUTTON -->
 	      <button type="button"
+		      title="Open A Labelmap File"
 		      class="btn btn-default btn-sm"
 		      id="loadLabelmapFile">
 		<span class="glyphicon glyphicon-floppy-open"> </span>
@@ -36,6 +37,7 @@
 	      
 	      <!-- DELETE BUTTON -->
 	      <button type="button"
+		      title="Remove Labelmap File"
 		      class="btn btn-default btn-sm"
 		      id="delete">
 		<span class="glyphicon glyphicon-trash"></span>
@@ -83,7 +85,8 @@
 	</span>
 	
 	
-	<select id="labelmapLookupSelector" style="float:right">
+	<select id="labelmapLookupSelector" style="float:right"
+		title="Select A ColorLookup Table">
 	  <option value="Lookup_None">None</option>
 	  <option value="Lookup_IDs" selected="selected">IDs</option>
 	  <option value="Lookup_JET">Heatmap (JET)</option>
