@@ -367,11 +367,67 @@ All navigation and traversal was placed on mouse controls. The guidelines from t
 
 \section{Results and Evaluation}
 
-\subsection{Testing across platforms and web browsers}
+In order to evaluate the software, two components were chosen. The first was to test one of the main claims of this project, namely that the website runs on a variety of computer setups, thereby freeing the user of having to use a specific desktop tool for a specific platform. Secondly, the software has been deployed on the Internet and has been sent to a number of users for evaluation via a survey. Finally the software will be evaluated against the aims set forth at the beginning of the project.
+Evaluation of main client?
 
-In order to judge whether the software fulfils its purpose of running on a variety of operating systems and web browsers, a number of protocols were tested across a range of computer setups. It was tested on the four most commonly used web browsers and on Windows, OSX Mavericks, Linux (Ubuntu) and Android. Additionally a test was run for the Apple I-Pad.
+
+\subsection{Protocol Testing across different platforms}
+
+In order to judge whether the software fulfils its purpose of running on a variety of operating systems and web browsers, a number of protocols were tested across a range of computer setups. It was tested on the four most commonly used web browsers and on Windows, OSX Mavericks, Linux (Ubuntu) and Android. Additionally a test was run for the Apple I-Pad. The protocols were designed to mimic what a typcial user would do with the software as well as to get a comprehensive coverage of all the features.
+
 
 \subsubsection{Protocols}
+
+\subsubsection*{Protocol 1 - Basic Viewing of Volume File }
+
+- Create a Display Layer\\
+- Load a medical image data file (.nii)\\
+- Test navigation - pan/zoom/rotate/traverse\\
+- Test window levels\\
+- Test threshold\\
+- Test changing color lookup
+
+\subsubsection*{Protocol 2 - Creation of Annotation }
+
+- Create a Display Layer\\
+- Load a medical image data file (.nii)\\
+- Create a new annotation\\
+- Change annotation label\\
+- Change annotation color\\
+- Change annotation vertex points
+
+\subsubsection*{Protocol 3 - Loading and Saving of Annotations }
+
+- Create Display Layer\\
+- Load a medical image data file (.nii)\\
+- Load/Import annotation JSON file\\
+- Change annotation color\\
+- Change annotation vertex points\\
+- Save out annotation
+
+
+\subsubsection*{Protocol 4 - Labelmaps }
+
+- Create Display Layer\\
+- Load a medical image data file (.nii)\\
+- Load a labelmap file\\
+- Set opacity of labelmap file\\
+- Change color lookup for labelmap
+
+\subsubsection*{Protocol 5 - Display Layer Management }
+
+- Create Display Layer\\
+- Load a medical image data file (.nii)\\
+- Create a second Display Layer\\
+- Load a second medical image data file (.nii)\\
+- Toggle between buffers\\
+- Test opacity slider\\
+- Test horizontal swipe\\
+- Delete First Display Layer\\
+- Test basic viewing\\
+- Delete Second Display Layer
+
+
 
 
 \subsubsection{Testing Environments}
@@ -415,6 +471,16 @@ For Windows the website was tested on Windows 7, running on a virtual machine on
 - Firefox Version 31.0\\
 - Internet Explorer 8.0.7601.17514\\
 - Safari Version 5.1.7\\
+
+
+\subsubsection*{Linux Ubuntu}
+
+For Windows the website was tested on Windows 7, running on a virtual machine on a Mac Book Pro with the same specification as the previous section.\\
+
+\noindent Hardware:\\
+- Running via VMware Fusion on same MacBook Pro as used for testing OSX Mavericks
+
+
 
 
 \subsubsection{Protocol Results}
@@ -476,16 +542,9 @@ For Linux the website was tested on Ubuntu on a computer in the Department of Co
 \end{center}
 
 
-
-
-
-\subsection{Results}
-
-
-
-
 \subsection{User Feedback}
 
+In order for users to be able to evaluate the product, some effort had to be put in to deploy the software to the web. This went smoothly, as it had been desiged as a live webpage from the beginning. However some tweaks to the UI had to happen before releasing it, assuming a user had to familiarise himself the program for the first time. So I added tooltips, provided sample data for the user to download, tutorials resembling the protocols above together with screen capture videos. Furthermore an 'About' page was added which explained the main features of the program as well crediting various libraries and plug-ins that were used. Finally, an online survey by Survey Monkey was introduced to allow for convenient feedback by the user.
 
 
 \section{Conclusions}
