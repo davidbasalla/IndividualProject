@@ -1,0 +1,163 @@
+
+<!-- the container for the renderers -->
+<html class="tutorialScroll">
+
+  <head>
+    <meta charset="utf-8"/>
+    <title> ScanView - Documentation</title>
+
+    <link rel="brain icon" href="../Design/brainIcon.png"> 
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+	  href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+
+    <link href="css/style.css" rel="stylesheet">
+
+
+  </head>
+
+  <body class="tutorialScroll">
+    <!-- NAVBAR -->
+
+    
+    <nav class="navbar navbar-inverse"
+	 role="navigation"
+	 style="border-radius:0">
+
+      <div class="container-fluid">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	    <span class="sr-only">Toggle navigation</span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </button>
+	  <a class="navbar-brand" href="index.html">ScanView</a>
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	  <ul class="nav navbar-nav">
+
+
+	    <li>
+	      <a href="tutorial.html">Tutorials</a>
+	    </li>
+
+	    <li>
+	      <a href="sampleData.html">Sample Data</a>
+	    </li>
+
+
+	    <li class="active">
+	      <a href="about.html">About</a>
+	    </li>
+
+	    <li>
+	      <a href="survey.html">Survey</a>
+	    </li>
+
+
+	  </ul>
+
+	</div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="tutorialLeftSide">
+      <div class="sampleText">
+
+
+	ScanView is a browser-based tool for viewing medical image
+	data, written by <a href="http://www.davidbasalla3d.com">David Basalla</a>. 
+	<br>This software is not intended for clinical use.
+
+      </div>
+
+
+      <div class="sampleText">
+	<span class="sampleTextHeader">
+	  Libraries
+	</span>
+
+	<br>
+	<br>
+
+	This tool is based on a modified version of
+	the <a href="http://www.goXTK.com">XTK Library</a>.
+
+	<br><br>
+
+	Furthermore Backbone, RequireJS, Twitter-Bootstrap, JQuery, JQueryUI,
+	Underscore and <a href="http://colpick.com/plugin">ColPick</a>
+	were used.
+
+	
+      </div>
+      
+      <div class="sampleText" style="margin-bottom:50px">
+
+	
+	<span class="sampleTextHeader">
+	  Features
+	</span>
+
+
+	<br>
+	<br>
+
+	<ul>
+	  <li>Display Layer Management</li>
+	  <ul>
+	    <li>Creation/Deletion of Display Layers</li>
+	    <li>Loading Medical Image Data File per Display Layer</li>
+	  </ul>
+
+
+	  <li>Loading of NII Volume Files (one per Display Layer)</li>	
+	  <li>Changing of Brightness</li>
+	  <li>Changing Image Threshold</li>
+	  <li>Changing indices of NII Volume File</li>
+	  <li>Viewing of NII Volume File through 4 bespoke Camera Views (X, Y, Z and 3D)</li>
+	  <li>Custom Layouts of the 4 different Camera Views</li>
+	  <li>Navigation in Camera Views</li>
+	  <ul>
+	    <li> Pan (middle mouse click and drag)</li>
+	    <li> Zoom (right mouse click and drag, scroll in 3D Camera
+	      View)</li>
+	    <li> Rotate in 3D Camera View (left mouse click and drag)</li>
+	    <li> Traverse in 2D Camera View (left mouse click and drag)
+	    <li>Refocus the cameras by pressing 'F'</li>	      
+	  </ul>
+
+	  <li>Two buffers to hold different Display Layers</li>
+	  <li>Buffer Opacity and Buffer Swiping to compare the two Display Layers</li>
+	  <li>Changing the color lookup table for a Display Layer, currently 3 supported Lookups (None, ID's and JET)</li>
+	  <li>Toggle for Volumetric Rendering of the Data in 3D Camera View</li>
+	  <li>Interactive Annotation Management</li>
+	  <ul>
+	    <li>Creation/Deletion of Annotation(s)</li>
+	    <li>Support for multiple Annotations</li>
+	    <li>Customisation of Label, Color and Position of Annotation</li>
+	    <li>Saving out of Annotations as JSON file (via file download)</li>
+	    <li>Loading and Importing of Annotation JSON files</li>
+	    <li>Setting visibility of Annotations</li>
+	  </ul>
+	  <li>Labelmap Management</li>
+
+	  <ul>
+	    <li>Loading of Labelmaps</li>
+	    <li>Changing opacity of Labelmap</li>
+	    <li>Changing color lookup of Labelmap</li>
+	  </ul>
+	</ul>
+
+
+
+
+      </div>
+
+
+  </body>
+</html>

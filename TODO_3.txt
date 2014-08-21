@@ -1,6 +1,7 @@
 FINISH CODING ON PROJECT:
 -------------------------
 
+- fix layer updating when toggling buffers!!!
 - restrict file loading
 - need file loading error messages
 - make drag and drop of files possible?
@@ -20,9 +21,10 @@ FINISH CODING ON PROJECT:
 DEPLOY PROJECT ON WEB:
 ----------------------
 
-- clean up body behaviour, should not be redrawing header
-- suggest usage protocols for testing
-
+- come up with questionaire
+  - features requested
+  - ease of use?
+  - general comments
 
 
 
