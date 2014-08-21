@@ -24,6 +24,7 @@ define(["views/NavBarView", "views/SidePanelView", "views/ViewerWindowView", "mo
 		       el: $('#navbar')
 		   });
 
+		   
 
 		   console.log('MainView.init() ViewerWindowView');
 		   this.viewerWindow = new ViewerWindowView({

@@ -15,6 +15,7 @@ define(["text!templates/NavBar.html"], function(NavBarTemplate) {
 	render:function() {
 	    this.$el.html(this.template);	    
 
+	    
 	    $("#layoutButton1").tooltip({delay: { show: 500, hide: 100 }});
 	    $("#layoutButton2").tooltip({delay: { show: 500, hide: 100 }});
 	    $("#layoutButton3").tooltip({delay: { show: 500, hide: 100 }});
