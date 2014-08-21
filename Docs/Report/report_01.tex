@@ -241,7 +241,6 @@ Extend?
 
 At the end of the project, the software has the following feature list.
 
-
 \begin{itemize}
   \item Display Layer Management
 \begin{itemize}
@@ -368,7 +367,121 @@ All navigation and traversal was placed on mouse controls. The guidelines from t
 
 \section{Results and Evaluation}
 
-\subsection{Test Protocols}
+\subsection{Testing across platforms and web browsers}
+
+In order to judge whether the software fulfils its purpose of running on a variety of operating systems and web browsers, a number of protocols were tested across a range of computer setups. It was tested on the four most commonly used web browsers and on Windows, OSX Mavericks, Linux (Ubuntu) and Android. Additionally a test was run for the Apple I-Pad.
+
+\subsubsection{Protocols}
+
+
+\subsubsection{Testing Environments}
+
+
+\subsubsection*{OSX Mavericks}
+
+For OSX the website was tested on the latest OSX Mavericks Operating System, installed on a Mac Book Pro. All protocols were run successfully for both Chrome and Firefox.  Internet Explorer is not available for OSX.\\
+
+\noindent Hardware:\\
+- Model Name:	MacBook Pro\\
+- Processor Name:	Intel Core i7\\
+- Processor Speed:	2.3 GHz\\
+- Number of Processors:	1\\
+- Total Number of Cores:	4\\
+- L2 Cache (per Core):	256 KB\\
+- L3 Cache:	6 MB\\
+- Memory:	16 GB\\
+
+
+\noindent Operating System:\\
+- OS X 10.9.4\\
+
+\noindent Browsers Tested:\\
+- Chrome Version 36.0.1985.143\\
+- Firefox Version 31.0\\
+- Safari Version 7.0.6 (9537.78.2)\\
+
+\subsubsection*{Windows 7}
+
+For Windows the website was tested on Windows 7, running on a virtual machine on a Mac Book Pro with the same specification as the previous section.\\
+
+\noindent Hardware:\\
+- Running via VMware Fusion on same MacBook Pro as used for testing OSX Mavericks
+
+\noindent Operating System:\\
+- Windows 7 Professional N Service Pack 1\\
+
+\noindent Browsers Tested:\\
+- Chrome Version 36.0.1985.143\\
+- Firefox Version 31.0\\
+- Internet Explorer 8.0.7601.17514\\
+- Safari Version 5.1.7\\
+
+
+\subsubsection{Protocol Results}
+
+\subsubsection*{OSX Mavericks}
+
+All protocols were run successfully for both Chrome and Firefox. When using Safari, they were issues with loading Annotations and Navigation control. This should be fixable by simply investing more time into the project.\\
+
+
+\begin{center}
+ \begin{tabular}{ | l || l | l | l | l |}
+    \hline
+    Protocol & Chrome & Firefox & Internet Explorer & Safari \\ \hline \hline
+    1 & Yes & Yes  & - & No   \\ \hline
+    2 & Yes & No & - & Yes \\ \hline
+   3 & Yes & No & - & Yes  \\ \hline
+   4 & Yes & No & - & Yes  \\ \hline
+   5 & Yes & No & - & Yes  \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\subsubsection*{Windows 7}
+
+All protocols were run successfully for both Chrome and Firefox. There were lots of issues with Internet Explorer, which was expected since it is renown for being difficult to code for and not following conventions of the other browers. Safari issues were also abound.
+
+\begin{center}
+
+  \begin{tabular}{ | l || l | l | l | l |}
+    \hline
+    Protocol & Chrome & Firefox & Internet Explorer & Safari \\ \hline \hline
+    1 & Yes & Yes  & No  & - \\ \hline
+    2 & Yes & No & Yes & - \\ \hline
+   3 & Yes & No & Yes & - \\ \hline
+   4 & Yes & No & Yes & - \\ \hline
+   5 & Yes & No & Yes & - \\
+    \hline
+  \end{tabular}
+
+\end{center}
+
+\subsubsection*{Linux Ubuntu}
+
+For Linux the website was tested on Ubuntu on a computer in the Department of Computing at Imperial College. Again, Chrome and Firefox performed well. Safari and Chrome were unfortunately not available for testing.
+
+\begin{center}
+
+  \begin{tabular}{ | l || l | l | l | l |}
+    \hline
+    Protocol & Chrome & Firefox & Internet Explorer & Safari \\ \hline \hline
+    1 & Yes & Yes  & -  & - \\ \hline
+    2 & Yes & No & - & - \\ \hline
+   3 & Yes & No & - & - \\ \hline
+   4 & Yes & No & - & - \\ \hline
+   5 & Yes & No & - & - \\
+    \hline
+  \end{tabular}
+
+\end{center}
+
+
+
+
+
+\subsection{Results}
+
+
 
 
 \subsection{User Feedback}
