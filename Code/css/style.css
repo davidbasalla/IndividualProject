@@ -5,6 +5,13 @@ html, body {
     height: 100%;*/
     overflow: hidden !important
 }
+.tutorialScroll{ 
+    overflow: visible !important
+}
+
+
+
+
 .layer-selected{
     background-color:#88F;
 }
@@ -76,6 +83,16 @@ html, body {
 #panel3{
     float: left;
 }
+.vidlink{
+    border: 2px;
+    border-color:#00F;
+    padding: 2px;
+    border-spacing:2px;
+    border-collapse:separate;
+
+
+
+}
 .menuHeader{
     /*font-weight:bold;*/
     text-decoration: underline;
@@ -90,9 +107,18 @@ html, body {
 }
 .sampleText{
 
-    margin:20px;
-    padding:20px;
-    width: 40%;    
+    margin-top:2%;
+    margin-left:20%;
+    margin-right:20%;
+    padding:25px;    
+    background-color: #DDD;
+}
+.sampleText2{
+
+    margin-left: 3%;
+    margin-right: 3%;
+    padding:15px;
+    width: 43%;    
     background-color: #DDD;
 }
 .logo{   
