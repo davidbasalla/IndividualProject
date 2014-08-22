@@ -42,8 +42,14 @@ define(["models/LayerItem",
 	    Backbone.on('opacityChange', this.opacityChange, this);
 	    Backbone.on('initValuesStored', this.setLevelsSettings, this);
 	    Backbone.on('lookupChange', this.setLookup, this);
-	    Backbone.on('labelmapChange', this.setLabelmap, this);
+
 	    Backbone.on('labelmapOpacityChange', this.labelmapOpacityChange, this);
+
+	    //from viewerwindowview
+	    Backbone.on('bufferChange', this.setBuffer, this);
+
+
+
 
 	    //Backbone.on('xtkInitialised', this.updateCurrentIndex, this);
 

@@ -85,9 +85,18 @@ define(function() {
 		Backbone.trigger('focus', [this.currentLayerItemTop, this.mode]);
 		this.setAnnotations(this.annotations);
 	    }
+	    else if (e.keyCode == 49)
+		Backbone.trigger('bufferChange', 0);
+	    else if(e.keyCode == 50)
+		Backbone.trigger('bufferChange', 1);
+	    
+	    
+	    
+	    
+	    
 	},
 	mouseEnter:function(e){
-
+	    
 	    //console.log('ENTER');
 
 	    if(e.which == 1 && this.mouseDownOnExit)
