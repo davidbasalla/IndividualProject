@@ -320,6 +320,10 @@ Generally program in modular fashion, tackle problems in a naive fashion first t
 
 As the project grew more complex, I started writing a Coding Journal in which I would write down any relevant ideas or thoughts. Since working on one aspect usually took more time than thinking of ideas for other aspects, this proved quite valuable in recording them, organising them and going back over later to make sure I had not missed anything important.
 
+\subsubsection{StackOverflow}
+
+As I am sure is a regular occurence, checking StackOverflow for any problems proved invaluable. There are x posts on the topic of Backbone, JavaScript and Jquery, so it provided a vast resource for fixing problems. XTK is relatively small but still useful due to the occasional answer of the XTK authors themselves.
+
 
 \subsection{Implementation Details}
 
@@ -365,7 +369,7 @@ This library was used to style the webpage consistently and to make use of their
 
 The library provides a host of useful icons and button presets, such as button groups which were used when grouping buttons close together like the 'Load' and 'Delete' button for each Display Layer. This added a more sophisticated look to the software without the need for individual styling of buttons by writing custom CSS classes.
 
-Adding the tooltips proved more involved than initially thought. For dynamically added HTML elements such as the Display Layers, custom tooltip options would have to be used and set in order to make them work correctly. So instead of having a general purpose solution, custom settings had to be set for each tooltip.
+Adding the tooltips proved more involved than initially thought. For dynamically added HTML elements such as the Display Layers, custom tooltip options would have to be used and set in order to make them work correctly. So instead of having a general purpose solution, custom settings had to be set for each tooltip. Also, since Twitter-Bootstrap and JqueryUI both provide tooltips that called by the same initialisation function, sometimes errors would appear in the browser console, stating that a conflict had been caused. Fortunatly, JQueryUI allows for downloading a custom build where the tooltip feature has been disabled.
 
 All things considered, this libary proved to be very useful and saved a lot of time.
 

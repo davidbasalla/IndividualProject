@@ -64,8 +64,6 @@ define(["models/LayerItem",
 	    //write the template into the website
 	    this.$el.html(this.template);
 
-	    //$( document ).tooltip();
-
 	    $("#add").tooltip({delay: { show: 500, hide: 100 }});
 	    $("#bufferToggle").tooltip({delay: { show: 500, hide: 100 }});
 

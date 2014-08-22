@@ -10,6 +10,8 @@ X
 
 *.js#
 
+jquery-ui-1.11.1.custom
+
 Colorpicker/colorpicker-master/demo.html
 
 Colorpicker/colorpicker-master/bower.json

@@ -1,12 +1,11 @@
 FINISH CODING ON PROJECT:
 -------------------------
 
-- restrict file loading
-- need file loading error messages
+- need file loading error messages, when upload has gone wrong
 - make drag and drop of files possible?
 - make sure that NoWEBGL works!
 - Fix annotation redraw when traversing...
-- Fix multiple file loading
+- disable scrolling when no file loaded
 
 
 

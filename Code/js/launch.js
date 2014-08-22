@@ -7,7 +7,7 @@ require.config({
 	//Underscore: "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore",
 	Underscore: "libs/underscore-min",
 	jquery: "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery",
-	jqueryUI: "http://code.jquery.com/ui/1.10.4/jquery-ui",
+	jqueryUI: "libs/jquery-ui.min",
 	json2: "http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2",
 	Bootstrap: "http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min",
 	text: "libs/text",
