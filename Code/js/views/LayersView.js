@@ -110,12 +110,13 @@ define(["models/LayerItem",
 
 	    //set layerItem to be current
 	    if(layerItem){
+		console.log('A');
 		this.layersModel.setCurrentItem(layerItem);
 
 		this.setLevelsSettings(layerItem);
 	    }
 	    else{
-
+		console.log('B');
 		this.setLevelsSettings(null);
 		this.layersModel.set({
 		    bufferALayerItem:null,
@@ -234,7 +235,8 @@ define(["models/LayerItem",
 			layerItemView = this.layerItemViewArray[index];
 		}
 
-		this.setSelectedLayerItemView(layerItemView);
+		this.setSelected(currentItem, layerItemView);
+		//this.setSelectedLayerItemView(layerItemView);
 
 		
 		//SET THE CSS FOR BUFFER BUTTON
