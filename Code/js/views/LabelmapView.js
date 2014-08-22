@@ -30,6 +30,14 @@ define(["text!templates/Labelmap.html"],
 		}
 	    });
 
+
+	    //clear filepicker for same input again
+	    var input = $('#labelmapPicker', this.el)[0];
+	    input.onclick = function () {
+		this.value = null;
+	    };
+
+	    //hide filepicker
 	    $('#labelmapPicker', this.el).hide();
 
 
@@ -50,11 +58,26 @@ define(["text!templates/Labelmap.html"],
 	fileLoaded: function(e){
 	    console.log('LabelmapView.fileLoaded()')
 	    //add text to layer preview
-	    $('#textHolder', this.el).html(e.currentTarget.files[0].name);
 	    
-	    this.currentItem.set({
-		labelmapFile : e.currentTarget.files[0]
-	    });
+	    var file = e.currentTarget.files[0];
+	    var extension = file.name.split('.').pop();	
+	    
+	    //check for correct extension
+	    if(extension == 'nii' || extension == 'nrrd'){
+		
+		$('#textHolder', this.el).html(e.currentTarget.files[0].name);
+		
+		this.currentItem.set({
+		    labelmapFile : e.currentTarget.files[0]
+		});
+	    }
+	    else
+		this.displayError();
+	},	
+	displayError: function(){
+
+	    $('#myModalLabelmap').modal();
+
 	},
 	setCurrentItem:function(currentItem){
 	    console.log('LabelmapView.setCurrentItem()');

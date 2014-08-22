@@ -76,6 +76,12 @@ define(["models/LayerItem",
 	    //$( "#bufferA" ).tooltip( "option", "tooltipClass", "custom-tooltip-styling" )
 
 	},
+	displayError: function(){
+
+	   
+	    $('#myModal').modal();
+
+	},
 	addItem: function(){
 
 	    console.log('LayersView.addItem()');

@@ -25,19 +25,22 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    $(this.el).addClass('list-group-item');
 	    $(this.el).addClass('layer');
 
-	    
 	    //template - set title
 	    this.$el.html(this.template({layer_title: this.model.attributes.title}));
 	    
 	    $("#loadFile", this.el).tooltip({delay: { show: 500, hide: 100 }});
 	    $("#delete", this.el).tooltip({delay: { show: 500, hide: 100 }});
-
 	    $("#textHolder", this.el).tooltip({delay: { show: 500, hide: 100 }});
 
 
+	    //clear filepicker for same input again
+	    var input = $('#filePicker', this.el)[0];
+	    input.onclick = function () {
+		this.value = null;
+	    };
+
 	    //hide the file pickers
 	    $('#filePicker', this.el).hide();
-
 
 	    return this; // for chainable calls, like .render().el
 	},
@@ -71,12 +74,24 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	fileLoaded: function(e){
 	    console.log('fileLoaded()')
 	    //add text to layer preview
-	    $('#textHolder', this.el).html(e.currentTarget.files[0].name);
 
-	    this.model.set({
-		//fileName: e.currentTarget.files[0].name,
-		file : e.currentTarget.files[0]
-	    });
+	    var file = e.currentTarget.files[0];
+	    var extension = file.name.split('.').pop();	    
+
+	    console.log(extension);
+
+	    //check for correct extension
+	    if(extension == 'nii' || extension == 'nrrd'){
+
+		$('#textHolder', this.el).html(file.name);
+		this.model.set({
+		    //fileName: e.currentTarget.files[0].name,
+		    file : file
+		});
+	    }
+	    else{		
+		this.layersView.displayError();
+	    }
 	},
 	labelLoaded: function(e){
 	    //add text to layer preview

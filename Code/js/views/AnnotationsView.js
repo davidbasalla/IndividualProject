@@ -51,6 +51,11 @@ define(["text!templates/Annotation.html",
 	    this.setReadOnly(true);
 
 	},
+	displayError: function(){
+
+	    $('#myModalAnnotation').modal();
+
+	},
 	newAnnotation:function(){
 	    /* when creating a new annotation, place it in the
 	       center of the current indeces, with a given size as
@@ -144,20 +149,23 @@ define(["text!templates/Annotation.html",
 	    console.log('AnnotationView.xmlFileSelected()');
 
 	    var file = e.currentTarget.files[0];
+	    var extension = file.name.split('.').pop();	    
 
-	    
-	    // FILE READING
-	    var reader = new FileReader();
-
-	    var _this = this;
-	    reader.onload = function(e){
-		(_this.parseJSON(reader.result)); // bind the current type
+	    //check for correct extension
+	    if(extension == 'json'){
+		// FILE READING
+		var reader = new FileReader();
+		
+		var _this = this;
+		reader.onload = function(e){
+		    (_this.parseJSON(reader.result)); // bind the current type
+		}
+		
+		reader.readAsText(file);		
 	    }
-
-	    reader.readAsText(file);
-
-	    //reset value of fileLoader to null
-
+	    else{		
+		this.displayError();
+	    }
 	},
 	parseJSON:function(inputString){
 	    console.log('AnnotationView.parseJSON()');
