@@ -76,12 +76,16 @@ define(["text!templates/Layer.html" , "models/LayerItem","views/ViewerWindowView
 	    //add text to layer preview
 
 	    var file = e.currentTarget.files[0];
-	    var extension = file.name.split('.').pop();	    
+	    var fileSplit = file.name.split('.');
+	    var extension = fileSplit.pop();
 
-	    console.log(extension);
+	    //check for .gz
+	    if(extension == 'gz')
+		extension = fileSplit.pop() + '.' + extension;
 
 	    //check for correct extension
-	    if(extension == 'nii' || extension == 'nrrd'){
+	    
+	    if(extension == 'nii' || extension == 'nrrd' || extension == 'nii.gz'){
 
 		$('#textHolder', this.el).html(file.name);
 		this.model.set({

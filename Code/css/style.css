@@ -10,7 +10,10 @@ html, body {
 }
 
 
-
+.beta{
+    font-size: 10px;
+    /*line-height: 1.42857;*/
+}
 
 .layer-selected{
     background-color:#88F;

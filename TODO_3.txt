@@ -6,6 +6,7 @@ FINISH CODING ON PROJECT:
 - make sure that NoWEBGL works!
 - Fix annotation redraw when traversing...
 - disable scrolling when no file loaded
+- add scroll field when layers or annotations reach the end
 
 
 

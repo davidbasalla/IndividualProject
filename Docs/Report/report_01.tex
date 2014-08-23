@@ -26,9 +26,9 @@
 
 \title{Browser-based Medical Image Viewer using WebGL \\\Large{--- Report ---}}
 \author{David Basalla\\
-       \{db913\}@ic.ac.uk\\ \\
-       \small{Supervisor: Dr.\ Ben Glocker}\\
-       \small{Imperial College London}
+  \{db913\}@ic.ac.uk\\ \\
+  \small{Supervisor: Dr.\ Ben Glocker}\\
+  \small{Imperial College London}
 }
 
 \begin{document}
@@ -105,12 +105,12 @@ Secondly, the user should be able to easily browse through the slices. The axial
 
 Furthermore, the software should provide means to take measurements of the image data, such as distance, area or volume measurements. In this case it is helpful to specify a region of interest (ROI) that can be focused on. Also intensity distribution can be measured to give indications of severity of disease in certain cases (such as osteoporosis)\cite{book}.
 
- For advanced tools, the book suggests providing segmentation tools for identification and marking of certain structures. These tools could be manual so that the user has to paint a region for each slice, or semi-automatic where algorithms select regions following specific rules given by the user, such as threshold-based segmentation or region growing. The resulting segmentation (or label maps) should be overlaid on top of the scan data in a clear manner.
- 
- It is also suggested to have tools for annotating files with information. Examples would be creating a region around a specific organ or an arrow pointing to a particular area of interest.
- On the topic of user interaction, the book points out that the most frequently used should be carried out with the mouse. Specifically, browsing through slices could be done by scrolling wheel, right-clicking and moving the mouse affect the windowing, ie contrast and brightness. Zooming and panning should also be implemented in similar fashion. These kind of direct mouse controls are preferable to having to adjust specific sliders, although these may be included for visual feedback.
- 
- Additional functionality should be added for pressing down the Alt or Shift key and using the mouse.
+For advanced tools, the book suggests providing segmentation tools for identification and marking of certain structures. These tools could be manual so that the user has to paint a region for each slice, or semi-automatic where algorithms select regions following specific rules given by the user, such as threshold-based segmentation or region growing. The resulting segmentation (or label maps) should be overlaid on top of the scan data in a clear manner.
+
+It is also suggested to have tools for annotating files with information. Examples would be creating a region around a specific organ or an arrow pointing to a particular area of interest.
+On the topic of user interaction, the book points out that the most frequently used should be carried out with the mouse. Specifically, browsing through slices could be done by scrolling wheel, right-clicking and moving the mouse affect the windowing, ie contrast and brightness. Zooming and panning should also be implemented in similar fashion. These kind of direct mouse controls are preferable to having to adjust specific sliders, although these may be included for visual feedback.
+
+Additional functionality should be added for pressing down the Alt or Shift key and using the mouse.
 With regards to 3D rendering of the data, different modes are mentioned. Multiplanar Reformatting (MPR) is a way to creating an arbitrary slicing with an orientation that does not follow the cartesian axes. Maximum Intensity Projection (MIP) is a frequently technique which casts out rays from the viewing plane and highlights voxels with the maximum intensity, mostly used for diagnosis of vascular structures. Surface Shaded Display (SSD) is another visualisation technique that renders the data as 3D shaded surfaces based on a  given threshold. This is achieved by connecting adjacent voxels as polygons. Some simple lighting is applied for shading so depth relations are more recognisable. Finally Volume Rendering produces a semi-transparent rendering of the data voxels where individual voxels' brightness determine their opacity. This is often referred to as direct volume rendering (DVR) as opposed to indirect volume rendering of SSD.
 
 \subsection{NIfTI File Format}
@@ -123,8 +123,8 @@ In the \textit{NIfTI} format, the first three dimensions are reserved to define 
 There exists a variety of desktop software to date that allow viewing of medical image data. For this project, a selection of programs have been tested and analysed for functionality.
 
 \subsubsection{MITK 3M3}
-     Firstly, \textit{MITK 3M3} by Mint Medical and German Cancer Research Center allows for easy viewing of a variety of medical image file formats. The layout of the views is customisable and by default shows the X, Y, Z dimension and a 3D view of all 3 dimensions together. (picture) There is a universal range slider that affects all images at once. Labelmaps (called Segmentations) can be added to a scan file, as sub layers and a range of paint tools are provided to colour in regions of the scan. An arbitrary number of layers can be created and saved out as separate files. 
-     Furthermore it can create a 3D volume renderings, applying image filters and supplies measuring tools. In general it is a well rounded product with intuitive controls so will serve as a good benchmark test for the final product.
+Firstly, \textit{MITK 3M3} by Mint Medical and German Cancer Research Center allows for easy viewing of a variety of medical image file formats. The layout of the views is customisable and by default shows the X, Y, Z dimension and a 3D view of all 3 dimensions together. (picture) There is a universal range slider that affects all images at once. Labelmaps (called Segmentations) can be added to a scan file, as sub layers and a range of paint tools are provided to colour in regions of the scan. An arbitrary number of layers can be created and saved out as separate files. 
+Furthermore it can create a 3D volume renderings, applying image filters and supplies measuring tools. In general it is a well rounded product with intuitive controls so will serve as a good benchmark test for the final product.
 
 \subsubsection{Imview}
 \textit{Imview} is a medical image viewer created by Dr. Ben Glocker, which also allows the user to load scan files and inspect the individual slices of each axis. The user can perform flip transformations and apply different colour look-ups to the image, such as Colormap Jet which looks like a heat map. It also provides the option of displaying an information overlay with stats about the image. It would be beneficial if the web-app has similar options as they provide useful data for the user.
@@ -190,6 +190,13 @@ The website \url{http://www.idoimaging.com} lists a number of other available br
 According to web browser usage statistics for 2014, the 4 most used
 browsers are (in descending order) Chrome, Internet Explorer, Firefox
 and Safari. Show the graph from that website. Discuss more. Chosing to focus on Chrome primarily. Chrome because of Android?
+
+
+Talk about operating systems
+
+Talk about screen resolution
+
+Test!
 
 
 
@@ -260,50 +267,82 @@ Extend?
 At the end of the project, the software has the following feature list.
 
 \begin{itemize}
-  \item Display Layer Management
-\begin{itemize}
-\item Creation/Deletion of Display Layers
-\item Loading Medical Image Data File per Display Layer
-\end{itemize}
+\item Display Layer Management
 
+  \begin{itemize}
+  \item Creation/Deletion of Display Layers
+  \item Loading Medical Image Data File per Display Layer
+  \end{itemize}
 
 \item Loading of NII Volume Files (one per Display Layer)	
-  \item Changing of Brightness
- \item Changing Image Threshold
+\item Changing of Brightness
+\item Changing Image Threshold
 \item Changing indices of NII Volume File
 \item Viewing of NII Volume File through 4 bespoke cameras (X, Y, Z and 3D)
 \item Custom Layouts of the 4 different cameras
 \item Ability to pan/zoom and rotate the NII Volume File through the cameras
-item Ability to traverse by left-click and drag on a 2D-Renderer will update the other 2D Renderers to the current indices
+  item Ability to traverse by left-click and drag on a 2D-Renderer will update the other 2D Renderers to the current indices
 \item Refocus the cameras by pressing 'F'
 \item Two buffers to hold different Display Layers
 \item Buffer Opacity and Buffer Swiping to compare the two Display Layers
 \item Changing the color lookup table for a Display Layer, currently 3 supported Lookups (None, ID's and JET)
 \item Toggle for Volumetric Rendering of the Data in 3D Camera View
 \item Interactive Annotation Management
-\begin{itemize}
-\item Creation/Deletion of Annotation(s)
-\item Support for multiple Annotations
-\item Customisation of Label, Color and Position of Annotation
-\item Saving out of Annotations as JSON file (via file download)
-\item Loading and Importing of Annotation JSON files
-\item Setting visibility of Annotations
-\end{itemize}
+
+  \begin{itemize}
+  \item Creation/Deletion of Annotation(s)
+  \item Support for multiple Annotations
+  \item Customisation of Label, Color and Position of Annotation
+  \item Saving out of Annotations as JSON file (via file download)
+  \item Loading and Importing of Annotation JSON files
+  \item Setting visibility of Annotations
+  \end{itemize}
+
 \item Labelmap Management
 
-\begin{itemize}
-\item Loading of Labelmaps
-\item Changing opacity of Labelmap
-\item Changing color lookup of Labelmap
-\end{itemize}
+  \begin{itemize}
+  \item Loading of Labelmaps
+  \item Changing opacity of Labelmap
+  \item Changing color lookup of Labelmap
+  \end{itemize}
 
 \end{itemize}
 
 
 HAVE DIAGRAMS!
-	- different layouts
-	- diagram explaining features
+- different layouts
+- diagram explaining features
 
+
+
+\subsection{Implementing Features}
+
+
+\subsubsection{Loading Volume Files}
+
+state issues with XTK not being designed to load things dynamically. Desired for this viewer.
+issuse with NRRD files, bug
+
+\subsubsection{Colortables}
+
+Colortable loading via XTK\\
+Having to understand the loading process in depth\\
+Hardcoding arrays into the code\\
+Losing flexibility, but faster and more efficient
+
+
+\subsubsection{Annotations}
+
+XML format - first\\
+Json Format - more convenient, logical extension and more natural given javascript nature\\
+new Annotation class\\
+functions for converting 2D to 3D and 3D to 2D (inverting matrix mulitplication)\\
+taking colopicker from online\\
+
+
+
+
+\subsubsection{Labelmaps}
 
 
 \subsection{Development Strategy}
@@ -343,7 +382,22 @@ Chrome providing Sources, like a debugger with line by line features
 
 \subsubsection{XTK}
 
+- bugs with XTK
+- written with goog.closure library
+	- uses minified code, uses a compiler
+	- use the debug version
+- extended the library
+- exposing variables
+- various event calls
+
+- explain the structure
+
+
+
+
 \subsubsection{Backbone}
+
+
 
 \subsubsection{RequireJS}
 
@@ -371,19 +425,36 @@ The library provides a host of useful icons and button presets, such as button g
 
 Adding the tooltips proved more involved than initially thought. For dynamically added HTML elements such as the Display Layers, custom tooltip options would have to be used and set in order to make them work correctly. So instead of having a general purpose solution, custom settings had to be set for each tooltip. Also, since Twitter-Bootstrap and JqueryUI both provide tooltips that called by the same initialisation function, sometimes errors would appear in the browser console, stating that a conflict had been caused. Fortunatly, JQueryUI allows for downloading a custom build where the tooltip feature has been disabled.
 
+Furthermore, creating modal warning screens when the user attempts to load a file with the wrong extension was made very easy with Twitter-Bootraps modal screen. Again, styling this manually and creating the logic behind it would have been very time consuming.
+
+Twitter-Bootstrap supplies a host of interactive UI elements such as buttons, tooltips, pop up windows, tabs, navigation bars, progress bars and more. It is a widely used library - in June 2014 it was the No.1 project on GitHub with 69,000+ stars and 25,000+ forks (Wiki).
+
+
+Picture
+
+
+
 All things considered, this libary proved to be very useful and saved a lot of time.
 
 
 \subsubsection{Custom Colorpicker}
 
-I downloaded a couple of ColorPickers from the web, and deemed Blah's colorpicker to be better suited.
+I downloaded a couple of ColorPickers from the web, and deemed Blah's colorpicker to be better suited. It has a very basic interface that was deemed sufficient for chosing an Annotation color. Installing and implementing it into the project was also very straight forward.
 
 
 \subsubsection{User Experience}
 
 Some effort was put into making the software intuitive for users to use.
-This included the somewhat mundane disabling of all input and buttons when no appropriate medical imaging file had been loaded yet.
+This included the somewhat mundane disabling of all input and buttons when no appropriate medical imaging file had been loaded yet. Furthermore, pop up warning windows were introduced to warn a user if the wrong kind of file was being loaded. Tooltips were added to almost every button to help the user understand the intended functionality of each.
+
 All navigation and traversal was placed on mouse controls. The guidelines from the book helped inform the controls in that radiologist prefer to have as simple controls as possible since their work can consist of dealing with vast quantities of these kind of files, so any intricate control input method would soon get tiresome.
+
+
+\subsubsection{Google Analytics}
+
+Google Analytics is a tool by Google that provides detailed information of count, frequency and location of website usage. I installed to get a clear picture of how many people would be using the website. I have used Google Analytics in the past and have been impressed by the comprehensive overview it provides. On top the expected visitor numbers, locations and duration, it provides percentage displays and other useful information.
+
+Add diagrams if useful.
 
 
 
@@ -515,6 +586,21 @@ For Windows the website was tested on Windows 7, running on a virtual machine on
 - Safari Version - Not available
 
 
+\subsubsection*{IOS}
+
+For IOS the website was tested on a Ipad Air. It was fairly clear that this would not work well, since IOS is a closed system that does not allow a free file structure as required by this software. However it was still checked to get a wider coverage of platforms.\\
+
+\noindent Hardware:\\
+- Ipad Air\\
+
+\noindent Operating System:\\
+- IOS V.XX\\
+
+\noindent Browsers Tested:\\
+- Safari Version XX
+
+
+
 \subsubsection{Protocol Results}
 
 \subsubsection*{OSX Mavericks}
@@ -523,14 +609,14 @@ All protocols were run successfully for both Chrome and Firefox. When using Safa
 
 
 \begin{center}
- \begin{tabular}{ | l || l | l | l | l |}
+  \begin{tabular}{ | l || l | l | l | l |}
     \hline
     Protocol & Chrome & Firefox & Internet Explorer & Safari \\ \hline \hline
     1 & Yes & Yes  & - & No   \\ \hline
     2 & Yes & No & - & Yes \\ \hline
-   3 & Yes & No & - & Yes  \\ \hline
-   4 & Yes & No & - & Yes  \\ \hline
-   5 & Yes & No & - & Yes  \\
+    3 & Yes & No & - & Yes  \\ \hline
+    4 & Yes & No & - & Yes  \\ \hline
+    5 & Yes & No & - & Yes  \\
     \hline
   \end{tabular}
 \end{center}
@@ -546,9 +632,9 @@ All protocols were run successfully for both Chrome and Firefox. There were lots
     Protocol & Chrome & Firefox & Internet Explorer & Safari \\ \hline \hline
     1 & Yes & Yes  & No  & - \\ \hline
     2 & Yes & No & Yes & - \\ \hline
-   3 & Yes & No & Yes & - \\ \hline
-   4 & Yes & No & Yes & - \\ \hline
-   5 & Yes & No & Yes & - \\
+    3 & Yes & No & Yes & - \\ \hline
+    4 & Yes & No & Yes & - \\ \hline
+    5 & Yes & No & Yes & - \\
     \hline
   \end{tabular}
 
@@ -565,18 +651,49 @@ For Linux the website was tested on Ubuntu on a computer in the Department of Co
     Protocol & Chrome & Firefox & Internet Explorer & Safari \\ \hline \hline
     1 & Yes & Yes  & -  & - \\ \hline
     2 & Yes & No & - & - \\ \hline
-   3 & Yes & No & - & - \\ \hline
-   4 & Yes & No & - & - \\ \hline
-   5 & Yes & No & - & - \\
+    3 & Yes & No & - & - \\ \hline
+    4 & Yes & No & - & - \\ \hline
+    5 & Yes & No & - & - \\
     \hline
   \end{tabular}
 
 \end{center}
 
 
-\subsection{User Feedback}
+\subsubsection*{IOS}
 
-In order for users to be able to evaluate the product, some effort had to be put in to deploy the software to the web. This went smoothly, as it had been desiged as a live webpage from the beginning. However some tweaks to the UI had to happen before releasing it, assuming a user had to familiarise himself the program for the first time. So I added tooltips, provided sample data for the user to download, tutorials resembling the protocols above together with screen capture videos. Furthermore an 'About' page was added which explained the main features of the program as well crediting various libraries and plug-ins that were used. Finally, an online survey by Survey Monkey was introduced to allow for convenient feedback by the user.
+As expected, most functionality did not work on the Ipad. The display layer management worked fine, however the user is not able to load a file, since the default file opening only allows opening photos. However, it would be possible to circumvent this by implementing a solution that uses a file loading app, such as Dropbox. The Driopbox API seems to allow for this, so it could be possible given extra time.
+
+\begin{center}
+
+  \begin{tabular}{ | l || l | l | l | l |}
+    \hline
+    Protocol & Chrome & Firefox & Internet Explorer & Safari \\ \hline \hline
+    1 & - & -  & -  & No \\ \hline
+    2 & - & - & - & No \\ \hline
+    3 & - & - & - & No \\ \hline
+    4 & - & - & - & No \\ \hline
+    5 & - & - & - & No \\
+    \hline
+  \end{tabular}
+
+\end{center}
+
+
+
+
+\subsection{Usage and User Feedback}
+
+In order for users to be able to evaluate the product, some effort had to be put in to deploy the software to the web. This went smoothly, as it had been desiged as a live webpage from the beginning. So I added a page with some sample data for the user to download, tutorials resembling the protocols above together with screen capture videos. Furthermore an 'About' page was added which explained the main features of the program as well crediting various libraries and plug-ins that were used. Finally, an online survey by Survey Monkey was introduced to allow for convenient feedback by the user.
+
+Ideally the website would be online for a longer time to get a more complete picture in terms of usage.
+Analyse the usage reports from Google Analytics if appropriate.
+
+\subsection{Review of Features}
+
+Discuss completeness of features. Satisfies most like others.
+Compare it to SliceDrop. Compare it to Desktop Software!
+
 
 
 \section{Conclusions}
@@ -585,6 +702,14 @@ works well with current hardware/software provided
 
 
 \section{Future Work}
+
+\subsection{Known Bugs}
+
+- ColorPopup not at the right position when at bottom
+
+
+\subsection{Future Improvements}
+
 
 numerous improvements:
 - add paint tools
@@ -606,16 +731,16 @@ numerous improvements:
 
 \newpage
 
-  \begin{thebibliography}{1}
+\begin{thebibliography}{1}
 
-  \end{thebibliography}
+\end{thebibliography}
 
 \newpage
 
 \section{Appendix}
 
 
-- NEED TO MENTION/ADD NOT FOR OFFICIAL USE
+
 - Talk about DRY, UML Style Diagrams!
 
 
