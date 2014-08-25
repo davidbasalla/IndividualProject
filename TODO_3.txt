@@ -2,11 +2,13 @@ FINISH CODING ON PROJECT:
 -------------------------
 
 - need file loading error messages, when upload has gone wrong
+  - need to introduce a fail event in parser (due to setTimeout)
+  - should work? with try and catch stuff...
 - make drag and drop of files possible?
 - make sure that NoWEBGL works!
 - Fix annotation redraw when traversing...
 - disable scrolling when no file loaded
-- add scroll field when layers or annotations reach the end
+- HOW TO GET A FAIL IMAGE TO SHOW WHEN PROBLEM WITH FILE!!!!?
 
 
 

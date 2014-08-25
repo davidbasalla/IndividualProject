@@ -129,6 +129,9 @@ Furthermore it can create a 3D volume renderings, applying image filters and sup
 \subsubsection{Imview}
 \textit{Imview} is a medical image viewer created by Dr. Ben Glocker, which also allows the user to load scan files and inspect the individual slices of each axis. The user can perform flip transformations and apply different colour look-ups to the image, such as Colormap Jet which looks like a heat map. It also provides the option of displaying an information overlay with stats about the image. It would be beneficial if the web-app has similar options as they provide useful data for the user.
 
+\subsubsection{BrainSuite}
+
+Test about BrainSuite... features...
 
 
 \subsubsection{3DSlicer}
@@ -198,11 +201,29 @@ Talk about screen resolution
 
 Test!
 
+To make things even more difficult, various programming aspects such as CSS and core DOM functionality is supported to varying degrees in the different browsers and versions. The following site aims to provide a comprehensive breakdown of provided features.
+
+http://www.quirksmode.org/
+
+It is anticipated that all the variations will become a source of problems when developing the project.
+
+
+
+\subsubsection{Developing websites}
+
+Talk about DOM
+
+
+Generally, JavaScript code gets downloaded and executed at the user end.
+
+
+Programming for modern webpages which require more complex behaviour than just displaying information can get quite involved. Generally it takes at least \textit{HTML}, \textit{CSS} and \textit{JavaScript} to create a useful website. It is possible to include the code from each language in the main index.html file, but this is undesirable as it lacks modularity and will be hard to test and debug.
+
 
 
 \subsubsection{Web Frameworks for Single Page Apps}
 
-Programming for modern webpages which require more complex behaviour than just displaying information can get quite involved. Generally it takes at least \textit{HTML}, \textit{CSS} and \textit{JavaScript} to create a useful website. It is possible to include the code from each language in the main index.html file, but this is undesirable as it lacks modularity and will be hard to test and debug.
+Talk about MVC paradigm. Talk about MVP paradigm.
 
 At the time of writing, \textit{Backbone} seems to be a good choice to manage the complexity and structure of the project. \textit{Backbone} is used to structure client-side applications (those that run in a web browser). It was written by Jeremy Ashkenas and is designed for developing single-page web applications, and for keeping various parts of web applications synchronized. It is based on the model–view–presenter (MVP) application design paradigm, providing Events, Models, Collections and Views. Models represent the information in class-like structures, Collections are lists of Models and Views handle the visual representation on the actual HTML site. Finally Events are used to keep track of state changes across the website elements, models and views. It builds on \textit{jQuery} and \textit{Underscore.js}, both libraries which simplify dealing with \textit{HTML} elements. It also provides inheritance for its models, collections and views.
 
@@ -309,38 +330,51 @@ At the end of the project, the software has the following feature list.
 \end{itemize}
 
 
-HAVE DIAGRAMS!
-- different layouts
-- diagram explaining features
 
 
 
-\subsection{Implementing Features}
-
-
-\subsubsection{Loading Volume Files}
-
-state issues with XTK not being designed to load things dynamically. Desired for this viewer.
-issuse with NRRD files, bug
-
-\subsubsection{Colortables}
-
-Colortable loading via XTK\\
-Having to understand the loading process in depth\\
-Hardcoding arrays into the code\\
-Losing flexibility, but faster and more efficient
-
-
-\subsubsection{Annotations}
-
-XML format - first\\
-Json Format - more convenient, logical extension and more natural given javascript nature\\
-new Annotation class\\
-functions for converting 2D to 3D and 3D to 2D (inverting matrix mulitplication)\\
-taking colopicker from online\\
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=180mm]{graphics/features_01.png}
+\caption{Feature Breakdown}
+\label{fig:UIdesign1}
+\end{figure}
 
 
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{graphics/features_02.png}
+\caption{Feature Breakdown}
+\label{fig:UIdesign1}
+\end{figure}
+
+
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{graphics/features_03.png}
+\caption{Feature Breakdown}
+\label{fig:UIdesign1}
+\end{figure}
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{graphics/features_04.png}
+\caption{Feature Breakdown}
+\label{fig:UIdesign1}
+\end{figure}
+
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{graphics/features_05.png}
+\caption{Feature Breakdown}
+\label{fig:UIdesign1}
+\end{figure}
 
 \subsubsection{Labelmaps}
 
@@ -364,11 +398,134 @@ As the project grew more complex, I started writing a Coding Journal in which I 
 As I am sure is a regular occurence, checking StackOverflow for any problems proved invaluable. There are x posts on the topic of Backbone, JavaScript and Jquery, so it provided a vast resource for fixing problems. XTK is relatively small but still useful due to the occasional answer of the XTK authors themselves.
 
 
+
+
+
+
+\subsection{Implementing Features}
+
+
+\subsubsection{Creating the structure}
+
+I started the project with one of the tutorial from the XTK website. Tutorial 13 had a very basic setup that was similar to what I intended for my project - a 4 view rendering of a data file. The tutorial has less than 100 lines of Code, with half of it used for specifying an inbuilt GUI. Since I wanted to create a custom GUI and generally have a much bigger codebase, first I need to ensure that I had a solid structure for my project. This is where Backbone and RequireJS came into play. Since I was not entirely familiar with either of them, it took a few days to get up to speed and try out a few tutorials to familiarise myself with their useage. It was overwhelming at first and I had to take a leap of faith that everything would out. After a few days I had managed to create a frame work that mimicked the tutorial, but was running in the confines of Backbone with proper views and managed dependencies through RequireJS.
+
+Need to talk about MVC MVP
+
+
+\subsubsection{Loading Volume Files}
+
+The next step was to enable to loading of local volume files. This can be tricky with web browsers, as for security reasons file I/O is not a feature that is readily supported. However I had the SliceDrop code to look through. Basically copying the data into a local container did the trick. This is done with the HTML5 FileReader element, which allows for asynchronous file loading in various formats (text/buffer, etc).
+
+Once I had this setup I came across one of the first bugs in XTK. When loading NRRD files, the volume would load and display, but it would be slightly offset. Testing this on a couple of Desktop solutions which worked fine let to the conclusion that it is a bug in the XTK library. 
+
+Picture
+
+
+
+\subsubsection{Layout of Program}
+
+In terms of the layout of the components of ScanView, I had fairly accurate ideas. It needed to accomodate the 4 different views in viewing panels (one 3D Camera View and X, Y and Z Camera Views). I wanted to add some customisation options in terms of size of the viewer and choice of Camera View in each panel. Depending on whether it was a 3D or 2D Camera View, the Display Panel would have different options. 3D Camera View needed a toggle for Volumetric Rendering, 2D Camera View needed a toggle for Information Overlay.
+
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/layouts_01.png}
+\caption{Four Different Layout Options}
+\label{fig:UIdesign1}
+\end{figure}
+
+
+
+For the different layouts I briefly investigated using interactive splitters, but found them to be not very easy or reliable to tie into the program. Instead I opted for 4 different static Layouts (See image below). This should give the user enough options to choose what his prefered layout. Implementing the logic behind these panels took a while to get right. Panels had to auto-resize everytime the layout was changed. Again this required some exposing of extra XTK attributes.
+
+
+
+
+Coming up with a concept for the viewers... needed to have the distinct number of viewers.
+Came up with concept of copying images from it.
+Was trying to use it still as an API, did'nt realise that I would have to descend deep into the library at some point.
+
+
+
+\subsubsection{Display Layer Management}
+
+Layers
+
+For each Layer, separate tools
+
+Buffers
+
+
+\subsubsection{Colortables}
+
+The next feature I tackled was Colortables, with which to change the color output for a given volume. The XTL library does support Colortables, which ironically ended up costing me a week of coding time. XTK Colortables follow the same format as 3DSlicer's format and a Wikipedia site with which one can create custom Colortables exists online. The format is that each line is prefixed by an index, which will usually by the RGB value of the volume data. Each line is then mapped to a label and a set of RGBA values.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=70mm]{graphics/Colortable_01.png}
+\caption{Example of a Colortable}
+\label{fig:UIdesign1}
+\end{figure}
+
+XTK deals with Colortables in that the user has to load them as a .txt file when adding the Volume data and other input files. Thereby it is bundled up with the rest of the IO processes. Again, as with normal file loading, XTK is not designed for adding or modifying these kinds of files at runtime, so I had to add this functionality. This took a long time in that I had to trace the whole function flow of XTK when loading files. I proceeded with various steps, but would encounter problems at every stage, since I was forcing XTK do something that was not really inherent in its initial design. At a very basic level, colored displays (ie varying R, G and B channels) were not enabled for volumes by default, so I had to edit the code for that. On top of that, 2Drenderer and 3DRenderer deal with color and rendering quite differently. The 2D renderer does the rendering to screen space at a specific time per second. The 3D renderer uses a fragment shader (like in OpenGL) to assign color. Figuring all this out took a while, and after 7 days I had finally managed to get the whole process working. The only problem was that since I/O was involved, it would take quite a bit of time to update, so it was not entirely slick. Also, the way XTK loaded these colortables was by actually baking the colors into the slice texture. 
+
+Having finished this feature so far, it occured to me that I could actually speed the whole process up by having some hardcoded colortables in the code, and using them as a array to look up colorvalues when rendering the actual pixel. This was much easier to implement, loads much quicker as it is more efficient in only manipulating color at a pixel level rather then changing the color values of the whole volume. In the end I chose this method as I prefered the faster feedback. It has the limitation that the user can not load his own colortable, but this is a feature that could be added in future. For the moment, there are three colortables provided. Firstly, the standard colortable maps rgbs values directly to the same value. Secondly, an ID map maps values to different RGB values, which is intended for use with labelmaps. Thirdly, a type of HEAT/JET map has been included which maps the original RGB values from BLUE to RED to mimic the behaviour of a heat map. This was advised by the project supervisor.
+
+
+\subsubsection{Annotations}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/AnnotationFinal_01.png}
+\caption{Annotation in 3D and 2D View}
+\label{fig:UIdesign1}
+\end{figure}
+
+The Annotations feature was addded in the last month and I was aware of time pressure. That is why initital design decisions had to be made to reduce wasted time later in the process. I decided on implementing rectangular annotations first, since that would make calculations easier to manage. Annotations would be JavaScript objects with core members that were predefined (labelName, color, 3DPoints), and secondary attributes that would have to be computed on the fly (such as 2D Points for displaying on screen). Specifically, an annotation would be defined by 8 points in 3D Space. However to render it in a 2D View, 2D points had to be generated in screen space. I had intended the 2D points to be selectable in the Canvas View, so these 2D points should also be objects with custom attributes.
+
+An initial UML diagram was desiged as below:
+
+IMAGE
+
+
+
+
+The final Annotation class contained quite a few more helper functions to help with the conversion from 3D to 2D space.
+
+
+The next step was to chose a data format and design the workflow. Initial tests were done with XML but to be somewhat cumbersome since some parsing is required and in the program the XML structures would have to be converted to JavaScript objects. Therefore the much more intuitive JSON format was chosen, since this basically stores JavaScript objects in readable form, and can be loaded directly into the program without almost any conversion required. The JSON format was originally derived from JavaScript which explains its ease of use.
+
+Probably the most involved work was to figure out the conversion of 3D points to 2D screen space. The 2D points would be calculated by each XTK renderer separately, since the different views required different 2D screen space points. An array of the 2D points would be stored in the Annotation class. These points would then be updated whenever the position of the 3D points of the Annotation changed. The XTK renderer class has a function that translates 2D screen coordinates to 3D slice index coordinates which was a good starting point. I chose a simplified version of this function and implemented a conversion function, which appeared to work fine. However some bugs were noticeable where all 2D points of an Annotation would sometimes jump by a pixel even when they were not being manipulated. I attributed this to some floating point or rounding errors, but could not track down where the errors were happening. Finally I had to admit that my simplified conversion function was not accurate enough, and I set out to reverse engineer the 2D to 3D conversion from the XTK library. This involved some inverse matrix multiplication, and in the end worked perfectly. These changes had to be made in the XTK renderer class.
+
+In order for the user to manipulate the position of the Annotation points in screen space, I had to implement manipulatable corner points of the Annotation. This was made easy by the decision to have the 2D points. Initially I had contemplated creating a separate Manipulator class, but realised that this was superfluous and would just be repeating code. In the 2DPoint class I specified the position and width, so that in screen space I could make the 2DPoints appear wider for easier selection with the mouse. Some internal logic had to be added to the Annotation class, so that when the user changes the position of one 2DPoint, the neighboring points would also transform accordingly, since the shape had to always stay rectangular. I had to revise this is a couple of times, since in my first naive implementation, there would problems when the Annotation box would collapse so that all four 2D Points would be at the same screen space position. In the end I opted for limiting the size of the Annotation so that the points could never collapse to the same position.
+
+Diagram of the annotation?
+
+
+An important part of the Annotation Management was the feature to download Annotations as a JSON file. However again due to web browser security restrictions, there is no 'Save File As' feature as I had imagined. However after some research, a viable alternative was found in that it is possible to 'download' a file (even if the code is running locally). This was deemed sufficient for this project, even if it does not allow for specifying the file name directly. With more time, it would be possible to add a pop-up window just like a 'Save as' dialog that would then trigger the file download.
+
+Saving files to JSON format was straight forward due to the before-mentioned natural overlap of JavaScript objects and JSON format. The saved files would only include the core information such labelName, color, 3D points and type.
+
+To let the user specify a color for the Annotation, I needed to introduce a color picker. After some research, it became apparent that a host of color pickers were available online and it would be faster to use one of them than impement my own. I downloaded a couple of ColorPickers from the web, and deemed Blah's colorpicker to be better suited. It has a very basic interface that was deemed sufficient for chosing an Annotation color. Installing and implementing it into the project was also very straight forward.
+
+Once I had implemented the code for creating and editing one Annotation, I created another layer system similar to main Display Layer management. Final tweaks to Annotation management include highlighting the Annotation Layer in the Layer View when hovering over or transforming one of the 2D Points.
+
+
+\subsubsection{Labelmaps}
+
+Adding Labelmaps proved to be relatively painless due to the time spent understanding the file loading process when implementing the colortables. The loader had to be forced to refresh when the labelmap was added on the fly. I restricted the program to only overlay one labelmap. I hooked up the opacity and colortables as for the Display Layers. I set the default colortable to chose the ID colortable preset, as that made more sense given the nature of labelmaps.
+
+
+
+
+
+
 \subsection{Implementation Details}
 
 \subsubsection{Version Control}
 
-To keep track of my project, I used Git. This was an obvious choice since it has been the DOC-prefered version control system as well as XTK being hosted on Github which I had to fork. I managed my own project code in a separate Version Control from my XTK fork in order to not confuse the two. Github proved as per usual very useful and reliable in tracking down changes from earlier versions as well keep submodules up to date for the XTK library.
+To keep track of my project, I used Git. This was an obvious choice since it has been the DOC-prefered version control system as well as XTK being hosted on Github which I had to fork. I managed my own project code in a separate Version Control from my XTK fork in order to not confuse the two. Github proved as per usual very useful and reliable in tracking down changes from earlier versions as well keep submodules up to date for the XTK library. 
 
 
 \subsubsection{Browser Developer Environment}
@@ -377,6 +534,8 @@ Firefox being shit, not intuitive
 Chrome being best
 printing to console
 Chrome providing Sources, like a debugger with line by line features
+
+Throughout the project there were issues with different browsers behaving differently. For example the layout would look drastically different in Firefox compared to Chrome, sometimes for reasons that were hard to track down due to large amount of variables in play. It appeared as if the css float command behaved differently, and place items to a different rule set. At other times, mouse navigation would not work in Firefox, since somehow mouse clicks where registered differently from Chrome. During the project, I spent time trying to bring up browser compatibility for both in parallel, but in retrospect I probably should focused on Chrome, and then spent time making it work in Firefox and all other browsers, since they will also need custom work.
 
 
 
@@ -389,6 +548,9 @@ Chrome providing Sources, like a debugger with line by line features
 - extended the library
 - exposing variables
 - various event calls
+- followed the XTK style guide
+	- camelCase
+	- underscores, public attributs
 
 - explain the structure
 
@@ -437,9 +599,16 @@ Picture
 All things considered, this libary proved to be very useful and saved a lot of time.
 
 
-\subsubsection{Custom Colorpicker}
 
-I downloaded a couple of ColorPickers from the web, and deemed Blah's colorpicker to be better suited. It has a very basic interface that was deemed sufficient for chosing an Annotation color. Installing and implementing it into the project was also very straight forward.
+
+\subsubsection{Google Analytics}
+
+Google Analytics is a tool by Google that provides detailed information of count, frequency and location of website usage. I installed to get a clear picture of how many people would be using the website. I have used Google Analytics in the past and have been impressed by the comprehensive overview it provides. On top the expected visitor numbers, locations and duration, it provides percentage displays and other useful information.
+
+Add diagrams if useful.
+
+
+
 
 
 \subsubsection{User Experience}
@@ -450,11 +619,15 @@ This included the somewhat mundane disabling of all input and buttons when no ap
 All navigation and traversal was placed on mouse controls. The guidelines from the book helped inform the controls in that radiologist prefer to have as simple controls as possible since their work can consist of dealing with vast quantities of these kind of files, so any intricate control input method would soon get tiresome.
 
 
-\subsubsection{Google Analytics}
 
-Google Analytics is a tool by Google that provides detailed information of count, frequency and location of website usage. I installed to get a clear picture of how many people would be using the website. I have used Google Analytics in the past and have been impressed by the comprehensive overview it provides. On top the expected visitor numbers, locations and duration, it provides percentage displays and other useful information.
 
-Add diagrams if useful.
+
+
+
+
+
+
+
 
 
 
@@ -680,6 +853,11 @@ As expected, most functionality did not work on the Ipad. The display layer mana
 \end{center}
 
 
+\subsection{CPU performance}
+
+It has to be noted that the CPU usage is higher in ScanView than the original XTK apps. This is large part due to the design choice of copying the renders from the XTK renderers as discussed in the implementation. This accounts for the majority of the computational overhead. CPU comparisons were run in the Chrome - OSX environment and look as follows.
+In order to improve performance, RequestAnimationFrame was used. Need some more text explaing what this does.
+
 
 
 \subsection{Usage and User Feedback}
@@ -689,27 +867,88 @@ In order for users to be able to evaluate the product, some effort had to be put
 Ideally the website would be online for a longer time to get a more complete picture in terms of usage.
 Analyse the usage reports from Google Analytics if appropriate.
 
+A frustrating side effect of the survey
+was not being able to get back individually and not being able to interface personally in order to fully interact and follow the users. However this is consequence of the limited time provided for the project, and it just took so long to get all the features implemented. In future, this time should be budgeted for in advance, so that a period of beta testing can happen on various platforms.
+
+\subsubsection{Criticisms}
+
+
+\subsubsection{Feature Requests}
+
+
+\subsubsection{Outstanding Feedback}
+
+I sent a link to the software to the XTK developers in order to get their feedback, but at this point in time have not heard back from them.
+
+
+
 \subsection{Review of Features}
+
 
 Discuss completeness of features. Satisfies most like others.
 Compare it to SliceDrop. Compare it to Desktop Software!
+Need to do a bit more research of
+
+
+
+\begin{center}
+
+  \begin{tabular}{ | l | l | l |}
+    \hline
+    Feature & ScanView & SliceDrop \\ \hline \hline
+
+Loading NII file & Yes & Yes \\ \hline
+Loading Other file formats & No & Yes \\ \hline
+Loading multiple files in one session & Yes & No \\ \hline
+Volumetric rendering & Yes & Yes \\ \hline
+Volumetric and 2D rendering overlaid & No & Yes \\ \hline
+Comparing several files to each other & Yes & No \\ \hline
+Annotations & Yes & No \\ \hline
+Loading of custom colortables & No & Yes \\ \hline
+Loading predefined colortables & Yes & No \\ \hline
+Saving of Data & No & Yes \\ \hline
+Online File Sharing & No & No* \\ \hline
+
+  \end{tabular}\\
+
+
+*Not currently available but being worked on
+
+
+\end{center}
+
+
+
+
 
 
 
 \section{Conclusions}
 
-works well with current hardware/software provided
+In terms of the initial purpose of this project to investigate whether it is possible to create a feature rich medical image viewer which works in a web browser, the course of the project seems to suggest that it is indeed possible given current Web standards with HTML5 Canvas Element and the WebGL standard becoming common-place. The XTK library forms a solid base for adding more features such as in this project. In order to add more complexity, a method was chosen which requires more CPU power than the normal XTK library.
+
+In terms of creating a function piece of software, more time would have been benificial to iron out bugs. Also it would have been great to have a bigger pool of sample data to work from, as there seem to certain files that do not open with this software. Given the limited time frame and man power, ScanView does not match the feature richness and performance of high-end software solutions. However this is not a limitation based on the technical possibilities of web browser technology, so should be feasible. One issue might be the complexity of scale, as software solutions such as BrainSomething are 400MB. That would be too much to load in a web browser, so a more complex memory management would be required.
+
+
 
 
 \section{Future Work}
 
-\subsection{Known Bugs}
+\subsection{Limitations}
 
+
+\subsection{Known Problems and Bugs}
+
+- High CPU usage
+- not able to open certain .nii files, due to XTK library though
+- more complex file error management
 - ColorPopup not at the right position when at bottom
 
 
 \subsection{Future Improvements}
 
+online file sharing (ala DropBox), could make it workable on Ipad!
+need to make it work on different resolution screens
 
 numerous improvements:
 - add paint tools
