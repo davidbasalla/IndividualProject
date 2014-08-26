@@ -330,22 +330,25 @@ At the end of the project, the software has the following feature list.
 \end{itemize}
 
 
+\subsection{Layout and Input Breakdowns}
 
-
+The main view that the user first sees is split into a 4 different components. The Navigation Bar (in blue colour) contains the links to other sites such as Tutorials, Sample Data and the About webpage. It also contains the Layout Selector buttons where the user can chose a layout for the View Panels. The Display Layer Panel allows for managing of Display Layers, which are synonimous with loaded Volume files. Each Display can load a Volume File. The Levels panel contains various controls for affecting the currently selected Display Layer and its inherent Volume File. Finally the Viewer Panel contains the 4 different Camera View Panels that each Volume is display in. They are the perspective 3D View, and the orthogonal X, Y and Z views.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=180mm]{graphics/features_01.png}
-\caption{Feature Breakdown}
+\includegraphics[width=170mm]{graphics/features_01.png}
+\caption{General Panel Breakdown}
 \label{fig:UIdesign1}
 \end{figure}
+
+
 
 
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=90mm]{graphics/features_02.png}
-\caption{Feature Breakdown}
+\caption{2D View Panel Functionality}
 \label{fig:UIdesign1}
 \end{figure}
 
@@ -355,7 +358,7 @@ At the end of the project, the software has the following feature list.
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=90mm]{graphics/features_03.png}
-\caption{Feature Breakdown}
+\caption{Display Layer Panel Functionality}
 \label{fig:UIdesign1}
 \end{figure}
 
@@ -363,7 +366,7 @@ At the end of the project, the software has the following feature list.
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=90mm]{graphics/features_04.png}
-\caption{Feature Breakdown}
+\caption{Levels Tab Functionality}
 \label{fig:UIdesign1}
 \end{figure}
 
@@ -372,9 +375,19 @@ At the end of the project, the software has the following feature list.
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=90mm]{graphics/features_05.png}
-\caption{Feature Breakdown}
+\caption{Annotation Tab Functionality}
 \label{fig:UIdesign1}
 \end{figure}
+
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{graphics/features_06.png}
+\caption{Labelmap Tab Functionality}
+\label{fig:UIdesign1}
+\end{figure}
+
 
 \subsubsection{Labelmaps}
 
@@ -470,6 +483,22 @@ The next feature I tackled was Colortables, with which to change the color outpu
 
 XTK deals with Colortables in that the user has to load them as a .txt file when adding the Volume data and other input files. Thereby it is bundled up with the rest of the IO processes. Again, as with normal file loading, XTK is not designed for adding or modifying these kinds of files at runtime, so I had to add this functionality. This took a long time in that I had to trace the whole function flow of XTK when loading files. I proceeded with various steps, but would encounter problems at every stage, since I was forcing XTK do something that was not really inherent in its initial design. At a very basic level, colored displays (ie varying R, G and B channels) were not enabled for volumes by default, so I had to edit the code for that. On top of that, 2Drenderer and 3DRenderer deal with color and rendering quite differently. The 2D renderer does the rendering to screen space at a specific time per second. The 3D renderer uses a fragment shader (like in OpenGL) to assign color. Figuring all this out took a while, and after 7 days I had finally managed to get the whole process working. The only problem was that since I/O was involved, it would take quite a bit of time to update, so it was not entirely slick. Also, the way XTK loaded these colortables was by actually baking the colors into the slice texture. 
 
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/Colormap_01.png}
+\caption{Brain Scan with 'Heatmap' Colortable applied in 3D and 2D View}
+\label{fig:UIdesign1}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/Colormap_02.png}
+\caption{Brain Labelmap Scan with 'ID's' Colortable applied in 3D and 2D View}
+\label{fig:UIdesign1}
+\end{figure}
+
+
 Having finished this feature so far, it occured to me that I could actually speed the whole process up by having some hardcoded colortables in the code, and using them as a array to look up colorvalues when rendering the actual pixel. This was much easier to implement, loads much quicker as it is more efficient in only manipulating color at a pixel level rather then changing the color values of the whole volume. In the end I chose this method as I prefered the faster feedback. It has the limitation that the user can not load his own colortable, but this is a feature that could be added in future. For the moment, there are three colortables provided. Firstly, the standard colortable maps rgbs values directly to the same value. Secondly, an ID map maps values to different RGB values, which is intended for use with labelmaps. Thirdly, a type of HEAT/JET map has been included which maps the original RGB values from BLUE to RED to mimic the behaviour of a heat map. This was advised by the project supervisor.
 
 
@@ -516,7 +545,12 @@ Once I had implemented the code for creating and editing one Annotation, I creat
 
 Adding Labelmaps proved to be relatively painless due to the time spent understanding the file loading process when implementing the colortables. The loader had to be forced to refresh when the labelmap was added on the fly. I restricted the program to only overlay one labelmap. I hooked up the opacity and colortables as for the Display Layers. I set the default colortable to chose the ID colortable preset, as that made more sense given the nature of labelmaps.
 
-
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/Labelmap_01.png}
+\caption{Brain Scan with overlaid Labelmap}
+\label{fig:UIdesign1}
+\end{figure}
 
 
 
