@@ -20,7 +20,8 @@
 \usepackage{graphicx}
 \usepackage{cite}
 \usepackage{hyperref}
-
+\usepackage{caption}
+\usepackage{subcaption}
 
 
 
@@ -341,18 +342,27 @@ The main view that the user first sees is split into a 4 different components. T
 \label{fig:UIdesign1}
 \end{figure}
 
+The Camera View Panels are the viewing windows for displaying the visual representation of the loaded Volume File. Internally they copy pixels from invisible XTK Render Panels. The View Panels hold a top bar with options to customise the viewer (e.g to specify which camera to look through). The View Panels also contain an HTML5 Canvas Element which does the drawing of the Volume File. The View Panels come in two types. The 3D View Panel displays the 3D volume with the 3 axial slices. There is an option to toggle Volume Rendering on, a feature of the XTK library. It uses WebGL and will only work on computers that support WebGL. The 2D View Panels render the orthographic (ie. axial, sagittal and coronal) views of the Volume File. They include an option to specify which way Swiping between Buffers takes place. Furthermore they have a toggle for Overlaying Information into the Viewer about current filename, orientation, index and opacity.
 
 
-
-
-\begin{figure}[ht!]
+\begin{figure}
 \centering
-\includegraphics[width=90mm]{graphics/features_02.png}
-\caption{2D View Panel Functionality}
-\label{fig:UIdesign1}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=83mm]{graphics/features_02b.png}
+  \caption{3D View Panel Functionality}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=83mm]{graphics/features_02.png}
+  \caption{2D View Panel Functionality}
+  \label{fig:sub2}
+\end{subfigure}
 \end{figure}
 
-
+The Display Layer Panel allows the user to manage Display Layers by creating, deleting and modifying them. Each Display Layer can load a Volume File, which will be displayed in the View Panels. Multiple Layers can be created and will highlight blue when selected. Additionally there is a Buffer Toggle Button which allows to switch the viewer between Buffer A and Buffer B. Each Buffer can hold a different Display Layer. This becomes useful when adjusting the Opacity of a Display Layer and it will reveal the Display Layer in the B Buffer. When Buffer A and Buffer B hold the same Display Layer, dialling down the opacity will fade the View Panels to black. Also the Buffer Swipe feature (hold Ctrl and move mouse over a 2D View Panel) plays into this.
+In terms of mouse and keyboard input controls, the 3D Render Canvas supports the common operations of panning, zooming and rotating via mouse controls. Pressing 'F' on the keyboard will reset the camera to the initial setting. Pressing 'v' will toggle the Volume Rendering toggle. Likewise for the 2D Render Canvases, panning and zooming are supported, as well as 'traversing'. When the user clicks the left mouse button and floats the mouse across the slice rendering, the indices will update in the other viewers accordingly as to where the mouse pointer is in the selected View Panel. Also, pressing 'f' will reset the camera. Pressing 'o' will toggle the Overlay toggle.
 
 
 \begin{figure}[ht!]
@@ -361,6 +371,12 @@ The main view that the user first sees is split into a 4 different components. T
 \caption{Display Layer Panel Functionality}
 \label{fig:UIdesign1}
 \end{figure}
+
+The Levels Panel contains separate tabs that enable further customisation of the currently selected Display Layer. In the Levels tab, a number of convenient controls are provided. Firstly, the Index Controls provide feedback on which Slice Indices are currently set. These can also be altered via the number input. 
+
+Next, the Window Controls can be used to control the Brightness of the loaded Volume File. This attributes straight into windowLow and windowHigh attributes of an X.volume. Likewise, the Threshold Controls allow for a clipping of a Volume File and is also provided by default by the XTK library.
+
+The Opacity Controls allow the user to set the opacity of the currently loaded Display Layer. Depending on what is loaded in the other Buffer, this will either reveal the Volume File from other Display Layer or fade to black.
 
 
 \begin{figure}[ht!]
@@ -977,6 +993,7 @@ In terms of creating a function piece of software, more time would have been ben
 - not able to open certain .nii files, due to XTK library though
 - more complex file error management
 - ColorPopup not at the right position when at bottom
+- Add  a warning on File Load Error - asked on stackoverflow but no answers yet
 
 
 \subsection{Future Improvements}
