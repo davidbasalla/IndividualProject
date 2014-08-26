@@ -388,6 +388,23 @@ The Camera View Panels are the viewing windows for displaying the visual represe
 
 The Display Layer Panel allows the user to manage Display Layers by creating, deleting and modifying them. Each Display Layer can load a Volume File, which will be displayed in the View Panels. Multiple Layers can be created and will highlight blue when selected. Additionally there is a Buffer Toggle Button which allows to switch the viewer between Buffer A and Buffer B. Each Buffer can hold a different Display Layer. This becomes useful when adjusting the Opacity of a Display Layer and it will reveal the Display Layer in the B Buffer. When Buffer A and Buffer B hold the same Display Layer, dialling down the opacity will fade the View Panels to black. Also the Buffer Swipe feature (hold Ctrl and move mouse over a 2D View Panel) plays into this.
 
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=83mm]{graphics/BufferOpacity_01.png}
+  \caption{50\% Opacity on Buffer A with revealed Buffer B}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=83mm]{graphics/Swipe_01.png}
+  \caption{Horizontal swiping between two different Buffers}
+\end{subfigure}
+\end{figure}
+
+
+
+
 In terms of mouse and keyboard input controls, the 3D Render Canvas supports the common operations of panning, zooming and rotating via mouse controls. Pressing 'F' on the keyboard will reset the camera to the initial setting. Pressing 'v' will toggle the Volume Rendering toggle. Likewise for the 2D Render Canvases, panning and zooming are supported, as well as 'traversing'. When the user clicks the left mouse button and floats the mouse across the slice rendering, the indices will update in the other viewers accordingly as to where the mouse pointer is in the selected View Panel. Also, pressing 'f' will reset the camera. Pressing 'o' will toggle the Overlay toggle.
 
 
