@@ -21,12 +21,12 @@ define(["views/NavBarView", "views/SidePanelView", "views/ViewerWindowView", "mo
 		   });
 
 		   
-
 		   console.log('MainView.init() ViewerWindowView');
 		   this.viewerWindow = new ViewerWindowView({
 		       el: $('#viewerWindow'),
 		       layersModel: layersModel,
 		   });
+
 
 		   console.log('MainView.init() sidePanel');
 		   this.sidePanel = new SidePanelView({
@@ -40,6 +40,58 @@ define(["views/NavBarView", "views/SidePanelView", "views/ViewerWindowView", "mo
 		   
 		   //set size first time
 		   this.setSize();
+
+
+		   //handler errors
+		   var _this = this;
+		   window.onerror = function (errorMsg, url, lineNumber) {
+
+		       _this.errorHandler(errorMsg);
+
+		   };
+
+
+
+		   
+	       },
+	       errorHandler:function(errorMsg){
+		   console.log('MainView.errorHandler()');
+
+
+		   //ERRORS
+		   var sigError = 'invalid file signature';
+		   var rangeError = 'byte length of Int16Array should be a multiple of';		   
+		   var rangeError2 = 'byte length of Uint16Array should be a multiple of';	       
+		   var loadError = "Loading failed";
+		   var splitError = "Cannot read property 'split' of";
+		   var datatypeError = "Unsupported NII data type";
+
+		   if(errorMsg.indexOf(sigError) > -1){	
+		       this.showError(errorMsg);
+		   }
+		   else if(errorMsg.indexOf(rangeError) > -1){
+		       this.showError(errorMsg);
+		   }		   
+		   else if(errorMsg.indexOf(rangeError2) > -1){
+		       this.showError(errorMsg);
+		   }
+		   else if(errorMsg.indexOf(splitError) > -1){
+		       this.showError(errorMsg);
+		   }
+		   else if(errorMsg.indexOf(loadError) > -1){
+		       this.showError(errorMsg);
+		   }
+		   else if(errorMsg.indexOf(datatypeError) > -1){
+		       this.showError(errorMsg);
+		   }	   
+
+
+	       },
+	       showError:function(errorMsg){
+		   
+	       	   $('#myErrorModalTitle').html('Could not load file');
+		   $('#myErrorModalBody').html(errorMsg);
+		   $('#myErrorModal').modal();
 		   
 	       },
 	       setSize:function(){

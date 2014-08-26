@@ -423,17 +423,25 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    //this.volume.labelmap.colortable.file = 'https://www.slicer.org/slicerWiki/images/c/ca/PETCT_Labels.txt';
 	    //this.volume.labelmap.colortable.file = 'file://homes/db913/individualproject/Resources/Data/colorExample.txt';
 
+
+	    this.viewerX.add(this.volume);
+	    
+
 	    try {
 		
 		this.viewerX.add(this.volume);
-		
-		this.viewerX.render();
-		console.log('SUCCESS');
-
-	    } catch (Exception) {
+	    }		
+	    catch (Exception) {
 		
 		console.log('BALLS');
+		alert("Hello! I am an alert box!!");
 	    }
+
+	    
+	    this.viewerX.render();
+	    console.log('SUCCESS');
+	    
+
 
 
 	    var _this = this;
