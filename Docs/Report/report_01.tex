@@ -374,7 +374,7 @@ Extend?
 
 \subsection{Implemented Features}
 
-At the end of the project, the software has the following feature list.
+At the end of the project, the software has the following features:
 
 \begin{itemize}
 \item Display Layer Management
@@ -384,7 +384,7 @@ At the end of the project, the software has the following feature list.
   \item Loading Medical Image Data File per Display Layer
   \end{itemize}
 
-\item Loading of NII Volume Files (one per Display Layer)	
+\item Loading of NII Volume Files (one per Display Layer), including load error management	
 \item Changing of Brightness
 \item Changing Image Threshold
 \item Changing indices of NII Volume File
@@ -637,6 +637,10 @@ For each Layer, separate tools
 
 Buffers
 
+\subsubsection{Buffer Management}
+
+A logical extension of the Display Layer Management was to introduce Buffers. Conceptually, this was taken from Nuke, discussed in the Desktop Software section. The Buffers A and B act just like a Display Layer that is selected. I created a separate model for this, where each buffer holds a separate Display Layer. 
+CHECK GitHub History for more details.
 
 \subsubsection{Colortables}
 
@@ -1116,6 +1120,11 @@ I sent a link to the software to the XTK developers in order to get their feedba
 
 \subsection{Review of Features}
 
+\subsubsection{Comparing with other web browser based programs}
+
+In terms of the final feature list, ScanView distinguishes itself from the currently available web-based Medical Image Programs. The software that it resembles most closely is SliceDrop, also in part due to its common heritage. ScanView improves on SliceDrop in a number of ways. ScanView is more dynamic in that it allows interactive file loading and deletion similar to a standard desktop software program. It allows to load several Volume Files (via Display Layers) which can be compared visually due to the implemented Buffer System.
+
+
 
 Discuss completeness of features. Satisfies most like others.
 Compare it to SliceDrop. Compare it to Desktop Software!
@@ -1125,23 +1134,25 @@ Need to do a bit more research of
 
 \begin{center}
 
-  \begin{tabular}{ | l | l | l |}
+  \begin{tabular}{ | l | l | l | l | l |}
     \hline
-    Feature & ScanView & SliceDrop \\ \hline \hline
+    Feature & ScanView & SliceDrop & DICOM Web Viewer & Papaya \\ \hline \hline
 
-Loading NII file & Yes & Yes \\ \hline
-Loading Other file formats & No & Yes \\ \hline
-Loading multiple files in one session & Yes & No \\ \hline
-Volumetric rendering & Yes & Yes \\ \hline
-Volumetric and 2D rendering overlaid & No & Yes \\ \hline
-Comparing several files to each other & Yes & No \\ \hline
-Annotations & Yes & No \\ \hline
-Loading of custom colortables & No & Yes \\ \hline
-Loading predefined colortables & Yes & No \\ \hline
-Saving of Data & No & Yes \\ \hline
-Online File Sharing & No & No* \\ \hline
+Loading NII file & Yes & Yes & Yes & Yes\\ \hline
+Loading Other file formats & No & Yes & ? & ?\\ \hline
+Loading multiple files in one session & Yes & No & No & No \\ \hline
+Error handling for loading files & Yes & No & No & No\\ \hline
+Volumetric rendering & Yes & Yes & No & No\\ \hline
+Volumetric and 2D rendering overlaid & No & Yes & No & No \\ \hline
+Comparing several files to each other & Yes & No & No & No\\ \hline
+Annotations & Yes & No & No & No\\ \hline
+Loading of custom colortables & No & Yes & No & No \\ \hline
+Loading predefined colortables & Yes & No & No & No\\ \hline
+Saving of Data & No & Yes & No & No\\ \hline
+Online File Sharing & No & No* & No & No\\ \hline
 
   \end{tabular}\\
+
 
 
 *Not currently available but being worked on
@@ -1151,9 +1162,34 @@ Online File Sharing & No & No* \\ \hline
 
 
 
+\subsubsection{Comparing with Desktop-based programs}
+
+Naturally due to the limited time frame of this project, ScanView can not compete in terms of feature richness with other available programs. Given the time, it should however be possible to reach a similar level of feature completeness. Technically, it seems feasible.
 
 
+\begin{center}
 
+  \begin{tabular}{ | l | l | l | l | l |}
+    \hline
+    Feature & ScanView & 3DSlicer & ImView & BrainSuite \\ \hline \hline
+
+Loading NII file & Yes & Yes & Yes & Yes\\ \hline
+Loading Other file formats & No & Yes & ? & ?\\ \hline
+Loading multiple files in one session & Yes & No & No & No \\ \hline
+Error handling for loading files & Yes & No & No & No\\ \hline
+Volumetric rendering & Yes & Yes & No & No\\ \hline
+Volumetric and 2D rendering overlaid & No & Yes & No & No \\ \hline
+Comparing several files to each other & Yes & No & No & No\\ \hline
+Annotations & Yes & No & No & No\\ \hline
+Loading of custom colortables & No & Yes & No & No \\ \hline
+Loading predefined colortables & Yes & No & No & No\\ \hline
+Saving of Data & No & Yes & No & No\\ \hline
+Online File Sharing & No & No* & No & No\\ \hline
+
+  \end{tabular}\\
+
+
+\end{center}
 
 \section{Conclusions}
 
