@@ -719,7 +719,12 @@ Probably the most involved work was to figure out the conversion of 3D points to
 
 In order for the user to manipulate the position of the Annotation points in screen space, I had to implement manipulatable corner points of the Annotation. This was made easy by the decision to have the 2D points. Initially I had contemplated creating a separate Manipulator class, but realised that this was superfluous and would just be repeating code. In the 2DPoint class I specified the position and width, so that in screen space I could make the 2DPoints appear wider for easier selection with the mouse. Some internal logic had to be added to the Annotation class, so that when the user changes the position of one 2DPoint, the neighboring points would also transform accordingly, since the shape had to always stay rectangular. I had to revise this is a couple of times, since in my first naive implementation, there would problems when the Annotation box would collapse so that all four 2D Points would be at the same screen space position. In the end I opted for limiting the size of the Annotation so that the points could never collapse to the same position.
 
-Diagram of the annotation?
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=60mm]{graphics/annoSelected_01.png}
+\caption{Annotation with bottom right Point selected }
+\label{fig:UIdesign1}
+\end{figure}
 
 
 An important part of the Annotation Management was the feature to download Annotations as a JSON file. However again due to web browser security restrictions, there is no 'Save File As' feature as I had imagined. However after some research, a viable alternative was found in that it is possible to 'download' a file (even if the code is running locally). This was deemed sufficient for this project, even if it does not allow for specifying the file name directly. With more time, it would be possible to add a pop-up window just like a 'Save as' dialog that would then trigger the file download.
@@ -766,6 +771,12 @@ An issue that is entirely related to the XTK library is how to let the user know
 
 
 
+\subsubsection{Polishing the User Interface}
+
+adding the scroll bars
+
+
+
 \subsubsection{Deployment}
 
 
@@ -776,7 +787,7 @@ The deploying process went smoothly, as it had been desiged as a live webpage fr
 A host of fixes have been uploaded since initial deployment, partially fixing outstanding bugs and implementing features requested from user feedback. More on this topic will be covered in the results section.
 
 
-\subsection{Implementation Details}
+\subsection{Implementation Details/ Working with Libraries}
 
 \subsubsection{Version Control}
 
@@ -785,12 +796,40 @@ To keep track of my project, I used Git. This was an obvious choice since it has
 
 \subsubsection{Browser Developer Environment}
 
-Firefox being shit, not intuitive
-Chrome being best
-printing to console
-Chrome providing Sources, like a debugger with line by line features
+Initially I started developing in Chrome since it was my primary target for running the software. A few weeks my laptop broke due to accidental damage and I had to work in the labs, where I had problems running WebGL in Chrome, so I switched to Firefox. I soon found however, that Firefox leaves a lot to be desired for developing. The most important part of developing for me was the web console. With JavaScript it is possible to print to this console, which I used endlessly. It also prints when a runtime error has occurred, complete with line number. This works great in Chrome, but in Firefox (on Ubuntu) at least, the line number would often be obscured. Any another problem is when printing a JavaScript object to the console, it shows the final state of this object at the end of the code runtime. This means it is not possible to check the state of an object during runtime, only at the end. This caused some confusion until I had figured this out. Firefox is supposed to have a lot of plug-ins that can be downloaded, but in general I found Chrome to be much more convenient to use, and after a month managed to get a new laptop and returned to developing in Chrome.
 
-Throughout the project there were issues with different browsers behaving differently. For example the layout would look drastically different in Firefox compared to Chrome, sometimes for reasons that were hard to track down due to large amount of variables in play. It appeared as if the css float command behaved differently, and place items to a different rule set. At other times, mouse navigation would not work in Firefox, since somehow mouse clicks where registered differently from Chrome. During the project, I spent time trying to bring up browser compatibility for both in parallel, but in retrospect I probably should focused on Chrome, and then spent time making it work in Firefox and all other browsers, since they will also need custom work.
+
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=82mm]{graphics/console_01.png}
+  \caption{Chrome console showing JavaScript Object}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=82mm]{graphics/console_02.png}
+  \caption{Chrome console showing error message}
+\end{subfigure}
+\caption{Examples of Chrome console displays}
+
+\end{figure}
+
+
+Chrome furthermore offers a debugger complete with break points, so it's possible to follow the flow of code  by individual lines or break points.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=140mm]{graphics/chromeDebugger_01.png}
+\caption{Chrome Sources Debugger with one Breakpoint set}
+\label{fig:UIdesign1}
+\end{figure}
+
+
+
+As there was some switching between web browsers, I noticed that Chrome and Firefox behaved differently sometimes. For example the layout would look drastically different in Firefox compared to Chrome, sometimes for reasons that were hard to track down due to large amount of variables in play. It appeared as if the css float command behaved differently, and place items to a different rule set. At other times, mouse navigation would not work in Firefox, since somehow mouse clicks where registered differently from Chrome. During the project, I spent time trying to bring up browser compatibility for both in parallel, but in retrospect I probably should focused on Chrome, and then spent time making it work in Firefox and all other browsers, since they will also need custom work.
+
+IMAGE OF BAD FLOAT BEHAVIOUR?
 
 
 
@@ -813,6 +852,16 @@ Throughout the project there were issues with different browsers behaving differ
 
 
 \subsubsection{Backbone}
+
+Working with Backbone worked well after a steep learning curve in the beginning, especially because I had to set it up in parallel with RequireJS (discussed in the next subsection).
+
+I sometimes was unsure of whether to follow the event-based design or normal functionl design. It is tempting to communicate between components via events, but I found it also makes it a lot more difficult to debug, since it's not easily visible which pieces of code are listening to an event that is fired.
+
+Similarily, I started out using Backbone's collections which are a type of array for models. However this seemed not necessary and I just converted to use an array of Display Layers instead.
+
+Issue with DRY between models and views. It is tempting to put functionality into the views, rather than the models.
+
+One issue came up with arrays and the 'change' event. When changing the contents of an array, the 'change' event does not get fired. This is because the base address of the array does not change. In order to work around this, I had to clone the arrays everytime I wanted to change their contents. I ended up packaging this sort of behaviour in classes that had arrays as members. This issue came up predominately with Annotations, since Annotation objects are stored in a array structure in the LayerItem Model. Also Annotation objects contain arrays of 3D and 2D points.
 
 
 
@@ -847,7 +896,12 @@ Furthermore, creating modal warning screens when the user attempts to load a fil
 Twitter-Bootstrap supplies a host of interactive UI elements such as buttons, tooltips, pop up windows, tabs, navigation bars, progress bars and more. It is a widely used library - in June 2014 it was the No.1 project on GitHub with 69,000+ stars and 25,000+ forks (Wiki).
 
 
-Picture
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=110mm]{graphics/twitterBootstrap_01.png}
+\caption{Examples of Twitter-Bootstrap components used. Panel (left), Modal (top right) and Button Group (bottom right)}
+\label{fig:UIdesign1}
+\end{figure}
 
 
 
