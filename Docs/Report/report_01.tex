@@ -747,9 +747,33 @@ Adding Labelmaps proved to be relatively painless due to the time spent understa
 An issue that is entirely related to the XTK library is how to let the user know that a certain file has not loaded. This was an important issue since a large variety of files downloaded from the Internet could not be opened with the XTK library. Various errors would be thrown in the loader.js and parser.js components of the XTK library, but there is no simple way to propogate this to the higher API-using layer, since the file loading is handled asynchronously and with event sending. There are no events implemented that signal the failing to load a file (other than failing to download a file via HTTP). Due to limited time, rather than adding these events into the XTK library, I added an error listener to the UI Layer which would call an errorHandler function whenever an error was thrown. This errorHandler function would then do a string comparison and cause a pop-up modal window to appear to inform the user of the specific error. This had the benefit of being able to screen for only certains types of errors.
 
 
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=82mm]{graphics/error_01.png}
+  \caption{Error message for incorrect file format}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=82mm]{graphics/error_02.png}
+  \caption{Error message for specific load error}
+\end{subfigure}
+\caption{Examples of Error Messages}
+
+\end{figure}
 
 
 
+
+\subsubsection{Deployment}
+
+
+In order for users to be able to evaluate the product, some effort had to be put in to deploy the software to the web. I am hosting it on my personal webspace, which I prefered to hosting it on a local college server since I can send the site for feedback to people outside of Imperial College. I use FileZilla to upload the code, but wrote a Python script to facilitate the uploading, since manual replacing of files soon became tedious and time-wasting. The script will recursively copy each file of a specified directory to a designated space on my web space.
+
+The deploying process went smoothly, as it had been desiged as a live webpage from the beginning. So I added a page with some sample data for the user to download, tutorials resembling the protocols above together with screen capture videos. Furthermore an 'About' page was added which explained the main features of the program as well crediting various libraries and plug-ins that were used. Finally, an online survey by Survey Monkey was introduced to allow for convenient feedback by the user.
+
+A host of fixes have been uploaded since initial deployment, partially fixing outstanding bugs and implementing features requested from user feedback. More on this topic will be covered in the results section.
 
 
 \subsection{Implementation Details}
@@ -1095,9 +1119,7 @@ In order to improve performance, RequestAnimationFrame was used. Need some more 
 
 //PUT THIS INTO IMPLEMENTATION?
 
-In order for users to be able to evaluate the product, some effort had to be put in to deploy the software to the web. I am hosting it on my personal webspace, which I prefered to hosting it on a local college server since I can send the site for feedback to people outside of Imperial College. I use FileZilla to upload the code, but wrote a Python script to facilitate the uploading, since manual replacing of files soon became tedious and time-wasting. The script will recursively copy each file of a specified directory to a designated space on my web space.
 
-The deploying process went smoothly, as it had been desiged as a live webpage from the beginning. So I added a page with some sample data for the user to download, tutorials resembling the protocols above together with screen capture videos. Furthermore an 'About' page was added which explained the main features of the program as well crediting various libraries and plug-ins that were used. Finally, an online survey by Survey Monkey was introduced to allow for convenient feedback by the user.
 
 Ideally the website would be online for a longer time to get a more complete picture in terms of usage.
 Analyse the usage reports from Google Analytics if appropriate.
@@ -1122,13 +1144,12 @@ I sent a link to the software to the XTK developers in order to get their feedba
 
 \subsubsection{Comparing with other web browser based programs}
 
-In terms of the final feature list, ScanView distinguishes itself from the currently available web-based Medical Image Programs. The software that it resembles most closely is SliceDrop, also in part due to its common heritage. ScanView improves on SliceDrop in a number of ways. ScanView is more dynamic in that it allows interactive file loading and deletion similar to a standard desktop software program. It allows to load several Volume Files (via Display Layers) which can be compared visually due to the implemented Buffer System.
+In terms of the final feature list, ScanView distinguishes itself from the currently available web-based Medical Image Programs. As most online programs are very basic, ScanView's features outnumber them. 
 
+The software that it resembles most closely is SliceDrop, also in part due to its common heritage. ScanView improves on SliceDrop in a number of ways. ScanView is more dynamic in that it allows interactive file loading and deletion similar to a standard desktop software program. It allows to load several Volume Files (via Display Layers) which can be compared visually due to the implemented Buffer System. Furthermore file load errors are handled more completely by letting the user know the error message via a message pop-up. In SliceDrop, file load errors are only printed to the developer console, which the standard user can not be expected to check. Both ScanView and SliceDrop enable volumetric rendering, since this is a common feature of the XTK library. ScanView's View Panels are more free to display custom information via the Overlay toggle. In terms of navigation, both feature the same set transformations. ScanView adds the convenience feature of resetting the view camera to the start position of the camera. SliceDrop does not feature an Annotation System like ScanView does. SliceDrop does allow for custom loading of color tables, whereas ScanView's final implementation relies on predefined colortables. SliceDrop also allows for downloading .nii files of currently viewed data, which ScanView is not able to do. Both programs can overlay labelmaps on top of Volume Files. Although not implemented, there is code in SliceDrop's code base that would enable loading and saving to DropBox. So while both programs have different feature sets, ScanView is better at comparing multiple files and adding annotations. Furthermore it provides a more interactive feel with its Display Layer Management system and adjustable Layouts.
 
+Compared Papaya and DICOM Web Viewer, ScanView's feature list looks even more favorable. Both programs are very light-weight, feature only 2D Views and no multiple file loading. NEED MORE TEXT HERE.
 
-Discuss completeness of features. Satisfies most like others.
-Compare it to SliceDrop. Compare it to Desktop Software!
-Need to do a bit more research of
 
 
 
@@ -1142,6 +1163,8 @@ Loading NII file & Yes & Yes & Yes & Yes\\ \hline
 Loading Other file formats & No & Yes & ? & ?\\ \hline
 Loading multiple files in one session & Yes & No & No & No \\ \hline
 Error handling for loading files & Yes & No & No & No\\ \hline
+Orthogonal Views & Yes & Yes & Yes & Yes\\ \hline
+3D Perspective View & Yes & No & Yes & Yes \\ \hline
 Volumetric rendering & Yes & Yes & No & No\\ \hline
 Volumetric and 2D rendering overlaid & No & Yes & No & No \\ \hline
 Comparing several files to each other & Yes & No & No & No\\ \hline
@@ -1150,6 +1173,7 @@ Loading of custom colortables & No & Yes & No & No \\ \hline
 Loading predefined colortables & Yes & No & No & No\\ \hline
 Saving of Data & No & Yes & No & No\\ \hline
 Online File Sharing & No & No* & No & No\\ \hline
+Adjustable Layouts & Yes & No & No & No \\ \hline
 
   \end{tabular}\\
 
@@ -1164,7 +1188,7 @@ Online File Sharing & No & No* & No & No\\ \hline
 
 \subsubsection{Comparing with Desktop-based programs}
 
-Naturally due to the limited time frame of this project, ScanView can not compete in terms of feature richness with other available programs. Given the time, it should however be possible to reach a similar level of feature completeness. Technically, it seems feasible.
+Naturally due to the limited time frame of this project, ScanView can not compete in terms of feature richness with other available programs. Given the time, it should however be possible to reach a similar level of feature completeness. Technically, it seems feasible. Actually, ScanView does aim to match in terms of features...
 
 
 \begin{center}
@@ -1214,6 +1238,7 @@ A more complete rework of the library rather than half and half trying to use it
 - more complex file error management
 - ColorPopup not at the right position when at bottom
 - Add  a warning on File Load Error - asked on stackoverflow but no answers yet
+- Issue with Annotations in some cases
 
 
 \subsection{Future Improvements}
