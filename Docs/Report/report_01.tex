@@ -93,6 +93,14 @@ As mentioned, medical image files are acquired by scanning devices that output d
 Measuring cross-sectional areas and volumes are valuable for example in diagnosis of vascular diseases. The quality of these measurements is highly dependent on the quality of the image data. Typically diagnosis has been performed these slices one at a time, meaning looking at every slice. These views support precise exploration and analysis and it is a legal requirement for radiologists to inspect every slice. However for spatially complex cases a purely slice-based presentation might not be very helpful. In this case 3D visualisation or volume rendering gives a better overview. The two different visualisations can be helpful for different users, such that radiologists would rely more on the 2D Views and physicians who carry out interventions might find benefit from 3D visualisations. Therefore any software that aims to display such medical image data should provide both views.
 
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{..//literatureSurvey/graphics/book_2d3d_01.jpg}
+\caption{2D View (left) and 3D View (right)}
+\label{fig:UIdesign1}
+\end{figure}
+
+
 
 \subsection{Guidelines for Medical Image Viewer Software}
 
@@ -103,6 +111,13 @@ First, a certain mapping of data to gray values has to occur, called 'windowing'
 Secondly, the user should be able to easily browse through the slices. The axial, sagittal and coronal views should be provided as well as a 3D dimensional view of these slices in either card-based or volume form. All slices should update accordingly as the user browses through them. However in order to examine a view in detail, it should be possible to enlarge a desired view. Displaying all views at the same usually only serves to give an overview. Additionally a feature called 'cine mode' could be provided which is an animation through one of the slice stacks. This could aid in understanding the spatial relationship of the slices.
 
 
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{..//literatureSurvey/graphics/book_4Views_01.jpg}
+\caption{3D View and Orthogonal Views}
+\label{fig:UIdesign1}
+\end{figure}
 
 Furthermore, the software should provide means to take measurements of the image data, such as distance, area or volume measurements. In this case it is helpful to specify a region of interest (ROI) that can be focused on. Also intensity distribution can be measured to give indications of severity of disease in certain cases (such as osteoporosis)\cite{book}.
 
@@ -130,6 +145,16 @@ Furthermore it can create a 3D volume renderings, applying image filters and sup
 \subsubsection{Imview}
 \textit{Imview} is a medical image viewer created by Dr. Ben Glocker, which also allows the user to load scan files and inspect the individual slices of each axis. The user can perform flip transformations and apply different colour look-ups to the image, such as Colormap JET which looks like a heat map. It also provides the option of displaying an information overlay with stats about the image. It would be beneficial if the web-app has similar options as they provide useful data for the user.
 
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{..//literatureSurvey/graphics/imview_01.png}
+\caption{2D View (left) and 3D View (right)}
+\label{fig:UIdesign1}
+\end{figure}
+
+
+
 \subsubsection{BrainSuite}
 
 Test about BrainSuite... features...
@@ -145,9 +170,24 @@ Test about BrainSuite... features...
 Looking further afield to some graphical editing software programs, some interesting functionality can be discovered. Adobe's \textit{Photoshop} is well known software for creating and manipulating 2D imagery. When editing an image, the user works with a document. The user can add as many layers as required and edit each layer individually. The layers are composited to form the whole picture. Each layer's opacity and compositing/blending mode can be specified. This could be a worth while to emulate for comparing different medical image files in the web app.
 
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{..//literatureSurvey/graphics/photoshop_01.png}
+\caption{Layer Compositing in Photoshop}
+\label{fig:UIdesign1}
+\end{figure}
+
 
 \subsubsection{Nuke}
 The Foundry's \textit{Nuke} is a compositing package which is used in the Visual Effects Industry to edit and composite 2D images with each other. It is used among others at high profile Visual Effects companies such as Industrial Light and Magic and Weta Digital\cite{nuke1} \cite{nuke2}). The interface differs from \textit{Photoshop} in that it provides the user with a workplace where any number of nodes can be created. When selecting any node, a graphical display will appear. These nodes can be linked together and do anything from loading a specific image file, transforming the whole node tree or applying an image filter such a film grain. The power of this approach is the modular nature of a tree. Any node can be taken out and reinserted at another place into the tree, thereby changing the final image. Additionally, for comparing different images, by default the software supplies two image buffers which the user can fill with any image of his choice (including of course the result from any node tree in his workspace). Once both buffers are filled, the user can easily toggle between the two images, blend between them by setting the opacity and even use a slider to reveal just a portion of either image. So while \textit{Nuke}'s node-based approach may be overkill for this project, \textit{Nuke}'s image blending seems quite desirable for this project as it would give the user a variety of ways in which he can compare multiple images. 
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{..//literatureSurvey/graphics/nuke_02.png}
+\caption{Nuke's node-based workspace}
+\label{fig:UIdesign1}
+\end{figure}
 
 
 \subsection{Web Applications for Medical Image Viewing}
@@ -175,10 +215,24 @@ There appear to be some bugs in \textit{SliceDrop}. When loading \textit{NRRD} f
 \subsubsection{DWV - DICOM Web Viewer}
 This viewer does not provide much functionality other than scrolling through one stack of slices. The user interface is sparse and does not give sufficient feedback to the use of what is currently happening. It uses the \textit{HTML5} Canvas element to display the file contents.
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{..//literatureSurvey/graphics/webViewer_01.png}
+\caption{DMV User Interface}
+\label{fig:UIdesign1}
+\end{figure}
+
 
 
 \subsubsection{Papaya}
 Papaya\cite{papaya} is a \textit{JavaScript}-based medical image viewer with limited functionality. It has a clean uncluttered design, is easy to use and gives good visual feedback to the user. It successfully adheres to the user control guidelines outlined in section 2.1. It only displays 2D views of slices and does not allow any customisation in terms of label maps, windowing or compositing. It also uses the \textit{HTML5} Canvas element to render the 2D data.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{..//literatureSurvey/graphics/webViewer_02.png}
+\caption{Papaya User Interface}
+\label{fig:UIdesign1}
+\end{figure}
 
 
 
@@ -191,16 +245,50 @@ The website \url{http://www.idoimaging.com} lists a number of other available br
 
 \subsubsection{Web Browsers}
 
-According to web browser usage statistics for 2014, the 4 most used
+According to web browser usage statistics from w3counter.com for 2014, the 4 most used
 browsers are (in descending order) Chrome, Internet Explorer, Firefox
-and Safari. Show the graph from that website. Discuss more. Chosing to focus on Chrome primarily. Chrome because of Android?
+and Safari. Chrome leads with 38.5\% market share, followed by Internet Explorer (21.2\%), Safari (15.4\%), Firefox (15.2\%) and Opera (3.1\%)- REFERENCE FROM WEBSITE.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/webStats_01.png}
+\caption{Browser Market Share July 2014 - REFERENCE}
+\label{fig:UIdesign1}
+\end{figure}
+
+Looking at a breakdown over the last 10 years, Internet Explorer used to be the most used web browser in 2007 with 67.6\%, but its dominance has steadily declined up until the present day. In the same time span Mozilla's Firefox gained popularity and its market share peaked in 2010 but also decreased afterwards to equal Safari's market share in July 2014. Safari's market share has stayed relatively constant until it more than doubled in 2012 (possibly linked to the rise in IOS devices like Apple's IPhone and IPad around 2012 REFERENCE). Google's Chrome Web Browser rose steadily from 2009 onwards and beat Internet Explorer in 2012 to become the most used web browser at present time.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/webStats_02.png}
+\caption{Browser Market Share History - REFERENCE}
+\label{fig:UIdesign1}
+\end{figure}
 
 
-Talk about operating systems
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=80mm]{graphics/webStats_03.png}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=80mm]{graphics/webStats_04.png}
 
-Talk about screen resolution
+  \label{fig:sub2}
+\end{subfigure}
 
-Test!
+\caption{Most used Operating Systems (left) and Screen Resolutions (right)}
+
+\end{figure}
+
+Further statistics prove, that most Web Browser usage comes from Windows 7 (39.48\%) followed by iOS 7 (10.10\%) and Windows XP (9.64\%). Most used screen resolution is 1366x768 pixels (19.27\%).
+
+Given the statistics discussed above, it was decided to mainly develop for Google's Chrome. The other browsers will be supported as secondary priority. It will be developed and tested on Windows 7, OSX Mavericks and Linux Ubuntu, which should cover most computer Operating Systems. In terms of screen resolution, the most widely-used screen resolution of 1366x768 will be taken into accound, but a higher resolution assumed, such as 1920x1020.
+
+\subsubsection{Web Browser Compatibility}
 
 To make things even more difficult, various programming aspects such as CSS and core DOM functionality is supported to varying degrees in the different browsers and versions. The following site aims to provide a comprehensive breakdown of provided features.
 
@@ -1118,6 +1206,9 @@ numerous improvements:
 \newpage
 
 \begin{thebibliography}{1}
+
+
+http://www.statista.com/statistics/263401/global-apple-iphone-sales-since-3rd-quarter-2007/
 
 \end{thebibliography}
 
