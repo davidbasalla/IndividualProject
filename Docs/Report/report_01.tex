@@ -155,9 +155,9 @@ Furthermore it can create a 3D volume renderings, applying image filters and sup
 
 
 
-\subsubsection{BrainSuite}
+\subsubsection{ITKSnap}
 
-Test about BrainSuite... features...
+Write about ITKSnap... features...
 
 
 \subsubsection{3DSlicer}
@@ -662,12 +662,12 @@ XTK deals with Colortables in that the user has to load them as a .txt file when
 \centering
 \begin{subfigure}{.33\textwidth}
   \centering
-  \includegraphics[width=52mm]{graphics/ColortableB_01.png}
+  \includegraphics[width=52mm]{graphics/ColortableB_02.png}
   \caption{Colortable Option 'None'}
 \end{subfigure}%
 \begin{subfigure}{.33\textwidth}
   \centering
-  \includegraphics[width=52mm]{graphics/ColortableB_02.png}
+  \includegraphics[width=52mm]{graphics/ColortableB_01.png}
   \caption{Colortable Option 'IDs'}
 \end{subfigure}
 \begin{subfigure}{.33\textwidth}
@@ -718,7 +718,10 @@ The next step was to chose a data format and design the workflow. Initial tests 
 
 
 
-Probably the most involved work was to figure out the conversion of 3D points to 2D screen space. The 2D points would be calculated by each XTK renderer separately, since the different views required different 2D screen space points. An array of the 2D points would be stored in the Annotation class. These points would then be updated whenever the position of the 3D points of the Annotation changed. The XTK renderer class has a function that translates 2D screen coordinates to 3D slice index coordinates which was a good starting point. I chose a simplified version of this function and implemented a conversion function, which appeared to work fine. However some bugs were noticeable where all 2D points of an Annotation would sometimes jump by a pixel even when they were not being manipulated. I attributed this to some floating point or rounding errors, but could not track down where the errors were happening. Finally I had to admit that my simplified conversion function was not accurate enough, and I set out to reverse engineer the 2D to 3D conversion from the XTK library. This involved some inverse matrix multiplication, and in the end worked perfectly. These changes had to be made in the XTK renderer class.
+Probably the most involved work was to figure out the conversion of 3D points to 2D screen space. The 2D points would be calculated by each XTK renderer separately, since the different views required different 2D screen space points. An array of the 2D points would be stored in the Annotation class. These points would then be updated whenever the position of the 3D points of the Annotation changed. The XTK renderer class has a function that translates 2D screen coordinates to 3D slice index coordinates which was a good starting point. I chose a simplified version of this function and implemented a conversion function, which appeared to work fine. I had to develop a much deeper understanding of the Volume File and its various Slice Depth Quantifiers, such as spacing and direction. These had to be integrated into the conversion since they define how the slices are spaced in relation to each other. A more detailed breakdown of these attributes will follow in the XTK subsection later in the Implementation section.
+
+
+When I had finished my naive implementation, some small bugs were noticeable. For example all 2D points of an Annotation would sometimes jump by a pixel even when only one 2DPoint was being manipulated. I attributed this to some floating point or rounding errors, but could not track down where the errors were happening. Finally I had to admit that my simplified conversion function was not accurate enough, and I set out to reverse engineer the 2D to 3D conversion from the XTK library. This involved some inverse matrix multiplication, and in the end worked perfectly. These changes had to be made in the XTK renderer class.
 
 In order for the user to manipulate the position of the Annotation points in screen space, I had to implement manipulatable corner points of the Annotation. This was made easy by the decision to have the 2D points. Initially I had contemplated creating a separate Manipulator class, but realised that this was superfluous and would just be repeating code. In the 2DPoint class I specified the position and width, so that in screen space I could make the 2DPoints appear wider for easier selection with the mouse. Some internal logic had to be added to the Annotation class, so that when the user changes the position of one 2DPoint, the neighboring points would also transform accordingly, since the shape had to always stay rectangular. I had to revise this is a couple of times, since in my first naive implementation, there would problems when the Annotation box would collapse so that all four 2D Points would be at the same screen space position. In the end I opted for limiting the size of the Annotation so that the points could never collapse to the same position.
 
@@ -785,6 +788,15 @@ Now with the program gaining shape, it was time to tweak the User Interface. Thi
 \label{fig:UIdesign1}
 \end{figure}
 
+Furthermore, I implemented changes that would guide the user better in terms of using the software. This included disabling of all input and buttons in the Levels, Annotations and Labelmap tabs when no appropriate medical imaging file had been loaded yet. Also I added pop up windows were introduced to warn a user if the wrong kind of file was being loaded. Tooltips (from Twitter-Bootstrap library) were added to almost every button to help the user understand the intended functionality of each.
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=70mm]{graphics/tooltipExample_01.png}
+\caption{Twitter-Bootstrap tooltip example}
+\label{fig:UIdesign1}
+\end{figure}
 
 
 \subsubsection{Deployment}
@@ -792,7 +804,7 @@ Now with the program gaining shape, it was time to tweak the User Interface. Thi
 
 In order for users to be able to evaluate the product, some effort had to be put in to deploy the software to the web. I am hosting it on my personal webspace, which I prefered to hosting it on a local college server since I can send the site for feedback to people outside of Imperial College. I use FileZilla to upload the code, but wrote a Python script to facilitate the uploading, since manual replacing of files soon became tedious and time-wasting. The script will recursively copy each file of a specified directory to a designated space on my web space.
 
-The deploying process went smoothly, as it had been desiged as a live webpage from the beginning. So I added a page with some sample data for the user to download, tutorials resembling the protocols above together with screen capture videos. Furthermore an 'About' page was added which explained the main features of the program as well crediting various libraries and plug-ins that were used. Finally, an online survey by Survey Monkey was introduced to allow for convenient feedback by the user.
+The deploying process went smoothly, as it had been desiged as a live webpage from the beginning. I added a page with some sample data for the user to download, tutorials resembling the protocols above together with screen capture videos. Furthermore an 'About' page was added which explained the main features of the program as well crediting various libraries and plug-ins that were used, as well as patch notes. Finally, an online survey by Survey Monkey was introduced to allow for convenient feedback by the user.
 
 A host of fixes have been uploaded since initial deployment, partially fixing outstanding bugs and implementing features requested from user feedback. More on this topic will be covered in the results section.
 
@@ -860,7 +872,25 @@ As already mentioned, the initial idea was to use XTK as an API to handle all th
 
 When implementing the interactive loading of colorTables and labelMaps, I was forced to get a deeper understanding how the file loading process works. The Chrome debugger did help with this, and due to the complexity and the number of files involved, I had to draw diagrams which I would consult often. See below for the flow of control when loading a file.
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=150mm]{graphics/XtkFileLoad_01.png}
+\caption{Flow of Control during XTK file load}
+\label{fig:UIdesign1}
+\end{figure}
 
+In the example, a file is assigned to the volume. The volume is then added to the renderer (1) and the render() command is called (2). The render() call starts the continuous frame updating at 60 frames per second. At the same time, the renderer.add() function calls the internal update() function (3), which sets up event listeners for the volume. The overloaded update() function in renderer2D.js (4) gets the loader attached to the renderer, and calls the loader.load() function (5). The internal parse() function is called (6), which in turn determines the required parser (parserNII in this case) and calls its parse() function (7). At the same time, loader.parse() sets up an event listener to wait for a 'Modified' signal which will call the internal complete() function. ParserNII.js deals with the file format specific loading of data, and employs the reslice() (8) and reslice2() (9) functions to get the current slice of the volume. Control is returned to parserNII.js after reslice2() has finished (10). Then an event signal is sent to loader.js, which triggers loader.complete() to be called (11). This calls the modified() function in volume.js (12), which in turn calls its internal slicing\_() function (13). In this last function, the current slice is set to be visible. Renderer2D's render() method which has been running continuously throughout this time, will recognise that the slice number has changed (from null to a specific integer number) and force a redraw of its pixels, thereby drawing the current slice texture to the screen.
+
+
+
+
+
+For renderer2D.js, when the user changes the index of one of the slide directions, the update function is called and the new slice texture calculated. This slice texture is then stored in a local buffer in the volume object, called children so as not to have to recalculate this slice when the user returns to this index at a later point. The renderer.js object itself is running at a specified frame rate, and will update if it detects that one of a number of things has changed in the volume. Slice index changing is one of them. It was this that caused some problems when causing a redraw after reapplying a colortable or a labelmap. All the current checks would not cause a redraw, since I had not changed the slice index, but rather data that was affecting the current slices. So I had to find another way of triggering this redraw. In the end I opted for 
+
+
+
+
+Xtk deals with its 2D and 3D renderers quite differently. One difference is in how the update function works. For renderer3D.js the update function becomes a recursive call with 60 plus iterations depending on the loaded volume.
 
 
 
@@ -941,10 +971,10 @@ Add diagrams if useful.
 
 
 
-\subsubsection{User Experience}
+\subsubsection{Controls}
 
 Some effort was put into making the software intuitive for users to use.
-This included the somewhat mundane disabling of all input and buttons when no appropriate medical imaging file had been loaded yet. Furthermore, pop up warning windows were introduced to warn a user if the wrong kind of file was being loaded. Tooltips were added to almost every button to help the user understand the intended functionality of each.
+
 
 All navigation and traversal was placed on mouse controls. The guidelines from the book helped inform the controls in that radiologist prefer to have as simple controls as possible since their work can consist of dealing with vast quantities of these kind of files, so any intricate control input method would soon get tiresome.
 
@@ -1270,7 +1300,7 @@ Naturally due to the limited time frame of this project, ScanView can not compet
 
   \begin{tabular}{ | l | l | l | l | l |}
     \hline
-    Feature & ScanView & 3DSlicer & ImView & BrainSuite \\ \hline \hline
+    Feature & ScanView & 3DSlicer & ImView & ITKSnap \\ \hline \hline
 
 Loading NII file & Yes & Yes & Yes & Yes\\ \hline
 Loading Other file formats & No & Yes & ? & ?\\ \hline
