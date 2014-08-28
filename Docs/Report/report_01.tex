@@ -587,7 +587,7 @@ have pictures of progress along the way?
 
 The initial plan was to build a UI with custom features (the frontend) using the XTK library with its API calls as the backend. The hope was that the XTK library would provide all necessary functionality required and so it would not be necessary to alter the library itself. However it soon became apparent that this would not be the case.
 The frontend would be written purely in JavaScript and structured with Backbone, and be using RequireJS to handle the various dependencies. Twitter-Bootstrap and JQueryUI would be used to style the look and feel of the frontend.
-The backend ie the XTK library is also written in JavaScript, but uses the Google Closure library to compile the code into minified code. This serves to reduce variable and function names and generally is designed to make the code run faster. The drawback is that it become harder to decode, since variable and function names are changed to be meaningless to the human reader. For functions and attributes that are meant to be used from outside the library, custom setters and getters have to be written. It is however possible to run the uncompiled code with a few steps, which I was forced to adopt at a later stage when I had to delve deeper into the internal workings of the XTK library. XTK also uses Goog matrices for their Graphics computations. Additionally the WebGL portion of XTK makes use of GLSL for its shaders, but is wrapped as strings in a JavaScript file.
+The backend ie the XTK library is also written in JavaScript, but uses the Google Closure library to compile the code into minified code. This serves to reduce variable and function names and generally is designed to make the code run faster. The drawback is that it become harder to decode, since variable and function names are changed to be meaningless to the human reader. For functions and attributes that are meant to be used from outside the library, custom setters and getters have to be written. XTK also uses Goog matrices for their Graphics computations. Additionally the WebGL portion of XTK makes use of GLSL for its shaders, but is wrapped as strings in a JavaScript file.
 
 
 
@@ -696,9 +696,12 @@ The Annotations feature was addded in the last month and I was aware of time pre
 
 An initial UML diagram was desiged as below:
 
-IMAGE
-
-
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=140mm]{graphics/annoUML_01.png}
+\caption{Annotation UML}
+\label{fig:UIdesign1}
+\end{figure}
 
 
 The final Annotation class contained quite a few more helper functions to help with the conversion from 3D to 2D space.
@@ -773,7 +776,14 @@ An issue that is entirely related to the XTK library is how to let the user know
 
 \subsubsection{Polishing the User Interface}
 
-adding the scroll bars
+Now with the program gaining shape, it was time to tweak the User Interface. This included the not very glamourous tasks of making sure that any Display or Annotation Layers would never be bigger than their container element by adding scroll bars. Luckily, this is a JQueryUI feature that is easy to implement, and one can specify along which axis one would like the scrollbars.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{graphics/scrollbar_01.png}
+\caption{Vertical Scrollbar for Display Layers}
+\label{fig:UIdesign1}
+\end{figure}
 
 
 
@@ -815,8 +825,20 @@ Initially I started developing in Chrome since it was my primary target for runn
 
 \end{figure}
 
+Chrome offers a variety of developer tools that come with the browser. First the 'Elements' tab provides the interactive HTML source code of the current web page. When hovering over a line of HTML, the appropriate element in website lights up. It also shows the current CSS rules that are being applied, with the option of toggling them on or off and getting a live preview. The 'Elements' tool is extremely helpful when debugging if the correct HTML correct has been written into the DOM or to check which CSS rules are currently active or have been overridden.
 
-Chrome furthermore offers a debugger complete with break points, so it's possible to follow the flow of code  by individual lines or break points.
+
+The next developer tool is the 'Network' tab. This shows the external libraries and source files are being loaded. It gives a good chronological break down of which library loaded when and how long it took. This proved useful in the beginning to see if the dependencies were handled correctly by RequireJS.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=140mm]{graphics/chromeNetwork_01.png}
+\caption{Chrome Networks Tab}
+\label{fig:UIdesign1}
+\end{figure}
+
+
+Chrome furthermore offers a debugger complete with break points, so it's possible to follow the flow of code  by individual lines or break points. This was used sparingly, as when working with XTK, the number of files that are being involved is huge and it would take too long to actually follow the code. Nonetheless it was helpful when I had to develop a deeper understand of the flow of control for example during when a file is loaded with XTK.
 
 \begin{figure}[ht!]
 \centering
@@ -827,27 +849,26 @@ Chrome furthermore offers a debugger complete with break points, so it's possibl
 
 
 
-As there was some switching between web browsers, I noticed that Chrome and Firefox behaved differently sometimes. For example the layout would look drastically different in Firefox compared to Chrome, sometimes for reasons that were hard to track down due to large amount of variables in play. It appeared as if the css float command behaved differently, and place items to a different rule set. At other times, mouse navigation would not work in Firefox, since somehow mouse clicks where registered differently from Chrome. During the project, I spent time trying to bring up browser compatibility for both in parallel, but in retrospect I probably should focused on Chrome, and then spent time making it work in Firefox and all other browsers, since they will also need custom work.
+As there was some switching between web browsers, I noticed that Chrome and Firefox behaved differently sometimes. For example the layout would look drastically different in Firefox compared to Chrome, sometimes for reasons that were hard to track down due to large amount of variables in play. It appeared as if the css float command behaved differently, and place items to a different rule set. At other times, mouse navigation would not work in Firefox, since somehow mouse clicks where registered differently from Chrome. During the project, I spent time trying to bring up browser compatibility for both in parallel, but in retrospect I probably should have focused solely on Chrome, and then spent time making it work in Firefox and all other browsers, since they will also need custom work.
 
-IMAGE OF BAD FLOAT BEHAVIOUR?
 
 
 
 \subsubsection{XTK}
 
-- bugs with XTK
-- written with goog.closure library
-	- uses minified code, uses a compiler
-	- use the debug version
-- extended the library
-- exposing variables
-- various event calls
-- followed the XTK style guide
-	- camelCase
-	- underscores, public attributs
+As already mentioned, the initial idea was to use XTK as an API to handle all the low level work to with loading and displaying Volume Files. As it soon became apparent, I had to dig deeper into the XTK library. Since XTK uses the goog closure library to minify the code, I first started to introduce print statements into the code in order to follow the flow better. However this became tedious quite fast and I figured out that is possible to run the uncompiled code with a few steps. This proved to be quite necessary since I was getting lots of errors at later stages of the project.
 
-- explain the structure
+When implementing the interactive loading of colorTables and labelMaps, I was forced to get a deeper understanding how the file loading process works. The Chrome debugger did help with this, and due to the complexity and the number of files involved, I had to draw diagrams which I would consult often. See below for the flow of control when loading a file.
 
+
+
+
+
+Alot of working required was to write setters and getters for attributes that I need to get access to, which was trivial to implement. Adding some functions required for inverting ijk to xy values proved to be more challenging and took much longer.
+
+I tried to follow the style guide which is posted online in using camelCase typing with underscores at the appropriate places for attributes and functions.
+
+There seem to be some issues and bugs with XTK?
 
 
 
