@@ -522,17 +522,19 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 
 	},
 	storeValues:function(){
-	    //console.log('XtkView.storeValues()');
+	    console.log('XtkView.storeValues()');
 
 	    //setting indexes
 	    this.model.set({
 		indexX: this.volume.indexX,
 		indexY: this.volume.indexY,
 		indexZ: this.volume.indexZ,
-	    });
-	    
-	    //setting levels/window values
-	    this.model.set({
+
+
+		range: this.volume.range,
+
+		//setting levels/window values
+
 		//ORIG
 		windowLowOrig: this.volume.windowLow,
 		windowHighOrig: this.volume.windowHigh,
@@ -545,6 +547,8 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		thresholdHigh: this.volume.upperThreshold,
 	    }); 
 	    
+
+	    console.log(this.model);
 	    Backbone.trigger('initValuesStored', this.model);
 	},
 	createData:function() {
@@ -571,9 +575,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 		//check if this.volume.index and value are the same
 		if(this.volume.indexX != value){
 		    this.volume.indexX = value;
-		    //in case out of bounds, reset model
-		    if(this.volume.indexX != value)
-			model.set({indexX: this.volume.indexX})
 		}
 	    }
 	},
@@ -582,9 +583,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    if(this.volume){
 		if(this.volume.indexY != value){
 		    this.volume.indexY = value;
-		    //in case out of bounds, reset model
-		    if(this.volume.indexY != value)
-			model.set({indexY: this.volume.indexY})
 		}
 	    }
 	},
@@ -593,9 +591,6 @@ define(["text!templates/XTK.html"], function(XTKTemplate) {
 	    if(this.volume){
 		if(this.volume.indexZ != value){
 		    this.volume.indexZ = value;
-		    //in case out of bounds, reset model
-		    if(this.volume.indexZ != value)
-			model.set({indexZ: this.volume.indexZ})
 		}
 	    }
 	},

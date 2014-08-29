@@ -16,6 +16,11 @@ define(["text!templates/CanvasViewer2D.html",
 		'mouseup': 'setMouseUp',
 		'mousemove': 'mouseHandler',
 		'keydown': 'keyHandler',
+		'click button#playButton':'playStartForwards',		
+		'click button#stopButton':'playStop',
+		'click button#playbackButton':'playStartBackwards',		
+		'click button#fastForwardButton':'fastForwards',
+		'click button#fastBackwardButton':'fastBackwards',
 	    });
 	},
 	render:function() {
@@ -186,43 +191,151 @@ define(["text!templates/CanvasViewer2D.html",
 	    //only scroll if a layerItem is set
 	    if(this.currentLayerItemTop){
 	
+		if(this.play != false)
+		    this.playStop();
+
 		var e = window.event || e; // old IE support
 		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 
 		//X
 		if (this.mode == 1){
 	    	    var oldVal = this.currentLayerItemTop.get('indexX');
-		    
-		    if(delta < 0)
-			this.currentLayerItemTop.set({indexX: oldVal - 1});
-		    else
-			this.currentLayerItemTop.set({indexX: oldVal + 1});
+		    if(delta < 0){
+			if(oldVal - 1 >= 0)
+			    this.currentLayerItemTop.set({indexX: oldVal - 1});
+		    }
+		    else{
+			if(oldVal + 1 < this.currentLayerItemTop.get('range')[0])
+			    this.currentLayerItemTop.set({indexX: oldVal + 1});
+		    }
 		}
 		//Y
 		else if (this.mode == 2){
 	    	    var oldVal = this.currentLayerItemTop.get('indexY');
-		    
-		    if(delta < 0)
-			this.currentLayerItemTop.set({indexY: oldVal - 1});
-		    else
-			this.currentLayerItemTop.set({indexY: oldVal + 1});
+		    if(delta < 0){
+			if(oldVal - 1 >= 0)
+			    this.currentLayerItemTop.set({indexY: oldVal - 1});
+		    }
+		    else{
+			if(oldVal + 1 < this.currentLayerItemTop.get('range')[1])
+			    this.currentLayerItemTop.set({indexY: oldVal + 1});
+		    }   
+
 		}
 		//Z
 		else if (this.mode == 3){
 	    	    var oldVal = this.currentLayerItemTop.get('indexZ');
-		    
-		    if(delta < 0)
-			this.currentLayerItemTop.set({indexZ: oldVal - 1});
-		    else
-			this.currentLayerItemTop.set({indexZ: oldVal + 1});
+		    if(delta < 0){
+			if(oldVal - 1 >= 0)
+			    this.currentLayerItemTop.set({indexZ: oldVal - 1});
+		    }
+		    else{
+			if(oldVal + 1 < this.currentLayerItemTop.get('range')[2])
+			    this.currentLayerItemTop.set({indexZ: oldVal + 1});
+		    }
+
 		}
 
 		this.setAnnotations(this.annotations);
 	    }
+	    
+	},
+	playStop:function(){
+	    this._play = 0;
+	    
+	    $('#playbackButton', this.el).removeClass('layer-selected');
+	    $('#playButton', this.el).removeClass('layer-selected');	    
+	    $('#stopButton', this.el).addClass('layer-selected');
+	},
+	playStartForwards:function(){	    
 
+	    $('#playbackButton', this.el).removeClass('layer-selected');
+	    $('#stopButton', this.el).removeClass('layer-selected');
+	    $('#playButton', this.el).addClass('layer-selected');
+	    
+	    this._play = 1;
+	    this.play();
+	},
+	playStartBackwards:function(){
+
+	    $('#stopButton', this.el).removeClass('layer-selected');
+	    $('#playButton', this.el).removeClass('layer-selected');
+	    $('#playbackButton', this.el).addClass('layer-selected');
+
+
+	    this._play = -1;
+	    this.play();
+	},
+	fastForwards:function(){
+
+	    if (this.mode == 1)
+		this.currentLayerItemTop.setToMaxIndex(0);
+	    else if (this.mode == 2)
+		this.currentLayerItemTop.setToMaxIndex(1);
+	    else if (this.mode == 3)
+		this.currentLayerItemTop.setToMaxIndex(2);
+	},
+	fastBackwards:function(){
+	    if (this.mode == 1)
+		this.currentLayerItemTop.setToMinIndex(0);
+	    else if (this.mode == 2)
+		this.currentLayerItemTop.setToMinIndex(1);	    
+	    else if (this.mode == 3)
+		this.currentLayerItemTop.setToMinIndex(2);
+	},
+	play:function(){
+
+	    var _this = this;
+	    var delta = this._play;
+
+	    if(this._play != false){
+
+		setTimeout(function(){
+
+
+		    if(this._play != false){
+			//X
+			if (_this.mode == 1){
+	    		    var oldVal = _this.currentLayerItemTop.get('indexX');
+			    
+			    if((oldVal + delta) > _this.currentLayerItemTop.get('range')[0] ||
+			       (oldVal + delta < 0))
+				_this.playStop();
+			    else
+				_this.currentLayerItemTop.set({indexX: oldVal + delta});
+			}
+			//Y
+			else if (_this.mode == 2){
+	    		    var oldVal = _this.currentLayerItemTop.get('indexY');
+			    
+			    if((oldVal + delta) > _this.currentLayerItemTop.get('range')[1] ||
+			       (oldVal + delta < 0))
+				_this.playStop();
+			    else
+				_this.currentLayerItemTop.set({indexY: oldVal + delta});   
+
+			}
+			//Z
+			else if (_this.mode == 3){
+	    		    var oldVal = _this.currentLayerItemTop.get('indexZ');
+			    
+			    if((oldVal + delta) > _this.currentLayerItemTop.get('range')[2] ||
+			       (oldVal + delta < 0))
+				_this.playStop();
+			    else
+				_this.currentLayerItemTop.set({indexZ: oldVal + delta});
+			}
+			
+			
+			_this.setAnnotations(_this.annotations);
+			_this.play();
+		    }
+		}, 50);
+	    }
+		
 	},
 	setOpacity:function(){
-
+		
 	    if(this.ctx && this.currentLayerItemTop && this.currentLayerItemBottom){
 		this.alphaA = this.currentLayerItemTop.get('opacity')/100;
 		this.alphaB = this.currentLayerItemBottom.get('opacity')/100;

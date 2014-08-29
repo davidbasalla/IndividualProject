@@ -30,6 +30,10 @@ html, body {
 .mode-btn{
     border-color:#AAA;
 }
+.play-button{
+    padding-bottom:5px;
+}
+
 
 .layout-selected{
     background-color:#88F;

@@ -870,16 +870,55 @@ As there was some switching between web browsers, I noticed that Chrome and Fire
 
 As already mentioned, the initial idea was to use XTK as an API to handle all the low level work to with loading and displaying Volume Files. As it soon became apparent, I had to dig deeper into the XTK library. Since XTK uses the goog closure library to minify the code, I first started to introduce print statements into the code in order to follow the flow better. However this became tedious quite fast and I figured out that is possible to run the uncompiled code with a few steps. This proved to be quite necessary since I was getting lots of errors at later stages of the project.
 
+The library is comprised of a host of different components. Since it would take too long to explain every class, I will describe the four concepts of renderers, volumes, slices and labelmaps to give an insight into XTK's workings. The XTK website has a list of API commands for these but it is not up to date, and I learned more by actually looking into the code.
+
+A X.renderer is an abstract virtual class and inherits to X.renderer3D and X.renderer2D.  The renderer has a private attribute called topLevelObjects which is an array of X.objects that have no parents themselves. This matters as inherited X.objects such as X.volume have nested X.objects as member attributes. The X.renderer class also has a private objects class, which is an array of all X.objects that are linked to this renderer. Next, an X.loader object is also assigned to the private 'loader' attribute. This loader will be used for any loading of file object, as will be discussed in more detail later in this subsection. The X.renderer class also has an X.camera class. This is used to view the renderer content, and viewing transformations such as panning, zooming and rotation are handled by this class. There exists an inherited 2D and 3D camera class. Then there is an X.interactor assigned as well. This class handles all mouse and keyboard inputs. 
+
+The inherited X.renderer2D class has extra attributes to specify which slice is being rendered, such as currentSlice, orientiation, sliceHeight and sliceWidth. It has a framebuffer array attribute which stores the current slice texture information which will be rendered to screen. It also has a labelFrameBuffer which is secondary buffer that is used to render a labelmap if one has been loaded. This is in essence an A over B compositing effect. The X.renderer3D class has different internal attributes since it does its drawing through WebGL technology. It contains number attributes of the the dimensions of the loaded objects, as well as an X.shaders object and various buffers of the form goog.structs.Map to store vertex, normal, color and texture information of the currently loaded objects.
+
+There are various methods in the X.renderer classes. Init(), render() and update() warrant a closer look. The init() function is called in the beginning to set up main aspects such as the X.interactor, X.camera, X.loader, HTML Canvas and Context on which to draw on. The render() function deals with the actual drawing of content onto the canvas. The renderer3D and renderer2D classes naturally differ in their implementations of this function, but both call on the parent's render() function to continuously redraw the frame. Renderer2D.render() function reevaluates if the current buffer needs to be recalculated and if so does it inside the scope of the code, whereas the renderer3D.render() function pushes any changed data to the GPU for drawing. SOMEWHAT HAZY UNDERSTANDING OF THIS, IMPROVE.
+
+
+
+
+
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/xtkUML_01.png}
+\caption{Full Class Diagrams for renderer.js, renderer2D.js and renderer3D.js}
+\label{fig:UIdesign1}
+\end{figure}
+
+
+The Xvolume is a type of Xobject and inherits a host of attributes and functions from it. As it is an object, it can be added to a renderer. It has a file attribute and a labelmap attribute
+
+
+
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/xtkUML_big_01.png}
+\caption{Flow of Control of XTK renderer}
+\label{fig:UIdesign1}
+\end{figure}
+
+
+
 When implementing the interactive loading of colorTables and labelMaps, I was forced to get a deeper understanding how the file loading process works. The Chrome debugger did help with this, and due to the complexity and the number of files involved, I had to draw diagrams which I would consult often. See below for the flow of control when loading a file.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=150mm]{graphics/XtkFileLoad_01.png}
+\includegraphics[width=140mm]{graphics/XtkFileLoad_01.png}
 \caption{Flow of Control during XTK file load}
 \label{fig:UIdesign1}
 \end{figure}
 
-In the example, a file is assigned to the volume. The volume is then added to the renderer (1) and the render() command is called (2). The render() call starts the continuous frame updating at 60 frames per second. At the same time, the renderer.add() function calls the internal update() function (3), which sets up event listeners for the volume. The overloaded update() function in renderer2D.js (4) gets the loader attached to the renderer, and calls the loader.load() function (5). The internal parse() function is called (6), which in turn determines the required parser (parserNII in this case) and calls its parse() function (7). At the same time, loader.parse() sets up an event listener to wait for a 'Modified' signal which will call the internal complete() function. ParserNII.js deals with the file format specific loading of data, and employs the reslice() (8) and reslice2() (9) functions to get the current slice of the volume. Control is returned to parserNII.js after reslice2() has finished (10). Then an event signal is sent to loader.js, which triggers loader.complete() to be called (11). This calls the modified() function in volume.js (12), which in turn calls its internal slicing\_() function (13). In this last function, the current slice is set to be visible. Renderer2D's render() method which has been running continuously throughout this time, will recognise that the slice number has changed (from null to a specific integer number) and force a redraw of its pixels, thereby drawing the current slice texture to the screen.
+In the example, a file is assigned to the volume. The volume is then added to the renderer (1) and the render() command is called (2). The render() call starts the continuous frame updating at 60 frames per second. At the same time, the renderer.add() function calls the internal update() function (3), which sets up event listeners for the volume. The overloaded update() function in renderer2D.js (4) gets the loader attached to the renderer, and calls the loader.load() function (5). The internal parse() function is called (6), which in turn determines the required parser (parserNII in this case) and calls its parse() function (7). At the same time, loader.parse() sets up an event listener to wait for a 'Modified' signal which will call the internal complete() function. ParserNII.js deals with the file format specific loading of data, and employs the reslice() (8) and reslice2() (9) functions to compute the current slice information of the volume. These are called three times - once for each orthographics view directions. Control is returned to parserNII.js after reslice2() has finished (10). Then an event signal is sent to loader.js, which triggers loader.complete() to be called (11). It also sets the volume's dirty flag to be true (which , among other uses, is used as a check by the renderer's render() function). The loader calls the modified() function in volume.js (12), which in turn calls its internal slicing\_() function (13), again once per orthographic view. In this last function, the current slice is set to be visible if it has been computed previously in the parser and parserNII. The slicing\_() function also gets called at other times, and if the current slice does not have any texture information loaded, the parser's reslice2() method is called from here for computation. Renderer2D's render() method which has been running continuously throughout this time, will recognise that the slice number has changed (from null to a specific integer number) and force a redraw of its pixels, thereby drawing the current slice texture to the screen. The render() function also checks if any dirty flags have been raised and will force a redraw accordingly.
+
+If this process is being called for the first time, the modified volume will also send an Event Signal to the renderer that is has been added to, forcing the renderer.\_onShowtime() function to be called. This is useful in a setup with more than one renderer (such in ScanView's example where there exists one 3Drenderer and three 2Drenderers), as one can link the other renderers to start their render() functions when the loading has been done in the first renderer. Personally I do not actually like this method, since it forces an interdependence on the viewers and I would have prefered a more modular approach. When asking about this StackOverflow, one of the XTK developers agreed that the current solution is not ideal.
 
 
 
@@ -949,7 +988,7 @@ Twitter-Bootstrap supplies a host of interactive UI elements such as buttons, to
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=110mm]{graphics/twitterBootstrap_01.png}
+\includegraphics[width=100mm]{graphics/twitterBootstrap_01.png}
 \caption{Examples of Twitter-Bootstrap components used. Panel (left), Modal (top right) and Button Group (bottom right)}
 \label{fig:UIdesign1}
 \end{figure}
@@ -963,11 +1002,16 @@ All things considered, this libary proved to be very useful and saved a lot of t
 
 \subsubsection{Google Analytics}
 
-Google Analytics is a tool by Google that provides detailed information of count, frequency and location of website usage. I installed to get a clear picture of how many people would be using the website. I have used Google Analytics in the past and have been impressed by the comprehensive overview it provides. On top the expected visitor numbers, locations and duration, it provides percentage displays and other useful information.
+Google Analytics is a tool by Google that provides detailed information of website usage. I installed it to get a clear picture of how many people would be using the website. I have used Google Analytics in the past and have been impressed by the comprehensive overview it provides. It shows the number of unique and returning visitors, average session duration, feedback on which browsers and operating systems they were using, which city and country it was viewed from. Additionally for mobile devices it even shows the screen resolution.
+Implementation is very easy by just copying an HTML script code snippet and pasting it into any website that the user would like to track the usage for.
+NEED TO CONCLUDE ANYTHING FROM THIS?
 
-Add diagrams if useful.
-
-
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=160mm]{graphics/googleAnalytics_01.png}
+\caption{Google Analytics Website Usage Statistics}
+\label{fig:UIdesign1}
+\end{figure}
 
 
 
@@ -1222,9 +1266,6 @@ In order to improve performance, RequestAnimationFrame was used. Need some more 
 
 \subsection{Usage and User Feedback}
 
-//PUT THIS INTO IMPLEMENTATION?
-
-
 
 Ideally the website would be online for a longer time to get a more complete picture in terms of usage.
 Analyse the usage reports from Google Analytics if appropriate.
@@ -1338,27 +1379,34 @@ A more complete rework of the library rather than half and half trying to use it
 
 \subsection{Known Problems and Bugs}
 
-- High CPU usage
-- not able to open certain .nii files, due to XTK library though
-- more complex file error management
-- ColorPopup not at the right position when at bottom
-- Add  a warning on File Load Error - asked on stackoverflow but no answers yet
-- Issue with Annotations in some cases
+At the time of writing, there are a number of known bugs and issues to resolve:
+
+\begin{itemize}
+
+\item Annotations are not positioned properly with specific files
+\item Not all .nii files open, due to issue with XTK library
+\item ColorPicker pop-up for Annotations will open too low in screen if too many Annotation Layers have been created, so that the 'OK' button can not be pressed
+\item Number input fields for Window and Threshold are too small with bigger numbers
+\item When panning, object in Viewer Panel does not follow mouse cursor 100\%
+\item High CPU usage has been reported on Linux Ubuntu and Chrome. This is due to a general architecture decision and would take considerable time to redesign
+
+\end{itemize}
 
 
 \subsection{Future Improvements}
 
-online file sharing (ala DropBox), could make it workable on Ipad!
-need to make it work on different resolution screens
+A host of improvements could be added to make the application more useful and user-friendly.
 
-numerous improvements:
-- add paint tools
-- add support for 4D data sets
-- tweak performance
-- UX improvements such as smart sliders
-- technical improvements such as specify filtering
-- splitters for the panes
-
+\begin{itemize}
+\item Add support for other file formats other than .nii
+\item Re-enableing the loading of custom color tables
+\item DropBox support could be built into the software to enable file loading, saving and sharing. Additionally this could enable the tool to be used on IOS.
+\item More work to style the website for different resolution screens.
+\item Paint tools could be implemented as has been done successfully by BrainBook, to paint custom Labelmap
+\item Support for 4D data sets could be implemented. This would have be done at a low level in the XTK library, but should conceptually not be too hard since it would just be a series of volumes. Appropriate and meaningful user interface additions could be made without much difficulty.
+\item Smart sliders should be added, so that for Levels and Threshold, the bar can be dragged instead of having to manipulate for ends.
+\item Interactive splitters could be introduced so that the user has more freedom in defining the size of individual View Panels
+\end{itemize}
 
 
 

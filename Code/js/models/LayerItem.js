@@ -68,6 +68,32 @@ define(function() {
 	    oldArray = _.without(oldArray, annoObject);
 	    this.set({annotations: oldArray});
 	},
+	setToMaxIndex:function(orientation){
+	
+	    var max = this.attributes.range[orientation] - 1;
+
+	    if(orientation == 0)
+		this.set({indexX: max});
+	    else if(orientation == 1)
+		this.set({indexY: max});
+	    else if(orientation == 2)
+		this.set({indexZ: max});
+	},
+	setToMinIndex:function(orientation){
+
+	    console.log('setToMaxIndex');
+
+	    if(orientation == 0)
+		this.set({indexX: 0});	    
+	    else if(orientation == 1)
+		this.set({indexY: 0});
+	    else if(orientation == 2)
+		this.set({indexZ: 0});
+
+	},
+
+
+
     });
     return LayerItem;
 });

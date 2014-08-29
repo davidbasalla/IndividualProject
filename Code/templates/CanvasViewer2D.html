@@ -37,18 +37,75 @@
   -->
 
 
-  <div id="swipeDiv"
-       style="display:inline-block;
-	      margin-left:10px;">
-    Swipe:
-    
-    <select id="swipeSelector" title="Set Buffer Swipe Mode">
-      <option value="Layer1">
-	Horizontal
-      </option>
-      <!--<option value="Layer2">Vertical</option>-->
-    </select>
+
+  <div class="btn-group" style="margin-left:10px">    
+    <button type="button"
+	    class="btn btn-default btn-sm"
+            id="fastBackwardButton"
+	    data-toggle="tooltip"	    
+	    data-container="body"
+	    title="Delete this Layer"
+	    style="padding-top:2px;
+		   padding-bottom:2px;
+		   padding-left:6px;
+		   padding-right:6px">
+      <span class="glyphicon glyphicon-fast-backward play-button"></span>
+    </button>
+    <button type="button"
+	    class="btn btn-default btn-sm"
+            id="playbackButton"
+	    data-toggle="tooltip"
+	    data-container="body"
+	    title="Load a Volume File"
+	    style="padding-top:2px;
+		   padding-bottom:2px;
+		   padding-left:6px;
+		   padding-right:6px">
+
+      <span class="glyphicon play-button">◀</span>
+       
+    </button>
+    <button type="button"
+	    class="btn btn-default btn-sm layer-selected"
+            id="stopButton"
+	    data-toggle="tooltip"	    
+	    data-container="body"
+	    title="Delete this Layer"
+	    style="padding-top:2px;
+		   padding-bottom:2px;
+		   padding-left:6px;
+		   padding-right:6px">
+      <span class="glyphicon glyphicon-stop play-button"></span>
+    </button>
+    <button type="button"
+	    class="btn btn-default btn-sm"
+            id="playButton"
+	    data-toggle="tooltip"	    
+	    data-container="body"
+	    title="Delete this Layer"
+	    style="padding-top:2px;
+		   padding-bottom:2px;
+		   padding-left:6px;
+		   padding-right:6px">
+
+      <span class="glyphicon glyphicon-play play-button"></span>
+    </button>
+    <button type="button"
+	    class="btn btn-default btn-sm"
+            id="fastForwardButton"
+	    data-toggle="tooltip"	    
+	    data-container="body"
+	    title="Delete this Layer"
+	    style="padding-top:2px;
+		   padding-bottom:2px;
+		   padding-left:6px;
+		   padding-right:6px">
+      <span class="glyphicon glyphicon-fast-forward play-button"></span>
+    </button>
   </div>
+
+
+
   
   
   <div style="float:right;margin-right:10px">
