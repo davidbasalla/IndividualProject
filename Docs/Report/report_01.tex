@@ -157,6 +157,7 @@ Furthermore it can create a 3D volume renderings, applying image filters and sup
 
 \subsubsection{ITKSnap}
 
+When asking members of the Biomedical Imaging Group at Imperial College, which tools they use, ITKSnap came up quite regularily. So a review of this program will be included here.
 Write about ITKSnap... features...
 
 
@@ -868,9 +869,23 @@ Chrome furthermore offers a debugger complete with break points, so it's possibl
 As there was some switching between web browsers, I noticed that Chrome and Firefox behaved differently sometimes. For example the layout would look drastically different in Firefox compared to Chrome, sometimes for reasons that were hard to track down due to large amount of variables in play. It appeared as if the css float command behaved differently, and place items to a different rule set. At other times, mouse navigation would not work in Firefox, since somehow mouse clicks where registered differently from Chrome. During the project, I spent time trying to bring up browser compatibility for both in parallel, but in retrospect I probably should have focused solely on Chrome, and then spent time making it work in Firefox and all other browsers, since they will also need custom work.
 
 
+\subsubsection{JSFiddle}
+
+Related to browser development, a tool I used a number of times was JSFiddle. This tool allows to on the fly testing of JavaScript, CSS and HTML. In fact, when asking for web developlement related questions on StackOverflow, answers are often posted with a working JSFiddle example. To create an example, one only needs to open JSFiddle and one can start coding. There are separate input windows for JavaScript, CSS and HTML code. It also features a windows that displays the resulting output. The link to this code can then be saved or sent to other people. All of the XTK tutorials are written as JSFiddle examples which allows for quick experimentation and testing of features. This was a really useful and convenient tool. 
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=140mm]{graphics/jsFiddle_01.png}
+\caption{XTK Tutorial in JSFiddle Format}
+\label{fig:UIdesign1}
+\end{figure}
+
+
 
 
 \subsubsection{XTK}
+
 
 As already mentioned, the initial idea was to use XTK as an API to handle all the low level work to with loading and displaying Volume Files. As it soon became apparent, I had to dig deeper into the XTK library. Since XTK uses the goog closure library to minify the code, I first started to introduce print statements into the code in order to follow the flow better. However this became tedious quite fast and I figured out that is possible to run the uncompiled code with a few steps. This proved to be quite necessary since I was getting lots of errors at later stages of the project.
 
@@ -883,11 +898,6 @@ The inherited X.renderer2D class has extra attributes to specify which slice is 
 There are various methods in the X.renderer classes. Init(), render() and update() warrant a closer look. The init() function is called in the beginning to set up main aspects such as the X.interactor, X.camera, X.loader, HTML Canvas and Context on which to draw on. The render() function deals with the actual drawing of content onto the canvas. The renderer3D and renderer2D classes naturally differ in their implementations of this function, but both call on the parent's render() function to continuously redraw the frame. Renderer2D.render() function reevaluates if the current buffer needs to be recalculated and if so does it inside the scope of the code, whereas the renderer3D.render() function pushes any changed data to the GPU for drawing. SOMEWHAT HAZY UNDERSTANDING OF THIS, IMPROVE.
 
 
-
-
-
-
-
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=170mm]{graphics/xtkUML_01.png}
@@ -896,9 +906,17 @@ There are various methods in the X.renderer classes. Init(), render() and update
 \end{figure}
 
 
-The Xvolume is a type of Xobject and inherits a host of attributes and functions from it. As it is an object, it can be added to a renderer. It has a file attribute and a labelmap attribute
+X.slice is a type of X.object and inherits a host of attributes and functions from it (see below for UML diagram). It stores attributes for a current slice, such as orientation vectors (\_front, \_up, \_right), \_center, dimensions (\_width and \_height)
 
 
+The Xvolume is a more complex type of Xobject. As it is an X.object, it can be added to a X.renderer and inherits all the attributes and methods from the X.object class. Volumes are also injected with the loadable.js code, which adds support for loading files and with thresholdable.js code, which allows for applying threshold operations on it. An X.volume has a variety of attributes that deal with the currently loaded data, such as current indices (\_indexX, \_indexY and \_indexZ), range which specifies the maximum indices. It has \_windowLow, \_windowHigh, \_thresholdLow and \_thresholdHigh (the last two from thesholdable.js) which dictate the window and treshold settings. As for all attributes that are to be accessed from outside the API, setter methods have been written which take care of internal logic. It is the setter methods for window and threshold that are being called through the Levels Panel when adjusting the sliders. The X.volume has the inherited array children from (X.object) in which it stores all the precomputed X.slices.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/xtkUML_04.png}
+\caption{UML Class diagram for X.volume and dependencies}
+\label{fig:UIdesign1}
+\end{figure}
 
 
 
@@ -1376,12 +1394,11 @@ In terms of creating a function piece of software, more time would have been ben
 
 \section{Future Work}
 
-A more complete rework of the library rather than half and half trying to use it as an API.
 
 \subsection{Limitations}
 
 
-\subsection{Known Problems and Bugs}
+\subsection{Limitations and Bugs}
 
 At the time of writing, there are a number of known bugs and issues to resolve:
 
@@ -1393,13 +1410,14 @@ At the time of writing, there are a number of known bugs and issues to resolve:
 \item Number input fields for Window and Threshold are too small with bigger numbers
 \item When panning, object in Viewer Panel does not follow mouse cursor 100\%
 \item High CPU usage has been reported on Linux Ubuntu and Chrome. This is due to a general architecture decision and would take considerable time to redesign
+item When loading more complex data sets, the responsiveness drops noticeably
 
 \end{itemize}
 
 
 \subsection{Future Improvements}
 
-A host of improvements could be added to make the application more useful and user-friendly.
+As has has been shown, using a library like XTK can be used successfully to write a cross-browser web app for inspecting medical image data. In terms of expanding the software, a number of features could be added which could make the application more useful and user-friendly.
 
 \begin{itemize}
 \item Add support for other file formats other than .nii
@@ -1411,6 +1429,9 @@ A host of improvements could be added to make the application more useful and us
 \item Smart sliders should be added, so that for Levels and Threshold, the bar can be dragged instead of having to manipulate for ends.
 \item Interactive splitters could be introduced so that the user has more freedom in defining the size of individual View Panels
 \end{itemize}
+
+
+In this specific case, I would probably chose to rework the XTK library more closely to add the features that I have added with ScanView, however at a lower level. There exists a performance trade-off based on the decision to have custom Render Canvases copying image data from the XTK canvases. This was done to add extra functionality more easily, but it adds computational requirements. It should be possible to add this high level functionality into the XTK library itself.
 
 
 
