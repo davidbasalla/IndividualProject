@@ -776,6 +776,10 @@ An issue that is entirely related to the XTK library is how to let the user know
 
 
 
+\subsubsection{Slice Animation Feature}
+
+This feature was added fairly late in the project, but it was relatively fast to implement. It had been suggested in the big medical book, and when talking to a radiologist, it seemed like it could be a useful feature which would relieve the user from manually having to scroll through a Volume file. I implemented this via a set of 5 buttons from the Twitter-Bootstrap library, commonly used to signal playing, stopping or rewinding a media file. I used the settimeout() method to recursively increment or decrement the current slice index (dependent on the viewer). At each recursion, it checks a guard variable whether to keep looping. The stop button changes this guard variable to on and therefore breaks the loop. I also trigger this break when the user uses the mouse scroll button, as I figured that the user might like to stop the animation easily other than by hitting the stop button. Almost by accident, it also provides the user to quickly navigate from to the minimum and maximum slice numbers for each direction by use of the fast-forward and fast-backward buttons.
+
 
 \subsubsection{Polishing the User Interface}
 
