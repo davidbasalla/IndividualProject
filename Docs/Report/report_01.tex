@@ -39,9 +39,12 @@
 
 \section{Introduction}
 
-Medical imaging is a type of scientific visualisation that deals with analysis, representation and exploration of medical image data. It should aid in diagnosis, treatment planning, support in actual operations, documentation and educational purposes. Medical imaging is primarily based on 3D volume data acquired by scanning devices such as computed tomography and magnetic resonance imaging. The resulting data files are viewed with specific computer software and contain a wealth of data. Users are therefore required to have the appropriate software installed on their local desktop computer. Additionally software developers have to cater for different operating systems. To overcome these issues, the goal of this project is to provide a medical image viewer that runs in any web browser. This web-app will aim to provide the functionality as a desktop solution without being tied to a specific operating system. It furthermore aims to provide an intuitive and complete set of tools for viewing multiple files and allowing for creation, viewing and manipulation of label maps and other methods of annotating these images. The rationale behind this is to facilitate users to conveniently view, edit and annotate medical image files independently of location or type of computer, following the "Software as a Service" paradigm.
+Medical imaging is a type of scientific visualisation that deals with analysis, representation and exploration of medical image data. It should aid in diagnosis, treatment planning, support in actual operations, documentation and educational purposes. Medical imaging is primarily based on 3D volume data acquired by scanning devices such as computed tomography and magnetic resonance imaging. The resulting data files are viewed with specific computer software and contain a wealth of data. This software is traditionally in the form of a software application that needs to be installed on a local computer machine. With the rise of WebGL, a modern interface for commonly used web browsers that displays 3D Graphics by using the local graphics card, this project will investigate the general plausability and specific implementation of a web browser based medical image viewer using WebGL, thereby freeing the user from having to use desktop bound software and instead using a website that is more freely accessible.
 
 \subsection{Motivations}
+
+To view medical image data, users are required to have appropriate software installed on their local desktop computer. This involves a varying download or installation process. Additionally software developers have to cater for different operating systems when writing these programs. To overcome these issues, the goal of this project is to provide a medical image viewer that runs in any web browser. This web-app will aim to provide the functionality as a desktop solution without being tied to a specific operating system. It furthermore aims to provide an intuitive and complete set of tools for viewing multiple files and allowing for creation, viewing and manipulation of label maps and other methods of annotating these images. The rationale behind this is to facilitate users to conveniently view, edit and annotate medical image files independently of location or type of computer, following the "Software as a Service" paradigm.
+
 
 \subsection{Requirements}
 
@@ -370,6 +373,13 @@ Nowadays, most libraries make use of \textit{WebGL} and even libraries that used
 Copy From Literature Review
 Extend?
 
+\subsection{General structure}
+
+The initial plan was to build a UI with custom features (the frontend) using the XTK library with its API calls as the backend. The hope was that the XTK library would provide all necessary functionality required and so it would not be necessary to alter the library itself. However it soon became apparent that this would not be the case.
+The frontend would be written purely in JavaScript and structured with Backbone, and be using RequireJS to handle the various dependencies. Twitter-Bootstrap and JQueryUI would be used to style the look and feel of the frontend.
+The backend ie the XTK library is also written in JavaScript, but uses the Google Closure library to compile the code into minified code. This serves to reduce variable and function names and generally is designed to make the code run faster. The drawback is that it become harder to decode, since variable and function names are changed to be meaningless to the human reader. For functions and attributes that are meant to be used from outside the library, custom setters and getters have to be written. XTK also uses Goog matrices for their Graphics computations. Additionally the WebGL portion of XTK makes use of GLSL for its shaders, but is wrapped as strings in a JavaScript file.
+
+
 
 \section{Implementation}
 
@@ -566,6 +576,12 @@ Generally program in modular fashion, tackle problems in a naive fashion first t
 
 Meetings with the Project Supervisor Dr. Ben Glocker were held every one to three weeks, based on availability. Written notes were kept as record. Generally we discussed my progress up to date, and which features I should focus on in future. The meetings provided valuable feedback and direction, since Dr. Glocker is an expert in the field of Medical Imaging, has written his own Medical Image Viewers and could provide relevant Software and Data samples. He was treated as the client for this project.
 
+
+\subsubsection{Test Data}
+
+My supervisor provided a host of test files for me to use while developing this tool. These varied from smaller files of a brain scan (4.2 Mb) with a labelmap (4.2 Mb), to the largest scan file of an abdomen (86.5 Mb). Additionally I downloaded some sample data from the XTK tutorials. This set included the main file (286 Kb), a labelmap (19 Kb) and a colortable (6 Kb). Furthermore I downloaded more samples from the official Nifti website. For testing new features, I would test the thorax file set, as well as the brain scans, since these files took less time to load. Periodically I would test the other Nifti files to make sure the code worked with diffferent and larger files.
+For colortables, I downloaded some from the 3DSlicer wikipedia site in their default format, and later amended these to work as hardcoded JavaScript arrays.
+
 \subsubsection{Coding Journal}
 
 As the project grew more complex, I started writing a Coding Journal in which I would write down any relevant ideas or thoughts. Since working on one aspect usually took more time than thinking of ideas for other aspects, this proved quite valuable in recording them, organising them and going back over later to make sure I had not missed anything important.
@@ -580,16 +596,6 @@ As I am sure is a regular occurence, checking StackOverflow for any problems pro
 
 
 \subsection{Implementing Features/ Implementation History}
-
-have pictures of progress along the way?
-
-
-\subsubsection{General structure}
-
-The initial plan was to build a UI with custom features (the frontend) using the XTK library with its API calls as the backend. The hope was that the XTK library would provide all necessary functionality required and so it would not be necessary to alter the library itself. However it soon became apparent that this would not be the case.
-The frontend would be written purely in JavaScript and structured with Backbone, and be using RequireJS to handle the various dependencies. Twitter-Bootstrap and JQueryUI would be used to style the look and feel of the frontend.
-The backend ie the XTK library is also written in JavaScript, but uses the Google Closure library to compile the code into minified code. This serves to reduce variable and function names and generally is designed to make the code run faster. The drawback is that it become harder to decode, since variable and function names are changed to be meaningless to the human reader. For functions and attributes that are meant to be used from outside the library, custom setters and getters have to be written. XTK also uses Goog matrices for their Graphics computations. Additionally the WebGL portion of XTK makes use of GLSL for its shaders, but is wrapped as strings in a JavaScript file.
-
 
 
 \subsubsection{Creating the single web app structure}
@@ -613,20 +619,11 @@ Picture
 
 In terms of the layout of the components of ScanView, I had fairly accurate ideas. It needed to accomodate the 4 different views in viewing panels (one 3D Camera View and X, Y and Z Camera Views). I wanted to add some customisation options in terms of size of the viewer and choice of Camera View in each panel. Depending on whether it was a 3D or 2D Camera View, the Display Panel would have different options. 3D Camera View needed a toggle for Volumetric Rendering, 2D Camera View needed a toggle for Information Overlay.
 
-
-
-
-
-
-
 For the different layouts I briefly investigated using interactive splitters, but found them to be not very easy or reliable to tie into the program. Instead I opted for 4 different static Layouts (See image below). This should give the user enough options to choose what his prefered layout. Implementing the logic behind these panels took a while to get right. Panels had to auto-resize everytime the layout was changed. Again this required some exposing of extra XTK attributes.
-
-
-
 
 Coming up with a concept for the viewers... needed to have the distinct number of viewers.
 Came up with concept of copying images from it.
-Was trying to use it still as an API, did'nt realise that I would have to descend deep into the library at some point.
+Was trying to use it still as an API, didn't realise that I would have to descend deep into the library at some point.
 
 
 
@@ -681,10 +678,6 @@ XTK deals with Colortables in that the user has to load them as a .txt file when
 \end{figure}
 
 
-
-
-
-
 Having finished this feature so far, it occured to me that I could actually speed the whole process up by having some hardcoded colortables in the code, and using them as a array to look up colorvalues when rendering the actual pixel. This was much easier to implement, loads much quicker as it is more efficient in only manipulating color at a pixel level rather then changing the color values of the whole volume. In the end I chose this method as I prefered the faster feedback. It has the limitation that the user can not load his own colortable, but this is a feature that could be added in future. For the moment, there are three colortables provided. Firstly, the standard colortable maps rgbs values directly to the same value. Secondly, an ID map maps values to different RGB values, which is intended for use with labelmaps. Thirdly, a type of Heatmap map has been included which maps the original RGB values from BLUE to RED to mimic the behaviour of a heat map. This was advised by the project supervisor, and an original heat mapping was supplied in a custom format, with only 64 integer mappings provided. I wrote a python script which would convert this into a JavaScript array with 256 mappings. I also used a similar Python script to convert Slicer3D Wiki Colortables to useable JavaScript arrays.
 
 
@@ -695,7 +688,7 @@ Having finished this feature so far, it occured to me that I could actually spee
 
 The Annotations feature was addded in the last month and I was aware of time pressure. That is why initital design decisions had to be made to reduce wasted time later in the process. I decided on implementing rectangular annotations first, since that would make calculations easier to manage. Annotations would be JavaScript objects with core members that were predefined (labelName, color, 3DPoints), and secondary attributes that would have to be computed on the fly (such as 2D Points for displaying on screen). Specifically, an annotation would be defined by 8 points in 3D Space. However to render it in a 2D View, 2D points had to be generated in screen space. I had intended the 2D points to be selectable in the Canvas View, so these 2D points should also be objects with custom attributes.
 
-An initial UML diagram was desiged as below:
+An initial UML diagram was desiged as below, although the final Annotation class contained quite a few more helper functions to help with the conversion from 3D to 2D space.
 
 \begin{figure}[ht!]
 \centering
@@ -705,7 +698,7 @@ An initial UML diagram was desiged as below:
 \end{figure}
 
 
-The final Annotation class contained quite a few more helper functions to help with the conversion from 3D to 2D space.
+
 
 
 The next step was to chose a data format and design the workflow. Initial tests were done with XML but to be somewhat cumbersome since some parsing is required and in the program the XML structures would have to be converted to JavaScript objects. Therefore the much more intuitive JSON format was chosen, since this basically stores JavaScript objects in readable form, and can be loaded directly into the program without almost any conversion required. The JSON format was originally derived from JavaScript which explains its ease of use.
@@ -753,6 +746,23 @@ Adding Labelmaps proved to be relatively painless due to the time spent understa
 \caption{Brain Scan with overlaid Labelmap}
 \label{fig:UIdesign1}
 \end{figure}
+
+
+
+\subsubsection{Controls}
+
+Some effort was put into making the software intuitive for users to use.
+
+
+All navigation and traversal was placed on mouse controls. The guidelines from the book helped inform the controls in that radiologist prefer to have as simple controls as possible since their work can consist of dealing with vast quantities of these kind of files, so any intricate control input method would soon get tiresome.
+
+
+
+
+
+
+
+
 
 
 \subsubsection{Error Handling}
@@ -906,10 +916,11 @@ There are various methods in the X.renderer classes. Init(), render() and update
 \end{figure}
 
 
-X.slice is a type of X.object and inherits a host of attributes and functions from it (see below for UML diagram). It stores attributes for a current slice, such as orientation vectors (\_front, \_up, \_right), \_center, dimensions (\_width and \_height)
+X.slice is a type of X.object and inherits a host of attributes and functions from it (see below for UML diagram). It stores attributes for a current slice, such as orientation vectors (\_front, \_up, \_right), \_center, dimensions (\_width and \_height).
 
+Generally, XTK uses the concept of injections to add extra features into various X.classes. A selection can be see in Figure 34. X.loadable supplies attributes to store file data. X.displayable offers several attributes useful for displayin in Canvas, such as \_color, \_points and \_texture. Finally, X.thresholdable enables the setting of different threshold values, as is used in the X.volume.
 
-The Xvolume is a more complex type of Xobject. As it is an X.object, it can be added to a X.renderer and inherits all the attributes and methods from the X.object class. Volumes are also injected with the loadable.js code, which adds support for loading files and with thresholdable.js code, which allows for applying threshold operations on it. An X.volume has a variety of attributes that deal with the currently loaded data, such as current indices (\_indexX, \_indexY and \_indexZ), range which specifies the maximum indices. It has \_windowLow, \_windowHigh, \_thresholdLow and \_thresholdHigh (the last two from thesholdable.js) which dictate the window and treshold settings. As for all attributes that are to be accessed from outside the API, setter methods have been written which take care of internal logic. It is the setter methods for window and threshold that are being called through the Levels Panel when adjusting the sliders. The X.volume has the inherited array children from (X.object) in which it stores all the precomputed X.slices.
+The Xvolume is a more complex type of Xobject. As it is an X.object, it can be added to a X.renderer and inherits all the attributes and methods from the X.object class. Volumes are also injected with the loadable.js code and thresholdable code. An X.volume has a variety of attributes that deal with the currently loaded data, such as current indices (\_indexX, \_indexY and \_indexZ), range which specifies the maximum indices. It has \_windowLow, \_windowHigh, \_thresholdLow and \_thresholdHigh (the last two from thesholdable.js) which dictate the window and treshold settings. As for all attributes that are to be accessed from outside the API, setter methods have been written which take care of internal logic. It is the setter methods for window and threshold that are being called through the Levels Panel when adjusting the sliders. The X.volume has the inherited array children from (X.object) in which it stores all the precomputed X.slices. A precomputed X.slice is generated when the slice index is set to an index that has not been visited yet since instantiation. In this way, the X.volume will buffer more and more slices throughout scrolling. Once the X.slices have been buffered, lookup is noticeably quicker. When the X.volume is set to an uncomputed sliceIndex, different functions are called than when a precomputed slice is present, including forcing a redraw in the render.js class. So when loading a custom labelmap, I had to implemented a method to clear the \_children array.
 
 \begin{figure}[ht!]
 \centering
@@ -959,7 +970,27 @@ Alot of working required was to write setters and getters for attributes that I 
 
 I tried to follow the style guide which is posted online in using camelCase typing with underscores at the appropriate places for attributes and functions.
 
-There seem to be some issues and bugs with XTK?
+There seem to be some issues and bugs with XTK. One of these is that some files do not load properly, so more advanced file handling should be added. Also the mouse controls for threshold and window setting work in a way that is not intuitive and not reversible, so that after left-clicking and dragging a few times, the image will not return to its original brightness anymore. This could be because there are two attributes (min and low) to set for both threshold and windowing.
+
+
+
+
+\subsubsection{RequireJS}
+
+RequireJS proved invaluable for determining correct dependencies for loading JavaScript libraries.
+As I am using more than a handful of libraries which are also dependent on one another, I needed the ability to ensure that they had loaded correctly. The issue is that the modules are loaded asynchronously, so a module that depends on a another module could easily load before the other (as opposed to in sequence loading from function programming). A good exampe for this is the tooltips that I implemented towards the final stages of the project. Both jQueryUI and twitter-bootstrap provide tooltips. In both cases they are initiated by the same function call, however they look quite distinctly different. I wanted to use the twitter-bootstrap tooltips as they seem more aesthetically pleasing. Without determining the load order with RequireJS, whenever I reloaded the software a different tooltip style would pop up, depending on which library loaded first. This kind of race condition is of course undesirable.
+
+Another example is of course XTK itself which relies on JQuery and UnderscoreJS. RequireJS really was a life saver for these situations. The screen shot below shows the ordered nature of loaded modules, using Chrome's Network tab. Without RequireJS, the loads would happen a lot more randomly.
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=120mm]{graphics/requireOrder_01.png}
+\caption{Ordered module loading with RequireJS}
+\label{fig:UIdesign1}
+\end{figure}
+
+
 
 
 
@@ -973,15 +1004,9 @@ Similarily, I started out using Backbone's collections which are a type of array
 
 Issue with DRY between models and views. It is tempting to put functionality into the views, rather than the models.
 
+//CHANGE THIS AROUND, ADD TO HISTORY... of annotations
+
 One issue came up with arrays and the 'change' event. When changing the contents of an array, the 'change' event does not get fired. This is because the base address of the array does not change. In order to work around this, I had to clone the arrays everytime I wanted to change their contents. I ended up packaging this sort of behaviour in classes that had arrays as members. This issue came up predominately with Annotations, since Annotation objects are stored in a array structure in the LayerItem Model. Also Annotation objects contain arrays of 3D and 2D points.
-
-
-
-\subsubsection{RequireJS}
-
-RequireJS proved invaluable for determining correct dependencies for loading JavaScript libraries.
-As I am using more than a handful of libraries which are also dependent on one another, I needed the ability to ensure that they had loaded correctly. The issue is that the modules are loaded asynchronously, so a module that depends on a another module could easily load before the other (as opposed to in sequence loading from function programming). A good exampe for this is the tooltips that I implemented towards the final stages of the project. Both jQueryUI and twitter-bootstrap provide tooltips. In both cases they are initiated by the same function call, however they look quite distinctly different. I wanted to use the twitter-bootstrap tooltips as they seem more aesthetically pleasing. Without determining the load order with RequireJS, whenever I reloaded the software a different tooltip style would pop up, depending on which library loaded first. This kind of race condition is of course undesirable.
-Another example is of course XTK itself which relies on JQuery and UnderscoreJS. RequireJS really was a life saver for these situations.
 
 
 
@@ -1025,8 +1050,8 @@ All things considered, this libary proved to be very useful and saved a lot of t
 \subsubsection{Google Analytics}
 
 Google Analytics is a tool by Google that provides detailed information of website usage. I installed it to get a clear picture of how many people would be using the website. I have used Google Analytics in the past and have been impressed by the comprehensive overview it provides. It shows the number of unique and returning visitors, average session duration, feedback on which browsers and operating systems they were using, which city and country it was viewed from. Additionally for mobile devices it even shows the screen resolution.
+
 Implementation is very easy by just copying an HTML script code snippet and pasting it into any website that the user would like to track the usage for.
-NEED TO CONCLUDE ANYTHING FROM THIS?
 
 \begin{figure}[ht!]
 \centering
@@ -1034,17 +1059,6 @@ NEED TO CONCLUDE ANYTHING FROM THIS?
 \caption{Google Analytics Website Usage Statistics}
 \label{fig:UIdesign1}
 \end{figure}
-
-
-
-\subsubsection{Controls}
-
-Some effort was put into making the software intuitive for users to use.
-
-
-All navigation and traversal was placed on mouse controls. The guidelines from the book helped inform the controls in that radiologist prefer to have as simple controls as possible since their work can consist of dealing with vast quantities of these kind of files, so any intricate control input method would soon get tiresome.
-
-
 
 
 
@@ -1061,6 +1075,163 @@ All navigation and traversal was placed on mouse controls. The guidelines from t
 
 In order to evaluate the software, two components were chosen. The first was to test one of the main claims of this project, namely that the website runs on a variety of computer setups, thereby freeing the user of having to use a specific desktop tool for a specific platform. Secondly, the software has been deployed on the Internet and has been sent to a number of users for evaluation via a survey. Finally the software will be evaluated against the aims set forth at the beginning of the project.
 Evaluation of main client?
+
+
+
+
+
+
+
+\subsection{Review of Features}
+
+\subsubsection{Comparing to initially set requirements}
+
+When comparing the final features of ScanView with the list of initial requirements, it appears that all of the primary requirements have been implemented successfully.
+
+
+Regarding secondary requirements, only a few have been implemented. This is mainly due to lack of time and complexity of some of these requirements. In retrospect it is much more clear that some secondary requirements are harder to implement than others. For example adding Measuring Tools would be quite easy, since a lot of the basic functionality that would be required is in place, such as conversion from screen space to volume space. Sharing data online would be much more demanding to implement, since it would require dealing with network and could be subject to entire other project (even though an implementation via DropBox would be feasible).
+
+
+
+\begin{center}
+
+  \begin{tabular}{| l | l |}
+    \hline
+    Primary Requirement & Implemented \\ \hline \hline
+	Loading NII file & Yes\\ \hline
+	Viewing file in 2D and 3D & Yes\\ \hline
+	Navigation in 2D and 3D & Yes\\ \hline
+	Brightness and Contrast controls & Yes \\ \hline
+	Loading NII Labelmaps & Yes \\ \hline
+	Loading additional NII files for comparison & Yes \\ \hline
+	Different color-lookups provided & Yes \\ \hline
+	Sample Data Provided & Yes \\ \hline
+
+  \end{tabular}\\
+\end{center}
+
+\begin{center}
+
+  \begin{tabular}{| l | l |}
+    \hline
+    Secondary Requirement & Implemented \\ \hline \hline
+	Paint Custom Labelmaps & No\\ \hline
+	Save Labelmaps to computer & No \\ \hline
+	Create and save Annotations & Yes \\ \hline
+	Method of sharing data & No \\ \hline
+	Image filters & No \\ \hline
+	Measuring Tools & No \\ \hline
+	View volume file as 3D model & Yes \\ \hline
+	Animation along axis & Yes \\ \hline
+
+
+
+  \end{tabular}\\
+\end{center}
+
+
+
+\begin{itemize}
+\item The user can paint a custom labelmap for a given scan file with a set of intuitive tools. The primary goal will be that the user can paint areas manually on individual slices. Provided there is enough time, some semi-automatic painting tools will also be implemented that will allow the user to specify regions in the 3D space with automatic selection tools. 
+\item The user can save a labelmap to his computer
+\item The user can create and save custom annotation maps to label given scans
+\item The web app provides a method for sharing  means of sharing data across the internet (similar to the DropBox implementation in SliceDrop)
+\item The web app provides image filters that can be applied to a scan or label map
+\item The web app provides measuring tools that can be applied to a scan or label map
+\item A three dimensional, parameterised model of the scan be viewed in the 3D view
+\item The 'cine mode' feature allows for an animation along a specified axis
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Comparing with other web browser based programs}
+
+In terms of the final feature list, ScanView distinguishes itself from the currently available web-based Medical Image Programs. As most online programs are very basic, ScanView's features outnumber them. 
+
+The software that it resembles most closely is SliceDrop, also in part due to its common heritage. ScanView improves on SliceDrop in a number of ways. ScanView is more dynamic in that it allows interactive file loading and deletion similar to a standard desktop software program. It allows to load several Volume Files (via Display Layers) which can be compared visually due to the implemented Buffer System. Furthermore file load errors are handled more completely by letting the user know the error message via a message pop-up. In SliceDrop, file load errors are only printed to the developer console, which the standard user can not be expected to check. Both ScanView and SliceDrop enable volumetric rendering, since this is a common feature of the XTK library. ScanView's View Panels are more free to display custom information via the Overlay toggle. In terms of navigation, both feature the same set transformations. ScanView adds the convenience feature of resetting the view camera to the start position of the camera. SliceDrop does not feature an Annotation System like ScanView does. SliceDrop does allow for custom loading of color tables, whereas ScanView's final implementation relies on predefined colortables. SliceDrop also allows for downloading .nii files of currently viewed data, which ScanView is not able to do. Both programs can overlay labelmaps on top of Volume Files. Although not implemented, there is code in SliceDrop's code base that would enable loading and saving to DropBox. So while both programs have different feature sets, ScanView is better at comparing multiple files and adding annotations. Furthermore it provides a more interactive feel with its Display Layer Management system and adjustable Layouts.
+
+
+
+
+Compared Papaya and DICOM Web Viewer, ScanView's feature list looks even more favorable. Both programs are very light-weight, feature only 2D Views and no multiple file loading. NEED MORE TEXT HERE.
+
+
+
+
+\begin{center}
+
+  \begin{tabular}{ | l | l | l | l | l |}
+    \hline
+    Feature & ScanView & SliceDrop & DICOM Web Viewer & Papaya \\ \hline \hline
+
+Loading NII file & Yes & Yes & Yes & Yes\\ \hline
+Loading Other file formats & No & Yes & ? & ?\\ \hline
+Loading multiple files in one session & Yes & No & No & No \\ \hline
+Error handling for loading files & Yes & No & No & No\\ \hline
+Orthogonal Views & Yes & Yes & Yes & Yes\\ \hline
+3D Perspective View & Yes & No & Yes & Yes \\ \hline
+Volumetric rendering & Yes & Yes & No & No\\ \hline
+Volumetric and 2D rendering overlaid & No & Yes & No & No \\ \hline
+Comparing several files to each other & Yes & No & No & No\\ \hline
+Annotations & Yes & No & No & No\\ \hline
+Loading of custom colortables & No & Yes & No & No \\ \hline
+Loading predefined colortables & Yes & No & No & No\\ \hline
+Saving of Data & No & Yes & No & No\\ \hline
+Online File Sharing & No & No* & No & No\\ \hline
+Adjustable Layouts & Yes & No & No & No \\ \hline
+
+  \end{tabular}\\
+
+
+
+*Not currently available but being worked on
+
+
+\end{center}
+
+
+
+\subsubsection{Comparing with Desktop-based programs}
+
+Naturally due to the limited time frame of this project, ScanView can not compete in terms of feature richness with other available programs. Given the time, it should however be possible to reach a similar level of feature completeness. Technically, it seems feasible. Actually, ScanView does aim to match in terms of features...
+
+
+\begin{center}
+
+  \begin{tabular}{ | l | l | l | l | l |}
+    \hline
+    Feature & ScanView & 3DSlicer & ImView & ITKSnap \\ \hline \hline
+
+Loading NII file & Yes & Yes & Yes & Yes\\ \hline
+Loading Other file formats & No & Yes & ? & ?\\ \hline
+Loading multiple files in one session & Yes & No & No & No \\ \hline
+Error handling for loading files & Yes & No & No & No\\ \hline
+Volumetric rendering & Yes & Yes & No & No\\ \hline
+Volumetric and 2D rendering overlaid & No & Yes & No & No \\ \hline
+Comparing several files to each other & Yes & No & No & No\\ \hline
+Annotations & Yes & No & No & No\\ \hline
+Loading of custom colortables & No & Yes & No & No \\ \hline
+Loading predefined colortables & Yes & No & No & No\\ \hline
+Saving of Data & No & Yes & No & No\\ \hline
+Online File Sharing & No & No* & No & No\\ \hline
+
+  \end{tabular}\\
+
+
+\end{center}
+
+
+
 
 
 \subsection{Protocol Testing across different platforms}
@@ -1304,84 +1475,11 @@ However I managed to add some fixes to the few criticisms that I received. File 
 
 \subsubsection{Outstanding Feedback}
 
-I sent a link to the software to the XTK developers in order to get their feedback, but at this point in time have not heard back from them.
-
-
-
-\subsection{Review of Features}
-
-\subsubsection{Comparing with other web browser based programs}
-
-In terms of the final feature list, ScanView distinguishes itself from the currently available web-based Medical Image Programs. As most online programs are very basic, ScanView's features outnumber them. 
-
-The software that it resembles most closely is SliceDrop, also in part due to its common heritage. ScanView improves on SliceDrop in a number of ways. ScanView is more dynamic in that it allows interactive file loading and deletion similar to a standard desktop software program. It allows to load several Volume Files (via Display Layers) which can be compared visually due to the implemented Buffer System. Furthermore file load errors are handled more completely by letting the user know the error message via a message pop-up. In SliceDrop, file load errors are only printed to the developer console, which the standard user can not be expected to check. Both ScanView and SliceDrop enable volumetric rendering, since this is a common feature of the XTK library. ScanView's View Panels are more free to display custom information via the Overlay toggle. In terms of navigation, both feature the same set transformations. ScanView adds the convenience feature of resetting the view camera to the start position of the camera. SliceDrop does not feature an Annotation System like ScanView does. SliceDrop does allow for custom loading of color tables, whereas ScanView's final implementation relies on predefined colortables. SliceDrop also allows for downloading .nii files of currently viewed data, which ScanView is not able to do. Both programs can overlay labelmaps on top of Volume Files. Although not implemented, there is code in SliceDrop's code base that would enable loading and saving to DropBox. So while both programs have different feature sets, ScanView is better at comparing multiple files and adding annotations. Furthermore it provides a more interactive feel with its Display Layer Management system and adjustable Layouts.
-
-Compared Papaya and DICOM Web Viewer, ScanView's feature list looks even more favorable. Both programs are very light-weight, feature only 2D Views and no multiple file loading. NEED MORE TEXT HERE.
+I sent a link to the software to the XTK developers in order to get their feedback, but at this point in time have not heard back from them. Also two radiologists have been contacted through private channels, but their feedback is also outstanding at this point.
 
 
 
 
-\begin{center}
-
-  \begin{tabular}{ | l | l | l | l | l |}
-    \hline
-    Feature & ScanView & SliceDrop & DICOM Web Viewer & Papaya \\ \hline \hline
-
-Loading NII file & Yes & Yes & Yes & Yes\\ \hline
-Loading Other file formats & No & Yes & ? & ?\\ \hline
-Loading multiple files in one session & Yes & No & No & No \\ \hline
-Error handling for loading files & Yes & No & No & No\\ \hline
-Orthogonal Views & Yes & Yes & Yes & Yes\\ \hline
-3D Perspective View & Yes & No & Yes & Yes \\ \hline
-Volumetric rendering & Yes & Yes & No & No\\ \hline
-Volumetric and 2D rendering overlaid & No & Yes & No & No \\ \hline
-Comparing several files to each other & Yes & No & No & No\\ \hline
-Annotations & Yes & No & No & No\\ \hline
-Loading of custom colortables & No & Yes & No & No \\ \hline
-Loading predefined colortables & Yes & No & No & No\\ \hline
-Saving of Data & No & Yes & No & No\\ \hline
-Online File Sharing & No & No* & No & No\\ \hline
-Adjustable Layouts & Yes & No & No & No \\ \hline
-
-  \end{tabular}\\
-
-
-
-*Not currently available but being worked on
-
-
-\end{center}
-
-
-
-\subsubsection{Comparing with Desktop-based programs}
-
-Naturally due to the limited time frame of this project, ScanView can not compete in terms of feature richness with other available programs. Given the time, it should however be possible to reach a similar level of feature completeness. Technically, it seems feasible. Actually, ScanView does aim to match in terms of features...
-
-
-\begin{center}
-
-  \begin{tabular}{ | l | l | l | l | l |}
-    \hline
-    Feature & ScanView & 3DSlicer & ImView & ITKSnap \\ \hline \hline
-
-Loading NII file & Yes & Yes & Yes & Yes\\ \hline
-Loading Other file formats & No & Yes & ? & ?\\ \hline
-Loading multiple files in one session & Yes & No & No & No \\ \hline
-Error handling for loading files & Yes & No & No & No\\ \hline
-Volumetric rendering & Yes & Yes & No & No\\ \hline
-Volumetric and 2D rendering overlaid & No & Yes & No & No \\ \hline
-Comparing several files to each other & Yes & No & No & No\\ \hline
-Annotations & Yes & No & No & No\\ \hline
-Loading of custom colortables & No & Yes & No & No \\ \hline
-Loading predefined colortables & Yes & No & No & No\\ \hline
-Saving of Data & No & Yes & No & No\\ \hline
-Online File Sharing & No & No* & No & No\\ \hline
-
-  \end{tabular}\\
-
-
-\end{center}
 
 \section{Conclusions}
 
