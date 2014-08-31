@@ -751,16 +751,16 @@ Adding Labelmaps proved to be relatively painless due to the time spent understa
 
 \subsubsection{Controls}
 
-Some effort was put into making the software intuitive for users to use.
+Dedicated effort was put into making the software intuitive for users to use, after having researched specific requirements for user input and understanding how many of these files could be inspected in a typical session. Since I was copying the pixels from the XTK render canvases into the custom Render Panels, I had to reinstate the controls that were already in XTK. However this also gave me some freedom to redesign certain controls.
 
+I scrapped the mouse controls for brightness and contrast, since they were buggy, as discussed in previous sections, and there was not enough visual feedback for the user to see what was being changed. Instead I opted for traditional slider based methods, with numerical input fields on either side to clearly show which numbers were currently set. This works well in that it is very clear to the user how to manipulate the image, and it is more bug-free than the XTK implementation. Also the number input fields allow for precise control for the case that a user wants to recreate a certain brightness configuration.
 
-All navigation and traversal was placed on mouse controls. The guidelines from the book helped inform the controls in that radiologist prefer to have as simple controls as possible since their work can consist of dealing with vast quantities of these kind of files, so any intricate control input method would soon get tiresome.
+All slice navigation and traversal was placed on mouse controls. The guidelines from the book helped inform the controls in that radiologist prefer to have as simple controls as possible since their work can consist of dealing with vast quantities of these kind of files, so any intricate control input method would soon get tiresome. Therefore the standard XTK input methods were kept mostly intact, so the middle clicking pans the camera, right-clicking zooms and left-click rotates in the 3D View. Since the left-click for the 2D Views was freed from controlling brightness, I assigned the traversal function to this, which allows the user to quickly reset all 3 slice indices. This was inspired by IMView (check!!) and prefered to XTK's default traversal input which requires the additional holding down of the 'Shift Key'.
 
+Reinstating the mouse controls took some as I had to find out how to trigger the appropriate response in the XTK canvases. For 2D and 3D navigation, I had to study the XTK X.camera more closely. It turned out that I could access the X.camera's view matrix directly via an already implemented setter method, where indices 13 and 14 were synonymous with the X and Y position camera, and index 15 was the Z position. Therefore all I needed to do was calculate the relative movement to the currently selected HTML Canvas (by substituting the absolute mouse coordinates from the HTML Canvas coordinates), and convert this with an appropriate factor to X and Y numbers to be entered into the view matrix.
+Likewise for zooming in the 2D Views, an adaptive zoom factor was implemented after discussion with the supervisor. The first normal implementation would zoom with a constant factor, but this would be more ineffective the further the camera was zoomed in on a slice. I implemented an adaptive zoom factor that interpolates between a linear zoom function to a square zoom function to counteract this effect.
 
-
-
-
-
+To further add convenience for user input, I created a couple of keyboard shortcuts. To toggle between the A and B buffers, the user can press '1' or '2'. I was used to this from using the compositing software Nuke and have always found a frequently used short cut when comparing two images with each other, especially when looking for minute differences. This ties in with the idea that ScanView could be used to compare two medical image data files with each other. For the View Panels I also added the keyboard 'f' shortcut to recenter the camera after any panning, zooming or rotation had been applied. This is achieved by storing the initial camera view matrix when the file is loaded, and loading this view upon key press. Adding these keyboard shortcuts is relatively trivial and more could and should be added, assuming that keyboard short cuts increase user speed. Some care had to be taken to ensure that the keyboard shortcuts do not get triggered when a text field is being edited.
 
 
 
@@ -819,9 +819,30 @@ Furthermore, I implemented changes that would guide the user better in terms of 
 
 In order for users to be able to evaluate the product, some effort had to be put in to deploy the software to the web. I am hosting it on my personal webspace, which I prefered to hosting it on a local college server since I can send the site for feedback to people outside of Imperial College. I use FileZilla to upload the code, but wrote a Python script to facilitate the uploading, since manual replacing of files soon became tedious and time-wasting. The script will recursively copy each file of a specified directory to a designated space on my web space.
 
-The deploying process went smoothly, as it had been desiged as a live webpage from the beginning. I added a page with some sample data for the user to download, tutorials resembling the protocols above together with screen capture videos. Furthermore an 'About' page was added which explained the main features of the program as well crediting various libraries and plug-ins that were used, as well as patch notes. Finally, an online survey by Survey Monkey was introduced to allow for convenient feedback by the user.
+The deploying process went smoothly, as it had been desiged as a live webpage from the beginning. I added a page with some sample data for the user to download, tutorials resembling the protocols above together with screen capture videos. Furthermore an 'About' page was added which explained the main features of the program as well crediting various libraries and plug-ins that were used, as well as patch notes. 
+
+Finally, an online survey by Survey Monkey was introduced to allow for convenient feedback by the user. Survey Monkey allows for free creation of surveys that are hosted online and accessible via a web link that can be sent by email or in this case embedded into a website. They also offer a host of analytical tools for investigating survey answers and data. The more advanced tools need to be paid for, but even the free tools allow for summary of results and inspection of individual responses. In lack of a proper beta test, this was deemed a quick way of getting feedback from different users. It was deemed important to ascertain whether the user has some experience with medical image data and viewing software, how much time the user spent with ScanView in order to estimate how thorough the usage was, which bugs were found and which features could be improved or added, The following questions were asked:
+
+\begin{enumerate}
+\item Have you worked with medical image data before? (Yes/No)
+\item If yes, in what capacity have you worked with medical image data before?
+\item Have you worked with medical image viewing software before? (Yes/No)
+\item If yes, please states which programs you have used!
+\item How much time did you spend with the ScanView program? (0 - 15 Minutes, 15 - 30 Minutes, 30 - 60 Minutes, 60 Minutes and more)
+\item How convenient is the ScanView program to use? (Extremely convenient, Very convenient, Moderately convenient, Slightly convenient, Not at all convenient)
+\item Do you think the ScanView program could be a viable alternative to comparable non-browser-based Medical Imaging Viewing software (eg. Slicer3D)? (Agree strongly, Agree somewhat, Not sure, Disagree somewhat, Disagree strongly)
+\item Do you have any criticisms of the ScanView program?
+\item What features would you like to see added to the ScanView program?
+\end{enumerate}
+
+
+
+
 
 A host of fixes have been uploaded since initial deployment, partially fixing outstanding bugs and implementing features requested from user feedback. More on this topic will be covered in the results section.
+
+
+
 
 
 \subsection{Implementation Details/ Working with Libraries}
@@ -963,7 +984,6 @@ For renderer2D.js, when the user changes the index of one of the slide direction
 
 
 Xtk deals with its 2D and 3D renderers quite differently. One difference is in how the update function works. For renderer3D.js the update function becomes a recursive call with 60 plus iterations depending on the loaded volume.
-
 
 
 Alot of working required was to write setters and getters for attributes that I need to get access to, which was trivial to implement. Adding some functions required for inverting ijk to xy values proved to be more challenging and took much longer.
@@ -1128,23 +1148,6 @@ Regarding secondary requirements, only a few have been implemented. This is main
 
   \end{tabular}\\
 \end{center}
-
-
-
-\begin{itemize}
-\item The user can paint a custom labelmap for a given scan file with a set of intuitive tools. The primary goal will be that the user can paint areas manually on individual slices. Provided there is enough time, some semi-automatic painting tools will also be implemented that will allow the user to specify regions in the 3D space with automatic selection tools. 
-\item The user can save a labelmap to his computer
-\item The user can create and save custom annotation maps to label given scans
-\item The web app provides a method for sharing  means of sharing data across the internet (similar to the DropBox implementation in SliceDrop)
-\item The web app provides image filters that can be applied to a scan or label map
-\item The web app provides measuring tools that can be applied to a scan or label map
-\item A three dimensional, parameterised model of the scan be viewed in the 3D view
-\item The 'cine mode' feature allows for an animation along a specified axis
-\end{itemize}
-
-
-
-
 
 
 
