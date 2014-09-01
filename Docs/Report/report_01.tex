@@ -104,7 +104,7 @@ A small selection of use cases have been discussed with the project supervisor. 
 
 The final software represents a comprehensive tool for viewing medical image data as well as adding custom annotations . All of the primary aims as stated above have been met, as well as a couple of secondary requirements (see full feature list in the Implementation Section). It is designed to be used with intuitive control as advised for use by radiologists, mimicking convential controls in other software. Judging by similar software online, the software provides many more features than its competition. It has also been tested to successfully run across several operating systems and web browsers, thereby fulfilling the requirement of being more widely useable independent of computer configuration of the user. The project was built on using the XTK library, which appears to be the most comprehensive library for viewing medical image data to date. However since missing a lot of critical functionality as required by this project, the library had to be extended to provide tools for more dynamic application building.
 
-
+\newpage
 \section{Background}
 
 
@@ -309,6 +309,16 @@ Looking at a breakdown over the last 10 years, Internet Explorer used to be the 
 \label{fig:UIdesign1}
 \end{figure}
 
+The site www.w3schools.com, a popular tutorial site for web programming, has slightly different statistics. Chrome still comes out on top with 59.8\%, but the places for Firefox and Internet Explorer are reversed with 24.9\% and 8.5\% market share respectively. W3School's sample set comes from people logging onto their sites, so therefore are more likely to be developers rather than casual users. This could mean that developers prefer Chrome and Firefox (a group where I would include myself).
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/webStats_01b.png}
+\caption{Browser Market Share 2014 - REFERENCE}
+\label{fig:UIdesign1}
+\end{figure}
+
+
 
 \begin{figure}
 \centering
@@ -328,37 +338,118 @@ Looking at a breakdown over the last 10 years, Internet Explorer used to be the 
 
 \end{figure}
 
-Further statistics prove, that most Web Browser usage comes from Windows 7 (39.48\%) followed by iOS 7 (10.10\%) and Windows XP (9.64\%). Most used screen resolution is 1366x768 pixels (19.27\%).
+Further statistics from w3c show that most Web Browser usage comes from Windows 7 (39.48\%) followed by iOS 7 (10.10\%) and Windows XP (9.64\%). Most used screen resolution is 1366x768 pixels (19.27\%).
 
-Given the statistics discussed above, it was decided to mainly develop for Google's Chrome. The other browsers will be supported as secondary priority. It will be developed and tested on Windows 7, OSX Mavericks and Linux Ubuntu, which should cover most computer Operating Systems. In terms of screen resolution, the most widely-used screen resolution of 1366x768 will be taken into accound, but a higher resolution assumed, such as 1920x1020.
+Given the statistics discussed above, it was decided to mainly develop for Google's Chrome. The other browsers will be supported as secondary priority. It will be developed and tested on Windows 7, OSX Mavericks and Linux Ubuntu, which should cover most computer Operating Systems. In terms of screen resolution, the most widely-used screen resolution of 1366x768 will be taken into account, but a higher resolution assumed, such as 1920x1020. This is obviously an important issue, since a screen with HD resolution (1920 x 1080) and a screen with a smaller resolution of 1366x768 will need to have differently sized components. Therefore using absolute pixel values, such as setting a button or section to be exactly X pixels wide could cause problems, and care will have to be taken to make the website workable across different resolutions.
 
-\subsubsection{Web Browser Compatibility}
-
-To make things even more difficult, various programming aspects such as CSS and core DOM functionality is supported to varying degrees in the different browsers and versions. The following site aims to provide a comprehensive breakdown of provided features.
-
-http://www.quirksmode.org/
-
-It is anticipated that all the variations will become a source of problems when developing the project.
 
 
 
 \subsubsection{Developing websites}
 
-Talk about DOM
+There are many ways to make a website. At a very basic level, a website can be written with just HTML (Hyper Text Markup Language) code. HTML is written with tags as in the example below. This code is converted into a tree format of JavaScript node objects or Document Object Model (DOM) by the web browser. The purpose of this is to provide a programmatic interface for scripting (removing, adding, replacing, eventing, and modifying) this live document using JavaScript [REFERENCE]. The nodes come in different types. These nodes can also be created by running JavaScript methods such as the createElement() function. The point is that JavaScript and HTML are linked very closely.
+
+\begin{verbatim}
+<html>
+    <body>
+        Hello World
+    </body>
+</html>
+\end{verbatim}
+
+Creating websites with just HTML however is not quite enough in today's world of modern web development. Modern websites can be thought of as a combination of structure, style and interactivity [REFERENCE]. These three jobs are handled in turn by HTML, CSS and JavaScript, which go hand in hand to deliver modern web page content. CSS was first published and recommended by the W3C in 1996. It is generally used to style the look of HTML content. This was previously possible with HTML, but involved a lot of work as elements had to be type set individually and was still relatively limited compared to what is possible with CSS today. With CSS an element could be assigned a class, which would refer to specific set of CSS rules.
+
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=82mm]{graphics/css_01.png}
+
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=82mm]{graphics/css_02.png}
+
+  \label{fig:sub2}
+\end{subfigure}
+\caption{HTML with CSS (left) and without CSS (right)}
+
+\end{figure}
 
 
-Generally, JavaScript code gets downloaded and executed at the user end.
+Additionally JavaScript can be include as code itself in an HTML document with the <script> tag. See the example below. JavaScript is used to add functionality to a website by managing interactive elements, function calls and whatever else a developer can think of doing with it. Advanced features such as WebGL and HTML Canvas are manipulated with JavaScript. When a website contains JavaScript, it is downloaded to the user's local machine and run locally ('client side') by the web browser's JavaScript interpreter. With increasing computational power of machines and faster processing speeds of JavaScript by web browsers, complex code can be run locally and does not rely on network speed.
 
 
-Programming for modern webpages which require more complex behaviour than just displaying information can get quite involved. Generally it takes at least \textit{HTML}, \textit{CSS} and \textit{JavaScript} to create a useful website. It is possible to include the code from each language in the main index.html file, but this is undesirable as it lacks modularity and will be hard to test and debug.
+
+\begin{verbatim}
+<script>
+    document.write("Hello, World!");
+</script>
+\end{verbatim}
+
+
+In terms of organisation, it is possible to include the code from all three language in one base HTML file, but this is extremely undesirable as it lacks modularity and will be hard to test and debug. Instead, it is convenient to keep each type of language to separate files. This makes everything more modular, easier to edit, and individual components will be easier to update or swap out. Methods on dealing with more complex bodies of code will be discussed in a later section.
+
+
+
+
+\subsubsection{Web Browser Compatibility}
+
+To make things a little bit difficult, various programming aspects such of HTML, CSS, JavaScript and DOM functionality is supported to varying degrees in the different desktop browsers and versions. This stems from the fact that web browsers are created and maintained by different companies (with differing goals). In the late 1990's this proved disasterous as web browsers with different features existed without any coordination between them. However wth the creation of the World Wide Web Consortium, the main international standards organization for the World Wide Web, matters took a turn for the better. The organisation is lead by Tim Berners-Lee, the inventor of the World Wide Web, and sets out the standards used for web browser scripting, such as CSS, HTML, JavaScript and many more. This happened in several stages and revisions over the years, and is now probably more unified than ever before. 
+
+However there still remain small differences, which is only natural when different companies are maintaining these different browsers. For example, WebGL has been supported by Google Chrome since Februray 2011, whereas it was only introduced to the Internet Explorer with Version 11, which came out in October 2013. Also, not all CSS features, used for styling the look of a website, are universally supported or at least support is lagging behind between browsers. For example when searching for the CSS property "box-shadow" www.w3schools.com will list which browsers and versions support this attribute. Luckily the most commonly used elements tend to be supported across all browsers. The http://www.quirksmode.org/ website aims to provide a comprehensive breakdown of provided features across different browsers. Another issue is that the web browsers' JavaScript interpreters can differ in their implementation.
+
+
+It is anticipated that all the variations will become a source of problems when developing the project and some time will have to be dedicated to test and if necessary reimplement certain sections of the code that does not run successfully in all browsers. A method called 'browser sniffing' could be employed, where the type and version of web browser is determined and the code configured accordingly. However W3C does not recommend this, as there would be too many variations to cater for. Instead they advocate using feature detection, which allows the developer to query for support of a feature such as WebGL instead of having to check the browser version when WebGL was first supported. This is more elegant and future-proof. 
+Looking at this from a code perspective, detecting a browser and version is done by the "navigator.userAgent" JavaScript command. It returns a string like:
+
+\begin{verbatim}
+Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; Edition Next; en) Presto/2.10.289 
+Version/12.00
+\end{verbatim}
+
+This string can be parsed, but will obviously differ widely for each different browser. It is also error prone, depending on the string parsing method employed and assumptions made about the format of the string. Instead, detecting a feature would be done like so:
+\begin{verbatim}
+if(!!document.createElement('video').canPlayType === true) {
+  // run some code that relies on HTML5 video
+} else {
+  // do something else
+}
+\end{verbatim}
+
+Testing for features like this seems a better approach since you are directly testing for a feature that you are using. Also it is independent of specific browser types and versions.
+
+Web browsers for mobile devices add another layer of complexity to this, but will be ignored for the scope of this project.
+
 
 
 
 \subsubsection{Web Frameworks for Single Page Apps}
 
-Talk about MVC paradigm. Talk about MVP paradigm.
+The aim of this project is to create a singe-page application (SPA), which loads into the browser on the client side and does not require complete page refreshes [REFERENCE].
 
-At the time of writing, \textit{Backbone} seems to be a good choice to manage the complexity and structure of the project. \textit{Backbone} is used to structure client-side applications (those that run in a web browser). It was written by Jeremy Ashkenas and is designed for developing single-page web applications, and for keeping various parts of web applications synchronized. It is based on the model–view–presenter (MVP) application design paradigm, providing Events, Models, Collections and Views. Models represent the information in class-like structures, Collections are lists of Models and Views handle the visual representation on the actual HTML site. Finally Events are used to keep track of state changes across the website elements, models and views. It builds on \textit{jQuery} and \textit{Underscore.js}, both libraries which simplify dealing with \textit{HTML} elements. It also provides inheritance for its models, collections and views.
+As goes for any body of complex code, an orderly and modular structure should be implemented and maintained. The estimated length of code for this project lies in the tens of thousands of line code and a multitude of classes. Therefore, it is in no way feasible to just include the JavaScript in script tags in the actual HTML pages. A more avanced solution is needed.
+
+Thankfully, this requirement for advanced code structuring was generally recognised, and a dominant solution to this issue by the name of Model View Controller (MVC) pattern has emerged. MVC separates the concerns in an application into three parts [REFERENCE]:
+
+\begin{itemize}
+\item Models represent the domain-specific knowledge and data in an application, such as specific data container classes. Models can notify observers when their state changes.
+\item Views typically constitute the user interface in an application (such as markup and templates), but not necessarily so. They observe models, but do not directly communicate with them.
+\item Controllers handle input (clicks or user actions) and update models.
+\end{itemize}
+
+So in an MVC application, user input is handled by controllers, which then updates various models. Views listen to the state of models and update the user interface or visual front end when changes are detected. The definition of MVC frameworks is not always followed strictly and some merge the role of controller and views into one. BackboneJS, which will be used for this project does exactly this. For that reason, these more loosely defined implementations are sometime called MV* frameworks. It would in theory be possible to organise the code for this project in a custom MV* pattern, but libraries such as Backbone are well established and reduce a lot of tedious work that would otherwise be required. AngularJS, CanJS EmberJS are other popular MVC implementations.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=70mm]{graphics/MVC_01.png}
+\caption{A typical interaction of MVC components REFERENCE-WIKI}
+\label{fig:UIdesign1}
+\end{figure}
+
+
+At the time of writing, the \textit{Backbone} library seems to be a good choice to manage the complexity and structure of the project. It was written by Jeremy Ashkenas and is designed for developing SPAs, and for keeping various parts of web applications synchronized. It has been used by big companies to create nontrivial applications, such as Walmart, SoundCloud, and LinkedIn. I have also used it in successfully in a previous group project. In accordance with the MV* pattern, Backbone provides Events, Models, Collections and Views. Models represent the information in class-like structures, Collections are lists of Models and Views handle the visual representation on the actual HTML site. Finally Events are used to keep track of state changes across the website elements, models and views. It builds on \textit{jQuery} and \textit{Underscore.js}, both libraries which simplify dealing with \textit{HTML} elements. It also provides inheritance for its models, collections and views.
 
 Regarding the design aspect, it looks like twitter-bootstrap.js supplies a convenient library for creating visually pleasing user interface elements. This will cut down on having to spend time to design custom elements with \textit{CSS} and \textit{JavaScript}. \textit{Bootstrap.js} supplies buttons, drop-down menus and commonly-used icons. Some specific UI control elements are not provided by \textit{Bootstrap.js}, so \textit{jQueryUI} will be used. It enables the creation and customisation of complex elements such as slider elements with multiple slider tabs, which will allow for a better user experience. Also, it's dependent on the \textit{jQuery} library which is already being used for \textit{Backbone}.
 
@@ -372,13 +463,13 @@ In order to create an interactive web browser application that provides graphica
 
 \subsubsection{HTML5}
 
-\textit{HTML} or HyperText Markup Language is the standard markup language used to create web pages. \textit{HTML5} is the fifth revision of the standard. \textit{HTML5} introduced a number of important features that were designed to facilitate including and handling multimedia and graphical content on the web without the use of proprietary plugins and APIs. One of these new features is the Canvas element, a scriptable graphical display element which is a low level, procedural model that updates a bitmap element. It was originally introduced by Apple \cite{canvas} .
+\textit{HTML5} is the fifth revision of the HTML standard. \textit{HTML5} introduced a number of important features that were designed to facilitate including and handling multimedia and graphical content on the web without the use of proprietary plugins and APIs. One of these new features is the Canvas element, a scriptable graphical display element which is a low level, procedural model that updates a bitmap element. It was originally introduced by Apple \cite{canvas} .
 
 \subsubsection{2D Graphics}
 
 Displaying 2D graphics has long been an integral part of web browsers. Various aspects and methods allow for the generation and manipulation of 2D graphics in a web browser. Aside from simply displaying an image file, there are various other aspects and methods allow for the generation and manipulation of 2D graphics in a web browser
 
-\textit{CSS} is used to alter an element's style property, but this is not really suitable for creating intricate 2D graphics, as it is typically used to style the look of \textit{HTML} elements. There are no custom draw commands.
+\textit{CSS}, as discussed, is used to alter an element's style property, but this is not really suitable for creating intricate 2D graphics, as it is typically used to style the look of \textit{HTML} elements. There are no custom draw commands.
 
 Scalable Vector Graphics (\textit{SVG}) is like \textit{HTML} for graphics\cite{svg}. It is a markup language for describing all aspects of an image or Web application, from the geometry of shapes, to the styling of text and shapes, to animation, to multimedia presentations including video and audio. It is fully interactive, and includes a scriptable DOM as well as declarative animation (via the SMIL specification). It supports a wide range of visual features such as gradients, opacity, filters, clipping, and masking.
 The use of \textit{SVG} allows fully scalable, smooth, reusable graphics, from simple graphics to enhance \textit{HTML} pages, to fully interactive chart and data visualization, to games, to standalone high-quality static images. \textit{SVG} is natively supported by most modern browsers (with plugins to allow its use on all browsers), and is widely available on mobile devices and set-top boxes. All major vector graphics drawing tools import and export \textit{SVG}, and they can also be generated through client-side or server-side scripting languages.
@@ -405,7 +496,7 @@ Nowadays, most libraries make use of \textit{WebGL} and even libraries that used
 
 
 
-
+\newpage
 
 
 \section{Design and Theory}
@@ -419,7 +510,7 @@ The initial plan was to build a UI with custom features (the frontend) using the
 The frontend would be written purely in JavaScript and structured with Backbone, and be using RequireJS to handle the various dependencies. Twitter-Bootstrap and JQueryUI would be used to style the look and feel of the frontend.
 The backend ie the XTK library is also written in JavaScript, but uses the Google Closure library to compile the code into minified code. This serves to reduce variable and function names and generally is designed to make the code run faster. The drawback is that it become harder to decode, since variable and function names are changed to be meaningless to the human reader. For functions and attributes that are meant to be used from outside the library, custom setters and getters have to be written. XTK also uses Goog matrices for their Graphics computations. Additionally the WebGL portion of XTK makes use of GLSL for its shaders, but is wrapped as strings in a JavaScript file.
 
-
+\newpage
 
 \section{Implementation}
 
@@ -1130,7 +1221,7 @@ Implementation is very easy by just copying an HTML script code snippet and past
 
 
 
-
+\newpage
 
 
 \section{Results and Evaluation}
@@ -1558,7 +1649,7 @@ The experience of this project suggests that with a team of dedicated programmer
 
 
 
-
+\newpage
 \section{Future Work}
 
 
@@ -1612,6 +1703,10 @@ In this specific case, I would probably chose to rework the XTK library more clo
 
 
 http://www.statista.com/statistics/263401/global-apple-iphone-sales-since-3rd-quarter-2007/
+
+http://webdesignfromscratch.com/html-css/how-html-css-js-work-together/
+
+http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#mediaviewer/File:MVC-Process.svg
 
 \end{thebibliography}
 
