@@ -1,0 +1,94 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Motivations}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Requirements}{3}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Use Cases}{4}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Contributions}{4}{subsection.1.4}
+\contentsline {section}{\numberline {2}Background}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}Medical Imaging}{5}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Guidelines for Medical Image Viewer Software}{5}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}NIfTI File Format}{6}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Desktop Applications}{7}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}MITK 3M3}{7}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Imview}{7}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}3DSlicer}{8}{subsubsection.2.4.3}
+\contentsline {subsubsection}{\numberline {2.4.4}MIview}{8}{subsubsection.2.4.4}
+\contentsline {subsubsection}{\numberline {2.4.5}ITKSnap}{8}{subsubsection.2.4.5}
+\contentsline {subsubsection}{\numberline {2.4.6}Photoshop}{9}{subsubsection.2.4.6}
+\contentsline {subsubsection}{\numberline {2.4.7}Nuke}{9}{subsubsection.2.4.7}
+\contentsline {subsection}{\numberline {2.5}Web Applications for Medical Image Viewing}{10}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}Web Framework XTK}{10}{subsubsection.2.5.1}
+\contentsline {subsubsection}{\numberline {2.5.2}SliceDrop}{10}{subsubsection.2.5.2}
+\contentsline {subsubsection}{\numberline {2.5.3}Brainbook}{11}{subsubsection.2.5.3}
+\contentsline {subsubsection}{\numberline {2.5.4}DWV - DICOM Web Viewer}{11}{subsubsection.2.5.4}
+\contentsline {subsubsection}{\numberline {2.5.5}Papaya}{11}{subsubsection.2.5.5}
+\contentsline {subsubsection}{\numberline {2.5.6}Other}{12}{subsubsection.2.5.6}
+\contentsline {subsection}{\numberline {2.6}Developing Web Applications}{12}{subsection.2.6}
+\contentsline {subsubsection}{\numberline {2.6.1}Web Browsers}{12}{subsubsection.2.6.1}
+\contentsline {subsubsection}{\numberline {2.6.2}Web Browser Compatibility}{13}{subsubsection.2.6.2}
+\contentsline {subsubsection}{\numberline {2.6.3}Developing websites}{14}{subsubsection.2.6.3}
+\contentsline {subsubsection}{\numberline {2.6.4}Web Frameworks for Single Page Apps}{14}{subsubsection.2.6.4}
+\contentsline {subsection}{\numberline {2.7}Interactive Graphics for Web Applications}{14}{subsection.2.7}
+\contentsline {subsubsection}{\numberline {2.7.1}HTML5}{14}{subsubsection.2.7.1}
+\contentsline {subsubsection}{\numberline {2.7.2}2D Graphics}{15}{subsubsection.2.7.2}
+\contentsline {subsubsection}{\numberline {2.7.3}3D Graphics}{15}{subsubsection.2.7.3}
+\contentsline {section}{\numberline {3}Design and Theory}{16}{section.3}
+\contentsline {subsection}{\numberline {3.1}General structure}{16}{subsection.3.1}
+\contentsline {section}{\numberline {4}Implementation}{16}{section.4}
+\contentsline {subsection}{\numberline {4.1}Implemented Features}{16}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Layout and Input Breakdowns}{17}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Main Page Layout}{17}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Camera View Panels}{18}{subsubsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.3}Display Layer Panel}{19}{subsubsection.4.2.3}
+\contentsline {subsubsection}{\numberline {4.2.4}Levels Panel and Tab}{19}{subsubsection.4.2.4}
+\contentsline {subsubsection}{\numberline {4.2.5}Annotations Tab}{20}{subsubsection.4.2.5}
+\contentsline {subsubsection}{\numberline {4.2.6}Labelmaps}{21}{subsubsection.4.2.6}
+\contentsline {subsection}{\numberline {4.3}Development Strategy}{22}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}Meetings with Supervisor}{22}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}Test Data}{22}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3}Coding Journal}{22}{subsubsection.4.3.3}
+\contentsline {subsubsection}{\numberline {4.3.4}StackOverflow}{22}{subsubsection.4.3.4}
+\contentsline {subsection}{\numberline {4.4}Implementing Features/ Implementation History}{22}{subsection.4.4}
+\contentsline {subsubsection}{\numberline {4.4.1}Creating the single web app structure}{22}{subsubsection.4.4.1}
+\contentsline {subsubsection}{\numberline {4.4.2}Loading Volume Files}{23}{subsubsection.4.4.2}
+\contentsline {subsubsection}{\numberline {4.4.3}Layout of Program}{23}{subsubsection.4.4.3}
+\contentsline {subsubsection}{\numberline {4.4.4}Display Layer Management}{23}{subsubsection.4.4.4}
+\contentsline {subsubsection}{\numberline {4.4.5}Buffer Management}{23}{subsubsection.4.4.5}
+\contentsline {subsubsection}{\numberline {4.4.6}Colortables}{23}{subsubsection.4.4.6}
+\contentsline {subsubsection}{\numberline {4.4.7}Annotations}{25}{subsubsection.4.4.7}
+\contentsline {subsubsection}{\numberline {4.4.8}Labelmaps}{28}{subsubsection.4.4.8}
+\contentsline {subsubsection}{\numberline {4.4.9}Controls}{28}{subsubsection.4.4.9}
+\contentsline {subsubsection}{\numberline {4.4.10}Error Handling}{29}{subsubsection.4.4.10}
+\contentsline {subsubsection}{\numberline {4.4.11}Slice Animation Feature}{29}{subsubsection.4.4.11}
+\contentsline {subsubsection}{\numberline {4.4.12}Polishing the User Interface}{30}{subsubsection.4.4.12}
+\contentsline {subsubsection}{\numberline {4.4.13}Deployment}{30}{subsubsection.4.4.13}
+\contentsline {subsection}{\numberline {4.5}Implementation Details/ Working with Libraries}{31}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.5.1}Version Control}{31}{subsubsection.4.5.1}
+\contentsline {subsubsection}{\numberline {4.5.2}Browser Developer Environment}{31}{subsubsection.4.5.2}
+\contentsline {subsubsection}{\numberline {4.5.3}JSFiddle}{33}{subsubsection.4.5.3}
+\contentsline {subsubsection}{\numberline {4.5.4}XTK}{33}{subsubsection.4.5.4}
+\contentsline {subsubsection}{\numberline {4.5.5}RequireJS}{39}{subsubsection.4.5.5}
+\contentsline {subsubsection}{\numberline {4.5.6}Backbone}{39}{subsubsection.4.5.6}
+\contentsline {subsubsection}{\numberline {4.5.7}JQueryUI}{40}{subsubsection.4.5.7}
+\contentsline {subsubsection}{\numberline {4.5.8}Twitter-Bootstrap}{40}{subsubsection.4.5.8}
+\contentsline {subsubsection}{\numberline {4.5.9}Google Analytics}{41}{subsubsection.4.5.9}
+\contentsline {section}{\numberline {5}Results and Evaluation}{41}{section.5}
+\contentsline {subsection}{\numberline {5.1}Review of Features}{41}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}Comparing to initially set requirements}{41}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}Comparing with other web browser based programs}{42}{subsubsection.5.1.2}
+\contentsline {subsubsection}{\numberline {5.1.3}Comparing with Desktop-based programs}{43}{subsubsection.5.1.3}
+\contentsline {subsection}{\numberline {5.2}Reviewing of Use Cases}{44}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Protocol Testing across different platforms}{44}{subsection.5.3}
+\contentsline {subsubsection}{\numberline {5.3.1}Protocols}{44}{subsubsection.5.3.1}
+\contentsline {subsubsection}{\numberline {5.3.2}Testing Environments}{45}{subsubsection.5.3.2}
+\contentsline {subsubsection}{\numberline {5.3.3}Protocol Results}{47}{subsubsection.5.3.3}
+\contentsline {subsection}{\numberline {5.4}CPU performance}{48}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}Usage and User Feedback}{48}{subsection.5.5}
+\contentsline {subsubsection}{\numberline {5.5.1}Criticisms}{48}{subsubsection.5.5.1}
+\contentsline {subsubsection}{\numberline {5.5.2}Feature Requests}{48}{subsubsection.5.5.2}
+\contentsline {subsubsection}{\numberline {5.5.3}Outstanding Feedback}{48}{subsubsection.5.5.3}
+\contentsline {section}{\numberline {6}Conclusions}{48}{section.6}
+\contentsline {section}{\numberline {7}Future Work}{49}{section.7}
+\contentsline {subsection}{\numberline {7.1}Limitations and Bugs}{49}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Future Improvements}{49}{subsection.7.2}
+\contentsline {section}{\numberline {8}Appendix}{52}{section.8}

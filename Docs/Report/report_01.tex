@@ -35,8 +35,10 @@
 \begin{document}
 \maketitle
 
+\tableofcontents
 
 
+\newpage
 \section{Introduction}
 
 Medical imaging is a type of scientific visualisation that deals with analysis, representation and exploration of medical image data. It should aid in diagnosis, treatment planning, support in actual operations, documentation and educational purposes. Medical imaging is primarily based on 3D volume data acquired by scanning devices such as computed tomography and magnetic resonance imaging. The resulting data files are viewed with specific computer software and contain a wealth of data. This software is traditionally in the form of a software application that needs to be installed on a local computer machine. With the rise of WebGL, a modern interface for commonly used web browsers that displays 3D Graphics by using the local graphics card, this project will investigate the general plausability and specific implementation of a web browser based medical image viewer using WebGL, thereby freeing the user from having to use desktop bound software and instead using a website that is more freely accessible.
@@ -74,6 +76,25 @@ Given enough time, secondary requirements can be implemented, which are consider
 \item A three dimensional, parameterised model of the scan be viewed in the 3D view
 \item The 'cine mode' feature allows for an animation along a specified axis
 \end{itemize}
+
+
+\subsection{Use Cases}
+
+A small selection of use cases have been discussed with the project supervisor. The following were suggested:
+
+\begin{itemize}
+
+\item A user loads two medical images files from a patient that has undergone brain surgery. The user wants to compare the scans from before the operation to afterwards. The user needs to be able to compare the two files in meaningful ways, with tools for image comparison and compositing.
+
+\item A user wants to create a custom label map by highlighting a certain section of a loaded scan. The user can use provided paint tools to paint individually on each slice, or alternatively use semi-automatic tools like filling in regions within a given color range to speed up this process. The user can save out this custom label map in \textit{NIfTI} format.
+
+\item The user wants to create annotations for a file. He can use the software to create annotated planar or cuboid regions to for example specify where a given organ is in the scan. The software provides intuitive controls and helpful visual feedback to facilitate this process. The user can save out this files as a custom data file.
+
+\item A user wants to communicate with another user who is not present in the same location. The first user can use the software to provide links to specified medical image files to the second user. The second user can load these files with the software for analysis.
+
+\end{itemize}
+
+
 
 
 
@@ -129,6 +150,8 @@ For advanced tools, the book suggests providing segmentation tools for identific
 It is also suggested to have tools for annotating files with information. Examples would be creating a region around a specific organ or an arrow pointing to a particular area of interest.
 On the topic of user interaction, the book points out that the most frequently used should be carried out with the mouse. Specifically, browsing through slices could be done by scrolling wheel, right-clicking and moving the mouse affect the windowing, ie contrast and brightness. Zooming and panning should also be implemented in similar fashion. These kind of direct mouse controls are preferable to having to adjust specific sliders, although these may be included for visual feedback.
 
+EXPLAIN ABOUT CONCEPT OF LABELMAPS AND COLORTABLES, SEGMENTATION!!!
+
 Additional functionality should be added for pressing down the Alt or Shift key and using the mouse.
 With regards to 3D rendering of the data, different modes are mentioned. Multiplanar Reformatting (MPR) is a way to creating an arbitrary slicing with an orientation that does not follow the cartesian axes. Maximum Intensity Projection (MIP) is a frequently technique which casts out rays from the viewing plane and highlights voxels with the maximum intensity, mostly used for diagnosis of vascular structures. Surface Shaded Display (SSD) is another visualisation technique that renders the data as 3D shaded surfaces based on a  given threshold. This is achieved by connecting adjacent voxels as polygons. Some simple lighting is applied for shading so depth relations are more recognisable. Finally Volume Rendering produces a semi-transparent rendering of the data voxels where individual voxels' brightness determine their opacity. This is often referred to as direct volume rendering (DVR) as opposed to indirect volume rendering of SSD.
 
@@ -158,10 +181,6 @@ Furthermore it can create a 3D volume renderings, applying image filters and sup
 
 
 
-\subsubsection{ITKSnap}
-
-When asking members of the Biomedical Imaging Group at Imperial College, which tools they use, ITKSnap came up quite regularily. So a review of this program will be included here.
-Write about ITKSnap... features...
 
 
 \subsubsection{3DSlicer}
@@ -169,6 +188,25 @@ Write about ITKSnap... features...
 
 \subsubsection{MIview}
 \textit{MIView} was programmed by Greg Book, is open source and provides much the same functionality as \textit{MITK}. \textit{MIView} is an \textit{OpenGL} based medical image viewer which aims to support a wide range of medical imaging files such as \textit{NIfTI}, and raster images. The main goal of \textit{MIView} is to provide a platform to load any type of medical image and be able to view and manipulate the image. Volume rendering is also supported. Control-wise, support for mouse-wheel scrolling seems erratic, which makes navigation through the slices more cumbersome. Also the buttons tend to be quite small which also does not improve the user experience. It does not appear to support the loading of multiple files together. A number of predefined color look-up tables are provided.
+
+
+\subsubsection{ITKSnap}
+
+The final website for this project included a survey that asked users about which medical image viewers they used, if any. ITKSnap came up the most frequently, so a brief review is included here. Development started before the year 2000, is currently being lead in development by Paul A. Yushkevich (University of Pennsylvania) and Guide Gerig (University of Utah) and is supported financially by the US National Institure of Biomedical Imaging and BioEngineering. It is currently in its third major revision.
+
+Upon starting up the ITKSnap application, it is instantly appealing. It features a library of recently viewed files, which is very convenient for repeated use. It offers the ability to save a workspace as an XML file which includes which files are currently being viewed, making it easier to share specfic sessions with other users. This would be a great addition to this project.
+
+The controls follow the standard setup, with panning, zooming and traversing all assigned to the different mouse buttons. Scrolling through the indices is performed by scrolling with middle mouse button. A slider is also provided on each panel for selecting a specific index. There are many options for navigating the slices, which seem well thought and focus on convenience. A button is provided to center the image on a selected cursor position.
+
+In terms of viewers, it offers zoomed-in views with a little thumbnail in the corner of the whole image to show which protion is being examined. When trying out some sample data, the 3D view did not display properly. Interestingly it does not feature many options for adjusting the layout of the viewers, with only a four-panel layout and a single panel layout available. As it has been rewritten with Qt, these features should be very easy to implement.
+
+ITKSnap further impresses with the customisation options for image brightness, contrast and colortable lookups. A wealth of options are available for each component, and a wide number of colortables are provided, which can also be edited. A separate information panel summarises the key data facts about the currently loaded files such as dimensions, voxel spacing and orientation.
+
+The program als offers a variety of tools for segmentation (painting custom labelmaps), with manual and semi-automatic tools provided. It represents a volume of work that would be too ambitious to emulate in a project of only three months.
+
+In conclusion, ITKSnap appears to be the most appealing, focused and well rounded medical image viewing software out of the ones that were researched for this project, due to the wealth of customisation yet convenient design. It has a number of features that would make great additions to the current ScanView program. Unfortunately I came across this specific piece of software quite late so have not had the opportunity to add any of these features. 
+
+
 
 \subsubsection{Photoshop}
 Looking further afield to some graphical editing software programs, some interesting functionality can be discovered. Adobe's \textit{Photoshop} is well known software for creating and manipulating 2D imagery. When editing an image, the user works with a document. The user can add as many layers as required and edit each layer individually. The layers are composited to form the whole picture. Each layer's opacity and compositing/blending mode can be specified. This could be a worth while to emulate for comparing different medical image files in the web app.
@@ -203,6 +241,8 @@ As suggested in the project specification, the goal of this project is to use th
 
 The \textit{XTK} library also provides a module for creating User Interface (UI), that can be overlaid on top of the image viewers, with easy controls to connect the image content with the UI controls.
 The popular forum for coding questions Stackoverflow hosts about 100 questions regarding \textit{XTK} to date, and occasionally the \textit{XTK} developers offer up answers.
+
+Mention advanced features... custom axis reslicing!!
 
 
 
@@ -582,6 +622,8 @@ Meetings with the Project Supervisor Dr. Ben Glocker were held every one to thre
 My supervisor provided a host of test files for me to use while developing this tool. These varied from smaller files of a brain scan (4.2 Mb) with a labelmap (4.2 Mb), to the largest scan file of an abdomen (86.5 Mb). Additionally I downloaded some sample data from the XTK tutorials. This set included the main file (286 Kb), a labelmap (19 Kb) and a colortable (6 Kb). Furthermore I downloaded more samples from the official Nifti website. For testing new features, I would test the thorax file set, as well as the brain scans, since these files took less time to load. Periodically I would test the other Nifti files to make sure the code worked with diffferent and larger files.
 For colortables, I downloaded some from the 3DSlicer wikipedia site in their default format, and later amended these to work as hardcoded JavaScript arrays.
 
+Dr. Glocker kindly also supplied a number of desktop programs for medical image viewing that I could use for inspiration, such as IMView and MIT3K.
+
 \subsubsection{Coding Journal}
 
 As the project grew more complex, I started writing a Coding Journal in which I would write down any relevant ideas or thoughts. Since working on one aspect usually took more time than thinking of ideas for other aspects, this proved quite valuable in recording them, organising them and going back over later to make sure I had not missed anything important.
@@ -760,7 +802,7 @@ All slice navigation and traversal was placed on mouse controls. The guidelines 
 Reinstating the mouse controls took some as I had to find out how to trigger the appropriate response in the XTK canvases. For 2D and 3D navigation, I had to study the XTK X.camera more closely. It turned out that I could access the X.camera's view matrix directly via an already implemented setter method, where indices 13 and 14 were synonymous with the X and Y position camera, and index 15 was the Z position. Therefore all I needed to do was calculate the relative movement to the currently selected HTML Canvas (by substituting the absolute mouse coordinates from the HTML Canvas coordinates), and convert this with an appropriate factor to X and Y numbers to be entered into the view matrix.
 Likewise for zooming in the 2D Views, an adaptive zoom factor was implemented after discussion with the supervisor. The first normal implementation would zoom with a constant factor, but this would be more ineffective the further the camera was zoomed in on a slice. I implemented an adaptive zoom factor that interpolates between a linear zoom function to a square zoom function to counteract this effect.
 
-To further add convenience for user input, I created a couple of keyboard shortcuts. To toggle between the A and B buffers, the user can press '1' or '2'. I was used to this from using the compositing software Nuke and have always found a frequently used short cut when comparing two images with each other, especially when looking for minute differences. This ties in with the idea that ScanView could be used to compare two medical image data files with each other. For the View Panels I also added the keyboard 'f' shortcut to recenter the camera after any panning, zooming or rotation had been applied. This is achieved by storing the initial camera view matrix when the file is loaded, and loading this view upon key press. Adding these keyboard shortcuts is relatively trivial and more could and should be added, assuming that keyboard short cuts increase user speed. Some care had to be taken to ensure that the keyboard shortcuts do not get triggered when a text field is being edited.
+To further add convenience for user input, I created a couple of keyboard shortcuts. To toggle between the A and B buffers, the user can press '1' or '2'. I was used to this from using the compositing software Nuke and have always found a frequently used short cut when comparing two images with each other, especially when looking for minute differences. This ties in with the idea that ScanView could be used to compare two medical image data files with each other. For the View Panels I also added the keyboard 'f' shortcut to recenter the camera after any panning, zooming or rotation had been applied, inspired by ITKSnap's image centering feature. This is achieved by storing the initial camera view matrix when the file is loaded, and loading this view upon key press. Adding these keyboard shortcuts is relatively trivial and more could and should be added, assuming that keyboard short cuts increase user speed. Some care had to be taken to ensure that the keyboard shortcuts do not get triggered when a text field is being edited.
 
 
 
@@ -1192,6 +1234,7 @@ Loading predefined colortables & Yes & No & No & No\\ \hline
 Saving of Data & No & Yes & No & No\\ \hline
 Online File Sharing & No & No* & No & No\\ \hline
 Adjustable Layouts & Yes & No & No & No \\ \hline
+Segmentation Tools No & No & No & No \\ \hline
 
   \end{tabular}\\
 
@@ -1227,12 +1270,33 @@ Loading of custom colortables & No & Yes & No & No \\ \hline
 Loading predefined colortables & Yes & No & No & No\\ \hline
 Saving of Data & No & Yes & No & No\\ \hline
 Online File Sharing & No & No* & No & No\\ \hline
+Adjustable Layouts & Yes & Yes & No & No \\ \hline
+Segmentation Tools No & Yes & No & Yes \\ \hline
 
   \end{tabular}\\
 
 
 \end{center}
 
+
+\subsection{Reviewing of Use Cases}
+
+Considering the use cases that were stated at the beginning of this report:
+
+\begin{itemize}
+
+\item A user loads two medical images files ... for image comparison and compositing.
+
+\item A user wants to create a custom label map by highlighting a certain section of a loaded scan...
+
+\item The user wants to create annotations for a file... (and) can save out this files as a custom data file.
+
+\item A user wants to communicate with another user who is not present in the same location...
+\end{itemize}
+
+the first and the third have been implemented in this project. The comparison of two medical image files is possible by loading them into two separate Display Layers and Buffers, and then setting the opacity slider and switching or swiping between the Buffers. Secondly, the Annotations feature covers the third use case by enabling the user to create custom Annotations, edit, label, color and to save them out in JSON format. As was pointed out by the project supervisor, this could be used for example for annotating a large set of volume files for a specific feature or organ. This data set could then be used to by machine learning algorithms for automatic detection of similar graphical features.
+
+The second and fourth use case have unfortunately not been implemented, but as they both fell into the secondary requirement category, this is not surprising. Implementing the primary requirements simply took too much time. However at least the case of creating custom label maps is quite within reach with maybe a month of more development time, since it some of the basic methods such as 2D screen to 3D volume (and vice versa) point conversion methods are already implemented.
 
 
 
@@ -1488,15 +1552,14 @@ I sent a link to the software to the XTK developers in order to get their feedba
 
 In terms of the initial purpose of this project to investigate whether it is possible to create a feature rich medical image viewer which works in a web browser, the course of the project seems to suggest that it is indeed possible given current Web standards with HTML5 Canvas Element and the WebGL standard becoming common-place. The XTK library forms a solid base for adding more features such as in this project. In order to add more complexity, a method was chosen which requires more CPU power than the normal XTK library.
 
-In terms of creating a function piece of software, more time would have been benificial to iron out bugs. Also it would have been great to have a bigger pool of sample data to work from, as there seem to certain files that do not open with this software. Given the limited time frame and man power, ScanView does not match the feature richness and performance of high-end software solutions. However this is not a limitation based on the technical possibilities of web browser technology, so should be feasible. One issue might be the complexity of scale, as software solutions such as BrainSomething are 400MB. That would be too much to load in a web browser, so a more complex memory management would be required.
+In terms of creating a functioning piece of software, more time would have been benificial to iron out bugs. Also it would have been great to have a bigger pool of sample data to work from, as there seem to certain files that do not open with this software. Given the limited time frame and man power, ScanView does not match the feature richness and performance of high-end software solutions. However this is not a limitation based on the technical possibilities of web browser technology, so should be feasible. One issue might be the complexity of scale, as software solutions such as BrainSomething are 400MB. That would be too much to load in a web browser, so a more complex memory management would be required.
+
+The experience of this project suggests that with a team of dedicated programmers and proper funding, a viable web-browser based medical imaging tool could be created that could rival current desktop based applications in terms of features richness, performance and user experience.
 
 
 
 
 \section{Future Work}
-
-
-\subsection{Limitations}
 
 
 \subsection{Limitations and Bugs}
