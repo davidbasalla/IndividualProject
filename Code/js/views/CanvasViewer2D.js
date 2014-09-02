@@ -337,6 +337,8 @@ define(["text!templates/CanvasViewer2D.html",
 	setOpacity:function(){
 		
 	    if(this.ctx && this.currentLayerItemTop && this.currentLayerItemBottom){
+		console.log('setting 2D');
+
 		this.alphaA = this.currentLayerItemTop.get('opacity')/100;
 		this.alphaB = this.currentLayerItemBottom.get('opacity')/100;
 	    };

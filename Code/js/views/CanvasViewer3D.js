@@ -134,8 +134,17 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    }
 	},
 	setOpacity:function(){
+	    console.log('trying to set 3D');
+
+	    console.log(this.ctx);
+	    console.log(this.currentLayerItemTop);
+	    console.log(this.currentLayerItemBottom);
+
 
 	    if(this.ctx && this.currentLayerItemTop && this.currentLayerItemBottom){
+
+		console.log('setting 3D');
+		
 		this.alphaA = this.currentLayerItemTop.get('opacity')/100;
 		this.alphaB = this.currentLayerItemBottom.get('opacity')/100;
 	    };
@@ -274,10 +283,31 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 
 	    //DRAW BLACK BACKGROUND - SO ALWAYS A BLACK BACKGROUND
 	    this.setToBlack();
-	    
+
+	    //SET FIRST ALPHA
+	    this.ctx.globalAlpha = this.alphaB;
+
+	    //DRAW BOTTOM CANVAS - offset by 1,1 to fit the border in
+	    if(this.currentLayerItemBottom){
+		if(this.currentLayerItemBottom.get('loaded'))
+		    this.ctx.drawImage(this.srcCanvasB, 1, 1);
+	    }
 
 	    //SET SECOND ALPHA
 	    this.ctx.globalAlpha = this.alphaA;
+
+
+	    //DRAW BLACK BACKGROUND FOR ITEM_TOP
+	    //WITH RED FRAME TO SHOW ACTIVE REGION
+	    this.ctx.beginPath();
+	    this.ctx.rect(0, 0,
+	    		  this.canvas.width - this.clipPosX,
+			  this.canvas.height - this.clipPosY);
+	    this.ctx.fillStyle = 'black';
+	    this.ctx.fill();
+	    this.ctx.lineWidth = 2;
+	    this.ctx.strokeStyle = 'red';
+	    this.ctx.stroke();
 
 	    //DRAW TOP CANVAS
 	    if(this.currentLayerItemTop){

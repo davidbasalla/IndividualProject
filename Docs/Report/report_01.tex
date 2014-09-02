@@ -491,31 +491,32 @@ Various other brower-plugins existed or are still around, such as Adobe's \texti
 
 \subsubsection{WebGL}
 
-In parallel with the standardisation of \textit{HTML5}, \textit{WebGL} became more widely used and supported, and helped to reduce the multitude and clutter of browser-plugins. Generally speaking, WebGL is a 3D graphics API for the Web. It has been used among others on Google Maps and Autodesk's Autocad applications on the cloud REFERENCE (Wiki). Epic Games' WebGL Demo 'Citadel' is an impressive showcase of WebGL's capabilities, as is the 100,000 Stars project by Google (pictures below).
+In parallel with the standardisation of \textit{HTML5}, \textit{WebGL} became more widely used and supported, and helped to reduce the multitude and clutter of browser-plugins. Generally speaking, WebGL is a 3D graphics API for the Web. It has been used among others on Google Maps, Autodesk's Autocad Cloud applications and Epic Games' WebGL Demo 'Citadel'.
 
-
-
-WebGL is exclusively controlled by JavaScript. WebGL is based on OpenGL ES 2.0, the Embedded Systems version of the widely used OpenGL standard for generating 3D graphics. The Embedded Systems off-shoot is intended for smaller computing devices such as smart phones and tablets, such as IPhone, IPad and Android phones. Due to its smaller footprint, it was felt that WebGL would make it a more consistent, cross-platform and cross-browser 3D API (REFERENCE). 
+The website http://www.awwwards.com hosts a number of impressive showcases of WebGL's capabilities, such as "WebGL Water"  which features a swimming pool and a ball with fluid dynamics and high-end visual phenomena such as reflection, refraction, caustics, and ambient occlusion.
 
 \begin{figure}
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=70mm]{graphics/webGL_01.png}
+  \includegraphics[width=86mm]{graphics/webGL_01.png}
 \caption{Epic Games' Citadel - REFERENCE}
 
   \label{fig:sub1}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=90mm]{graphics/webGL_02.png}
-	\caption{100000 stars project by Google - REFERENCE}
+  \includegraphics[width=74mm]{graphics/webGL_02.png}
+	\caption{WebGL Water - REFERENCE}
 
   \label{fig:sub2}
 \end{subfigure}
 
 
 \end{figure}
+
+
+WebGL is exclusively controlled by JavaScript. WebGL is based on OpenGL ES 2.0, the Embedded Systems version of the widely used OpenGL standard for generating 3D graphics. The Embedded Systems off-shoot is intended for smaller computing devices such as smart phones and tablets, such as IPhone, IPad and Android phones. Due to its smaller footprint, it was felt that WebGL would make it a more consistent, cross-platform and cross-browser 3D API (REFERENCE). 
 
 WebGL uses the HTML5 Canvas element to render into, and uses a specific webGL-compliant context (as opposed to the 2D context used for 2D drawing). It differs in 2D Drawing, that all rendering is done with primitives such as Triangles, Points or Lines. 
 Dedicated arrays called buffers are used to store the data for these primitives, such as vertices and normals. Next, a ModelView matrix needs to be created, which sets the transformation of a primitive or object in the 3D World. Also, a projection matrix is needed which converts 3D points into 2D coordinates of the drawing screen. Finally, a shader needs to be defined which will be attached to the primitives. Shaders are written in their own language called GLSL, and are themselves typically comprised of vertex shaders and fragments shaders. Vertex shaders combine the matrices and position of primitives into the final position on screen whereas the fragment shader is used to assign attributes such as color, texture and lighting. Thus, the workflow to render something with WebGL onto a webpage is as follows (Taken from book, reference):
