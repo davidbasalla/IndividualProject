@@ -457,15 +457,13 @@ As this project will make of several modules, it will be important to manage the
 
 
 
-\subsection{Interactive Graphics for Web Applications}
+\subsection{Graphics for Web Applications}
 
 In order to create an interactive web browser application that provides graphical feedback, the available tools for creating 2D and 3D graphics in a web browser have to be considered. Generally, in the past web browsers have provided several different methods to display 2D and 3D graphics on screen, and only recently with the introduction of \textit{HTML5} and \textit{WebGL} has a widely-conformed standard emerged.
 
-\subsubsection{HTML5}
+\textit{HTML5} is the fifth revision of the HTML standard. \textit{HTML5} introduced a number of important features that were designed to facilitate including and handling multimedia and graphical content on the web without the use of proprietary plugins and APIs. One of these new features is the Canvas element, a scriptable graphical display element which is a low level, procedural model that updates a bitmap element. It was originally introduced by Apple \cite{canvas} . This components forms the basis for most complex rendering of 2D and 3D graphics in modern browser applications.
 
-\textit{HTML5} is the fifth revision of the HTML standard. \textit{HTML5} introduced a number of important features that were designed to facilitate including and handling multimedia and graphical content on the web without the use of proprietary plugins and APIs. One of these new features is the Canvas element, a scriptable graphical display element which is a low level, procedural model that updates a bitmap element. It was originally introduced by Apple \cite{canvas} .
-
-\subsubsection{2D Graphics}
+\subsection{2D Graphics}
 
 Displaying 2D graphics has long been an integral part of web browsers. Various aspects and methods allow for the generation and manipulation of 2D graphics in a web browser. Aside from simply displaying an image file, there are various other aspects and methods allow for the generation and manipulation of 2D graphics in a web browser
 
@@ -477,7 +475,12 @@ The use of \textit{SVG} allows fully scalable, smooth, reusable graphics, from s
 Finally, the Canvas API is a client-side scripting technology to allow for the rich creation or alteration of raster images (bitmaps) . It uses vector-based programmatic methods to create shapes, gradients, and other graphical effects, and because it has no DOM, it can perform very quickly. Dedicated scripters can develop games or even full-featured applications using the Canvas API, alone or integrated into \textit{HTML} or \textit{SVG}. It is supported natively in most modern browsers (with script libraries extending support to all major browsers), and even on some mobile devices.
 
 Before the Canvas API became common place, there were different web browser plug-ins which would display more interactive graphics and videos. Adobe's \textit{FlashPlayer} and JavaApplets were very common for this purpose.
-\subsubsection{3D Graphics}
+
+
+
+\subsection{3D Graphics}
+
+\subsubsection{Pre-WebGL}
 
 3D Graphics are usually defined by a space in Cartesian coordinates in which reside three-dimensional objects, as well as a camera object through which the scene is viewed with help of a projection matrix. 3D graphics includes lots of maths with matrices and is computationally much more expensive than drawing 2D graphics. Rendering a scene can mean that the image should be refreshed 60 times a second, which poses a challenge for many browsers.
 
@@ -485,14 +488,52 @@ Broadly speaking, the history of 3D Graphics can be divided into the time before
 
 Various other brower-plugins existed or are still around, such as Adobe's \textit{FlashViewer} and \textit{O3D}. \textit{Java Applets} are another alternative, which run on the local machine through the \textit{Java} virtual machine. Microsoft implemented its own plugin \textit{Silverlight}.
 
-With the standardisation of \textit{HTML5}, \textit{WebGL} and the Canvas element became widely used and supported, and helped to reduce the multitude and clutter of browser-plugins. \textit{WebGL} is a \textit{JavaScript} API that exposes a computers GPU to the web browser and allows for displaying of complex three dimensional graphics as seen in comparable desktop applications. Although only initially relased in 2011, \textit{WebGL} is widely supported by most modern browsers (\cite{webGL}), so it's a good time to make use of this for medical visualisation. \textit{WebGL} is based on OpenGL ES 2.0 and uses the \textit{HTML5} canvas element to draw onto and is accessed using Document Object Model interfaces.
 
-Nowadays, most libraries make use of \textit{WebGL} and even libraries that used to require a plug-in (example) have now been ported to use \textit{WebGL}. 
+\subsubsection{WebGL}
 
-
-
+In parallel with the standardisation of \textit{HTML5}, \textit{WebGL} became more widely used and supported, and helped to reduce the multitude and clutter of browser-plugins. Generally speaking, WebGL is a 3D graphics API for the Web. It has been used among others on Google Maps and Autodesk's Autocad applications on the cloud REFERENCE (Wiki). Epic Games' WebGL Demo 'Citadel' is an impressive showcase of WebGL's capabilities, as is the 100,000 Stars project by Google (pictures below).
 
 
+
+WebGL is exclusively controlled by JavaScript. WebGL is based on OpenGL ES 2.0, the Embedded Systems version of the widely used OpenGL standard for generating 3D graphics. The Embedded Systems off-shoot is intended for smaller computing devices such as smart phones and tablets, such as IPhone, IPad and Android phones. Due to its smaller footprint, it was felt that WebGL would make it a more consistent, cross-platform and cross-browser 3D API (REFERENCE). 
+
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=70mm]{graphics/webGL_01.png}
+\caption{Epic Games' Citadel - REFERENCE}
+
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=90mm]{graphics/webGL_02.png}
+	\caption{100000 stars project by Google - REFERENCE}
+
+  \label{fig:sub2}
+\end{subfigure}
+
+
+\end{figure}
+
+WebGL uses the HTML5 Canvas element to render into, and uses a specific webGL-compliant context (as opposed to the 2D context used for 2D drawing). It differs in 2D Drawing, that all rendering is done with primitives such as Triangles, Points or Lines. 
+Dedicated arrays called buffers are used to store the data for these primitives, such as vertices and normals. Next, a ModelView matrix needs to be created, which sets the transformation of a primitive or object in the 3D World. Also, a projection matrix is needed which converts 3D points into 2D coordinates of the drawing screen. Finally, a shader needs to be defined which will be attached to the primitives. Shaders are written in their own language called GLSL, and are themselves typically comprised of vertex shaders and fragments shaders. Vertex shaders combine the matrices and position of primitives into the final position on screen whereas the fragment shader is used to assign attributes such as color, texture and lighting. Thus, the workflow to render something with WebGL onto a webpage is as follows (Taken from book, reference):
+
+\begin{enumerate}
+\item Create a Canvas element.
+\item Obtain a drawing context for the canvas.
+\item Initialize the viewport, synonymous with with setting the rectangular bounds of where to draw.
+\item Create one or more matrices to define the transformation from vertex buffers to screen space.
+\item Create one or more shaders to implement the drawing algorithm.
+\item Initialize the shaders with parameters.
+\item Draw.
+\end{enumerate}
+
+
+As can be guessed from the steps above, WebGL is a very low level API in that it does not provide any high level scene descriptions of scene graphs. All this has to be implemented by developers manually. A large part of its draw and power stem from this fact, but also makes it very time intensive to work with from the ground up. For this purpose, some solutions already exist that build on this to provide a more convenient interface into the 3D capabilities such as ThreeJS. For this project, the XTK library plays the same role in that the low level features of WebGL can be accessed by a high-level API which can load a volume file as 3-plane slice display in a 3D View.
+
+Nowadays, most browser-based 3D graphics libraries make use of \textit{WebGL} and even libraries that used to require a plug-in (example) have now been ported to use \textit{WebGL}. 
 
 
 
@@ -1617,23 +1658,57 @@ In order to improve performance, RequestAnimationFrame was used. Need some more 
 
 \subsection{Usage and User Feedback}
 
+\subsubsection{Google Analytics}
 
-Ideally the website would be online for a longer time to get a more complete picture in terms of usage.
-Analyse the usage reports from Google Analytics if appropriate.
+At the time of writing, the following results were collected from Google Analytics about the usage of the website.
 
-A frustrating side effect of the survey
-was not being able to get back individually and not being able to interface personally in order to fully interact and follow the users. However this is consequence of the limited time provided for the project, and it just took so long to get all the features implemented. In future, this time should be budgeted for in advance, so that a period of beta testing can happen on various platforms.
-However I managed to add some fixes to the few criticisms that I received. File loading error handling is much more robuts now, with enabled nii.gz support. Some spelling mistakes have also been fixed, as well as some name changes made in order to be less confusing.
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=160mm]{graphics/resultsAnalytics_01.png}
+\caption{Google Analytics Website Usage Statistics as of September 2nd, 2014}
+\label{fig:UIdesign1}
+\end{figure}
 
-\subsubsection{Criticisms}
+The website has had 32 unique visitors over the 13 days since going live on August 21, 2014. The average session time was 5 minutes and 30 seconds. The majority of users viewed ScanView with Chrome (74.6\%), the recommended browser, on OSX (61.9\%). Ideally the 
+website would be online for a longer time to get a more complete picture in terms of usage. 
+
+\subsubsection{Survey Responses and Feedback}
+
+Unfortunately only three people answered the survey, but I received two more individual responses with reviews and suggestions by email.
+For the survey, 2 of the 3 users had used medical imaging software before (such as ITKSnap). The users spent 0 to 30 minutes with the website. For convenience, the responses were 'extremely convenient', 'very convenient' and 'moderately convenient', which suggests that convenience was judged to be better than average. When asked if the software could be an alternative to desktop software, the answers were 'agree somewhat', 'disagree somewhat' and 'not sure' which is undecisive, and in retrospect deservedly so, as most desktop software reviewed had a lot more features and development time compared to ScanView. In terms of criticism, the following were raised (combined with individual email responses):
+
+\begin{itemize}
+\item High CPU usage on Ubuntu laptop (with Chrome)
+\item Loading stack of images rather than isotropic volume does not work
+\item Volume rendering not working with Sample Data
+\item Cannot delete Labelmaps
+\item Lack of Undo functionality
+\item Lack of clarity in terms of which orthographical view is which, should be labeled more clearly
+\item Issue with Opacity and 3D-Views
+\item Cursor changes to test selection mode during View Panel interaction
+\item No 3D Views for any Display Layer after second Display Layer
+\end{itemize}
 
 
-\subsubsection{Feature Requests}
+The following additions or changes were suggested from survey and email responses.
+
+\begin{itemize}
+\item Add support for .nii.gz files (ADDED LATER)
+\item Add more file support
+\item Combine "Create Display Layer" and "Open File" actions, as they are implied to go together
+\item More info could be displayed about the specific files
+\item Be able to apply colortable selectively to Canvas Views
+\item Export and save out datasets (in different formats)
+\item Add a play feature for the 3D view that would rotate a camera around the volume data
+\end{itemize}
+
+ 
+As mentioned, it would have been beneficial to run a more comprehensive beta test to get more user feedback for ScanView, which unfortunately was not possible in the time of this project (as development took up so much time). Five responses does not quite provide enough data to get a sense of how ScanView is perceived by users in general. It would probably help to incentivise survey participation somehow, in order to get more responses. However the answers I did get were very helpful and useful in pointing out deficiencies. I managed to add some fixes to the few criticisms that I received. File loading error handling is much more robuts now, with enabled nii.gz support. Some spelling mistakes have also been fixed, as well as some name changes made in order to be less confusing. It is frustrating to receive bug reports of errors that I am not able to reproduce, and could therefore have to do with the specific hardware of the user. At this point it shows that an anonymous survey is not ideal to tackle this kind of problem. Alternatively to the survey, I could have added a more detailed bug report page, where the user could have specified their browser, version and hardware. Ideally this could be detected automatically like Google Analytics already does to a degree.
 
 
 \subsubsection{Outstanding Feedback}
 
-I sent a link to the software to the XTK developers in order to get their feedback, but at this point in time have not heard back from them. Also two radiologists have been contacted through private channels, but their feedback is also outstanding at this point.
+I sent a link to the software to the XTK developers in order to get their feedback, but at this point in time have not heard back from them. Also two radiologists in London and India have been contacted through private channels, but their feedback is also outstanding at this point.
 
 
 
