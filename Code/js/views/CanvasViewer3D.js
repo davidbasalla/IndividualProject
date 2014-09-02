@@ -254,6 +254,9 @@ define(["text!templates/CanvasViewer3D.html","views/CanvasViewer"], function(Can
 	    //console.log('CanvasViewer3D.toggleVolumeRender()');
 
 	    if (!this.doVolumeRender){
+
+		console.log('setting to on');
+
 		this.doVolumeRender = true;
 
 		//if not toggled, set toggle

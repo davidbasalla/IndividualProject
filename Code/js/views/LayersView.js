@@ -109,10 +109,19 @@ define(["models/LayerItem",
 	    });
 	    $('#layerList', this.el).append(itemView.render().el);
 
+
 	    //update the array
 	    this.layerItemViewArray[this.layerItemViewArray.length] = itemView;
 
 	    this.setSelected(item, itemView);
+
+	    //force file load with small delay!
+
+	    setTimeout(function(){
+		itemView.loadFile();
+	    }, 25);
+
+
 	},
 	setSelected: function(layerItem, layerItemView){
 	    /* requires the coupling of item and itemView, kinda dumb */
