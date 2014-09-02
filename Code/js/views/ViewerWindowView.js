@@ -177,7 +177,7 @@ define(["views/CanvasViewer3D",
 		   }
 	       },
 	       setSize:function(){
-		   //console.log('ViewerWindowView.setSize()');
+		   console.log('ViewerWindowView.setSize()');
 
 		   //RESET THE GLOBAL CONTAINER DIMENSIONS
 
@@ -201,12 +201,21 @@ define(["views/CanvasViewer3D",
 					  "width": width/2});
 		   }
 		   else if (this.layout == 2){
+
+
+		       console.log($('#topbar0'));
+
 		       $('#panel0').css({ "height": height,
-				      "width": width*(2/3)});
+					  "width": width*(2/3)});
+
 		       $('#panel1').css({ "height": height/3 - 6,
 					  "width": width*(1/3)});
+
+
 		       $('#panel2').css({ "height": height/3 - 6,
 					  "width": width*(1/3)});
+
+
 		       $('#panel3').css({ "height": height/3 - 6,
 					  "width": width*(1/3)});
 		   }
@@ -242,24 +251,46 @@ define(["views/CanvasViewer3D",
 
 	       },
 	       setSizeViewerCanvas:function(){
-		   //console.log('ViewerWindowView.setSizeViewerCanvas()');
+		   console.log('ViewerWindowView.setSizeViewerCanvas()');
 
 		   //SET canvases
 		   var topbarHeight0 = $('#topbar0').outerHeight();
 		   var totalHeight0 =  $('#panel0').height();
 		   var totalWidth0 =  $('#panel0').width();
 
+		   if(totalWidth0 < 300)
+		       $('#playButtonGroup', '#topbar0').hide();
+		   else
+		       $('#playButtonGroup', '#topbar0').show();
+
 		   var topbarHeight1 = $('#topbar1').outerHeight();
+		   var topbarWidth1 = $('#topbar1').outerWidth();
 		   var totalHeight1 =  $('#panel1').height();
 		   var totalWidth1 =  $('#panel1').width();
+
+		   if(totalWidth1 < 300)
+		       $('#playButtonGroup', '#topbar1').hide();
+		   else
+		       $('#playButtonGroup', '#topbar1').show();
 
 		   var topbarHeight2 = $('#topbar2').outerHeight();
 		   var totalHeight2 =  $('#panel2').height();
 		   var totalWidth2 =  $('#panel2').width();
 
+		   if(totalWidth2 < 300)
+		       $('#playButtonGroup', '#topbar2').hide();
+		   else
+		       $('#playButtonGroup', '#topbar2').show();
+
+
 		   var topbarHeight3 = $('#topbar3').outerHeight();
 		   var totalHeight3 =  $('#panel3').height();
 		   var totalWidth3 =  $('#panel3').width();
+
+		   if(totalWidth3 < 300)
+		       $('#playButtonGroup', '#topbar3').hide();
+		   else
+		       $('#playButtonGroup', '#topbar3').show();
 
 
 		   var maxTopbarHeight = Math.max(topbarHeight0, topbarHeight1, topbarHeight2, topbarHeight3);

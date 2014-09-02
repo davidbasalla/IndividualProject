@@ -1,7 +1,7 @@
 <!-- TOPBAR -->
 <div id= <%= topbarId %> class="topbar">
 
-  <div class="btn-group">
+  <div class="btn-group" id="toggleButtonGroup">
     <button type="button" 
 	    id="ThreeDtoggle" 
 	    title="Set 3D Camera"
@@ -38,7 +38,7 @@
 
 
 
-  <div class="btn-group" style="margin-left:10px">    
+  <div class="btn-group" id="playButtonGroup" style="margin-left:10px">    
     <button type="button"
 	    class="btn btn-default btn-sm"
             id="fastBackwardButton"
@@ -108,7 +108,7 @@
 
   
   
-  <div style="float:right;margin-right:10px">
+  <div style="float:right;margin-right:10px" id="overlayGroup">
     <input type="checkbox"
 	   id="overlayCheckbox"
 	   title="Toggle Information Overlay">
