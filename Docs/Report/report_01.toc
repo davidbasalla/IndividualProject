@@ -33,62 +33,61 @@
 \contentsline {subsection}{\numberline {2.9}3D Graphics}{18}{subsection.2.9}
 \contentsline {subsubsection}{\numberline {2.9.1}Pre-WebGL}{18}{subsubsection.2.9.1}
 \contentsline {subsubsection}{\numberline {2.9.2}WebGL}{18}{subsubsection.2.9.2}
-\contentsline {section}{\numberline {3}Design and Theory}{20}{section.3}
-\contentsline {subsection}{\numberline {3.1}General structure}{20}{subsection.3.1}
-\contentsline {section}{\numberline {4}Implementation}{21}{section.4}
-\contentsline {subsection}{\numberline {4.1}Implemented Features}{21}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Layout and Input Breakdowns}{22}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Main Page Layout}{22}{subsubsection.4.2.1}
-\contentsline {subsubsection}{\numberline {4.2.2}Camera View Panels}{22}{subsubsection.4.2.2}
-\contentsline {subsubsection}{\numberline {4.2.3}Display Layer Panel}{22}{subsubsection.4.2.3}
-\contentsline {subsubsection}{\numberline {4.2.4}Levels Panel and Tab}{24}{subsubsection.4.2.4}
-\contentsline {subsubsection}{\numberline {4.2.5}Annotations Tab}{25}{subsubsection.4.2.5}
-\contentsline {subsubsection}{\numberline {4.2.6}Labelmaps}{25}{subsubsection.4.2.6}
-\contentsline {subsection}{\numberline {4.3}Development Strategy}{26}{subsection.4.3}
-\contentsline {subsubsection}{\numberline {4.3.1}Meetings with Supervisor}{26}{subsubsection.4.3.1}
-\contentsline {subsubsection}{\numberline {4.3.2}Test Data}{26}{subsubsection.4.3.2}
-\contentsline {subsubsection}{\numberline {4.3.3}Coding Journal}{27}{subsubsection.4.3.3}
-\contentsline {subsubsection}{\numberline {4.3.4}StackOverflow}{27}{subsubsection.4.3.4}
-\contentsline {subsection}{\numberline {4.4}Implementing Features/ Implementation History}{27}{subsection.4.4}
-\contentsline {subsubsection}{\numberline {4.4.1}Creating the single web app structure}{27}{subsubsection.4.4.1}
-\contentsline {subsubsection}{\numberline {4.4.2}Loading Volume Files}{29}{subsubsection.4.4.2}
-\contentsline {subsubsection}{\numberline {4.4.3}Layout of Program}{29}{subsubsection.4.4.3}
-\contentsline {subsubsection}{\numberline {4.4.4}Buffer Management}{30}{subsubsection.4.4.4}
-\contentsline {subsubsection}{\numberline {4.4.5}Colortables}{30}{subsubsection.4.4.5}
-\contentsline {subsubsection}{\numberline {4.4.6}Annotations}{31}{subsubsection.4.4.6}
-\contentsline {subsubsection}{\numberline {4.4.7}Labelmaps}{34}{subsubsection.4.4.7}
-\contentsline {subsubsection}{\numberline {4.4.8}Controls}{34}{subsubsection.4.4.8}
-\contentsline {subsubsection}{\numberline {4.4.9}Error Handling}{35}{subsubsection.4.4.9}
-\contentsline {subsubsection}{\numberline {4.4.10}Slice Animation Feature}{36}{subsubsection.4.4.10}
-\contentsline {subsubsection}{\numberline {4.4.11}Polishing the User Interface}{36}{subsubsection.4.4.11}
-\contentsline {subsubsection}{\numberline {4.4.12}Deployment}{36}{subsubsection.4.4.12}
-\contentsline {subsection}{\numberline {4.5}Implementation Details/ Working with Libraries}{38}{subsection.4.5}
-\contentsline {subsubsection}{\numberline {4.5.1}Version Control}{38}{subsubsection.4.5.1}
-\contentsline {subsubsection}{\numberline {4.5.2}Browser Developer Environment}{38}{subsubsection.4.5.2}
-\contentsline {subsubsection}{\numberline {4.5.3}JSFiddle}{40}{subsubsection.4.5.3}
-\contentsline {subsubsection}{\numberline {4.5.4}XTK}{40}{subsubsection.4.5.4}
-\contentsline {subsubsection}{\numberline {4.5.5}RequireJS}{45}{subsubsection.4.5.5}
-\contentsline {subsubsection}{\numberline {4.5.6}Backbone}{46}{subsubsection.4.5.6}
-\contentsline {subsubsection}{\numberline {4.5.7}JQueryUI}{46}{subsubsection.4.5.7}
-\contentsline {subsubsection}{\numberline {4.5.8}Twitter-Bootstrap}{46}{subsubsection.4.5.8}
-\contentsline {subsubsection}{\numberline {4.5.9}Google Analytics}{47}{subsubsection.4.5.9}
-\contentsline {section}{\numberline {5}Results and Evaluation}{48}{section.5}
-\contentsline {subsection}{\numberline {5.1}Review of Features}{48}{subsection.5.1}
-\contentsline {subsubsection}{\numberline {5.1.1}Comparing to initially set requirements}{48}{subsubsection.5.1.1}
-\contentsline {subsubsection}{\numberline {5.1.2}Comparing with other web browser based programs}{49}{subsubsection.5.1.2}
-\contentsline {subsubsection}{\numberline {5.1.3}Comparing with Desktop-based programs}{50}{subsubsection.5.1.3}
-\contentsline {subsection}{\numberline {5.2}Reviewing of Use Cases}{50}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Protocol Testing across different platforms}{51}{subsection.5.3}
-\contentsline {subsubsection}{\numberline {5.3.1}Protocols}{51}{subsubsection.5.3.1}
-\contentsline {subsubsection}{\numberline {5.3.2}Testing Environments}{52}{subsubsection.5.3.2}
-\contentsline {subsubsection}{\numberline {5.3.3}Protocol Results}{53}{subsubsection.5.3.3}
-\contentsline {subsection}{\numberline {5.4}CPU performance}{55}{subsection.5.4}
-\contentsline {subsection}{\numberline {5.5}Usage and User Feedback}{55}{subsection.5.5}
-\contentsline {subsubsection}{\numberline {5.5.1}Google Analytics}{55}{subsubsection.5.5.1}
-\contentsline {subsubsection}{\numberline {5.5.2}Survey Responses and Feedback}{55}{subsubsection.5.5.2}
-\contentsline {subsubsection}{\numberline {5.5.3}Outstanding Feedback}{56}{subsubsection.5.5.3}
-\contentsline {section}{\numberline {6}Conclusions}{57}{section.6}
-\contentsline {section}{\numberline {7}Future Work}{58}{section.7}
-\contentsline {subsection}{\numberline {7.1}Limitations and Bugs}{58}{subsection.7.1}
-\contentsline {subsection}{\numberline {7.2}Future Improvements}{58}{subsection.7.2}
-\contentsline {section}{\numberline {8}Appendix}{60}{section.8}
+\contentsline {section}{\numberline {3}Implementation}{20}{section.3}
+\contentsline {subsection}{\numberline {3.1}Implemented Features}{20}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Layout and Input Breakdowns}{21}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Main Page Layout}{21}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Camera View Panels}{21}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}Display Layer Panel}{21}{subsubsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.4}Levels Panel and Tab}{23}{subsubsection.3.2.4}
+\contentsline {subsubsection}{\numberline {3.2.5}Annotations Tab}{24}{subsubsection.3.2.5}
+\contentsline {subsubsection}{\numberline {3.2.6}Labelmaps}{24}{subsubsection.3.2.6}
+\contentsline {subsection}{\numberline {3.3}Development Strategy}{25}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Meetings with Supervisor}{25}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Test Data}{25}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}Coding Journal}{26}{subsubsection.3.3.3}
+\contentsline {subsubsection}{\numberline {3.3.4}StackOverflow}{26}{subsubsection.3.3.4}
+\contentsline {subsection}{\numberline {3.4}General structure}{26}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Implementing Features/ Implementation History}{26}{subsection.3.5}
+\contentsline {subsubsection}{\numberline {3.5.1}Creating the single web app structure}{26}{subsubsection.3.5.1}
+\contentsline {subsubsection}{\numberline {3.5.2}Loading Volume Files}{28}{subsubsection.3.5.2}
+\contentsline {subsubsection}{\numberline {3.5.3}View Panel Layout}{29}{subsubsection.3.5.3}
+\contentsline {subsubsection}{\numberline {3.5.4}Buffer Management}{29}{subsubsection.3.5.4}
+\contentsline {subsubsection}{\numberline {3.5.5}Colortables}{29}{subsubsection.3.5.5}
+\contentsline {subsubsection}{\numberline {3.5.6}Annotations}{31}{subsubsection.3.5.6}
+\contentsline {subsubsection}{\numberline {3.5.7}Labelmaps}{34}{subsubsection.3.5.7}
+\contentsline {subsubsection}{\numberline {3.5.8}Controls}{34}{subsubsection.3.5.8}
+\contentsline {subsubsection}{\numberline {3.5.9}Error Handling}{35}{subsubsection.3.5.9}
+\contentsline {subsubsection}{\numberline {3.5.10}Slice Animation Feature}{35}{subsubsection.3.5.10}
+\contentsline {subsubsection}{\numberline {3.5.11}Polishing the User Interface}{36}{subsubsection.3.5.11}
+\contentsline {subsubsection}{\numberline {3.5.12}Deployment}{36}{subsubsection.3.5.12}
+\contentsline {subsection}{\numberline {3.6}Implementation Details/ Working with Libraries}{37}{subsection.3.6}
+\contentsline {subsubsection}{\numberline {3.6.1}Version Control}{37}{subsubsection.3.6.1}
+\contentsline {subsubsection}{\numberline {3.6.2}Browser Developer Environment}{37}{subsubsection.3.6.2}
+\contentsline {subsubsection}{\numberline {3.6.3}JSFiddle}{39}{subsubsection.3.6.3}
+\contentsline {subsubsection}{\numberline {3.6.4}XTK}{39}{subsubsection.3.6.4}
+\contentsline {subsubsection}{\numberline {3.6.5}RequireJS}{45}{subsubsection.3.6.5}
+\contentsline {subsubsection}{\numberline {3.6.6}Backbone}{45}{subsubsection.3.6.6}
+\contentsline {subsubsection}{\numberline {3.6.7}JQueryUI}{46}{subsubsection.3.6.7}
+\contentsline {subsubsection}{\numberline {3.6.8}Twitter-Bootstrap}{46}{subsubsection.3.6.8}
+\contentsline {subsubsection}{\numberline {3.6.9}Google Analytics}{47}{subsubsection.3.6.9}
+\contentsline {section}{\numberline {4}Results and Evaluation}{48}{section.4}
+\contentsline {subsection}{\numberline {4.1}Review of Features}{48}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Comparing to initially set requirements}{48}{subsubsection.4.1.1}
+\contentsline {subsubsection}{\numberline {4.1.2}Comparing with other Web Browser based programs}{49}{subsubsection.4.1.2}
+\contentsline {subsubsection}{\numberline {4.1.3}Comparing with Desktop-based programs}{50}{subsubsection.4.1.3}
+\contentsline {subsection}{\numberline {4.2}Reviewing of Use Cases}{50}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Protocol Testing across different platforms}{51}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}Protocols}{51}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}Testing Environments}{52}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3}Protocol Results}{53}{subsubsection.4.3.3}
+\contentsline {subsection}{\numberline {4.4}CPU performance}{55}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Usage and User Feedback}{55}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.5.1}Google Analytics}{55}{subsubsection.4.5.1}
+\contentsline {subsubsection}{\numberline {4.5.2}Survey Responses and Feedback}{55}{subsubsection.4.5.2}
+\contentsline {subsubsection}{\numberline {4.5.3}Outstanding Feedback}{56}{subsubsection.4.5.3}
+\contentsline {section}{\numberline {5}Conclusions}{57}{section.5}
+\contentsline {section}{\numberline {6}Future Work}{58}{section.6}
+\contentsline {subsection}{\numberline {6.1}Limitations and Bugs}{58}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Future Improvements}{58}{subsection.6.2}
+\contentsline {section}{\numberline {7}Appendix}{60}{section.7}
