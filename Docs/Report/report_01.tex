@@ -27,13 +27,52 @@
 
 \title{Browser-based Medical Image Viewer using WebGL \\\Large{--- Report ---}}
 \author{David Basalla\\
-  \{db913\}@ic.ac.uk\\ \\
   \small{Supervisor: Dr.\ Ben Glocker}\\
   \small{Imperial College London}
 }
 
 \begin{document}
-\maketitle
+
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{Imperial College London}\\[0.5cm] % Minor heading such as course title
+\textsc{Department of Computing}\\[8.5cm] % Minor heading such as course title
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+
+{ \large \bfseries Browser-based Medical Image Viewer\\* using WebGL}\\[0.4cm] % Title of your document
+{ \large \bfseries by}\\[0.4cm] % Title of your document
+{ \large \bfseries David Basalla}\\[10cm] % Title of your document
+ 
+
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+{Submitted in partial fulfilment of the requirements for the MSc Degree in Computing Science of Imperial College London }\\[0.5cm] 
+{September,  2014}\\[0.5cm] % Minor heading such as course title
+
+
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+
 
 \tableofcontents
 
@@ -236,6 +275,42 @@ The Foundry's \textit{Nuke} is a compositing package which is used in the Visual
 \subsubsection{Web Framework XTK}
 
 As suggested in the project specification, the goal of this project is to use the \textit{X Toolkit}(\textit{XTK}), a \textit{JavaScript}-based framework for visualizing and interacting with medical imaging data using \textit{WebGL}. It was developed and maintained by Haehn et al of the Fetal-Neonatal Neuroimaging and Developmental Science Center at Childrens Hospital Boston, Harvard Medical School, US (\cite{xtk}). \textit{XTK} provides an API to load medical images, based on \textit{WebGL} technology for displaying 3D graphics and the \textit{HTML5} canvas elements to display 2D components. It hides a lot of the low-level elements of \textit{WebGL} and is designed to load and configure medical image data files of various types (including \textit{NIfTI}). The library is well documented and comes with several tutorials as well as a number of example applications, which will be discussed in the next section. It appears to follow closely the suggestions laid out in section 2.1 (Medical Imaging) in that it provides means to display 2D and 3D slice visualisations (Surface Shaded Display and Volume Rendering are supported), with simple mouse-based controls. It allows for loading of label (segmentation) maps which can overlaid on top of the image data files. It also features color tables (LUTs) to display the data. More advanced features such as reslicing a volume along arbitrary axis and rendering particles are also supported.
+
+
+The library is comprised of a host of different components. Since it would take too long to explain every class, I will describe the four concepts of renderers, volumes, slices and labelmaps to give an insight into XTK's workings. The XTK website has a list of API commands for these but it is not up to date, and I learned more by actually looking into the code.
+
+A X.renderer is an abstract virtual class and inherits to X.renderer3D and X.renderer2D.  The renderer has a private attribute called topLevelObjects which is an array of X.objects that have no parents themselves. This matters as inherited X.objects such as X.volume have nested X.objects as member attributes. The X.renderer class also has a private objects class, which is an array of all X.objects that are linked to this renderer. Next, an X.loader object is also assigned to the private 'loader' attribute. This loader will be used for any loading of file object, as will be discussed in more detail later in this subsection. The X.renderer class also has an X.camera class. This is used to view the renderer content, and viewing transformations such as panning, zooming and rotation are handled by this class. There exists an inherited 2D and 3D camera class. Then there is an X.interactor assigned as well. This class handles all mouse and keyboard inputs. 
+
+The inherited X.renderer2D class has extra attributes to specify which slice is being rendered, such as currentSlice, orientiation, sliceHeight and sliceWidth. It has a framebuffer array attribute which stores the current slice texture information which will be rendered to screen. It also has a labelFrameBuffer which is secondary buffer that is used to render a labelmap if one has been loaded. This is in essence an A over B compositing effect. The X.renderer3D class has different internal attributes since it does its drawing through WebGL technology. It contains number attributes of the the dimensions of the loaded objects, as well as an X.shaders object and various buffers of the form goog.structs.Map to store vertex, normal, color and texture information of the currently loaded objects.
+
+There are various methods in the X.renderer classes. Init(), render() and update() warrant a closer look. The init() function is called in the beginning to set up main aspects such as the X.interactor, X.camera, X.loader, HTML Canvas and Context on which to draw on. The render() function deals with the actual drawing of content onto the canvas. The renderer3D and renderer2D classes naturally differ in their implementations of this function, but both call on the parent's render() function to continuously redraw the frame. Renderer2D.render() function reevaluates if the current buffer needs to be recalculated and if so does it inside the scope of the code, whereas the renderer3D.render() function pushes any changed data to the GPU for drawing. SOMEWHAT HAZY UNDERSTANDING OF THIS, IMPROVE.
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/xtkUML_01.png}
+\caption{Full Class Diagrams for renderer.js, renderer2D.js and renderer3D.js}
+\label{fig:UIdesign1}
+\end{figure}
+
+
+X.slice is a type of X.object and inherits a host of attributes and functions from it (see below for UML diagram). It stores attributes for a current slice, such as orientation vectors (\_front, \_up, \_right), \_center, dimensions (\_width and \_height).
+
+Generally, XTK uses the concept of injections to add extra features into various X.classes. A selection can be see in Figure 34. X.loadable supplies attributes to store file data. X.displayable offers several attributes useful for displayin in Canvas, such as \_color, \_points and \_texture. Finally, X.thresholdable enables the setting of different threshold values, as is used in the X.volume.
+
+The Xvolume is a more complex type of Xobject. As it is an X.object, it can be added to a X.renderer and inherits all the attributes and methods from the X.object class. Volumes are also injected with the loadable.js code and thresholdable code. An X.volume has a variety of attributes that deal with the currently loaded data, such as current indices (\_indexX, \_indexY and \_indexZ), range which specifies the maximum indices. It has \_windowLow, \_windowHigh, \_thresholdLow and \_thresholdHigh (the last two from thesholdable.js) which dictate the window and treshold settings. As for all attributes that are to be accessed from outside the API, setter methods have been written which take care of internal logic. It is the setter methods for window and threshold that are being called through the Levels Panel when adjusting the sliders. The X.volume has the inherited array children from (X.object) in which it stores all the precomputed X.slices. A precomputed X.slice is generated when the slice index is set to an index that has not been visited yet since instantiation. In this way, the X.volume will buffer more and more slices throughout scrolling. Once the X.slices have been buffered, lookup is noticeably quicker. When the X.volume is set to an uncomputed sliceIndex, different functions are called than when a precomputed slice is present, including forcing a redraw in the render.js class. 
+
+
+So when loading a custom labelmap, I had to implemented a method to clear the \_children array.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{graphics/xtkUML_04.png}
+\caption{UML Class diagram for X.volume and dependencies}
+\label{fig:UIdesign1}
+\end{figure}
+
+
 
 The \textit{XTK} library also provides a module for creating User Interface (UI), that can be overlaid on top of the image viewers, with easy controls to connect the image content with the UI controls.
 The popular forum for coding questions Stackoverflow hosts about 100 questions regarding \textit{XTK} to date, and occasionally the \textit{XTK} developers offer up answers.
@@ -1113,38 +1188,7 @@ Related to browser development, a tool I used a number of times was JSFiddle. Th
 
 As already mentioned, the initial idea was to use XTK as an API to handle all the low level work to with loading and displaying Volume Files. As it soon became apparent, I had to dig deeper into the XTK library. Since XTK uses the goog closure library to minify the code, I first started to introduce print statements into the code in order to follow the flow better. However this became tedious quite fast and I figured out that is possible to run the uncompiled code with a few steps. This proved to be quite necessary since I was getting lots of errors at later stages of the project.
 
-The library is comprised of a host of different components. Since it would take too long to explain every class, I will describe the four concepts of renderers, volumes, slices and labelmaps to give an insight into XTK's workings. The XTK website has a list of API commands for these but it is not up to date, and I learned more by actually looking into the code.
 
-A X.renderer is an abstract virtual class and inherits to X.renderer3D and X.renderer2D.  The renderer has a private attribute called topLevelObjects which is an array of X.objects that have no parents themselves. This matters as inherited X.objects such as X.volume have nested X.objects as member attributes. The X.renderer class also has a private objects class, which is an array of all X.objects that are linked to this renderer. Next, an X.loader object is also assigned to the private 'loader' attribute. This loader will be used for any loading of file object, as will be discussed in more detail later in this subsection. The X.renderer class also has an X.camera class. This is used to view the renderer content, and viewing transformations such as panning, zooming and rotation are handled by this class. There exists an inherited 2D and 3D camera class. Then there is an X.interactor assigned as well. This class handles all mouse and keyboard inputs. 
-
-The inherited X.renderer2D class has extra attributes to specify which slice is being rendered, such as currentSlice, orientiation, sliceHeight and sliceWidth. It has a framebuffer array attribute which stores the current slice texture information which will be rendered to screen. It also has a labelFrameBuffer which is secondary buffer that is used to render a labelmap if one has been loaded. This is in essence an A over B compositing effect. The X.renderer3D class has different internal attributes since it does its drawing through WebGL technology. It contains number attributes of the the dimensions of the loaded objects, as well as an X.shaders object and various buffers of the form goog.structs.Map to store vertex, normal, color and texture information of the currently loaded objects.
-
-There are various methods in the X.renderer classes. Init(), render() and update() warrant a closer look. The init() function is called in the beginning to set up main aspects such as the X.interactor, X.camera, X.loader, HTML Canvas and Context on which to draw on. The render() function deals with the actual drawing of content onto the canvas. The renderer3D and renderer2D classes naturally differ in their implementations of this function, but both call on the parent's render() function to continuously redraw the frame. Renderer2D.render() function reevaluates if the current buffer needs to be recalculated and if so does it inside the scope of the code, whereas the renderer3D.render() function pushes any changed data to the GPU for drawing. SOMEWHAT HAZY UNDERSTANDING OF THIS, IMPROVE.
-
-
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=170mm]{graphics/xtkUML_01.png}
-\caption{Full Class Diagrams for renderer.js, renderer2D.js and renderer3D.js}
-\label{fig:UIdesign1}
-\end{figure}
-
-
-X.slice is a type of X.object and inherits a host of attributes and functions from it (see below for UML diagram). It stores attributes for a current slice, such as orientation vectors (\_front, \_up, \_right), \_center, dimensions (\_width and \_height).
-
-Generally, XTK uses the concept of injections to add extra features into various X.classes. A selection can be see in Figure 34. X.loadable supplies attributes to store file data. X.displayable offers several attributes useful for displayin in Canvas, such as \_color, \_points and \_texture. Finally, X.thresholdable enables the setting of different threshold values, as is used in the X.volume.
-
-The Xvolume is a more complex type of Xobject. As it is an X.object, it can be added to a X.renderer and inherits all the attributes and methods from the X.object class. Volumes are also injected with the loadable.js code and thresholdable code. An X.volume has a variety of attributes that deal with the currently loaded data, such as current indices (\_indexX, \_indexY and \_indexZ), range which specifies the maximum indices. It has \_windowLow, \_windowHigh, \_thresholdLow and \_thresholdHigh (the last two from thesholdable.js) which dictate the window and treshold settings. As for all attributes that are to be accessed from outside the API, setter methods have been written which take care of internal logic. It is the setter methods for window and threshold that are being called through the Levels Panel when adjusting the sliders. The X.volume has the inherited array children from (X.object) in which it stores all the precomputed X.slices. A precomputed X.slice is generated when the slice index is set to an index that has not been visited yet since instantiation. In this way, the X.volume will buffer more and more slices throughout scrolling. Once the X.slices have been buffered, lookup is noticeably quicker. When the X.volume is set to an uncomputed sliceIndex, different functions are called than when a precomputed slice is present, including forcing a redraw in the render.js class. 
-
-
-So when loading a custom labelmap, I had to implemented a method to clear the \_children array.
-
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=170mm]{graphics/xtkUML_04.png}
-\caption{UML Class diagram for X.volume and dependencies}
-\label{fig:UIdesign1}
-\end{figure}
 
 
 
