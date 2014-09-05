@@ -25,7 +25,7 @@
 
 
 
-\title{Browser-based Medical Image Viewer using WebGL \\\Large{--- Report ---}}
+\title{Browser-based Medical Image Viewer using \textit{WebGL} \\\Large{--- Report ---}}
 \author{David Basalla\\
   \small{Supervisor: Dr.\ Ben Glocker}\\
   \small{Imperial College London}
@@ -90,7 +90,7 @@ To view medical image data, users are required to have appropriate software inst
 \subsection{Requirements}
 
 
-The goal of this project is to build a web browser based Medical Image Viewer. This will be achieved by making use of \textit{WebGL} to display 2D and 3D graphics. In general the project aims to provide similar functionality and user experience as the desktop application \textit{MITK} (discussed earlier). The essential requirements are as follows:
+The goal of this project is to build a web browser based medical image viewer. This will be achieved by making use of \textit{WebGL} to display 2D and 3D graphics. In general the project aims to provide similar functionality and user experience as the desktop application \textit{MITK} (discussed earlier). The essential requirements are as follows:
 
 \begin{itemize}
 \item The user can load and view a scan file (of type \textit{NIfTI})
@@ -340,7 +340,7 @@ Given the statistics discussed above, it was decided to mainly develop for Googl
 
 \subsubsection{Developing websites}
 
-A web-based application is in essence a website that aims to provide a richer and more complex functionality than merely displaying text. At a very basic level, a website can be written with just \textit{HTML} (Hyper Text Markup Language) code. \textit{HTML} is written with tags as in the example below. This code is converted into a tree format of \textit{JavaScript}node objects or Document Object Model (DOM) by the web browser. The purpose of this is to provide a programmatic interface for scripting (removing, adding, replacing, eventing, and modifying) this live document using \textit{JavaScript}[REFERENCE]. Different tags can be added to an \textit{HTML} element, such as the <class> tag, which gets used for applying a CSS style (more on this later). These nodes can also be created by running \textit{JavaScript}methods such as the createElement() function. The point is that \textit{JavaScript}and \textit{HTML} are linked very closely, in that\textit {HTML} can be programmed with JavaScript.
+A web-based application is in essence a website that aims to provide a richer and more complex functionality than merely displaying text. At a very basic level, a website can be written with just \textit{HTML} (Hyper Text Markup Language) code. \textit{HTML} is written with tags as in the example below. This code is converted into a tree format of \textit{JavaScript}node objects or Document Object Model (DOM) by the web browser. The purpose of this is to provide a programmatic interface for scripting (removing, adding, replacing, eventing, and modifying) this live document using \textit{JavaScript}[REFERENCE]. Different tags can be added to an \textit{HTML} element, such as the <class> tag, which gets used for applying a \textit{CSS} style (more on this later). These nodes can also be created by running \textit{JavaScript}methods such as the createElement() function. The point is that \textit{JavaScript}and \textit{HTML} are linked very closely, in that\textit {HTML} can be programmed with JavaScript.
 
 \begin{verbatim}
 <html>
@@ -350,7 +350,7 @@ A web-based application is in essence a website that aims to provide a richer an
 </html>
 \end{verbatim}
 
-Creating websites with just \textit{HTML} however is not quite enough in today's world of modern web development. Modern websites can be thought of as a combination of structure, style and interactivity [REFERENCE]. These three jobs are handled in turn by \textit{HTML}, CSS and JavaScript, which go hand in hand to deliver modern web page content. CSS was first published and recommended by the W3C in 1996. It is generally used to style the look of \textit{HTML} content. This was previously possible with \textit{HTML}, but involved a lot of work as elements had to be type set individually and was still relatively limited compared to what is possible with CSS today. With CSS an \textit{HTML} element could be assigned a class (via the <class> tag), which would refer to specific set of CSS rules.
+Creating websites with just \textit{HTML} however is not quite enough in today's world of modern web development. Modern websites can be thought of as a combination of structure, style and interactivity [REFERENCE]. These three jobs are handled in turn by \textit{HTML}, \textit{CSS} and JavaScript, which go hand in hand to deliver modern web page content. \textit{CSS} was first published and recommended by the W3C in 1996. It is generally used to style the look of \textit{HTML} content. This was previously possible with \textit{HTML}, but involved a lot of work as elements had to be type set individually and was still relatively limited compared to what is possible with \textit{CSS} today. With \textit{CSS} an \textit{HTML} element could be assigned a class (via the <class> tag), which would refer to specific set of \textit{CSS} rules.
 
 \begin{figure}
 \centering
@@ -366,12 +366,12 @@ Creating websites with just \textit{HTML} however is not quite enough in today's
 
   \label{fig:sub2}
 \end{subfigure}
-\caption{HTML with CSS (left) and without CSS (right)}
+\caption{HTML with \textit{CSS} (left) and without \textit{CSS} (right)}
 
 \end{figure}
 
 
-Additionally \textit{JavaScript}can be include as code itself in an \textit{HTML} document with the <script> tag. See the example below. \textit{JavaScript}is used to add functionality to a website by managing interactive elements, function calls and whatever else a developer can think of doing with it. Advanced features such as WebGL and \textit{HTML} Canvas are manipulated with JavaScript. When a website contains JavaScript, it is downloaded to the user's local machine and run locally ('client side') by the web browser's \textit{JavaScript}interpreter. With increasing computational power of machines and faster processing speeds of \textit{JavaScript}by web browsers, complex code can be run locally and does not rely on network speed.
+Additionally \textit{JavaScript}can be include as code itself in an \textit{HTML} document with the <script> tag. See the example below. \textit{JavaScript}is used to add functionality to a website by managing interactive elements, function calls and whatever else a developer can think of doing with it. Advanced features such as \textit{WebGL} and \textit{HTML} Canvas are manipulated with JavaScript. When a website contains JavaScript, it is downloaded to the user's local machine and run locally ('client side') by the web browser's \textit{JavaScript}interpreter. With increasing computational power of machines and faster processing speeds of \textit{JavaScript}by web browsers, complex code can be run locally and does not rely on network speed.
 
 
 
@@ -391,9 +391,9 @@ In terms of organisation, it is possible to include the code from all three lang
 
 To make things more challenging, various programming aspects such of \textit{HTML}, CSS, \textit{JavaScript}and DOM functionality are supported to varying degrees in the different web browsers and versions. This stems from the fact that web browsers are created and maintained by different companies (with differing business goals and implementation strategies). In the late 1990's this proved disasterous as web browsers with different features existed without any coordination between them. However with the creation of the World Wide Web Consortium, the main international standards organization for the World Wide Web, matters took a turn for the better. The organisation is lead by Tim Berners-Lee, the inventor of the World Wide Web, and sets out the standards used for web browser scripting, such as CSS, \textit{HTML}, \textit{JavaScript}and many more. This happened in several stages and revisions over the years, and is now probably more unified than ever before. 
 
-However there still remain small differences, which is only natural when different companies are maintaining these different browsers. For example, WebGL has been supported by Google Chrome since Februray 2011, whereas it was only introduced to the Internet Explorer with Version 11, which came out in October 2013. Also, not all CSS features, used for styling the look of a website, are universally supported or at least support is lagging behind between browsers. For example when searching for the CSS property "box-shadow" www.w3schools.com will list which browsers and versions support this attribute. Luckily the most commonly used elements tend to be supported across all browsers. The http://www.quirksmode.org/ website aims to provide a comprehensive breakdown of provided features across different browsers. Another issue is that the web browsers' \textit{JavaScript}interpreters can differ in their implementation.
+However there still remain small differences, which is only natural when different companies are maintaining these different browsers. For example, \textit{WebGL} has been supported by Google Chrome since Februray 2011, whereas it was only introduced to the Internet Explorer with Version 11, which came out in October 2013. Also, not all \textit{CSS} features, used for styling the look of a website, are universally supported or at least support is lagging behind between browsers. For example when searching for the \textit{CSS} property "box-shadow" www.w3schools.com will list which browsers and versions support this attribute. Luckily the most commonly used elements tend to be supported across all browsers. The http://www.quirksmode.org/ website aims to provide a comprehensive breakdown of provided features across different browsers. Another issue is that the web browsers' \textit{JavaScript}interpreters can differ in their implementation.
 
-It is anticipated that all these variations will become a source of problems when developing the project and some time will have to be dedicated to test and if necessary reimplement certain sections of the code that does not run successfully in all browsers. A method called 'browser sniffing' could be employed, where the type and version of web browser is determined and the code configured accordingly. However W3C does not recommend this, as there would be too many variations to cater for. Instead they advocate using feature detection, which allows the developer to query for support of a feature such as WebGL instead of having to check the browser version when WebGL was first supported. This is more elegant and future-proof. 
+It is anticipated that all these variations will become a source of problems when developing the project and some time will have to be dedicated to test and if necessary reimplement certain sections of the code that does not run successfully in all browsers. A method called 'browser sniffing' could be employed, where the type and version of web browser is determined and the code configured accordingly. However W3C does not recommend this, as there would be too many variations to cater for. Instead they advocate using feature detection, which allows the developer to query for support of a feature such as \textit{WebGL} instead of having to check the browser version when \textit{WebGL} was first supported. This is more elegant and future-proof. 
 Looking at this from a code perspective, detecting a browser and version is done by the "navigator.userAgent" \textit{JavaScript}command. It returns a string like:
 
 \begin{verbatim}
@@ -488,7 +488,7 @@ Various other brower-plugins existed or are still around, such as Adobe's \texti
 
 \subsubsection{WebGL}
 
-In parallel with the standardisation of \textit{HTML5}, \textit{WebGL} became more widely used and supported, and helped to reduce the multitude and clutter of browser-plugins. Generally speaking, WebGL is a 3D graphics API for the Web. It has been used among others on Google Maps, Autodesk's Autocad Cloud applications and Epic Games' WebGL Demo 'Citadel'.
+In parallel with the standardisation of \textit{HTML5}, \textit{WebGL} became more widely used and supported, and helped to reduce the multitude and clutter of browser-plugins. Generally speaking, \textit{WebGL} is a 3D graphics API for the Web. It has been used among others on Google Maps, Autodesk's Autocad Cloud applications and Epic Games' \textit{WebGL} Demo 'Citadel'.
 
 The website http://www.awwwards.com hosts a number of impressive showcases of WebGL's capabilities, such as "WebGL Water"  which features a swimming pool and a ball with fluid dynamics and high-end visual phenomena such as reflection, refraction, caustics, and ambient occlusion.
 
@@ -513,10 +513,10 @@ The website http://www.awwwards.com hosts a number of impressive showcases of We
 \end{figure}
 
 
-WebGL is exclusively controlled by JavaScript. WebGL is based on OpenGL ES 2.0, the Embedded Systems version of the widely used OpenGL standard for generating 3D graphics. The Embedded Systems off-shoot is intended for smaller computing devices such as smart phones and tablets, such as IPhone, IPad and Android phones. Due to its smaller footprint, it was felt that WebGL would make it a more consistent, cross-platform and cross-browser 3D API (REFERENCE). 
+WebGL is exclusively controlled by JavaScript. \textit{WebGL} is based on \textit{OpenGL} ES 2.0, the Embedded Systems version of the widely used \textit{OpenGL} standard for generating 3D graphics. The Embedded Systems off-shoot is intended for smaller computing devices such as smart phones and tablets, such as IPhone, IPad and Android phones. Due to its smaller footprint, it was felt that \textit{WebGL} would make it a more consistent, cross-platform and cross-browser 3D API (REFERENCE). 
 
 WebGL uses the\textit{HTML}5 Canvas element to render into, and uses a specific webGL-compliant context (as opposed to the 2D context used for 2D drawing). It differs in 2D Drawing, that all rendering is done with primitives such as Triangles, Points or Lines. 
-Dedicated arrays called buffers are used to store the data for these primitives, such as vertices and normals. Next, a ModelView matrix needs to be created, which sets the transformation of a primitive or object in the 3D World. Also, a projection matrix is needed which converts 3D points into 2D coordinates of the drawing screen. Finally, a shader needs to be defined which will be attached to the primitives. Shaders are written in their own language called GLSL, and are themselves typically comprised of vertex shaders and fragments shaders. Vertex shaders combine the matrices and position of primitives into the final position on screen whereas the fragment shader is used to assign attributes such as color, texture and lighting. Thus, the workflow to render something with WebGL onto a webpage is as follows (Taken from book, reference):
+Dedicated arrays called buffers are used to store the data for these primitives, such as vertices and normals. Next, a ModelView matrix needs to be created, which sets the transformation of a primitive or object in the 3D World. Also, a projection matrix is needed which converts 3D points into 2D coordinates of the drawing screen. Finally, a shader needs to be defined which will be attached to the primitives. Shaders are written in their own language called GLSL, and are themselves typically comprised of vertex shaders and fragments shaders. Vertex shaders combine the matrices and position of primitives into the final position on screen whereas the fragment shader is used to assign attributes such as color, texture and lighting. Thus, the workflow to render something with \textit{WebGL} onto a webpage is as follows (Taken from book, reference):
 
 \begin{enumerate}
 \item Create a Canvas element.
@@ -529,7 +529,7 @@ Dedicated arrays called buffers are used to store the data for these primitives,
 \end{enumerate}
 
 
-As can be guessed from the steps above, WebGL is a very low level API in that it does not provide any high level scene descriptions of scene graphs. All this has to be implemented by developers manually. A large part of its draw and power stem from this fact, but also makes it very time intensive to work with from the ground up. For this purpose, some solutions already exist that build on this to provide a more convenient interface into the 3D capabilities such as ThreeJS. For this project, the \textit{XTK} library plays the same role in that the low level features of WebGL can be accessed by a high-level API which can load a volume file as 3-plane slice display in a 3D View.
+As can be guessed from the steps above, \textit{WebGL} is a very low level API in that it does not provide any high level scene descriptions of scene graphs. All this has to be implemented by developers manually. A large part of its draw and power stem from this fact, but also makes it very time intensive to work with from the ground up. For this purpose, some solutions already exist that build on this to provide a more convenient interface into the 3D capabilities such as ThreeJS. For this project, the \textit{XTK} library plays the same role in that the low level features of \textit{WebGL} can be accessed by a high-level API which can load a volume file as 3-plane slice display in a 3D View.
 
 Nowadays, most browser-based 3D graphics libraries make use of \textit{WebGL} and even libraries that used to require a plug-in (example) have now been ported to use \textit{WebGL}. 
 
@@ -545,7 +545,7 @@ The \textit{XTK} library also provides a module for creating User Interface (UI)
 
 \subsubsection{Use of Google Closure Library}
 
-The \textit{XTK} library is written in JavaScript, but uses the Google Closure library to compile the code into minified code. This serves to reduce variable and function names and generally is designed to make the code run faster. The drawback is that it become harder to decode, since variable and function names are changed to be meaningless to the human reader. For functions and attributes that are meant to be used from outside the library, custom setters and getters have to be written. \textit{XTK} also uses Goog matrices for their Graphics computations. Additionally the WebGL portion of \textit{XTK} makes use of GLSL for its shaders, but commands are wrapped as strings in a \textit{JavaScript} file.
+The \textit{XTK} library is written in JavaScript, but uses the Google Closure library to compile the code into minified code. This serves to reduce variable and function names and generally is designed to make the code run faster. The drawback is that it become harder to decode, since variable and function names are changed to be meaningless to the human reader. For functions and attributes that are meant to be used from outside the library, custom setters and getters have to be written. \textit{XTK} also uses Goog matrices for their Graphics computations. Additionally the \textit{WebGL} portion of \textit{XTK} makes use of GLSL for its shaders, but commands are wrapped as strings in a \textit{JavaScript} file.
 
 \subsubsection{XTK Classes}
 
@@ -562,7 +562,7 @@ The library is comprised of a host of different classes. Since it would take too
 
 An X.renderer is an abstract virtual class and both X.renderer3D and X.renderer2D inherit from it. The renderer has a private attribute called topLevelObjects which is an array of X.objects that have no parents themselves. This matters as inherited X.objects such as X.volume have nested X.objects as member attributes. The X.renderer class also has a private objects class, which is an array of all X.objects that are linked to this renderer. Next, an X.loader object is also assigned to the private 'loader' attribute. This loader will be used for any loading of file object, as will be discussed in more detail later in this subsection. The X.renderer class also has an X.camera class. This is used to view the renderer content, and viewing transformations such as panning, zooming and rotation are handled by this class. There exists an inherited 2D and 3D camera class. Then there is an X.interactor assigned as well. This class handles all mouse and keyboard inputs. 
 
-The inherited X.renderer2D class has extra attributes to specify which slice is being rendered, such as currentSlice, orientiation, sliceHeight and sliceWidth. It has a framebuffer array attribute which stores the current slice texture information which will be rendered to screen. It also has a labelFrameBuffer which is secondary buffer that is used to render a labelmap if one has been loaded. This is in essence an A over B compositing effect. The X.renderer3D class has different internal attributes since it does its drawing through WebGL technology. It contains number attributes of the the dimensions of the loaded objects, as well as an X.shaders object and various buffers of the form goog.structs.Map to store vertex, normal, color and texture information of the currently loaded objects.
+The inherited X.renderer2D class has extra attributes to specify which slice is being rendered, such as currentSlice, orientiation, sliceHeight and sliceWidth. It has a framebuffer array attribute which stores the current slice texture information which will be rendered to screen. It also has a labelFrameBuffer which is secondary buffer that is used to render a labelmap if one has been loaded. This is in essence an A over B compositing effect. The X.renderer3D class has different internal attributes since it does its drawing through \textit{WebGL} technology. It contains number attributes of the the dimensions of the loaded objects, as well as an X.shaders object and various buffers of the form goog.structs.Map to store vertex, normal, color and texture information of the currently loaded objects.
 
 There are various methods in the X.renderer classes. Init(), render() and update() warrant a closer look. The init() function is called in the beginning to set up main aspects such as the X.interactor, X.camera, X.loader, \textit{HTML} Canvas and Context on which to draw on. The render() function deals with the actual drawing of content onto the canvas. The renderer3D and renderer2D classes naturally differ in their implementations of this function, but both call on the parent's render() function to continuously redraw the frame. Renderer2D.render() function reevaluates if the current buffer needs to be recalculated and if so does it inside the scope of the code, whereas the renderer3D.render() function pushes any changed data to the GPU for drawing. 
 
@@ -751,7 +751,7 @@ The main view that the user is presented with is split into four different compo
 \end{subfigure}
 \end{figure}
 
-The Camera View Panels are the viewing windows for displaying the visual representation of the loaded Volume File. Internally they copy pixels from invisible \textit{XTK} Render Panels. The View Panels hold a top bar with options to customise the viewer (e.g to specify which camera to look through). The View Panels also contain an\textit{HTML}5 Canvas Element which does the drawing of the Volume File. The View Panels come in two types. The 3D View Panel displays the 3D volume with the 3 axial slices. There is an option to toggle Volume Rendering on, a feature of the \textit{XTK} library. It uses WebGL and will only work on computers that support WebGL. The 2D View Panels render the orthographic (ie. axial, sagittal and coronal) views of the Volume File. They include a set of buttons for playing or reversing through the current slice stack. Furthermore they have a toggle for Overlaying Information into the Viewer about current filename, orientation, index and opacity.
+The Camera View Panels are the viewing windows for displaying the visual representation of the loaded Volume File. Internally they copy pixels from invisible \textit{XTK} Render Panels. The View Panels hold a top bar with options to customise the viewer (e.g to specify which camera to look through). The View Panels also contain an\textit{HTML}5 Canvas Element which does the drawing of the Volume File. The View Panels come in two types. The 3D View Panel displays the 3D volume with the 3 axial slices. There is an option to toggle Volume Rendering on, a feature of the \textit{XTK} library. It uses \textit{WebGL} and will only work on computers that support WebGL. The 2D View Panels render the orthographic (ie. axial, sagittal and coronal) views of the Volume File. They include a set of buttons for playing or reversing through the current slice stack. Furthermore they have a toggle for Overlaying Information into the Viewer about current filename, orientation, index and opacity.
 
 
 
@@ -876,7 +876,7 @@ Whenever I was stuck on a problem, checking the popular StackOverflow forum for 
 
 \subsection{General structure}
 
-The initial plan was to build a UI with custom features (the frontend) using the \textit{XTK} library (the backend) through the API. The frontend would be written in \textit{JavaScript}, \textit{HTML} and CSS and would be structured with \textit{Backbone}. The individual \textit{HTML} elements would be stored in separate template files, which the \textit{Backbone} Views would render to the web browser. Twitter-Bootstrap, \textit{jQueryUI} and custom-made CSS style elements would be used to style the look and feel of the frontend.
+The initial plan was to build a UI with custom features (the frontend) using the \textit{XTK} library (the backend) through the API. The frontend would be written in \textit{JavaScript}, \textit{HTML} and \textit{CSS} and would be structured with \textit{Backbone}. The individual \textit{HTML} elements would be stored in separate template files, which the \textit{Backbone} Views would render to the web browser. Twitter-Bootstrap, \textit{jQueryUI} and custom-made \textit{CSS} style elements would be used to style the look and feel of the frontend.
 
 The hope was that the \textit{XTK} library would provide all necessary functionality required for the front end and so it would not be necessary to alter the library itself. However it soon became apparent that this would not be the case, and modifications had to be made. Still, access to the backend would be handled through a separate dedicated \textit{Backbone} View. 
 
@@ -933,7 +933,7 @@ Once I had this setup I came across one of the first bugs in \textit{XTK}. When 
 
 In terms of the layout of the components of ScanView, it needed to accomodate the four different views (one 3D Camera View and X, Y and Z Camera Views). I wanted to add some customisation options in terms of size of the viewer and choice of Camera View in each panel. Depending on whether it was a 3D or 2D Camera View, the Display Panel would have different options. 3D Camera View needed a toggle for Volumetric Rendering, 2D Camera View needed a toggle for Information Overlay.
 
-For the different layouts I briefly investigated using interactive splitters, but found them to be not very easy or reliable to tie into the program. Instead I opted for 4 different static Layouts (See image below). This should give the user enough options to choose what his prefered layout. Implementing the logic behind these panels took a while to get right. Panels had to auto-resize everytime the layout was changed. Again this required some exposing of extra \textit{XTK} attributes, as well as CSS management of the CanvasViewer Views.
+For the different layouts I briefly investigated using interactive splitters, but found them to be not very easy or reliable to tie into the program. Instead I opted for 4 different static Layouts (See image below). This should give the user enough options to choose what his prefered layout. Implementing the logic behind these panels took a while to get right. Panels had to auto-resize everytime the layout was changed. Again this required some exposing of extra \textit{XTK} attributes, as well as \textit{CSS} management of the CanvasViewer Views.
 
 Implementing the feature to change the current viewer orientation took a little bit of time to figure out. I experimented first with a fixed order of CanvasViewers (meaning their order in the DOM), where changing a CanvasViewer's orientation would cause its Canvas element to start copying a different \textit{XTK} Viewer. This proved to be cumbersome to manage, as not only the Canvas content but also the buttons of the CanvasViewer had to change (e.g 'Overlay' or 'Volume Rendering' toggle) depending on if the 3D camera view or the orthogonal views were selected. Instead I opted for a floating order of CanvasViewers, so that depending on selection, the CanvasViewer would be reordered in the DOM to appear at the correct position. This meant that the CanvasViewer View itself stayed intact with all functionality, only its position and possible size had changed.
 
@@ -1096,7 +1096,7 @@ An issue that is entirely related to the \textit{XTK} library is how to let the 
 
 \subsubsection{Slice Animation Feature}
 
-This feature was added fairly late in the project, but it was relatively fast to implement. It had been suggested in the big medical book, and when talking to a radiologist, it seemed like it could be a useful feature which would relieve the user from manually having to scroll through a Volume file. I implemented this via a set of 5 buttons from the Twitter-Bootstrap library, commonly used to signal playing, stopping or rewinding a media file. I used the settimeout() method to recursively increment or decrement the current slice index (dependent on the viewer). At each recursion, it checks a guard variable whether to keep looping. The stop button changes this guard variable to on and therefore breaks the loop. I also trigger this break when the user uses the mouse scroll button, as I figured that the user might like to stop the animation easily other than by hitting the stop button. Almost by accident, it also provides the user to quickly navigate from to the minimum and maximum slice numbers for each direction by use of the fast-forward and fast-backward buttons.
+This feature was added fairly late in the project, but it was relatively fast to implement. It had been suggested in the big medical book, and when talking to a radiologist, it seemed like it could be a useful feature which would relieve the user from manually having to scroll through a Volume file. I implemented this via a set of 5 buttons from the \textit{Twitter-Bootstrap} library, commonly used to signal playing, stopping or rewinding a media file. I used the settimeout() method to recursively increment or decrement the current slice index (dependent on the viewer). At each recursion, it checks a guard variable whether to keep looping. The stop button changes this guard variable to on and therefore breaks the loop. I also trigger this break when the user uses the mouse scroll button, as I figured that the user might like to stop the animation easily other than by hitting the stop button. Almost by accident, it also provides the user to quickly navigate from to the minimum and maximum slice numbers for each direction by use of the fast-forward and fast-backward buttons.
 
 
 \subsubsection{Polishing the User Interface}
@@ -1110,7 +1110,7 @@ Now with the program gaining shape, it was time to tweak the User Interface. Thi
 \label{fig:UIdesign1}
 \end{figure}
 
-Furthermore, I implemented changes that would guide the user better in terms of using the software. This included disabling of all input and buttons in the Levels, Annotations and Labelmap tabs when no appropriate medical imaging file had been loaded yet. Also I added pop up windows were introduced to warn a user if the wrong kind of file was being loaded. Tooltips (from Twitter-Bootstrap library) were added to almost every button to help the user understand the intended functionality of each.
+Furthermore, I implemented changes that would guide the user better in terms of using the software. This included disabling of all input and buttons in the Levels, Annotations and Labelmap tabs when no appropriate medical imaging file had been loaded yet. Also I added pop up windows were introduced to warn a user if the wrong kind of file was being loaded. Tooltips (from \textit{Twitter-Bootstrap} library) were added to almost every button to help the user understand the intended functionality of each.
 
 
 \begin{figure}[ht!]
@@ -1161,7 +1161,7 @@ To keep track of my project, I used Git. This was an obvious choice since it has
 
 \subsubsection{Browser Developer Environment}
 
-Initially I started developing in Chrome since it was my primary target for running the software. A few weeks my laptop broke due to accidental damage and I had to work in the labs, where I had problems running WebGL in Chrome, so I switched to Firefox. I soon found however, that Firefox leaves a lot to be desired for developing. The most important part of developing for me was the web console. With \textit{JavaScript} it is possible to print to this console, which I used endlessly. It also prints when a runtime error has occurred, complete with line number. This works great in Chrome, but in Firefox (on Ubuntu) at least, the line number would often be obscured. Any another problem is when printing a \textit{JavaScript} object to the console, it shows the final state of this object at the end of the code runtime. This means it is not possible to check the state of an object during runtime, only at the end. This caused some confusion until I had figured this out. Firefox is supposed to have a lot of plug-ins that can be downloaded, but in general I found Chrome to be much more convenient to use, and after a month managed to get a new laptop and returned to developing in Chrome.
+Initially I started developing in Chrome since it was my primary target for running the software. A few weeks my laptop broke due to accidental damage and I had to work in the labs, where I had problems running \textit{WebGL} in Chrome, so I switched to Firefox. I soon found however, that Firefox leaves a lot to be desired for developing. The most important part of developing for me was the web console. With \textit{JavaScript} it is possible to print to this console, which I used endlessly. It also prints when a runtime error has occurred, complete with line number. This works great in Chrome, but in Firefox (on Ubuntu) at least, the line number would often be obscured. Any another problem is when printing a \textit{JavaScript} object to the console, it shows the final state of this object at the end of the code runtime. This means it is not possible to check the state of an object during runtime, only at the end. This caused some confusion until I had figured this out. Firefox is supposed to have a lot of plug-ins that can be downloaded, but in general I found Chrome to be much more convenient to use, and after a month managed to get a new laptop and returned to developing in Chrome.
 
 
 \begin{figure}
@@ -1180,7 +1180,7 @@ Initially I started developing in Chrome since it was my primary target for runn
 
 \end{figure}
 
-Chrome offers a variety of developer tools that come with the browser. First the 'Elements' tab provides the interactive \textit{HTML} source code of the current web page. When hovering over a line of \textit{HTML}, the appropriate element in website lights up. It also shows the current CSS rules that are being applied, with the option of toggling them on or off and getting a live preview. The 'Elements' tool is extremely helpful when debugging if the correct \textit{HTML} correct has been written into the DOM or to check which CSS rules are currently active or have been overridden.
+Chrome offers a variety of developer tools that come with the browser. First the 'Elements' tab provides the interactive \textit{HTML} source code of the current web page. When hovering over a line of \textit{HTML}, the appropriate element in website lights up. It also shows the current \textit{CSS} rules that are being applied, with the option of toggling them on or off and getting a live preview. The 'Elements' tool is extremely helpful when debugging if the correct \textit{HTML} correct has been written into the DOM or to check which \textit{CSS} rules are currently active or have been overridden.
 
 
 The next developer tool is the 'Network' tab. This shows the external libraries and source files are being loaded. It gives a good chronological break down of which library loaded when and how long it took. This proved useful in the beginning to see if the dependencies were handled correctly by \textit{RequireJS}.
@@ -1204,12 +1204,12 @@ Chrome furthermore offers a debugger complete with break points, so it's possibl
 
 
 
-As there was some switching between web browsers, I noticed that Chrome and Firefox behaved differently sometimes. For example the layout would look drastically different in Firefox compared to Chrome, sometimes for reasons that were hard to track down due to large amount of variables in play. It appeared as if the css float command behaved differently, and place items to a different rule set. At other times, mouse navigation would not work in Firefox, since somehow mouse clicks where registered differently from Chrome. During the project, I spent time trying to bring up browser compatibility for both in parallel, but in retrospect I probably should have focused solely on Chrome, and then spent time making it work in Firefox and all other browsers, since they will also need custom work.
+As there was some switching between web browsers, I noticed that Chrome and Firefox behaved differently sometimes. For example the layout would look drastically different in Firefox compared to Chrome, sometimes for reasons that were hard to track down due to large amount of variables in play. It appeared as if the \textit{CSS} float command behaved differently, and place items to a different rule set. At other times, mouse navigation would not work in Firefox, since somehow mouse clicks where registered differently from Chrome. During the project, I spent time trying to bring up browser compatibility for both in parallel, but in retrospect I probably should have focused solely on Chrome, and then spent time making it work in Firefox and all other browsers, since they will also need custom work.
 
 
 \subsubsection{JSFiddle}
 
-Related to browser development, a tool I used a number of times was JSFiddle. This tool allows to on the fly testing of JavaScript, CSS and \textit{HTML}. In fact, when asking for web developlement related questions on the StackOverflow forum, answers are often posted with a working JSFiddle example. To create an example, one only needs to open JSFiddle and one can start coding. There are separate input windows for JavaScript, CSS and \textit{HTML} code. It also features a windows that displays the resulting output. The link to this code can then be saved or sent to other people. All of the \textit{XTK} tutorials are written as JSFiddle examples which allows for quick experimentation and testing of features. This was a really useful and convenient tool. 
+Related to browser development, a tool I used a number of times was JSFiddle. This tool allows to on the fly testing of JavaScript, \textit{CSS} and \textit{HTML}. In fact, when asking for web developlement related questions on the StackOverflow forum, answers are often posted with a working JSFiddle example. To create an example, one only needs to open JSFiddle and one can start coding. There are separate input windows for JavaScript, \textit{CSS} and \textit{HTML} code. It also features a windows that displays the resulting output. The link to this code can then be saved or sent to other people. All of the \textit{XTK} tutorials are written as JSFiddle examples which allows for quick experimentation and testing of features. This was a really useful and convenient tool. 
 
 
 \begin{figure}[ht!]
@@ -1244,7 +1244,7 @@ If this process is being called for the first time, the modified volume will als
 
 For the X.renderer2D class, when the user changes the index of one of the slice directions, the update() function is called and the new slice texture calculated. This slice texture is then stored in a local buffer attribute in the X.volume object, called \textit{children} so as not to have to recalculate this slice when the user returns to this index at a later point. The renderer.js object itself is running at a specified frame rate, and will update if it detects that one of a number of things has changed in the volume. Slice index changing is one of them. It was this that caused some problems when causing a redraw after reapplying a colortable or a labelmap. All the current checks would not cause a redraw, since I had not changed the slice index, but rather data that was affecting the current slices. So I had to find another way of triggering this redraw. In the end I opted for querying for the X.slice's sliceId attribute, which is a unique identifier number that gets changed every time a slice is recomputed. This way I could finally register the update. Luckily for the X.renderer3D, I had no issues, since it just renders the current X.volume in the current state, and the computation on a slice index change is being done by the X.renderer2D.
 
-An issue with loading colortables was that by default X.volumes only get rendering as a single color channel, and the not all three RGB channels. I found the code for this in the X.renderer2D class, where on each iteration of the draw() function, only the G channel would be converted into on screen pixels. Changing this to include the R and B channels was trivial. For X.renderer3D, this was a bit more involved, since the color management actually takes place in the fragment shader as per the WebGL standard. Once I had realised this, it was easy to change the GLSL code to support all three RGB channels.
+An issue with loading colortables was that by default X.volumes only get rendering as a single color channel, and the not all three RGB channels. I found the code for this in the X.renderer2D class, where on each iteration of the draw() function, only the G channel would be converted into on screen pixels. Changing this to include the R and B channels was trivial. For X.renderer3D, this was a bit more involved, since the color management actually takes place in the fragment shader as per the \textit{WebGL} standard. Once I had realised this, it was easy to change the GLSL code to support all three RGB channels.
 
 I found a few issues and bugs with \textit{XTK}. One of these is that some files do not load properly, so more advanced file handling should be added. To alleviate this problem, I implemented some advanced error catching methods with warning pop-ups in the UI, so that the user at least knows that something has gone wrong. Without this, it would have just printed out an error message to the web console. Another bug is that the mouse controls for threshold and window setting work in a way that is not intuitive and not reversible, so that after left-clicking and dragging a few times, the image will not return to its original brightness anymore. This could be because there are two attributes (min and low) to set for both threshold and windowing. I worked around this by reassigning the window and threshold controls to the slider and input fields in the Levels Tab.
 
@@ -1252,7 +1252,7 @@ I found a few issues and bugs with \textit{XTK}. One of these is that some files
 
 \subsubsection{RequireJS}
 
-RequireJS proved invaluable for determining correct dependencies for loading \textit{JavaScript} libraries. As I am using more than a handful of libraries which are also dependent on one another, I needed the ability to ensure that they had loaded correctly. The issue is that the modules are loaded asynchronously, so a module that depends on a another module could easily load before the other (as opposed to in sequence loading from function programming). A good exampe for this is the tooltips that I implemented towards the final stages of the project. Both \textit{jQueryUI} and twitter-bootstrap provide tooltips. In both cases they are initiated by the same function call, however they look quite distinctly different. I wanted to use the twitter-bootstrap tooltips as they seem more aesthetically pleasing. Without determining the load order with \textit{RequireJS}, whenever I reloaded the software a different tooltip style would pop up, depending on which library loaded first. This kind of race condition is of course undesirable.
+RequireJS proved invaluable for determining correct dependencies for loading \textit{JavaScript} libraries. As I am using more than a handful of libraries which are also dependent on one another, I needed the ability to ensure that they had loaded correctly. The issue is that the modules are loaded asynchronously, so a module that depends on a another module could easily load before the other (as opposed to in sequence loading from function programming). A good exampe for this is the tooltips that I implemented towards the final stages of the project. Both \textit{jQueryUI} and \textit{Twitter-Bootstrap} provide tooltips. In both cases they are initiated by the same function call, however they look quite distinctly different. I wanted to use the \textit{Twitter-Bootstrap} tooltips as they seem more aesthetically pleasing. Without determining the load order with \textit{RequireJS}, whenever I reloaded the software a different tooltip style would pop up, depending on which library loaded first. This kind of race condition is of course undesirable.
 
 Another example is of course \textit{XTK} itself which relies on \textit{jQuery} and \textit{Underscore} JS. \textit{RequireJS} really was a life saver for these situations. The screen shot below shows the ordered nature of loaded modules, using Chrome's Network tab. Without \textit{RequireJS}, the loads would happen a lot more randomly.
 
@@ -1289,7 +1289,7 @@ One issue came up with arrays and the 'change' event. When changing the contents
 
 \subsubsection{JQueryUI}
 
-Generally speaking, for any \textit{HTML} page element, both the look and the functionality have to be considered, as implementing them can be quite complex. This is why a lot of libraries have been created that provide generalised elements such as buttons, file loaders and more complex UI elements. A few like \textit{jQueryUI} and Twitter-Bootstrap have been become very popular and have been used in this project. They have the benefit of providing both the CSS style definitions as well as predefined \textit{JavaScript} functionality for the elements. 
+Generally speaking, for any \textit{HTML} page element, both the look and the functionality have to be considered, as implementing them can be quite complex. This is why a lot of libraries have been created that provide generalised elements such as buttons, file loaders and more complex UI elements. A few like \textit{jQueryUI} and \textit{Twitter-Bootstrap} have been become very popular and have been used in this project. They have the benefit of providing both the \textit{CSS} style definitions as well as predefined \textit{JavaScript} functionality for the elements. 
 
 Some features from this library were utilised, such as the tab functionality for the 'Levels', 'Annotations' and 'Labelmaps' tabs. Also, the sliders for setting Brightness, Threshold and Opacity were taken from this library, as they provided a convenient solution both for the design and for the functionality.
 
@@ -1298,9 +1298,9 @@ Some features from this library were utilised, such as the tab functionality for
 
 This library was used to style the webpage consistently and to make use of their icons, buttons and tooltip functionality.
 
-The library provides a host of useful icons and button presets, such as button groups which were used when grouping buttons close together like the 'Load' and 'Delete' button for each Display Layer. This added a more sophisticated look to the software without the need for individual styling of buttons by writing custom CSS classes.
+The library provides a host of useful icons and button presets, such as button groups which were used when grouping buttons close together like the 'Load' and 'Delete' button for each Display Layer. This added a more sophisticated look to the software without the need for individual styling of buttons by writing custom \textit{CSS} classes.
 
-Adding the tooltips proved more involved than initially thought. For dynamically added \textit{HTML} elements such as the Display Layers, custom tooltip options would have to be used and set in order to make them work correctly. So instead of having a general purpose solution, custom settings had to be set for each tooltip. Also, since Twitter-Bootstrap and \textit{jQueryUI} both provide tooltips that called by the same initialisation function, sometimes errors would appear in the browser console, stating that a conflict had been caused. Fortunatly,\textit{jQueryUI} allows for downloading a custom build where the tooltip feature has been disabled.
+Adding the tooltips proved more involved than initially thought. For dynamically added \textit{HTML} elements such as the Display Layers, custom tooltip options would have to be used and set in order to make them work correctly. So instead of having a general purpose solution, custom settings had to be set for each tooltip. Also, since \textit{Twitter-Bootstrap} and \textit{jQueryUI} both provide tooltips that called by the same initialisation function, sometimes errors would appear in the browser console, stating that a conflict had been caused. Fortunatly,\textit{jQueryUI} allows for downloading a custom build where the tooltip feature has been disabled.
 
 Furthermore, creating modal warning screens when the user attempts to load a file with the wrong extension was made very easy with Twitter-Bootraps modal screen. Again, styling this manually and creating the logic behind it would have been very time consuming.
 
@@ -1310,7 +1310,7 @@ Twitter-Bootstrap supplies a host of interactive UI elements such as buttons, to
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=100mm]{graphics/twitterBootstrap_01.png}
-\caption{Examples of Twitter-Bootstrap components used. Panel (left), Modal (top right) and Button Group (bottom right)}
+\caption{Examples of \textit{Twitter-Bootstrap} components used. Panel (left), Modal (top right) and Button Group (bottom right)}
 \label{fig:UIdesign1}
 \end{figure}
 
@@ -1601,7 +1601,7 @@ For Windows the website was tested on Windows 7, running on a virtual machine on
 
 \subsubsection*{iOS}
 
-For iOS the website was tested on a Ipad Air. It was fairly clear that this would not work well, since iOS is a closed system that does not allow a free file structure as required by this software. However it was still checked to get a wider coverage of platforms.\\
+For iOS the website was tested on an Ipad Air. It was fairly clear that this would not work well, since iOS is a closed system that does not allow a free file structure as required by this software. However it was still checked to get a wider coverage of platforms.\\
 
 \noindent Hardware:\\
 - Ipad Air\\
@@ -1759,7 +1759,7 @@ I sent a link to the software to the \textit{XTK} developers in order to get the
 
 \section{Conclusions}
 
-In terms of investigating whether it is possible to create a feature rich browser-based medical image viewer, the course of the project seems to suggest that it is indeed possible given current Web technology. The standards introduced with \textit{HTML5} such as the Canvas Element and WebGL enable richer graphical capabilities, which is required for a medical image viewer. The \textit{XTK} library forms a solid base for adding more features such as in this project. 
+In terms of investigating whether it is possible to create a feature rich browser-based medical image viewer, the course of the project seems to suggest that it is indeed possible given current Web technology. The standards introduced with \textit{HTML5} such as the Canvas Element and \textit{WebGL} enable richer graphical capabilities, which is required for a medical image viewer. The \textit{XTK} library forms a solid base for adding more features such as in this project. 
 
 In terms of creating a functioning piece of software, ScanView is successful on Chrome and Firefox, so is only partially successful in its aim to create a widely accessible tool independent of computer setup. This is due to differing implementation of Web standards between the web browsers. However with more time invested in this, it should be possible to make it work fully across all the most popular web browsers. The problems that currently stand in the way of this are smaller scale issues, and would require small tweaks rather than a whole rebuild.
 
@@ -1823,6 +1823,61 @@ In this specific case, I would probably chose to rework the \textit{XTK} library
 \begin{thebibliography}{1}
 
 
+
+ \bibitem{book} Bernhard Preim, Charl Botha, {\em Visual Computing for Medicine} Second edition. 2014
+  
+   \bibitem{xtk} {\em Xtk Toolkit } \url{https://github.com/xtk/X#readme}
+   
+      \bibitem{canvas} {\em HTML5 Canvas} \url{http://en.wikipedia.org/wiki/Canvas_element}
+   
+      \bibitem{svg} {\em    Scalable Vector Graphics} \url{http://en.wikipedia.org/wiki/Scalable_Vector_Graphics}
+
+   
+   
+     \bibitem{NIfTI1} {\em NIfTI-1 Data Format} \url{http://NIfTI.nimh.nih.gov/NIfTI-1}
+     
+	\bibitem{NIfTI2} {\em The NIfTI file format} \url{http://brainder.org/2012/09/23/the-NIfTI-file-format/} 
+   
+      \bibitem{xtk2} {\em Neuroimaging in the Browser using the X Toolkit } \url{http://www.frontiersin.org/10.3389/conf.fninf.2014.08.00101/event_abstract} 
+
+  \bibitem{backbone} {\em BackboneJs } \url{http://backbonejs.org} 
+  
+  \bibitem{require} {\em RequireJs } \url{http://requirejs.org} 
+  
+  \bibitem{bootstrap} {\em Twitter-Bootstrap } \url{http://getbootstrap.com} 	
+  
+  \bibitem{w3graphics} {\em W3 - Graphics } \url{http://www.w3.org/standards/webdesign/graphics}
+  
+  \bibitem{brainbook} {\em Brainbook } \url{http://users.loni.ucla.edu/~pipeline/pain} 
+  
+  \bibitem{papaya} {\em Papaya } \url{http://ric.uthscsa.edu/mango/papaya.html} 
+  
+    \bibitem{dvw} {\em Dwv DICOM Web Viewer. } \url{http://ivmartel.github.io/dwv} 
+
+    \bibitem{slicedrop} {\em Slice:Drop} \url{http://slicedrop.com} 
+    
+  
+    
+  \bibitem{nuke1} {\em Weta Digital Purchases Site License Of Nuke } \url{http://www.fxguide.com/quicktakes/weta-digital-purchases-site-license-of-nuke} 
+        
+  \bibitem{nuke2} {\em Industrial Light \& Magic Purchases Nuke Site Licence } \url{http://www.creativeplanetnetwork.com/the_wire/2009/06/09/industrial-light-magic-ilm-purchases-nuke-site-licence} 
+
+    \bibitem{3Doverview} Alun Evans, Marco Romeo, Arash Bahrehmand, Javi Agenjo, Josep Blat, {\em 3D graphics on the web: A survey } \url{http://www.sciencedirect.com/science/article/pii/S0097849314000260}. Interactive Technologies Group, Universitat Pompeu Fabra, Barcelona, Spain
+
+
+Medical Book
+
+
+WebGL Book
+
+Backbone Book
+
+DOM enlightenment book
+
+
+Papers
+
+
 http://www.statista.com/statistics/263401/global-apple-iphone-sales-since-3rd-quarter-2007/
 
 http://webdesignfromscratch.com/html-css/how-html-css-js-work-together/
@@ -1831,15 +1886,16 @@ http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#mediaviewer/F
 
 \end{thebibliography}
 
+
+
+
+
+
 \newpage
 
 \section{Appendix}
 
-
-
-- Talk about DRY, UML Style Diagrams!
-
-
-
+Survey Responses
+Diagrams?
 
 \end{document}
