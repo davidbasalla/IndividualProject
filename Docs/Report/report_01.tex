@@ -109,7 +109,7 @@ Given enough time, secondary requirements can be implemented, which are consider
 \item The user can paint a custom labelmap for a given scan file with a set of intuitive tools. The primary goal will be that the user can paint areas manually on individual slices. Provided there is enough time, some semi-automatic painting tools will also be implemented that will allow the user to specify regions in the 3D space with automatic selection tools. 
 \item The user can save a labelmap to his computer
 \item The user can create and save custom annotation maps to label given scans
-\item The web app provides a method for sharing  means of sharing data across the internet (similar to the DropBox implementation in SliceDrop)
+\item The web app provides a method for sharing  means of sharing data across the internet
 \item The web app provides image filters that can be applied to a scan or label map
 \item The web app provides measuring tools that can be applied to a scan or label map
 \item A three dimensional, parameterised model of the scan be viewed in the 3D view
@@ -141,7 +141,7 @@ A small selection of use cases have been discussed with the project supervisor. 
 
 \subsection{Contributions}
 
-The final software named ScanView represents a comprehensive application for viewing medical image data as well as adding custom annotations. All of the primary aims as stated above have been met, as well as a couple of secondary requirements (see full feature list in the Implementation Section). It is designed with intuitive input controls as advised for use by radiologists, mimicking convential controls in other software. Judging by similar web applications online, ScanView provides many more features than its competition. It has also been tested to successfully run across different operating systems and web browsers, thereby making it more widely accessible. The project was built on using the XTK library, which appears to be the most comprehensive library for viewing medical image data to date. However since missing a lot of critical functionality as required by this project, the library had to be extended to provide tools for more dynamic application building. The final product demonstrates that with recent advances in web technology it is possible to create a viable browser-based alternative to desktop-based medical image viewing applications.
+The final software named ScanView represents a comprehensive application for viewing medical image data as well as adding custom annotations. All of the primary aims as stated above have been met, as well as a couple of secondary requirements (see full feature list in the Implementation Section). It is designed with intuitive input controls as advised for use by radiologists, mimicking convential controls in other software. Judging by similar web applications online, ScanView provides many more features than its competition. It has also been tested to successfully run across different operating systems and web browsers, thereby making it more widely accessible. The project was built on using the \textit{XTK} library, which appears to be the most comprehensive library for viewing medical image data to date. However since missing a lot of critical functionality as required by this project, the library had to be extended to provide tools for more dynamic application building. The final product demonstrates that with recent advances in web technology it is possible to create a viable browser-based alternative to desktop-based medical image viewing applications.
 
 \newpage
 \section{Background}
@@ -292,7 +292,7 @@ and Safari. Chrome leads with 38.5\% market share, followed by Internet Explorer
 \label{fig:UIdesign1}
 \end{figure}
 
-Looking at a breakdown over the last 10 years, Internet Explorer used to be the most used web browser in 2007 with 67.6\%, but its dominance has steadily declined up until the present day. In the same time span Mozilla's Firefox gained popularity and its market share peaked in 2010 but also decreased afterwards to equal Safari's market share in July 2014. Safari's market share has stayed relatively constant until it more than doubled in 2012 (possibly linked to the rise in IOS devices like Apple's IPhone and IPad around 2012 REFERENCE). Google's Chrome web browser rose steadily from 2009 onwards and beat Internet Explorer in 2012 to become the most used web browser at present time.
+Looking at a breakdown over the last 10 years, Internet Explorer used to be the most used web browser in 2007 with 67.6\%, but its dominance has steadily declined up until the present day. In the same time span Mozilla's Firefox gained popularity and its market share peaked in 2010 but also decreased afterwards to equal Safari's market share in July 2014. Safari's market share has stayed relatively constant until it more than doubled in 2012 (possibly linked to the rise in iOS devices like Apple's IPhone and IPad around 2012 REFERENCE). Google's Chrome web browser rose steadily from 2009 onwards and beat Internet Explorer in 2012 to become the most used web browser at present time.
 
 \begin{figure}[ht!]
 \centering
@@ -340,7 +340,7 @@ Given the statistics discussed above, it was decided to mainly develop for Googl
 
 \subsubsection{Developing websites}
 
-A web-based application is in essence a website that aims to provide a richer and more complex functionality than merely displaying text. At a very basic level, a website can be written with just HTML (Hyper Text Markup Language) code. HTML is written with tags as in the example below. This code is converted into a tree format of\textit{JavaScript}node objects or Document Object Model (DOM) by the web browser. The purpose of this is to provide a programmatic interface for scripting (removing, adding, replacing, eventing, and modifying) this live document using\textit{JavaScript}[REFERENCE]. Different tags can be added to an HTML element, such as the <class> tag, which gets used for applying a CSS style (more on this later). These nodes can also be created by running\textit{JavaScript}methods such as the createElement() function. The point is that\textit{JavaScript}and HTML are linked very closely, in that HTML can be programmed with JavaScript.
+A web-based application is in essence a website that aims to provide a richer and more complex functionality than merely displaying text. At a very basic level, a website can be written with just \textit{HTML} (Hyper Text Markup Language) code. \textit{HTML} is written with tags as in the example below. This code is converted into a tree format of \textit{JavaScript}node objects or Document Object Model (DOM) by the web browser. The purpose of this is to provide a programmatic interface for scripting (removing, adding, replacing, eventing, and modifying) this live document using \textit{JavaScript}[REFERENCE]. Different tags can be added to an \textit{HTML} element, such as the <class> tag, which gets used for applying a CSS style (more on this later). These nodes can also be created by running \textit{JavaScript}methods such as the createElement() function. The point is that \textit{JavaScript}and \textit{HTML} are linked very closely, in that\textit {HTML} can be programmed with JavaScript.
 
 \begin{verbatim}
 <html>
@@ -350,7 +350,7 @@ A web-based application is in essence a website that aims to provide a richer an
 </html>
 \end{verbatim}
 
-Creating websites with just HTML however is not quite enough in today's world of modern web development. Modern websites can be thought of as a combination of structure, style and interactivity [REFERENCE]. These three jobs are handled in turn by HTML, CSS and JavaScript, which go hand in hand to deliver modern web page content. CSS was first published and recommended by the W3C in 1996. It is generally used to style the look of HTML content. This was previously possible with HTML, but involved a lot of work as elements had to be type set individually and was still relatively limited compared to what is possible with CSS today. With CSS an HTML element could be assigned a class (via the <class> tag), which would refer to specific set of CSS rules.
+Creating websites with just \textit{HTML} however is not quite enough in today's world of modern web development. Modern websites can be thought of as a combination of structure, style and interactivity [REFERENCE]. These three jobs are handled in turn by \textit{HTML}, CSS and JavaScript, which go hand in hand to deliver modern web page content. CSS was first published and recommended by the W3C in 1996. It is generally used to style the look of \textit{HTML} content. This was previously possible with \textit{HTML}, but involved a lot of work as elements had to be type set individually and was still relatively limited compared to what is possible with CSS today. With CSS an \textit{HTML} element could be assigned a class (via the <class> tag), which would refer to specific set of CSS rules.
 
 \begin{figure}
 \centering
@@ -371,7 +371,7 @@ Creating websites with just HTML however is not quite enough in today's world of
 \end{figure}
 
 
-Additionally\textit{JavaScript}can be include as code itself in an HTML document with the <script> tag. See the example below.\textit{JavaScript}is used to add functionality to a website by managing interactive elements, function calls and whatever else a developer can think of doing with it. Advanced features such as WebGL and HTML Canvas are manipulated with JavaScript. When a website contains JavaScript, it is downloaded to the user's local machine and run locally ('client side') by the web browser's\textit{JavaScript}interpreter. With increasing computational power of machines and faster processing speeds of\textit{JavaScript}by web browsers, complex code can be run locally and does not rely on network speed.
+Additionally \textit{JavaScript}can be include as code itself in an \textit{HTML} document with the <script> tag. See the example below. \textit{JavaScript}is used to add functionality to a website by managing interactive elements, function calls and whatever else a developer can think of doing with it. Advanced features such as WebGL and \textit{HTML} Canvas are manipulated with JavaScript. When a website contains JavaScript, it is downloaded to the user's local machine and run locally ('client side') by the web browser's \textit{JavaScript}interpreter. With increasing computational power of machines and faster processing speeds of \textit{JavaScript}by web browsers, complex code can be run locally and does not rely on network speed.
 
 
 
@@ -382,19 +382,19 @@ Additionally\textit{JavaScript}can be include as code itself in an HTML document
 \end{verbatim}
 
 
-In terms of organisation, it is possible to include the code from all three language in one base HTML file, but this is extremely undesirable as it lacks modularity and will be hard to test and debug. Instead, it is convenient to keep each type of language to separate files. This makes everything more modular, easier to edit, and individual components will be easier to update or swap out. Methods on dealing with more complex bodies of code will be discussed in a later section.
+In terms of organisation, it is possible to include the code from all three language in one base \textit{HTML} file, but this is extremely undesirable as it lacks modularity and will be hard to test and debug. Instead, it is convenient to keep each type of language to separate files. This makes everything more modular, easier to edit, and individual components will be easier to update or swap out. Methods on dealing with more complex bodies of code will be discussed in a later section.
 
 
 
 
 \subsubsection{Web Browser Compatibility}
 
-To make things more challenging, various programming aspects such of HTML, CSS,\textit{JavaScript}and DOM functionality are supported to varying degrees in the different web browsers and versions. This stems from the fact that web browsers are created and maintained by different companies (with differing business goals and implementation strategies). In the late 1990's this proved disasterous as web browsers with different features existed without any coordination between them. However with the creation of the World Wide Web Consortium, the main international standards organization for the World Wide Web, matters took a turn for the better. The organisation is lead by Tim Berners-Lee, the inventor of the World Wide Web, and sets out the standards used for web browser scripting, such as CSS, HTML,\textit{JavaScript}and many more. This happened in several stages and revisions over the years, and is now probably more unified than ever before. 
+To make things more challenging, various programming aspects such of \textit{HTML}, CSS, \textit{JavaScript}and DOM functionality are supported to varying degrees in the different web browsers and versions. This stems from the fact that web browsers are created and maintained by different companies (with differing business goals and implementation strategies). In the late 1990's this proved disasterous as web browsers with different features existed without any coordination between them. However with the creation of the World Wide Web Consortium, the main international standards organization for the World Wide Web, matters took a turn for the better. The organisation is lead by Tim Berners-Lee, the inventor of the World Wide Web, and sets out the standards used for web browser scripting, such as CSS, \textit{HTML}, \textit{JavaScript}and many more. This happened in several stages and revisions over the years, and is now probably more unified than ever before. 
 
-However there still remain small differences, which is only natural when different companies are maintaining these different browsers. For example, WebGL has been supported by Google Chrome since Februray 2011, whereas it was only introduced to the Internet Explorer with Version 11, which came out in October 2013. Also, not all CSS features, used for styling the look of a website, are universally supported or at least support is lagging behind between browsers. For example when searching for the CSS property "box-shadow" www.w3schools.com will list which browsers and versions support this attribute. Luckily the most commonly used elements tend to be supported across all browsers. The http://www.quirksmode.org/ website aims to provide a comprehensive breakdown of provided features across different browsers. Another issue is that the web browsers'\textit{JavaScript}interpreters can differ in their implementation.
+However there still remain small differences, which is only natural when different companies are maintaining these different browsers. For example, WebGL has been supported by Google Chrome since Februray 2011, whereas it was only introduced to the Internet Explorer with Version 11, which came out in October 2013. Also, not all CSS features, used for styling the look of a website, are universally supported or at least support is lagging behind between browsers. For example when searching for the CSS property "box-shadow" www.w3schools.com will list which browsers and versions support this attribute. Luckily the most commonly used elements tend to be supported across all browsers. The http://www.quirksmode.org/ website aims to provide a comprehensive breakdown of provided features across different browsers. Another issue is that the web browsers' \textit{JavaScript}interpreters can differ in their implementation.
 
 It is anticipated that all these variations will become a source of problems when developing the project and some time will have to be dedicated to test and if necessary reimplement certain sections of the code that does not run successfully in all browsers. A method called 'browser sniffing' could be employed, where the type and version of web browser is determined and the code configured accordingly. However W3C does not recommend this, as there would be too many variations to cater for. Instead they advocate using feature detection, which allows the developer to query for support of a feature such as WebGL instead of having to check the browser version when WebGL was first supported. This is more elegant and future-proof. 
-Looking at this from a code perspective, detecting a browser and version is done by the "navigator.userAgent"\textit{JavaScript}command. It returns a string like:
+Looking at this from a code perspective, detecting a browser and version is done by the "navigator.userAgent" \textit{JavaScript}command. It returns a string like:
 
 \begin{verbatim}
 Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; Edition Next; en) Presto/2.10.289 
@@ -404,7 +404,7 @@ Version/12.00
 This string can be parsed, but will obviously differ widely for each different browser. It is also error prone, depending on the string parsing method employed and assumptions made about the format of the string. Instead, detecting a feature would be done like so:
 \begin{verbatim}
 if(!!document.createElement('video').canPlayType === true) {
-  // run some code that relies on HTML5 video
+  // run some code that relies on \textit{HTML}5 video
 } else {
   // do something else
 }
@@ -421,7 +421,7 @@ web browsers for mobile devices add another layer of complexity to this, but wil
 
 The aim of this project is to create a singe-page application (SPA), which loads into the browser on the client side and does not require complete page refreshes [REFERENCE].
 
-As goes for any body of complex code, an orderly and modular structure should be implemented and maintained. The estimated length of code for this project lies in the tens of thousands of line code and a multitude of classes. Therefore, it is in no way feasible to just include the\textit{JavaScript}in script tags in the actual HTML pages. A more avanced solution is needed.
+As goes for any body of complex code, an orderly and modular structure should be implemented and maintained. The estimated length of code for this project lies in the tens of thousands of line code and a multitude of classes. Therefore, it is in no way feasible to just include the \textit{JavaScript}in script tags in the actual \textit{HTML} pages. A more avanced solution is needed.
 
 Thankfully, this requirement for advanced code structuring was generally recognised, and a dominant solution to this issue by the name of Model View Controller (MVC) pattern has emerged. MVC separates the concerns in an application into three parts [REFERENCE]:
 
@@ -431,7 +431,7 @@ Thankfully, this requirement for advanced code structuring was generally recogni
 \item Controllers handle input (clicks or user actions) and update models.
 \end{itemize}
 
-So in an MVC application, user input is handled by controllers, which then updates various models. Views listen to the state of models and update the user interface or visual front end when changes are detected. The definition of MVC frameworks is not always followed strictly and some merge the role of controller and views into one. BackboneJS, which will be used for this project does exactly this. For that reason, these more loosely defined implementations are sometime called MV* frameworks. It would in theory be possible to organise the code for this project in a custom MV* pattern, but libraries such as Backbone are well established and reduce a lot of tedious work that would otherwise be required. AngularJS, CanJS EmberJS are other popular MVC implementations.
+So in an MVC application, user input is handled by controllers, which then updates various models. Views listen to the state of models and update the user interface or visual front end when changes are detected. The definition of MVC frameworks is not always followed strictly and some merge the role of controller and views into one. \textit{Backbone}, which will be used for this project does exactly this. For that reason, these more loosely defined implementations are sometime called MV* frameworks. It would in theory be possible to organise the code for this project in a custom MV* pattern, but libraries such as \textit{Backbone} are well established and reduce a lot of tedious work that would otherwise be required. AngularJS, CanJS EmberJS are other popular MVC implementations.
 
 \begin{figure}[ht!]
 \centering
@@ -441,9 +441,9 @@ So in an MVC application, user input is handled by controllers, which then updat
 \end{figure}
 
 
-At the time of writing, the \textit{Backbone} library seems to be a good choice to manage the complexity and structure of the project. It was written by Jeremy Ashkenas and is designed for developing SPAs, and for keeping various parts of web applications synchronized. It has been used by big companies to create nontrivial applications, such as Walmart, SoundCloud, and LinkedIn. I have also used it in successfully in a previous group project. In accordance with the MV* pattern, Backbone provides Events, Models, Collections and Views. Models represent the information in class-like structures, Collections are lists of Models and Views handle the visual representation on the actual HTML site. Views actually generate the HTML that goes into the DOM and can be seen on screen. The HTML can be generate as strings in the View or through dedicated HTML template files, that a View can access. Finally Events are used to keep track of state changes across the website elements, models and views. Backbone also provides inheritance for its models, collections and views.
+At the time of writing, the \textit{Backbone} library seems to be a good choice to manage the complexity and structure of the project. It was written by Jeremy Ashkenas and is designed for developing SPAs, and for keeping various parts of web applications synchronized. It has been used by big companies to create nontrivial applications, such as Walmart, SoundCloud, and LinkedIn. I have also used it in successfully in a previous group project. In accordance with the MV* pattern, \textit{Backbone} provides Events, Models, Collections and Views. Models represent the information in class-like structures, Collections are lists of Models and Views handle the visual representation on the actual \textit{HTML} site. Views actually generate the \textit{HTML} that goes into the DOM and can be seen on screen. The \textit{HTML} can be generate as strings in the View or through dedicated \textit{HTML} template files, that a View can access. Finally Events are used to keep track of state changes across the website elements, models and views.\textit{Backbone} also provides inheritance for its models, collections and views.
 
-Backbone uses \textit{jQuery} and \textit{Underscore.js}, both of which are libraries that simplify dealing with \textit{HTML} elements. JQuery is widely used and allows a developer to conveniently query the DOM for elements such as id or class tags. For example if there is an HTML button element with a specified id tag, jQuery lets the developer load this element as a JavaScript object and work with it in his code. These kinds of jQuery objects provide various convenience-based methods for setting its attributes. Underscore is another collection of convenient JavaScript methods. For example it provides basic methods for dealing with arrays, such as contains(array, value) (return bool if a value is contained in a list and indexOf(array, value), returning the index of a given value in an array. Underscore is described on the website as [REFERENCE]
+Backbone uses \textit{jQuery} and \textit{Underscore.js}, both of which are libraries that simplify dealing with \textit{HTML} elements. \textit{jQuery} is widely used and allows a developer to conveniently query the DOM for elements such as id or class tags. For example if there is an\textit{HTML} button element with a specified id tag, \textit{jQuery} lets the developer load this element as a \textit{JavaScript} object and work with it in his code. These kinds of \textit{jQuery} objects provide various convenience-based methods for setting its attributes. \textit{Underscore}  is another collection of convenient \textit{JavaScript} methods. For example it provides basic methods for dealing with arrays, such as contains(array, value) (return bool if a value is contained in a list and indexOf(array, value), returning the index of a given value in an array. \textit{Underscore} is described on the website as [REFERENCE]
 
 \begin{quotation}
 "(Underscore is) the answer to the question: “If I sit down in front of a blank 
@@ -456,7 +456,7 @@ and the tie to go along with jQuery's tux and Backbone's suspenders."
 
 In order to create an interactive browser-based application which is useful for displaying medical image data, the available tools for creating 2D and 3D graphics in a web browser have to be considered. Generally, in the past web browsers have provided several different methods to display 2D and 3D graphics on screen, and only recently with the introduction of \textit{HTML5} and \textit{WebGL} has a widely-conformed standard emerged.
 
-\textit{HTML5} is the fifth revision of the HTML standard. \textit{HTML5} introduced a number of important features that were designed to facilitate including and handling multimedia and graphical content on the web without the use of proprietary plugins and APIs. One of these new features is the Canvas element, a scriptable graphical display element which is a low level, procedural model that updates a bitmap element. It was originally introduced by Apple \cite{canvas} . This components forms the basis for most complex rendering of 2D and 3D graphics in modern browser applications.
+\textit{HTML5} is the fifth revision of the \textit{HTML} standard. \textit{HTML5} introduced a number of important features that were designed to facilitate including and handling multimedia and graphical content on the web without the use of proprietary plugins and APIs. One of these new features is the Canvas element, a scriptable graphical display element which is a low level, procedural model that updates a bitmap element. It was originally introduced by Apple \cite{canvas} . This components forms the basis for most complex rendering of 2D and 3D graphics in modern browser applications.
 
 \subsection{2D Graphics}
 
@@ -515,7 +515,7 @@ The website http://www.awwwards.com hosts a number of impressive showcases of We
 
 WebGL is exclusively controlled by JavaScript. WebGL is based on OpenGL ES 2.0, the Embedded Systems version of the widely used OpenGL standard for generating 3D graphics. The Embedded Systems off-shoot is intended for smaller computing devices such as smart phones and tablets, such as IPhone, IPad and Android phones. Due to its smaller footprint, it was felt that WebGL would make it a more consistent, cross-platform and cross-browser 3D API (REFERENCE). 
 
-WebGL uses the HTML5 Canvas element to render into, and uses a specific webGL-compliant context (as opposed to the 2D context used for 2D drawing). It differs in 2D Drawing, that all rendering is done with primitives such as Triangles, Points or Lines. 
+WebGL uses the\textit{HTML}5 Canvas element to render into, and uses a specific webGL-compliant context (as opposed to the 2D context used for 2D drawing). It differs in 2D Drawing, that all rendering is done with primitives such as Triangles, Points or Lines. 
 Dedicated arrays called buffers are used to store the data for these primitives, such as vertices and normals. Next, a ModelView matrix needs to be created, which sets the transformation of a primitive or object in the 3D World. Also, a projection matrix is needed which converts 3D points into 2D coordinates of the drawing screen. Finally, a shader needs to be defined which will be attached to the primitives. Shaders are written in their own language called GLSL, and are themselves typically comprised of vertex shaders and fragments shaders. Vertex shaders combine the matrices and position of primitives into the final position on screen whereas the fragment shader is used to assign attributes such as color, texture and lighting. Thus, the workflow to render something with WebGL onto a webpage is as follows (Taken from book, reference):
 
 \begin{enumerate}
@@ -529,7 +529,7 @@ Dedicated arrays called buffers are used to store the data for these primitives,
 \end{enumerate}
 
 
-As can be guessed from the steps above, WebGL is a very low level API in that it does not provide any high level scene descriptions of scene graphs. All this has to be implemented by developers manually. A large part of its draw and power stem from this fact, but also makes it very time intensive to work with from the ground up. For this purpose, some solutions already exist that build on this to provide a more convenient interface into the 3D capabilities such as ThreeJS. For this project, the XTK library plays the same role in that the low level features of WebGL can be accessed by a high-level API which can load a volume file as 3-plane slice display in a 3D View.
+As can be guessed from the steps above, WebGL is a very low level API in that it does not provide any high level scene descriptions of scene graphs. All this has to be implemented by developers manually. A large part of its draw and power stem from this fact, but also makes it very time intensive to work with from the ground up. For this purpose, some solutions already exist that build on this to provide a more convenient interface into the 3D capabilities such as ThreeJS. For this project, the \textit{XTK} library plays the same role in that the low level features of WebGL can be accessed by a high-level API which can load a volume file as 3-plane slice display in a 3D View.
 
 Nowadays, most browser-based 3D graphics libraries make use of \textit{WebGL} and even libraries that used to require a plug-in (example) have now been ported to use \textit{WebGL}. 
 
@@ -545,17 +545,17 @@ The \textit{XTK} library also provides a module for creating User Interface (UI)
 
 \subsubsection{Use of Google Closure Library}
 
-The XTK library is written in JavaScript, but uses the Google Closure library to compile the code into minified code. This serves to reduce variable and function names and generally is designed to make the code run faster. The drawback is that it become harder to decode, since variable and function names are changed to be meaningless to the human reader. For functions and attributes that are meant to be used from outside the library, custom setters and getters have to be written. XTK also uses Goog matrices for their Graphics computations. Additionally the WebGL portion of XTK makes use of GLSL for its shaders, but commands are wrapped as strings in a\textit{JavaScript} file.
+The \textit{XTK} library is written in JavaScript, but uses the Google Closure library to compile the code into minified code. This serves to reduce variable and function names and generally is designed to make the code run faster. The drawback is that it become harder to decode, since variable and function names are changed to be meaningless to the human reader. For functions and attributes that are meant to be used from outside the library, custom setters and getters have to be written. \textit{XTK} also uses Goog matrices for their Graphics computations. Additionally the WebGL portion of \textit{XTK} makes use of GLSL for its shaders, but commands are wrapped as strings in a \textit{JavaScript} file.
 
 \subsubsection{XTK Classes}
 
-The library is comprised of a host of different classes. Since it would take too long to explain every class, four key concepts will be discussed (X.renderers, X.volumes, X.slices and X.labelmaps) to give an insight into XTK's workings. The XTK website has a complete if somewhat out of date list of XTK's classes, attributes and methods, if the reader wants to learn more about it. Figure ~\ref{fig:xtkBig} shows a big picture UML class diagram of how the various classes interact with each other.
+The library is comprised of a host of different classes. Since it would take too long to explain every class, four key concepts will be discussed (X.renderers, X.volumes, X.slices and X.labelmaps) to give an insight into \textit{XTK}'s workings. The \textit{XTK} website has a complete if somewhat out of date list of \textit{XTK}'s classes, attributes and methods, if the reader wants to learn more about it. Figure ~\ref{fig:xtkBig} shows a big picture UML class diagram of how the various classes interact with each other.
 
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=165mm]{graphics/xtkUML_big_01.png}
-\caption{Flow of Control of XTK renderer}
+\caption{Flow of Control of \textit{XTK} renderer}
 \label{fig:xtkBig}
 \end{figure}
 
@@ -564,7 +564,7 @@ An X.renderer is an abstract virtual class and both X.renderer3D and X.renderer2
 
 The inherited X.renderer2D class has extra attributes to specify which slice is being rendered, such as currentSlice, orientiation, sliceHeight and sliceWidth. It has a framebuffer array attribute which stores the current slice texture information which will be rendered to screen. It also has a labelFrameBuffer which is secondary buffer that is used to render a labelmap if one has been loaded. This is in essence an A over B compositing effect. The X.renderer3D class has different internal attributes since it does its drawing through WebGL technology. It contains number attributes of the the dimensions of the loaded objects, as well as an X.shaders object and various buffers of the form goog.structs.Map to store vertex, normal, color and texture information of the currently loaded objects.
 
-There are various methods in the X.renderer classes. Init(), render() and update() warrant a closer look. The init() function is called in the beginning to set up main aspects such as the X.interactor, X.camera, X.loader, HTML Canvas and Context on which to draw on. The render() function deals with the actual drawing of content onto the canvas. The renderer3D and renderer2D classes naturally differ in their implementations of this function, but both call on the parent's render() function to continuously redraw the frame. Renderer2D.render() function reevaluates if the current buffer needs to be recalculated and if so does it inside the scope of the code, whereas the renderer3D.render() function pushes any changed data to the GPU for drawing. 
+There are various methods in the X.renderer classes. Init(), render() and update() warrant a closer look. The init() function is called in the beginning to set up main aspects such as the X.interactor, X.camera, X.loader, \textit{HTML} Canvas and Context on which to draw on. The render() function deals with the actual drawing of content onto the canvas. The renderer3D and renderer2D classes naturally differ in their implementations of this function, but both call on the parent's render() function to continuously redraw the frame. Renderer2D.render() function reevaluates if the current buffer needs to be recalculated and if so does it inside the scope of the code, whereas the renderer3D.render() function pushes any changed data to the GPU for drawing. 
 
 
 
@@ -576,9 +576,9 @@ There are various methods in the X.renderer classes. Init(), render() and update
 \end{figure}
 
 
-Generally, XTK uses the concept of injections to add extra features into various X.classes. A selection can be see in Figure 34. X.loadable supplies attributes to store file data. X.displayable offers several attributes useful for displayin in Canvas, such as \_color, \_points and \_texture. Finally, X.thresholdable enables the setting of different threshold values, as is used in the X.volume.
+Generally, \textit{XTK} uses the concept of injections to add extra features into various X.classes. A selection can be see in Figure 34. X.loadable supplies attributes to store file data. X.displayable offers several attributes useful for displayin in Canvas, such as \_color, \_points and \_texture. Finally, X.thresholdable enables the setting of different threshold values, as is used in the X.volume.
 
-X.slice is a type of X.object and inherits a host of attributes and functions from it (see Diagram \ref{xtkVolume} for UML diagram). It stores attributes for a current slice, such as orientation vectors (\_front, \_up, \_right), \_center, dimensions (\_width and \_height). Through the displayable injection of X.object, it also has various useful attributes for being displayed in the HTML Canvas, such as color, points, opacity and texture. The texture attribute actually points to an X.texture which is where the actual pixedData is being stored for the current X.slice. It is this texture data that will ultimately be displayed in the X.renderer.
+X.slice is a type of X.object and inherits a host of attributes and functions from it (see Diagram \ref{xtkVolume} for UML diagram). It stores attributes for a current slice, such as orientation vectors (\_front, \_up, \_right), \_center, dimensions (\_width and \_height). Through the displayable injection of X.object, it also has various useful attributes for being displayed in the \textit{HTML} Canvas, such as color, points, opacity and texture. The texture attribute actually points to an X.texture which is where the actual pixedData is being stored for the current X.slice. It is this texture data that will ultimately be displayed in the X.renderer.
 
 The X.volume is a more complex type of X.object. As it is an X.object, it can be added to a X.renderer (the add() functions enters it into the \_topLevelObjects array) and inherits all the attributes and methods from the X.object class. Volumes are also injected with the loadable.js code and thresholdable code. An X.volume has a variety of attributes that deal with the currently loaded data, such as current indices (\_indexX, \_indexY and \_indexZ), range which specifies the maximum indices. It has \_windowLow, \_windowHigh, \_thresholdLow and \_thresholdHigh (the last two from thesholdable.js) which dictate the window and treshold settings. As for all attributes that are to be accessed from outside the API, setter methods have been written which take care of internal logic. It is the setter methods for window and threshold that are being called through the Levels Panel when adjusting the sliders. The X.volume has the inherited array children from (X.object) in which it stores all the precomputed X.slices. A precomputed X.slice is generated when the slice index is set to an index that has not been visited yet since instantiation. In this way, the X.volume will buffer more and more slices throughout scrolling. Once the X.slices have been buffered, lookup is noticeably quicker. When the X.volume is set to an uncomputed sliceIndex, different functions are called than when a precomputed slice is present, including forcing a redraw in the render.js class. 
 
@@ -593,7 +593,7 @@ The X.volume also has an attribute to store an X.labelmap. These are actually in
 \end{figure}
 
 
-More details on how the XTK library works will be discussed in the Implementation section. For now, it should be clear that the XTK library provides a number of complex classes that support a lot of the desired functionality that one would want in a medical image viewer, and that it is a very promising starting point for this project.
+More details on how the \textit{XTK} library works will be discussed in the Implementation section. For now, it should be clear that the \textit{XTK} library provides a number of complex classes that support a lot of the desired functionality that one would want in a medical image viewer, and that it is a very promising starting point for this project.
 
 
 
@@ -603,9 +603,9 @@ As for the desktop, there also exist some Medical Image Viewing applications on 
 
 
 \subsubsection{SliceDrop}
-The \textit{XTK} library web pages provide links to example applications. One of these is \textit{SliceDrop}\cite{slicedrop} which has written by the \textit{XTK} developers and appears to be a testing bed for many of \textit{XTK}'s features as it is often referred to on the \textit{XTK} Stackoverflow forums. It provides part of the desired functionality and shows off the possibilities provided by \textit{XTK}, but also outlines some of its short comings. Like the desktop software \textit{MITK}, the user can load a file and view it in the standard 4 views, split into 3D and 2D windows. The layout of these views is somewhat customisable, although not to the extent of the \textit{MITK}. The user can interact with the images by scrolling the mouse wheel, which changes the index of the current slice. An interesting feature which has been added lately is the incorporation of popular file sharing site \textit{DropBox} to allow users to share files more easily across the internet.
+The \textit{XTK} library web pages provide links to example applications. One of these is \textit{SliceDrop}\cite{slicedrop} which has written by the \textit{XTK} developers and appears to be a testing bed for many of \textit{XTK}'s features as it is often referred to on the \textit{XTK} Stackoverflow forums. It provides part of the desired functionality and shows off the possibilities provided by \textit{XTK}, but also outlines some of its short comings. Like the desktop software \textit{MITK}, the user can load a file and view it in the standard 4 views, split into 3D and 2D windows. The layout of these views is somewhat customisable, although not to the extent of the \textit{MITK}. Once a file has been loaded, it can not be replaced with another one. The user can interact with the images by scrolling the mouse wheel, which changes the index of the current slice. An interesting feature which has been added lately is the incorporation of popular file sharing site \textit{DropBox} to allow users to share files more easily across the internet.
 
-There appear to be some bugs in \textit{SliceDrop}. When loading \textit{NRRD} files, as the image is offset and not centered. The image brightness controls seem not calibrated correctly, as with little mouse interaction, the brightness will clamp to white or black and can not be reset other than restarting the program (refreshing the page for web-apps). Furthermore the app does not allow to load custom labelmaps. Also the viewers provide some functionality which is not clearly communicated to the user, such as holding the 'shift' button and move the mouse will adjust the slice index of the other viewers. In general \textit{SliceDrop} has less than the minimum functionality required for this project, but shows the potential of the \textit{XTK} library. 
+There appear to be some bugs in \textit{SliceDrop}. When loading \textit{NRRD} files, as the image is offset and not centered. The image brightness controls seem not calibrated correctly, as with little mouse interaction, the brightness will clamp to white or black and can not be reset other than restarting the program (refreshing the page for web-apps). Also the viewers provide some functionality which is not clearly communicated to the user, such as holding the 'shift' button and move the mouse will adjust the slice index of the other viewers. In general \textit{SliceDrop} has less than the minimum functionality required for this project, but shows the potential of the \textit{XTK} library. 
 
 
 \subsubsection{Brainbook}
@@ -641,7 +641,7 @@ The website \url{http://www.idoimaging.com} lists a number of other available br
 
 \subsubsection{Summary}
 
-In general, it appears that browser-based medical image viewers lack far behind their desktop counter parts in terms of feature richness and ease of use. SliceDrop seems like the most impressive of the applications that were tested, as it successfully displays 3D (including volumetric renderings) and 2D views of the medical image data. This will act as the primary comparison for this project, and hopefully it will be surpassed with more features, interactivity and customisation options. Brainbook's segmentation drawing feature hints at the potential of adding this feature with the XTK library, but is ultimately let down by the uneven implementation. Papaya is impressive in its clean design and UI, even if it does not feature a 3D View. A goal of this project will be to unify and improve the features that these viewers have.
+In general, it appears that browser-based medical image viewers lack far behind their desktop counter parts in terms of feature richness and ease of use. SliceDrop seems like the most impressive of the applications that were tested, as it successfully displays 3D (including volumetric renderings) and 2D views of the medical image data. This will act as the primary comparison for this project, and hopefully it will be surpassed with more features, interactivity and customisation options. Brainbook's segmentation drawing feature hints at the potential of adding this feature with the \textit{XTK} library, but is ultimately let down by the uneven implementation. Papaya is impressive in its clean design and UI, even if it does not feature a 3D View. A goal of this project will be to unify and improve the features that these viewers have.
 
 
 
@@ -751,7 +751,7 @@ The main view that the user is presented with is split into four different compo
 \end{subfigure}
 \end{figure}
 
-The Camera View Panels are the viewing windows for displaying the visual representation of the loaded Volume File. Internally they copy pixels from invisible XTK Render Panels. The View Panels hold a top bar with options to customise the viewer (e.g to specify which camera to look through). The View Panels also contain an HTML5 Canvas Element which does the drawing of the Volume File. The View Panels come in two types. The 3D View Panel displays the 3D volume with the 3 axial slices. There is an option to toggle Volume Rendering on, a feature of the XTK library. It uses WebGL and will only work on computers that support WebGL. The 2D View Panels render the orthographic (ie. axial, sagittal and coronal) views of the Volume File. They include a set of buttons for playing or reversing through the current slice stack. Furthermore they have a toggle for Overlaying Information into the Viewer about current filename, orientation, index and opacity.
+The Camera View Panels are the viewing windows for displaying the visual representation of the loaded Volume File. Internally they copy pixels from invisible \textit{XTK} Render Panels. The View Panels hold a top bar with options to customise the viewer (e.g to specify which camera to look through). The View Panels also contain an\textit{HTML}5 Canvas Element which does the drawing of the Volume File. The View Panels come in two types. The 3D View Panel displays the 3D volume with the 3 axial slices. There is an option to toggle Volume Rendering on, a feature of the \textit{XTK} library. It uses WebGL and will only work on computers that support WebGL. The 2D View Panels render the orthographic (ie. axial, sagittal and coronal) views of the Volume File. They include a set of buttons for playing or reversing through the current slice stack. Furthermore they have a toggle for Overlaying Information into the Viewer about current filename, orientation, index and opacity.
 
 
 
@@ -800,7 +800,7 @@ In terms of mouse and keyboard input controls, the 3D Render Canvas supports the
 
 The Levels Panel contains separate tabs that enable further customisation of the currently selected Display Layer. In the Levels tab, a number of convenient controls are provided. Firstly, the Index Controls provide feedback on which Slice Indices are currently set. These can also be altered via the number input. 
 
-Next, the Window Controls can be used to control the Brightness of the loaded Volume File. This attributes straight into windowLow and windowHigh attributes of an X.volume. Likewise, the Threshold Controls allow for a clipping of a Volume File and is also provided by default by the XTK library.
+Next, the Window Controls can be used to control the Brightness of the loaded Volume File. This attributes straight into windowLow and windowHigh attributes of an X.volume. Likewise, the Threshold Controls allow for a clipping of a Volume File and is also provided by default by the \textit{XTK} library.
 
 The Opacity Controls allow the user to set the opacity of the currently loaded Display Layer. Depending on what is loaded in the other Buffer, this will either reveal the Volume File from other Display Layer or fade to black.
 
@@ -859,8 +859,8 @@ Meetings with the Project Supervisor Dr. Ben Glocker were held every one to thre
 
 \subsubsection{Test Data}
 
-My supervisor provided a host of test files for me to use while developing this tool. These varied from smaller files of a brain scan (4.2 Mb) with a labelmap (4.2 Mb), to the largest scan file of an abdomen (86.5 Mb). Additionally I downloaded some sample data from the XTK tutorials. This set included the main file (286 Kb), a labelmap (19 Kb) and a colortable (6 Kb). Furthermore I downloaded more samples from the official Nifti website. For testing new features, I would test the thorax file set, as well as the brain scans, since these files took less time to load. Periodically I would test the other Nifti files to make sure the code worked with diffferent and larger files.
-For colortables, I downloaded some from the 3DSlicer wikipedia site in their default format, and later amended these to work as hardcoded\textit{JavaScript}arrays.
+My supervisor provided a host of test files for me to use while developing this tool. These varied from smaller files of a brain scan (4.2 Mb) with a labelmap (4.2 Mb), to the largest scan file of an abdomen (86.5 Mb). Additionally I downloaded some sample data from the \textit{XTK} tutorials. This set included the main file (286 Kb), a labelmap (19 Kb) and a colortable (6 Kb). Furthermore I downloaded more samples from the official Nifti website. For testing new features, I would test the thorax file set, as well as the brain scans, since these files took less time to load. Periodically I would test the other Nifti files to make sure the code worked with diffferent and larger files.
+For colortables, I downloaded some from the 3DSlicer wikipedia site in their default format, and later amended these to work as hardcoded \textit{JavaScript} arrays.
 
 Dr. Glocker kindly also supplied a number of desktop programs for medical image viewing that I could use for inspiration, such as IMView and MIT3K.
 
@@ -870,27 +870,27 @@ As the project grew more complex, I started writing a Coding Journal in which I 
 
 \subsubsection{StackOverflow}
 
-Whenever I was stuck on a problem, checking the popular StackOverflow forum for solutions proved invaluable. At time of writing, there are 15,957 questions tagged with 'Backbone', 521,973 questions tagged with 'JQuery' and 681,696 questions tagged with 'JavaScript', so it provided a vast resource for fixing problems. Even for XTK there are 139 Questions tagged, which is relatively small given the other numbers but still useful due to the occasional answer of the XTK authors themselves. Three of the questions tagged with 'xtk' have been asked by me.
+Whenever I was stuck on a problem, checking the popular StackOverflow forum for solutions proved invaluable. At time of writing, there are 15,957 questions tagged with 'Backbone', 521,973 questions tagged with 'JQuery' and 681,696 questions tagged with 'JavaScript', so it provided a vast resource for fixing problems. Even for \textit{XTK} there are 139 Questions tagged, which is relatively small given the other numbers but still useful due to the occasional answer of the \textit{XTK} authors themselves. Three of the questions tagged with 'xtk' have been asked by me.
 
 
 
 \subsection{General structure}
 
-The initial plan was to build a UI with custom features (the frontend) using the XTK library (the backend) through the API. The frontend would be written in\textit{JavaScript}, HTML and CSS and would be structured with Backbone. The individual HTML elements would be stored in separate template files, which the Backbone Views would render to the web browser. Twitter-Bootstrap, JQueryUI and custom-made CSS style elements would be used to style the look and feel of the frontend.
+The initial plan was to build a UI with custom features (the frontend) using the \textit{XTK} library (the backend) through the API. The frontend would be written in \textit{JavaScript}, \textit{HTML} and CSS and would be structured with \textit{Backbone}. The individual \textit{HTML} elements would be stored in separate template files, which the \textit{Backbone} Views would render to the web browser. Twitter-Bootstrap, \textit{jQueryUI} and custom-made CSS style elements would be used to style the look and feel of the frontend.
 
-The hope was that the XTK library would provide all necessary functionality required for the front end and so it would not be necessary to alter the library itself. However it soon became apparent that this would not be the case, and modifications had to be made. Still, access to the backend would be handled through a separate dedicated Backbone View. 
+The hope was that the \textit{XTK} library would provide all necessary functionality required for the front end and so it would not be necessary to alter the library itself. However it soon became apparent that this would not be the case, and modifications had to be made. Still, access to the backend would be handled through a separate dedicated \textit{Backbone} View. 
 
-The project would include a number of different libraries which would be dependent on each other. Since some of these libraries exist on remote web servers, the loading has to happen asynchronously. This means that there is no guarantee that a library has loaded when it is needed. For example \textit{Underscore.js} and \textit{jQuery} will need to load before \textit{Backbone.js} is used. Luckily this is a well recognised problem, and a library called RequireJS is a great solution to it. It provide the ability to asynchronously load nested dependencies. Traditionally \textit{JavaScript} files or modules are loaded sequentially, where the order matters in case a module depends on another module. \textit{RequireJs} will make it possible to split up everything into neat modules and templates and facilitate testing of all the components.
+The project would include a number of different libraries which would be dependent on each other. Since some of these libraries exist on remote web servers, the loading has to happen asynchronously. This means that there is no guarantee that a library has loaded when it is needed. For example \textit{Underscore.js} and \textit{jQuery} will need to load before \textit{Backbone.js} is used. Luckily this is a well recognised problem, and a library called \textit{RequireJS} is a great solution to it. It provide the ability to asynchronously load nested dependencies. Traditionally \textit{JavaScript} files or modules are loaded sequentially, where the order matters in case a module depends on another module. \textit{RequireJs} will make it possible to split up everything into neat modules and templates and facilitate testing of all the components.
 
 
 \subsection{Implementing Features/ Implementation History}
 
-This subsection will deal with the implementation of general and specific features of ScanView. For clarity's sake, the reader should be aware that the XTK Library consists of several classes, and that the main rendering interface (including the Canvas element that is used for drawing) is called an X.renderer. A more detailed explanation of XTK's inner working will follow in the next section, where I discuss my experiences of the various libraries that were used on this project.
+This subsection will deal with the implementation of general and specific features of ScanView. For clarity's sake, the reader should be aware that the \textit{XTK} Library consists of several classes, and that the main rendering interface (including the Canvas element that is used for drawing) is called an X.renderer. A more detailed explanation of \textit{XTK}'s inner working will follow in the next section, where I discuss my experiences of the various libraries that were used on this project.
 
 
 \subsubsection{Creating the single web app structure}
 
-I started the project with one of the tutorial from the XTK website. Tutorial 13 had a very basic setup that was similar to what I intended for my project - a four panel rendering of a volume data file. The tutorial has less than 100 lines of Code, with half of it used for specifying an inbuilt GUI. Since I wanted to create a custom GUI and generally have a much bigger codebase, first I need to ensure that I had a solid structure for my project. This is where Backbone and RequireJS came into play. Since I was not entirely familiar with either of them, it took a few days to get up to speed and try out a few tutorials to familiarise myself with their useage. After a few days I had managed to create a frame work that mimicked the tutorial, but was running in the confines of Backbone with proper models, views according to the MV* pattern and managed dependencies through RequireJS. Figure ~\ref{fig:generalUML} shows a UML-style representation of the adopted architecture. 
+I started the project with one of the tutorial from the \textit{XTK} website. Tutorial 13 had a very basic setup that was similar to what I intended for my project - a four panel rendering of a volume data file. The tutorial has less than 100 lines of Code, with half of it used for specifying an inbuilt GUI. Since I wanted to create a custom GUI and generally have a much bigger codebase, first I need to ensure that I had a solid structure for my project. This is where \textit{Backbone} and \textit{RequireJS} came into play. Since I was not entirely familiar with either of them, it took a few days to get up to speed and try out a few tutorials to familiarise myself with their useage. After a few days I had managed to create a frame work that mimicked the tutorial, but was running in the confines of \textit{Backbone} with proper models, views according to the MV* pattern and managed dependencies through \textit{RequireJS}. Figure ~\ref{fig:generalUML} shows a UML-style representation of the adopted architecture. 
 
 \begin{figure}[ht!]
 \centering
@@ -899,7 +899,7 @@ I started the project with one of the tutorial from the XTK website. Tutorial 13
 \label{fig:generalUML}
 \end{figure}
 
-The key idea is that the Display Layer is the main Backbone model and thereby central to the whole architecture. It is here that file data is stored for each volume, as well as attributes such current indices, brightness, windowing and everything else relevant for displaying a Volume File. Figure ~\ref{fig:layerUML} shows the class diagram for the Display Layer model.
+The key idea is that the Display Layer is the main \textit{Backbone} model and thereby central to the whole architecture. It is here that file data is stored for each volume, as well as attributes such current indices, brightness, windowing and everything else relevant for displaying a Volume File. Figure ~\ref{fig:layerUML} shows the class diagram for the Display Layer model.
 
 
 \begin{figure}[ht!]
@@ -909,38 +909,38 @@ The key idea is that the Display Layer is the main Backbone model and thereby ce
 \label{fig:layerUML}
 \end{figure}
 
-Each Display Layer Model instance has a Display Layer view, which renders a Layer item in the Display Layer Panel. Everything else is managed by Backbone Views. These Views generally listen to the DisplayLayer Model to see if any attributes have changed. If this is the case, then the View is upated accordingly due to internal function calls. The individual Display Layer Views are managed by a Layers View (which admittedly could have been named more clearly), which handles Layer Creation, Deletion and Ordering. The specific settings for a Layer, as displayed in the Levels, Annotations and Labelmap tabs are also separate views. Due to the nature of Backbone's Views taking on the role of MVC Controller as well, these Views listen to events from the Model, but can also set attributes of the model directly, as illustrated in the diagram.
+Each Display Layer Model instance has a Display Layer view, which renders a Layer item in the Display Layer Panel. Everything else is managed by \textit{Backbone} Views. These Views generally listen to the DisplayLayer Model to see if any attributes have changed. If this is the case, then the View is upated accordingly due to internal function calls. The individual Display Layer Views are managed by a Layers View (which admittedly could have been named more clearly), which handles Layer Creation, Deletion and Ordering. The specific settings for a Layer, as displayed in the Levels, Annotations and Labelmap tabs are also separate views. Due to the nature of \textit{Backbone}'s Views taking on the role of MVC Controller as well, these Views listen to events from the Model, but can also set attributes of the model directly, as illustrated in the diagram.
 
-For rendering, there exists a main ViewerWindow View which controls functionality for the four DisplayPanels. Each DisplayPanel is also its own View. In fact, these have an abstract parent View called CanvasViewer, which CanvasViewer2D and CanvasViewer3D inherit from. Importantly, there is an XTK View, which contains the actual X.renderers. All interaction of the frontend with the XTK library backend happened exclusively through this View. An instance of this view is created for each DisplayLayer Model. These Views listen to the DisplayLayer Model and update the contained X.renderers accordingly. These XTK Views are hidden from the user, but their canvas' pixel values are copied by the CanvasViewer Views. When a new Display Layer is selected, the CanvasViewers stop copying the old XTK View's canvas and instead copy from XTK View linked to the new Display Layer. Again, the fact that Views also act as Controllers, means that user interaction with the CanvasViewer View (such as scrolling to set a new slice index) can directly set attributes in the model.
-
-
-The decision to have the CanvasViewers Views copy the pixel data from the XTK Views was important, in that it allowed more customisation of the main View Panels. The image data from the XTK Views were essentially one image buffer. I could now add additional buffers as required. For example I added the Overlay feature, which display some info text (like current Slice index and filename) in the Canvas. Also the opacity feature and Buffer swiping (which will be discussed later) were easier to implement. Technically, the copying is done with Canvas' drawImageData() function and the requestAnimationFrame function. DrawImageData() allows for drawing on a Canvas the contents of an image file or another Canvas elements (the canvas of the XTK renderers in this case). The requestAnimationFrame function is new with HTML5 and is intended the use of setTimeout() which was traditionally used to trigger at specific interval time. It basically aims to deliver the best performance given the current CPU load and monitor refresh rate (REFERENCE). I actually tried using a setTimeout() method first, where I specified the drawImageData() function to run every 50 milliseconds, but it took noticable more CPU power, which I only noticed when the fans of my laptop started making loud noises. Checking the Activity Monitor, I saw that ScanView was taking up more than 50\% of the CPU's processing power. By using requestAnimationFrame(), this was reduced to less than 30\%.
+For rendering, there exists a main ViewerWindow View which controls functionality for the four DisplayPanels. Each DisplayPanel is also its own View. In fact, these have an abstract parent View called CanvasViewer, which CanvasViewer2D and CanvasViewer3D inherit from. Importantly, there is an \textit{XTK} View, which contains the actual X.renderers. All interaction of the frontend with the \textit{XTK} library backend happened exclusively through this View. An instance of this view is created for each DisplayLayer Model. These Views listen to the DisplayLayer Model and update the contained X.renderers accordingly. These \textit{XTK} Views are hidden from the user, but their canvas' pixel values are copied by the CanvasViewer Views. When a new Display Layer is selected, the CanvasViewers stop copying the old \textit{XTK} View's canvas and instead copy from \textit{XTK} View linked to the new Display Layer. Again, the fact that Views also act as Controllers, means that user interaction with the CanvasViewer View (such as scrolling to set a new slice index) can directly set attributes in the model.
 
 
-The XTK View in itself contains of four X.renderers (3D, X, Y and Z). Initially I was planning to separate each X.renderer into a separate XTK View. However, due to XTK implementation, there exist some dependencies between these X.renderers, in that one X.renderer is a designated first viewer which takes care of all the file loading and parsing. When this is done, a signal called 'onShowtime' is emitted. This is the cue for other renderers to start rendering their newly loaded content, without having to load anything again. Due to this interplay between the renderers, I decided to bundle all of them into one View, and let all access to the X.renderers be handled by the XTK View.
+The decision to have the CanvasViewers Views copy the pixel data from the \textit{XTK} Views was important, in that it allowed more customisation of the main View Panels. The image data from the \textit{XTK} Views were essentially one image buffer. I could now add additional buffers as required. For example I added the Overlay feature, which display some info text (like current Slice index and filename) in the Canvas. Also the opacity feature and Buffer swiping (which will be discussed later) were easier to implement. Technically, the copying is done with Canvas' drawImageData() function and the requestAnimationFrame function. DrawImageData() allows for drawing on a Canvas the contents of an image file or another Canvas elements (the canvas of the \textit{XTK} renderers in this case). The requestAnimationFrame function is new with \textit{HTML5} and is intended the use of setTimeout() which was traditionally used to trigger at specific interval time. It basically aims to deliver the best performance given the current CPU load and monitor refresh rate (REFERENCE). I actually tried using a setTimeout() method first, where I specified the drawImageData() function to run every 50 milliseconds, but it took noticable more CPU power, which I only noticed when the fans of my laptop started making loud noises. Checking the Activity Monitor, I saw that ScanView was taking up more than 50\% of the CPU's processing power. By using requestAnimationFrame(), this was reduced to less than 30\%.
+
+
+The \textit{XTK} View in itself contains of four X.renderers (3D, X, Y and Z). Initially I was planning to separate each X.renderer into a separate \textit{XTK} View. However, due to \textit{XTK} implementation, there exist some dependencies between these X.renderers, in that one X.renderer is a designated first viewer which takes care of all the file loading and parsing. When this is done, a signal called 'onShowtime' is emitted. This is the cue for other renderers to start rendering their newly loaded content, without having to load anything again. Due to this interplay between the renderers, I decided to bundle all of them into one View, and let all access to the X.renderers be handled by the \textit{XTK} View.
 
 Finally there is a MainView which creates a Sidebar View and the ViewerWindow View. The Sidebar View creates the DisplayLayers View as well as the Levels, Annotations and Labelmap Views.
 
 
 \subsubsection{Loading Volume Files}
 
-After creating the initial structure, tackling the issue of loading local volume files was the next step. This can be tricky with web browsers, as for security reasons file I/O is not a feature that is readily supported. However I had the SliceDrop code to look through. This was all implemented in the XTKView, and basically copying the data into a local container did the trick. This is done with the HTML5 FileReader element, which allows for asynchronous file loading in various formats (text/buffer, etc). The FileReader loads a file asychronously and emits a signal when it has finished. The resulting fileObject could then passed onto the XTK renderer to load and parse the file.
+After creating the initial structure, tackling the issue of loading local volume files was the next step. This can be tricky with web browsers, as for security reasons file I/O is not a feature that is readily supported. However I had the SliceDrop code to look through. This was all implemented in the \textit{XTK}View, and basically copying the data into a local container did the trick. This is done with the \textit{HTML}5 FileReader element, which allows for asynchronous file loading in various formats (text/buffer, etc). The FileReader loads a file asychronously and emits a signal when it has finished. The resulting fileObject could then passed onto the \textit{XTK} renderer to load and parse the file.
 
-Once I had this setup I came across one of the first bugs in XTK. When loading NRRD files, the volume would load and display, but it would be slightly offset. Testing this on a couple of Desktop solutions which worked fine let to the conclusion that it is a bug in the XTK library. 
+Once I had this setup I came across one of the first bugs in \textit{XTK}. When loading NRRD files, the volume would load and display, but it would be slightly offset. Testing this on a couple of Desktop solutions which worked fine let to the conclusion that it is a bug in the \textit{XTK} library. 
 
 
 \subsubsection{View Panel Layout}
 
 In terms of the layout of the components of ScanView, it needed to accomodate the four different views (one 3D Camera View and X, Y and Z Camera Views). I wanted to add some customisation options in terms of size of the viewer and choice of Camera View in each panel. Depending on whether it was a 3D or 2D Camera View, the Display Panel would have different options. 3D Camera View needed a toggle for Volumetric Rendering, 2D Camera View needed a toggle for Information Overlay.
 
-For the different layouts I briefly investigated using interactive splitters, but found them to be not very easy or reliable to tie into the program. Instead I opted for 4 different static Layouts (See image below). This should give the user enough options to choose what his prefered layout. Implementing the logic behind these panels took a while to get right. Panels had to auto-resize everytime the layout was changed. Again this required some exposing of extra XTK attributes, as well as CSS management of the CanvasViewer Views.
+For the different layouts I briefly investigated using interactive splitters, but found them to be not very easy or reliable to tie into the program. Instead I opted for 4 different static Layouts (See image below). This should give the user enough options to choose what his prefered layout. Implementing the logic behind these panels took a while to get right. Panels had to auto-resize everytime the layout was changed. Again this required some exposing of extra \textit{XTK} attributes, as well as CSS management of the CanvasViewer Views.
 
-Implementing the feature to change the current viewer orientation took a little bit of time to figure out. I experimented first with a fixed order of CanvasViewers (meaning their order in the DOM), where changing a CanvasViewer's orientation would cause its Canvas element to start copying a different XTK Viewer. This proved to be cumbersome to manage, as not only the Canvas content but also the buttons of the CanvasViewer had to change (e.g 'Overlay' or 'Volume Rendering' toggle) depending on if the 3D camera view or the orthogonal views were selected. Instead I opted for a floating order of CanvasViewers, so that depending on selection, the CanvasViewer would be reordered in the DOM to appear at the correct position. This meant that the CanvasViewer View itself stayed intact with all functionality, only its position and possible size had changed.
+Implementing the feature to change the current viewer orientation took a little bit of time to figure out. I experimented first with a fixed order of CanvasViewers (meaning their order in the DOM), where changing a CanvasViewer's orientation would cause its Canvas element to start copying a different \textit{XTK} Viewer. This proved to be cumbersome to manage, as not only the Canvas content but also the buttons of the CanvasViewer had to change (e.g 'Overlay' or 'Volume Rendering' toggle) depending on if the 3D camera view or the orthogonal views were selected. Instead I opted for a floating order of CanvasViewers, so that depending on selection, the CanvasViewer would be reordered in the DOM to appear at the correct position. This meant that the CanvasViewer View itself stayed intact with all functionality, only its position and possible size had changed.
 
 
 \subsubsection{Buffer Management}
 
-As the next step, I introduced Buffers. Conceptually, this was taken from the Image Compositing Software Nuke, discussed in the Desktop Software section, where the user can store different Display Layers in the Buffers. This involved some deliberate thought, as the interplay between the buffers would determine the rendering on them in the CanvasViewer Views (with opacity and swiping). I created a separate Backbone Model to keep track of which Display Layers were stored in which Buffer. I then changed the code of the CanvasViewer Views, so that they always store a background and a foreground DisplayLayer. The CanvasViewer View listens to the Buffer Model to determine which Display Layer will be in the forefround, and which in the background. This comes down to the stored Display Layers and the currently selected Buffer. 
+As the next step, I introduced Buffers. Conceptually, this was taken from the Image Compositing Software Nuke, discussed in the Desktop Software section, where the user can store different Display Layers in the Buffers. This involved some deliberate thought, as the interplay between the buffers would determine the rendering on them in the CanvasViewer Views (with opacity and swiping). I created a separate \textit{Backbone} Model to keep track of which Display Layers were stored in which Buffer. I then changed the code of the CanvasViewer Views, so that they always store a background and a foreground DisplayLayer. The CanvasViewer View listens to the Buffer Model to determine which Display Layer will be in the forefround, and which in the background. This comes down to the stored Display Layers and the currently selected Buffer. 
 
 With the above in place, I could easily implement opacity blending and buffer swiping, since I had access to both Display Layers in my CanvasViewers. I changed to code for the CanvasViewer draw() to draw first the background Display Layer's content and then the foreground Display Layer's content on top of it (only if the opacity of the foreground was less than 100\%). For drawing to Canvas with opacity, I made use of Canvas' inbuilt globalAlpha attribute. So when using the drawImageData(), it would only draw it with the specified opacity of the globalAlpha attribute, thereby revealing the content of the background layer. For buffer swiping, a similar approach was used. Again, the background is being drawn fully, and the foreground is only drawn within a specific region as controlled by the user. This was easily done, as the drawImageData() function takes Canvas coordinates as input of where to draw to. 
 
@@ -949,7 +949,7 @@ With the above in place, I could easily implement opacity blending and buffer sw
 
 \subsubsection{Colortables}
 
-The next feature I tackled was Colortables, with which to change the color output for a given volume. The XTL library does support Colortables, which ironically ended up costing me a week of coding time. XTK Colortables follow the same format as 3DSlicer's format and a Wikipedia site with which one can create custom Colortables exists online. The format is that each line is prefixed by an index, which will usually by the RGB value of the volume data. Each line is then mapped to a label and a set of RGBA values.
+The next feature I tackled was Colortables, with which to change the color output for a given volume. The XTL library does support Colortables, which ironically ended up costing me a week of coding time. \textit{XTK} Colortables follow the same format as 3DSlicer's format and a Wikipedia site with which one can create custom Colortables exists online. The format is that each line is prefixed by an index, which will usually by the RGB value of the volume data. Each line is then mapped to a label and a set of RGBA values.
 
 \begin{figure}[ht!]
 \centering
@@ -958,7 +958,7 @@ The next feature I tackled was Colortables, with which to change the color outpu
 \label{fig:UIdesign1}
 \end{figure}
 
-XTK deals with Colortables in that the user has to load them as a .txt file when adding the Volume data and other input files. Thereby it is bundled up with the rest of the IO processes. Again, as with normal file loading, XTK is not designed for adding or modifying these kinds of files at runtime, so I had to add this functionality. This took a long time in that I had to trace the whole function flow of XTK when loading files. I proceeded with various steps, but would encounter problems at every stage, since I was forcing XTK do something that was not really inherent in its initial design. At a very basic level, colored displays (ie varying R, G and B channels) were not enabled for volumes by default, so I had to edit the code for that. On top of that, 2Drenderer and 3DRenderer deal with color and rendering quite differently. The 2D renderer does the rendering to screen space at a specific time per second. The 3D renderer uses a fragment shader (like in OpenGL) to assign color. Figuring all this out took a while, and after 7 days I had finally managed to get the whole process working. The only problem was that since I/O was involved, it would take quite a bit of time to update, so it was not entirely slick. Also, the way XTK loaded these colortables was by actually baking the colors into the slice texture. 
+XTK deals with Colortables in that the user has to load them as a .txt file when adding the Volume data and other input files. Thereby it is bundled up with the rest of the IO processes. Again, as with normal file loading, \textit{XTK} is not designed for adding or modifying these kinds of files at runtime, so I had to add this functionality. This took a long time in that I had to trace the whole function flow of \textit{XTK} when loading files. I proceeded with various steps, but would encounter problems at every stage, since I was forcing \textit{XTK} do something that was not really inherent in its initial design. At a very basic level, colored displays (ie varying R, G and B channels) were not enabled for volumes by default, so I had to edit the code for that. On top of that, 2Drenderer and 3DRenderer deal with color and rendering quite differently. The 2D renderer does the rendering to screen space at a specific time per second. The 3D renderer uses a fragment shader (like in OpenGL) to assign color. Figuring all this out took a while, and after 7 days I had finally managed to get the whole process working. The only problem was that since I/O was involved, it would take quite a bit of time to update, so it was not entirely slick. Also, the way \textit{XTK} loaded these colortables was by actually baking the colors into the slice texture. 
 
 
 
@@ -985,7 +985,7 @@ XTK deals with Colortables in that the user has to load them as a .txt file when
 \end{figure}
 
 
-Having finished this feature so far, it occured to me that I could actually speed the whole process up by having some hardcoded colortables in the code, and using them as a array to look up colorvalues when rendering the actual pixel. This was much easier to implement, loads much quicker as it is more efficient in only manipulating color at a pixel level rather then changing the color values of the whole volume. In the end I chose this method as I prefered the faster feedback. It has the limitation that the user can not load his own colortable, but this is a feature that could be added in future. For the moment, there are three colortables provided. Firstly, the standard colortable maps rgbs values directly to the same value. Secondly, an ID map maps values to different RGB values, which is intended for use with labelmaps. Thirdly, a type of Heatmap map has been included which maps the original RGB values from BLUE to RED to mimic the behaviour of a heat map. This was advised by the project supervisor, and an original heat mapping was supplied in a custom format, with only 64 integer mappings provided. I wrote a python script which would convert this into a\textit{JavaScript}array with 256 mappings. I also used a similar Python script to convert Slicer3D Wiki Colortables to useable\textit{JavaScript}arrays.
+Having finished this feature so far, it occured to me that I could actually speed the whole process up by having some hardcoded colortables in the code, and using them as a array to look up colorvalues when rendering the actual pixel. This was much easier to implement, loads much quicker as it is more efficient in only manipulating color at a pixel level rather then changing the color values of the whole volume. In the end I chose this method as I prefered the faster feedback. It has the limitation that the user can not load his own colortable, but this is a feature that could be added in future. For the moment, there are three colortables provided. Firstly, the standard colortable maps rgbs values directly to the same value. Secondly, an ID map maps values to different RGB values, which is intended for use with labelmaps. Thirdly, a type of Heatmap map has been included which maps the original RGB values from BLUE to RED to mimic the behaviour of a heat map. This was advised by the project supervisor, and an original heat mapping was supplied in a custom format, with only 64 integer mappings provided. I wrote a python script which would convert this into a \textit{JavaScript} array with 256 mappings. I also used a similar Python script to convert Slicer3D Wiki Colortables to useable \textit{JavaScript} arrays.
 
 
 
@@ -993,7 +993,7 @@ Having finished this feature so far, it occured to me that I could actually spee
 
 
 
-The Annotations feature was addded in the last month and I was aware of time pressure. That is why initital design decisions had to be made to reduce wasted time later in the process. I decided on implementing rectangular annotations first, since that would make calculations easier to manage. Annotations would be\textit{JavaScript}objects with core members that were predefined (labelName, color, 3DPoints), and secondary attributes that would have to be computed on the fly (such as 2D Points for displaying on screen). Specifically, an annotation would be defined by 8 points in 3D Space. However to render it in a 2D View, 2D points had to be generated in screen space. I had intended the 2D points to be selectable in the Canvas View, so these 2D points should also be objects with custom attributes.
+The Annotations feature was addded in the last month and I was aware of time pressure. That is why initital design decisions had to be made to reduce wasted time later in the process. I decided on implementing rectangular annotations first, since that would make calculations easier to manage. Annotations would be \textit{JavaScript} objects with core members that were predefined (labelName, color, 3DPoints), and secondary attributes that would have to be computed on the fly (such as 2D Points for displaying on screen). Specifically, an annotation would be defined by 8 points in 3D Space. However to render it in a 2D View, 2D points had to be generated in screen space. I had intended the 2D points to be selectable in the Canvas View, so these 2D points should also be objects with custom attributes.
 
 An initial UML diagram was desiged as below, although the final Annotation class contained quite a few more helper functions to help with the conversion from 3D to 2D space.
 
@@ -1008,7 +1008,7 @@ An initial UML diagram was desiged as below, although the final Annotation class
 
 
 
-The next step was to chose a data format and design the workflow. Initial tests were done with XML but to be somewhat cumbersome since some parsing is required and in the program the XML structures would have to be converted to\textit{JavaScript}objects. Therefore the much more intuitive JSON format was chosen, since this basically stores\textit{JavaScript}objects in readable form, and can be loaded directly into the program without almost any conversion required. The JSON format was originally derived from\textit{JavaScript}which explains its ease of use.
+The next step was to chose a data format and design the workflow. Initial tests were done with XML but to be somewhat cumbersome since some parsing is required and in the program the XML structures would have to be converted to \textit{JavaScript} objects. Therefore the much more intuitive JSON format was chosen, since this basically stores \textit{JavaScript} objects in readable form, and can be loaded directly into the program without almost any conversion required. The JSON format was originally derived from \textit{JavaScript} which explains its ease of use.
 
 \begin{figure}[ht!]
 \centering
@@ -1019,10 +1019,10 @@ The next step was to chose a data format and design the workflow. Initial tests 
 
 
 
-Probably the most involved work was to figure out the conversion of 3D points to 2D screen space. The 2D points would be calculated by each XTK renderer separately, since the different views required different 2D screen space points. An array of the 2D points would be stored in the Annotation class. These points would then be updated whenever the position of the 3D points of the Annotation changed. The XTK renderer class has a function that translates 2D screen coordinates to 3D slice index coordinates which was a good starting point. I chose a simplified version of this function and implemented a conversion function, which appeared to work fine. I had to develop a much deeper understanding of the Volume File and its various Slice Depth Quantifiers, such as spacing and direction. These had to be integrated into the conversion since they define how the slices are spaced in relation to each other. A more detailed breakdown of these attributes will follow in the XTK subsection later in the Implementation section.
+Probably the most involved work was to figure out the conversion of 3D points to 2D screen space. The 2D points would be calculated by each \textit{XTK} renderer separately, since the different views required different 2D screen space points. An array of the 2D points would be stored in the Annotation class. These points would then be updated whenever the position of the 3D points of the Annotation changed. The \textit{XTK} renderer class has a function that translates 2D screen coordinates to 3D slice index coordinates which was a good starting point. I chose a simplified version of this function and implemented a conversion function, which appeared to work fine. I had to develop a much deeper understanding of the Volume File and its various Slice Depth Quantifiers, such as spacing and direction. These had to be integrated into the conversion since they define how the slices are spaced in relation to each other. A more detailed breakdown of these attributes will follow in the \textit{XTK} subsection later in the Implementation section.
 
 
-When I had finished my naive implementation, some small bugs were noticeable. For example all 2D points of an Annotation would sometimes jump by a pixel even when only one 2DPoint was being manipulated. I attributed this to some floating point or rounding errors, but could not track down where the errors were happening. Finally I had to admit that my simplified conversion function was not accurate enough, and I set out to reverse engineer the 2D to 3D conversion from the XTK library. This involved some inverse matrix multiplication, and in the end worked perfectly. These changes had to be made in the XTK renderer class.
+When I had finished my naive implementation, some small bugs were noticeable. For example all 2D points of an Annotation would sometimes jump by a pixel even when only one 2DPoint was being manipulated. I attributed this to some floating point or rounding errors, but could not track down where the errors were happening. Finally I had to admit that my simplified conversion function was not accurate enough, and I set out to reverse engineer the 2D to 3D conversion from the \textit{XTK} library. This involved some inverse matrix multiplication, and in the end worked perfectly. These changes had to be made in the \textit{XTK} renderer class.
 
 In order for the user to manipulate the position of the Annotation points in screen space, I had to implement manipulatable corner points of the Annotation. This was made easy by the decision to have the 2D points. Initially I had contemplated creating a separate Manipulator class, but realised that this was superfluous and would just be repeating code. In the 2DPoint class I specified the position and width, so that in screen space I could make the 2DPoints appear wider for easier selection with the mouse. Some internal logic had to be added to the Annotation class, so that when the user changes the position of one 2DPoint, the neighboring points would also transform accordingly, since the shape had to always stay rectangular. I had to revise this is a couple of times, since in my first naive implementation, there would problems when the Annotation box would collapse so that all four 2D Points would be at the same screen space position. In the end I opted for limiting the size of the Annotation so that the points could never collapse to the same position.
 
@@ -1036,7 +1036,7 @@ In order for the user to manipulate the position of the Annotation points in scr
 
 An important part of the Annotation Management was the feature to download Annotations as a JSON file. However again due to web browser security restrictions, there is no 'Save File As' feature as I had imagined. However after some research, a viable alternative was found in that it is possible to 'download' a file (even if the code is running locally). This was deemed sufficient for this project, even if it does not allow for specifying the file name directly. With more time, it would be possible to add a pop-up window just like a 'Save as' dialog that would then trigger the file download.
 
-Saving files to JSON format was straight forward due to the before-mentioned natural overlap of\textit{JavaScript}objects and JSON format. The saved files would only include the core information such labelName, color, 3D points and type.
+Saving files to JSON format was straight forward due to the before-mentioned natural overlap of \textit{JavaScript} objects and JSON format. The saved files would only include the core information such labelName, color, 3D points and type.
 
 To let the user specify a color for the Annotation, I needed to introduce a color picker. After some research, it became apparent that a host of color pickers were available online and it would be faster to use one of them than impement my own. I downloaded a couple of ColorPickers from the web, and deemed Blah's colorpicker to be better suited. It has a very basic interface that was deemed sufficient for chosing an Annotation color. Installing and implementing it into the project was also very straight forward.
 
@@ -1058,13 +1058,13 @@ Adding Labelmaps proved to be relatively painless due to the time spent understa
 
 \subsubsection{Controls}
 
-Dedicated effort was put into making the software intuitive for users to use, after having researched specific requirements for user input and understanding how many of these files could be inspected in a typical session. Since I was copying the pixels from the XTK render canvases into the custom Render Panels, I had to reinstate the controls that were already in XTK. However this also gave me some freedom to redesign certain controls.
+Dedicated effort was put into making the software intuitive for users to use, after having researched specific requirements for user input and understanding how many of these files could be inspected in a typical session. Since I was copying the pixels from the \textit{XTK} render canvases into the custom Render Panels, I had to reinstate the controls that were already in \textit{XTK}. However this also gave me some freedom to redesign certain controls.
 
-I scrapped the mouse controls for brightness and contrast, since they were buggy, as discussed in previous sections, and there was not enough visual feedback for the user to see what was being changed. Instead I opted for traditional slider based methods, with numerical input fields on either side to clearly show which numbers were currently set. This works well in that it is very clear to the user how to manipulate the image, and it is more bug-free than the XTK implementation. Also the number input fields allow for precise control for the case that a user wants to recreate a certain brightness configuration.
+I scrapped the mouse controls for brightness and contrast, since they were buggy, as discussed in previous sections, and there was not enough visual feedback for the user to see what was being changed. Instead I opted for traditional slider based methods, with numerical input fields on either side to clearly show which numbers were currently set. This works well in that it is very clear to the user how to manipulate the image, and it is more bug-free than the \textit{XTK} implementation. Also the number input fields allow for precise control for the case that a user wants to recreate a certain brightness configuration.
 
-All slice navigation and traversal was placed on mouse controls. The guidelines from the book helped inform the controls in that radiologist prefer to have as simple controls as possible since their work can consist of dealing with vast quantities of these kind of files, so any intricate control input method would soon get tiresome. Therefore the standard XTK input methods were kept mostly intact, so the middle clicking pans the camera, right-clicking zooms and left-click rotates in the 3D View. Since the left-click for the 2D Views was freed from controlling brightness, I assigned the traversal function to this, which allows the user to quickly reset all 3 slice indices. This was inspired by IMView (check!!) and prefered to XTK's default traversal input which requires the additional holding down of the 'Shift Key'.
+All slice navigation and traversal was placed on mouse controls. The guidelines from the book helped inform the controls in that radiologist prefer to have as simple controls as possible since their work can consist of dealing with vast quantities of these kind of files, so any intricate control input method would soon get tiresome. Therefore the standard \textit{XTK} input methods were kept mostly intact, so the middle clicking pans the camera, right-clicking zooms and left-click rotates in the 3D View. Since the left-click for the 2D Views was freed from controlling brightness, I assigned the traversal function to this, which allows the user to quickly reset all 3 slice indices. This was inspired by IMView (check!!) and prefered to \textit{XTK}'s default traversal input which requires the additional holding down of the 'Shift Key'.
 
-Reinstating the mouse controls took some as I had to find out how to trigger the appropriate response in the XTK canvases. For 2D and 3D navigation, I had to study the XTK X.camera more closely. It turned out that I could access the X.camera's view matrix directly via an already implemented setter method, where indices 13 and 14 were synonymous with the X and Y position camera, and index 15 was the Z position. Therefore all I needed to do was calculate the relative movement to the currently selected HTML Canvas (by substituting the absolute mouse coordinates from the HTML Canvas coordinates), and convert this with an appropriate factor to X and Y numbers to be entered into the view matrix.
+Reinstating the mouse controls took some as I had to find out how to trigger the appropriate response in the \textit{XTK} canvases. For 2D and 3D navigation, I had to study the \textit{XTK} X.camera more closely. It turned out that I could access the X.camera's view matrix directly via an already implemented setter method, where indices 13 and 14 were synonymous with the X and Y position camera, and index 15 was the Z position. Therefore all I needed to do was calculate the relative movement to the currently selected \textit{HTML} Canvas (by substituting the absolute mouse coordinates from the \textit{HTML} Canvas coordinates), and convert this with an appropriate factor to X and Y numbers to be entered into the view matrix.
 Likewise for zooming in the 2D Views, an adaptive zoom factor was implemented after discussion with the supervisor. The first normal implementation would zoom with a constant factor, but this would be more ineffective the further the camera was zoomed in on a slice. I implemented an adaptive zoom factor that interpolates between a linear zoom function to a square zoom function to counteract this effect.
 
 To further add convenience for user input, I created a couple of keyboard shortcuts. To toggle between the A and B buffers, the user can press '1' or '2'. I was used to this from using the compositing software Nuke and have always found a frequently used short cut when comparing two images with each other, especially when looking for minute differences. This ties in with the idea that ScanView could be used to compare two medical image data files with each other. For the View Panels I also added the keyboard 'f' shortcut to recenter the camera after any panning, zooming or rotation had been applied, inspired by ITKSnap's image centering feature. This is achieved by storing the initial camera view matrix when the file is loaded, and loading this view upon key press. Adding these keyboard shortcuts is relatively trivial and more could and should be added, assuming that keyboard short cuts increase user speed. Some care had to be taken to ensure that the keyboard shortcuts do not get triggered when a text field is being edited.
@@ -1073,7 +1073,7 @@ To further add convenience for user input, I created a couple of keyboard shortc
 
 
 \subsubsection{Error Handling}
-An issue that is entirely related to the XTK library is how to let the user know that a certain file has not loaded. This was an important issue since a large variety of files downloaded from the Internet could not be opened with the XTK library. Various errors would be thrown in the loader.js and parser.js components of the XTK library, but there is no simple way to propogate this to the higher API-using layer, since the file loading is handled asynchronously and with event sending. There are no events implemented that signal the failing to load a file (other than failing to download a file via HTTP). Due to limited time, rather than adding these events into the XTK library, I added an error listener to the UI Layer which would call an errorHandler function whenever an error was thrown. This errorHandler function would then do a string comparison and cause a pop-up modal window to appear to inform the user of the specific error. This had the benefit of being able to screen for only certains types of errors.
+An issue that is entirely related to the \textit{XTK} library is how to let the user know that a certain file has not loaded. This was an important issue since a large variety of files downloaded from the Internet could not be opened with the \textit{XTK} library. Various errors would be thrown in the loader.js and parser.js components of the \textit{XTK} library, but there is no simple way to propogate this to the higher API-using layer, since the file loading is handled asynchronously and with event sending. There are no events implemented that signal the failing to load a file (other than failing to download a file via HTTP). Due to limited time, rather than adding these events into the \textit{XTK} library, I added an error listener to the UI Layer which would call an errorHandler function whenever an error was thrown. This errorHandler function would then do a string comparison and cause a pop-up modal window to appear to inform the user of the specific error. This had the benefit of being able to screen for only certains types of errors.
 
 
 \begin{figure}
@@ -1101,7 +1101,7 @@ This feature was added fairly late in the project, but it was relatively fast to
 
 \subsubsection{Polishing the User Interface}
 
-Now with the program gaining shape, it was time to tweak the User Interface. This included the not very glamourous tasks of making sure that any Display or Annotation Layers would never be bigger than their container element by adding scroll bars. Luckily, this is a JQueryUI feature that is easy to implement, and one can specify along which axis one would like the scrollbars.
+Now with the program gaining shape, it was time to tweak the User Interface. This included the not very glamourous tasks of making sure that any Display or Annotation Layers would never be bigger than their container element by adding scroll bars. Luckily, this is a \textit{jQueryUI} feature that is easy to implement, and one can specify along which axis one would like the scrollbars.
 
 \begin{figure}[ht!]
 \centering
@@ -1156,12 +1156,12 @@ A host of fixes have been uploaded since initial deployment, partially fixing ou
 
 \subsubsection{Version Control}
 
-To keep track of my project, I used Git. This was an obvious choice since it has been the DOC-prefered version control system as well as XTK being hosted on Github which I had to fork. I managed my own project code in a separate Version Control from my XTK fork in order to not confuse the two. Github proved as per usual very useful and reliable in tracking down changes from earlier versions as well keep submodules up to date for the XTK library. 
+To keep track of my project, I used Git. This was an obvious choice since it has been the DOC-prefered version control system as well as \textit{XTK} being hosted on Github which I had to fork. I managed my own project code in a separate Version Control from my \textit{XTK} fork in order to not confuse the two. Github proved as per usual very useful and reliable in tracking down changes from earlier versions as well keep submodules up to date for the \textit{XTK} library. 
 
 
 \subsubsection{Browser Developer Environment}
 
-Initially I started developing in Chrome since it was my primary target for running the software. A few weeks my laptop broke due to accidental damage and I had to work in the labs, where I had problems running WebGL in Chrome, so I switched to Firefox. I soon found however, that Firefox leaves a lot to be desired for developing. The most important part of developing for me was the web console. With\textit{JavaScript}it is possible to print to this console, which I used endlessly. It also prints when a runtime error has occurred, complete with line number. This works great in Chrome, but in Firefox (on Ubuntu) at least, the line number would often be obscured. Any another problem is when printing a\textit{JavaScript}object to the console, it shows the final state of this object at the end of the code runtime. This means it is not possible to check the state of an object during runtime, only at the end. This caused some confusion until I had figured this out. Firefox is supposed to have a lot of plug-ins that can be downloaded, but in general I found Chrome to be much more convenient to use, and after a month managed to get a new laptop and returned to developing in Chrome.
+Initially I started developing in Chrome since it was my primary target for running the software. A few weeks my laptop broke due to accidental damage and I had to work in the labs, where I had problems running WebGL in Chrome, so I switched to Firefox. I soon found however, that Firefox leaves a lot to be desired for developing. The most important part of developing for me was the web console. With \textit{JavaScript} it is possible to print to this console, which I used endlessly. It also prints when a runtime error has occurred, complete with line number. This works great in Chrome, but in Firefox (on Ubuntu) at least, the line number would often be obscured. Any another problem is when printing a \textit{JavaScript} object to the console, it shows the final state of this object at the end of the code runtime. This means it is not possible to check the state of an object during runtime, only at the end. This caused some confusion until I had figured this out. Firefox is supposed to have a lot of plug-ins that can be downloaded, but in general I found Chrome to be much more convenient to use, and after a month managed to get a new laptop and returned to developing in Chrome.
 
 
 \begin{figure}
@@ -1169,7 +1169,7 @@ Initially I started developing in Chrome since it was my primary target for runn
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=82mm]{graphics/console_01.png}
-  \caption{Chrome console showing\textit{JavaScript}Object}
+  \caption{Chrome console showing \textit{JavaScript} Object}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -1180,10 +1180,10 @@ Initially I started developing in Chrome since it was my primary target for runn
 
 \end{figure}
 
-Chrome offers a variety of developer tools that come with the browser. First the 'Elements' tab provides the interactive HTML source code of the current web page. When hovering over a line of HTML, the appropriate element in website lights up. It also shows the current CSS rules that are being applied, with the option of toggling them on or off and getting a live preview. The 'Elements' tool is extremely helpful when debugging if the correct HTML correct has been written into the DOM or to check which CSS rules are currently active or have been overridden.
+Chrome offers a variety of developer tools that come with the browser. First the 'Elements' tab provides the interactive \textit{HTML} source code of the current web page. When hovering over a line of \textit{HTML}, the appropriate element in website lights up. It also shows the current CSS rules that are being applied, with the option of toggling them on or off and getting a live preview. The 'Elements' tool is extremely helpful when debugging if the correct \textit{HTML} correct has been written into the DOM or to check which CSS rules are currently active or have been overridden.
 
 
-The next developer tool is the 'Network' tab. This shows the external libraries and source files are being loaded. It gives a good chronological break down of which library loaded when and how long it took. This proved useful in the beginning to see if the dependencies were handled correctly by RequireJS.
+The next developer tool is the 'Network' tab. This shows the external libraries and source files are being loaded. It gives a good chronological break down of which library loaded when and how long it took. This proved useful in the beginning to see if the dependencies were handled correctly by \textit{RequireJS}.
 
 \begin{figure}[ht!]
 \centering
@@ -1193,7 +1193,7 @@ The next developer tool is the 'Network' tab. This shows the external libraries 
 \end{figure}
 
 
-Chrome furthermore offers a debugger complete with break points, so it's possible to follow the flow of code  by individual lines or break points. This was used sparingly, as when working with XTK, the number of files that are being involved is huge and it would take too long to actually follow the code. Nonetheless it was helpful when I had to develop a deeper understand of the flow of control for example during when a file is loaded with XTK.
+Chrome furthermore offers a debugger complete with break points, so it's possible to follow the flow of code  by individual lines or break points. This was used sparingly, as when working with \textit{XTK}, the number of files that are being involved is huge and it would take too long to actually follow the code. Nonetheless it was helpful when I had to develop a deeper understand of the flow of control for example during when a file is loaded with \textit{XTK}.
 
 \begin{figure}[ht!]
 \centering
@@ -1209,7 +1209,7 @@ As there was some switching between web browsers, I noticed that Chrome and Fire
 
 \subsubsection{JSFiddle}
 
-Related to browser development, a tool I used a number of times was JSFiddle. This tool allows to on the fly testing of JavaScript, CSS and HTML. In fact, when asking for web developlement related questions on the StackOverflow forum, answers are often posted with a working JSFiddle example. To create an example, one only needs to open JSFiddle and one can start coding. There are separate input windows for JavaScript, CSS and HTML code. It also features a windows that displays the resulting output. The link to this code can then be saved or sent to other people. All of the XTK tutorials are written as JSFiddle examples which allows for quick experimentation and testing of features. This was a really useful and convenient tool. 
+Related to browser development, a tool I used a number of times was JSFiddle. This tool allows to on the fly testing of JavaScript, CSS and \textit{HTML}. In fact, when asking for web developlement related questions on the StackOverflow forum, answers are often posted with a working JSFiddle example. To create an example, one only needs to open JSFiddle and one can start coding. There are separate input windows for JavaScript, CSS and \textit{HTML} code. It also features a windows that displays the resulting output. The link to this code can then be saved or sent to other people. All of the \textit{XTK} tutorials are written as JSFiddle examples which allows for quick experimentation and testing of features. This was a really useful and convenient tool. 
 
 
 \begin{figure}[ht!]
@@ -1225,42 +1225,42 @@ Related to browser development, a tool I used a number of times was JSFiddle. Th
 \subsubsection{XTK}
 
 
-As already mentioned, the initial idea was to use XTK as an API to handle all the low level work to with loading and displaying Volume Files. As it soon became apparent, I had to dig deeper into the XTK library. Since XTK uses the Google Closure library to minify the code, I first started to introduce print statements into the code in order to follow the flow better. However this became tedious quite fast and I figured out that is possible to run the uncompiled code with a few steps. This proved to be necessary since I was getting lots of errors at later stages of the project, and it let me actually step through the code with the Chrome debugger in a meaningful way.
+As already mentioned, the initial idea was to use \textit{XTK} as an API to handle all the low level work to with loading and displaying Volume Files. As it soon became apparent, I had to dig deeper into the \textit{XTK} library. Since \textit{XTK} uses the Google Closure library to minify the code, I first started to introduce print statements into the code in order to follow the flow better. However this became tedious quite fast and I figured out that is possible to run the uncompiled code with a few steps. This proved to be necessary since I was getting lots of errors at later stages of the project, and it let me actually step through the code with the Chrome debugger in a meaningful way.
 
-I needed to write various setters and getters for attributes that I needed to get direct access to, which was trivial to implement. I tried to follow the style guide which is posted online in using camelCase typing with underscores at the appropriate places for attributes and functions.
+I needed to write various setters and getters for attributes that I needed to get direct access to, which was trivial to implement. I tried to follow the style guide which is posted online in using camelCase typing with \textit{Underscore} s at the appropriate places for attributes and functions.
 
 When implementing the interactive loading of color tables and labelmaps, I was forced to get a deeper understanding how the file loading process works. The Chrome debugger did help with this, and due to the complexity and the number of files involved, I had to draw diagrams which I would consult often. See Figure ~\ref{fig:xtkLoad} for flow of control when loading a file for an X.volume.  The flow of control is the same for all file objects (including colortables and labelmaps), since the update() function steps through the X.volume and its children recursively to see if any file needs to be loaded.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=140mm]{graphics/XtkFileLoad_01.png}
-\caption{Flow of Control during XTK file load}
+\caption{Flow of Control during \textit{XTK} file load}
 \label{fig:xtkLoad}
 \end{figure}
 
 In the example, a filename is assigned to the X.volume's file attribute. The X.volume is then added to the renderer (1) and the render() command is called (2). The render() call starts the continuous frame updating at 60 frames per second. At the same time, the renderer.add() function calls the internal update() function (3), which sets up event listeners for the volume. The overloaded update() function in renderer2D.js (4) gets the loader attached to the renderer, and calls the loader.load() function (5). The internal parse() function is called (6), which in turn determines the required parser (parserNII in this case) and calls its parse() function (7). At the same time, loader.parse() sets up an event listener to wait for a 'Modified' signal which will call the internal complete() function. ParserNII.js deals with the file format specific loading of data, and employs the reslice() (8) and reslice2() (9) functions to compute the current slice information of the volume. These are called three times - once for each orthographics view directions. Control is returned to parserNII.js after reslice2() has finished (10). Then an event signal is sent to loader.js, which triggers loader.complete() to be called (11). It also sets the volume's dirty flag to be true (which , among other uses, is used as a check by the renderer's render() function). The loader calls the modified() function in volume.js (12), which in turn calls its internal slicing\_() function (13), again once per orthographic view. In this last function, the current slice is set to be visible if it has been computed previously in the parser and parserNII. The slicing\_() function also gets called at other times, and if the current slice does not have any texture information loaded, the parser's reslice2() method is called from here for computation. X.renderer2D's render() method which has been running continuously throughout this time, will recognise that the slice number has changed (from null to a specific integer number) and force a redraw of its pixels, thereby drawing the current slice texture to the screen. The render() function also checks if any dirty flags have been raised and will force a redraw accordingly.
 
-If this process is being called for the first time, the modified volume will also send an Event Signal to the renderer that is has been added to, forcing the renderer.\_onShowtime() function to be called. This is supposed to be useful when having more than one X.renderer, in that one renderer can do the initial loading of files, and then the other renderers can start rendering immediately. Personally I dislike this method, since it forces an interdependence on the viewers and I would have prefered separating the loading logic out from specific X.renderers. When asking about this on the StackOverflow forum, one of the XTK developers agreed that the current solution is not ideal.
+If this process is being called for the first time, the modified volume will also send an Event Signal to the renderer that is has been added to, forcing the renderer.\_onShowtime() function to be called. This is supposed to be useful when having more than one X.renderer, in that one renderer can do the initial loading of files, and then the other renderers can start rendering immediately. Personally I dislike this method, since it forces an interdependence on the viewers and I would have prefered separating the loading logic out from specific X.renderers. When asking about this on the StackOverflow forum, one of the \textit{XTK} developers agreed that the current solution is not ideal.
 
 For the X.renderer2D class, when the user changes the index of one of the slice directions, the update() function is called and the new slice texture calculated. This slice texture is then stored in a local buffer attribute in the X.volume object, called \textit{children} so as not to have to recalculate this slice when the user returns to this index at a later point. The renderer.js object itself is running at a specified frame rate, and will update if it detects that one of a number of things has changed in the volume. Slice index changing is one of them. It was this that caused some problems when causing a redraw after reapplying a colortable or a labelmap. All the current checks would not cause a redraw, since I had not changed the slice index, but rather data that was affecting the current slices. So I had to find another way of triggering this redraw. In the end I opted for querying for the X.slice's sliceId attribute, which is a unique identifier number that gets changed every time a slice is recomputed. This way I could finally register the update. Luckily for the X.renderer3D, I had no issues, since it just renders the current X.volume in the current state, and the computation on a slice index change is being done by the X.renderer2D.
 
 An issue with loading colortables was that by default X.volumes only get rendering as a single color channel, and the not all three RGB channels. I found the code for this in the X.renderer2D class, where on each iteration of the draw() function, only the G channel would be converted into on screen pixels. Changing this to include the R and B channels was trivial. For X.renderer3D, this was a bit more involved, since the color management actually takes place in the fragment shader as per the WebGL standard. Once I had realised this, it was easy to change the GLSL code to support all three RGB channels.
 
-I found a few issues and bugs with XTK. One of these is that some files do not load properly, so more advanced file handling should be added. To alleviate this problem, I implemented some advanced error catching methods with warning pop-ups in the UI, so that the user at least knows that something has gone wrong. Without this, it would have just printed out an error message to the web console. Another bug is that the mouse controls for threshold and window setting work in a way that is not intuitive and not reversible, so that after left-clicking and dragging a few times, the image will not return to its original brightness anymore. This could be because there are two attributes (min and low) to set for both threshold and windowing. I worked around this by reassigning the window and threshold controls to the slider and input fields in the Levels Tab.
+I found a few issues and bugs with \textit{XTK}. One of these is that some files do not load properly, so more advanced file handling should be added. To alleviate this problem, I implemented some advanced error catching methods with warning pop-ups in the UI, so that the user at least knows that something has gone wrong. Without this, it would have just printed out an error message to the web console. Another bug is that the mouse controls for threshold and window setting work in a way that is not intuitive and not reversible, so that after left-clicking and dragging a few times, the image will not return to its original brightness anymore. This could be because there are two attributes (min and low) to set for both threshold and windowing. I worked around this by reassigning the window and threshold controls to the slider and input fields in the Levels Tab.
 
 
 
 \subsubsection{RequireJS}
 
-RequireJS proved invaluable for determining correct dependencies for loading\textit{JavaScript}libraries. As I am using more than a handful of libraries which are also dependent on one another, I needed the ability to ensure that they had loaded correctly. The issue is that the modules are loaded asynchronously, so a module that depends on a another module could easily load before the other (as opposed to in sequence loading from function programming). A good exampe for this is the tooltips that I implemented towards the final stages of the project. Both jQueryUI and twitter-bootstrap provide tooltips. In both cases they are initiated by the same function call, however they look quite distinctly different. I wanted to use the twitter-bootstrap tooltips as they seem more aesthetically pleasing. Without determining the load order with RequireJS, whenever I reloaded the software a different tooltip style would pop up, depending on which library loaded first. This kind of race condition is of course undesirable.
+RequireJS proved invaluable for determining correct dependencies for loading \textit{JavaScript} libraries. As I am using more than a handful of libraries which are also dependent on one another, I needed the ability to ensure that they had loaded correctly. The issue is that the modules are loaded asynchronously, so a module that depends on a another module could easily load before the other (as opposed to in sequence loading from function programming). A good exampe for this is the tooltips that I implemented towards the final stages of the project. Both \textit{jQueryUI} and twitter-bootstrap provide tooltips. In both cases they are initiated by the same function call, however they look quite distinctly different. I wanted to use the twitter-bootstrap tooltips as they seem more aesthetically pleasing. Without determining the load order with \textit{RequireJS}, whenever I reloaded the software a different tooltip style would pop up, depending on which library loaded first. This kind of race condition is of course undesirable.
 
-Another example is of course XTK itself which relies on JQuery and UnderscoreJS. RequireJS really was a life saver for these situations. The screen shot below shows the ordered nature of loaded modules, using Chrome's Network tab. Without RequireJS, the loads would happen a lot more randomly.
+Another example is of course \textit{XTK} itself which relies on \textit{jQuery} and \textit{Underscore} JS. \textit{RequireJS} really was a life saver for these situations. The screen shot below shows the ordered nature of loaded modules, using Chrome's Network tab. Without \textit{RequireJS}, the loads would happen a lot more randomly.
 
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=120mm]{graphics/requireOrder_01.png}
-\caption{Ordered module loading with RequireJS}
+\caption{Ordered module loading with \textit{RequireJS}}
 \label{fig:UIdesign1}
 \end{figure}
 
@@ -1270,11 +1270,11 @@ Another example is of course XTK itself which relies on JQuery and UnderscoreJS.
 
 \subsubsection{Backbone}
 
-Working with Backbone worked well after a steep learning curve in the beginning, especially because I had to set it up in parallel with RequireJS (discussed in the next subsection).
+Working with \textit{Backbone} worked well after a steep learning curve in the beginning, especially because I had to set it up in parallel with \textit{RequireJS} (discussed in the next subsection).
 
 I sometimes was unsure of whether to follow the event-based design or normal functionl design. It is tempting to communicate between components via events, but I found it also makes it a lot more difficult to debug, since it's not easily visible which pieces of code are listening to an event that is fired.
 
-Similarily, I started out using Backbone's collections which are a type of array for models. However this seemed not necessary and I just converted to use an array of Display Layers instead.
+Similarily, I started out using \textit{Backbone}'s collections which are a type of array for models. However this seemed not necessary and I just converted to use an array of Display Layers instead.
 
 Issue with DRY between models and views. It is tempting to put functionality into the views, rather than the models.
 
@@ -1289,7 +1289,7 @@ One issue came up with arrays and the 'change' event. When changing the contents
 
 \subsubsection{JQueryUI}
 
-Generally speaking, for any HTML page element, both the look and the functionality have to be considered, as implementing them can be quite complex. This is why a lot of libraries have been created that provide generalised elements such as buttons, file loaders and more complex UI elements. A few like JQueryUI and Twitter-Bootstrap have been become very popular and have been used in this project. They have the benefit of providing both the CSS style definitions as well as predefined\textit{JavaScript}functionality for the elements. 
+Generally speaking, for any \textit{HTML} page element, both the look and the functionality have to be considered, as implementing them can be quite complex. This is why a lot of libraries have been created that provide generalised elements such as buttons, file loaders and more complex UI elements. A few like \textit{jQueryUI} and Twitter-Bootstrap have been become very popular and have been used in this project. They have the benefit of providing both the CSS style definitions as well as predefined \textit{JavaScript} functionality for the elements. 
 
 Some features from this library were utilised, such as the tab functionality for the 'Levels', 'Annotations' and 'Labelmaps' tabs. Also, the sliders for setting Brightness, Threshold and Opacity were taken from this library, as they provided a convenient solution both for the design and for the functionality.
 
@@ -1300,7 +1300,7 @@ This library was used to style the webpage consistently and to make use of their
 
 The library provides a host of useful icons and button presets, such as button groups which were used when grouping buttons close together like the 'Load' and 'Delete' button for each Display Layer. This added a more sophisticated look to the software without the need for individual styling of buttons by writing custom CSS classes.
 
-Adding the tooltips proved more involved than initially thought. For dynamically added HTML elements such as the Display Layers, custom tooltip options would have to be used and set in order to make them work correctly. So instead of having a general purpose solution, custom settings had to be set for each tooltip. Also, since Twitter-Bootstrap and JqueryUI both provide tooltips that called by the same initialisation function, sometimes errors would appear in the browser console, stating that a conflict had been caused. Fortunatly, JQueryUI allows for downloading a custom build where the tooltip feature has been disabled.
+Adding the tooltips proved more involved than initially thought. For dynamically added \textit{HTML} elements such as the Display Layers, custom tooltip options would have to be used and set in order to make them work correctly. So instead of having a general purpose solution, custom settings had to be set for each tooltip. Also, since Twitter-Bootstrap and \textit{jQueryUI} both provide tooltips that called by the same initialisation function, sometimes errors would appear in the browser console, stating that a conflict had been caused. Fortunatly,\textit{jQueryUI} allows for downloading a custom build where the tooltip feature has been disabled.
 
 Furthermore, creating modal warning screens when the user attempts to load a file with the wrong extension was made very easy with Twitter-Bootraps modal screen. Again, styling this manually and creating the logic behind it would have been very time consuming.
 
@@ -1325,7 +1325,7 @@ All things considered, this libary proved to be very useful and saved a lot of t
 
 Google Analytics is a tool by Google that provides detailed information of website usage. I installed it to get a clear picture of how many people would be using the website. I have used Google Analytics in the past and have been impressed by the comprehensive overview it provides. It shows the number of unique and returning visitors, average session duration, feedback on which browsers and operating systems they were using, which city and country it was viewed from. Additionally for mobile devices it even shows the screen resolution.
 
-Implementation is very easy by just copying an HTML script code snippet and pasting it into any website that the user would like to track the usage for.
+Implementation is very easy by just copying an \textit{HTML} script code snippet and pasting it into any website that the user would like to track the usage for.
 
 \begin{figure}[ht!]
 \centering
@@ -1408,7 +1408,7 @@ Regarding secondary requirements, only a few have been implemented. This is main
 
 In terms of the final feature list, ScanView distinguishes itself from the currently available web-based medical image viewer applications. As most online programs are very basic, ScanView's features outnumber them. 
 
-The software that it resembles most closely is SliceDrop, also in part due to its common heritage. ScanView improves on SliceDrop in a number of ways. ScanView is more dynamic in that it allows interactive file loading and deletion similar to a standard desktop software program. It allows to load several Volume Files (via Display Layers) which can be compared visually due to the implemented Buffer System. Furthermore file load errors are handled more completely by letting the user know the error message via a message pop-up. In SliceDrop, file load errors are only printed to the developer console, which the standard user can not be expected to check. Both ScanView and SliceDrop enable volumetric rendering, since this is a common feature of the XTK library. ScanView's View Panels are more free to display custom information via the Overlay toggle. In terms of navigation, both feature the same set transformations. ScanView adds the convenience feature of resetting the view camera to the start position of the camera. SliceDrop does not feature an Annotation System like ScanView does. SliceDrop does allow for custom loading of color tables, whereas ScanView's final implementation relies on predefined colortables. SliceDrop also allows for downloading .nii files of currently viewed data, which ScanView is not able to do. Both programs can overlay labelmaps on top of Volume Files. Although not implemented, there is code in SliceDrop's code base that would enable loading and saving to DropBox. So while both programs have different feature sets, ScanView is better at comparing multiple files and adding annotations. Furthermore it provides a more interactive feel with its Display Layer Management system and adjustable Layouts.
+The software that it resembles most closely is SliceDrop, also in part due to its common heritage. ScanView improves on SliceDrop in a number of ways. ScanView is more dynamic in that it allows interactive file loading and deletion similar to a standard desktop software program. It allows to load several Volume Files (via Display Layers) which can be compared visually due to the implemented Buffer System. Furthermore file load errors are handled more completely by letting the user know the error message via a message pop-up. In SliceDrop, file load errors are only printed to the developer console, which the standard user can not be expected to check. Both ScanView and SliceDrop enable volumetric rendering, since this is a common feature of the \textit{XTK} library. ScanView's View Panels are more free to display custom information via the Overlay toggle. In terms of navigation, both feature the same set transformations. ScanView adds the convenience feature of resetting the view camera to the start position of the camera. SliceDrop does not feature an Annotation System like ScanView does. SliceDrop does allow for custom loading of color tables, whereas ScanView's final implementation relies on predefined colortables. SliceDrop also allows for downloading .nii files of currently viewed data, which ScanView is not able to do. Both programs can overlay labelmaps on top of Volume Files. Although not implemented, there is code in SliceDrop's code base that would enable loading and saving to DropBox. So while both programs have different feature sets, ScanView is better at comparing multiple files and adding annotations. Furthermore it provides a more interactive feel with its Display Layer Management system and adjustable Layouts.
 
 Compared Papaya and DICOM Web Viewer, ScanView's feature list looks even more favorable. Both programs are very light-weight, feature only 2D Views and no multiple file loading. 
 
@@ -1421,28 +1421,29 @@ Compared Papaya and DICOM Web Viewer, ScanView's feature list looks even more fa
     \hline
     Feature & ScanView & SliceDrop & DICOM Web Viewer & Papaya \\ \hline \hline
 
-Loading NII file & Yes & Yes & Yes & Yes\\ \hline
-Loading Other file formats & No & Yes & ? & ?\\ \hline
-Loading multiple files in one session & Yes & No & No & No \\ \hline
-Error handling for loading files & Yes & No & No & No\\ \hline
+Loading NII file & Yes & Yes & No & Yes\\ \hline
+Loading Other file formats & No & Yes & Yes* & Yes*\\ \hline
+Loading multiple files in one session & Yes & No & No & Yes \\ \hline
+Error handling for loading files & Yes & No & Yes & Yes\\ \hline
 Orthogonal Views & Yes & Yes & Yes & Yes\\ \hline
-3D Perspective View & Yes & No & Yes & Yes \\ \hline
+3D Perspective View & Yes & Yes & No & No \\ \hline
 Volumetric rendering & Yes & Yes & No & No\\ \hline
 Volumetric and 2D rendering overlaid & No & Yes & No & No \\ \hline
 Comparing several files to each other & Yes & No & No & No\\ \hline
 Annotations & Yes & No & No & No\\ \hline
 Loading of custom colortables & No & Yes & No & No \\ \hline
-Loading predefined colortables & Yes & No & No & No\\ \hline
+Loading predefined colortables & Yes & No & No & Yes\\ \hline
 Saving of Data & No & Yes & No & No\\ \hline
-Online File Sharing & No & No* & No & No\\ \hline
+Online File Sharing & No & No** & No & No\\ \hline
 Adjustable Layouts & Yes & No & No & No \\ \hline
 Segmentation Tools & No & No & No & No \\ \hline
+Animation along Axis & Yes & No & No & No \\ \hline
 
   \end{tabular}\\
 
 
-
-*Not currently available but being worked on
+*Not fully tested
+**Not currently available but being worked on
 
 
 \end{center}
@@ -1451,34 +1452,7 @@ Segmentation Tools & No & No & No & No \\ \hline
 
 \subsubsection{Comparing with Desktop-based programs}
 
-Naturally due to the limited time frame of this project, ScanView can not compete in terms of feature richness with other available programs. Given the time, it should however be possible to reach a similar level of feature completeness. Technically, it seems feasible. Actually, ScanView does aim to match in terms of features...
-
-
-\begin{center}
-
-  \begin{tabular}{ | l | l | l | l | l |}
-    \hline
-    Feature & ScanView & 3DSlicer & ImView & ITKSnap \\ \hline \hline
-
-Loading NII file & Yes & Yes & Yes & Yes\\ \hline
-Loading Other file formats & No & Yes & ? & ?\\ \hline
-Loading multiple files in one session & Yes & No & No & No \\ \hline
-Error handling for loading files & Yes & No & No & No\\ \hline
-Volumetric rendering & Yes & Yes & No & No\\ \hline
-Volumetric and 2D rendering overlaid & No & Yes & No & No \\ \hline
-Comparing several files to each other & Yes & No & No & No\\ \hline
-Annotations & Yes & No & No & No\\ \hline
-Loading of custom colortables & No & Yes & No & No \\ \hline
-Loading predefined colortables & Yes & No & No & No\\ \hline
-Saving of Data & No & Yes & No & No\\ \hline
-Online File Sharing & No & No* & No & No\\ \hline
-Adjustable Layouts & Yes & Yes & No & No \\ \hline
-Segmentation Tools No & Yes & No & Yes \\ \hline
-
-  \end{tabular}\\
-
-
-\end{center}
+Naturally due to the limited time frame of this project, ScanView can not compete in terms of feature richness with desktop-based applications. These generally feature all the primary requirements (viewing several files, navigation, 2D and 3D views) as well as secondary requirements (segmentation tools, saving of data). Given sufficient time, it should however be possible to reach a similar level of feature completeness, as from a technological standpoint it seems feasible.
 
 
 \subsection{Reviewing of Use Cases}
@@ -1503,7 +1477,7 @@ The second and fourth use case have unfortunately not been implemented, but as t
 
 
 
-\subsection{Protocol Testing across different platforms}
+\subsection{Protocol testing across different platforms}
 
 In order to judge whether the software fulfils its purpose of running on a variety of operating systems and web browsers, a number of protocols were tested across a range of computer setups. It was tested on the four most commonly used web browsers and on Windows, OSX Mavericks, Linux (Ubuntu) and Android. Additionally a test was run for the Apple I-Pad. The protocols were designed to mimic what a typcial user would do with the software as well as to get a comprehensive coverage of all the features.
 
@@ -1625,15 +1599,15 @@ For Windows the website was tested on Windows 7, running on a virtual machine on
 - Safari Version - Not available
 
 
-\subsubsection*{IOS}
+\subsubsection*{iOS}
 
-For IOS the website was tested on a Ipad Air. It was fairly clear that this would not work well, since IOS is a closed system that does not allow a free file structure as required by this software. However it was still checked to get a wider coverage of platforms.\\
+For iOS the website was tested on a Ipad Air. It was fairly clear that this would not work well, since iOS is a closed system that does not allow a free file structure as required by this software. However it was still checked to get a wider coverage of platforms.\\
 
 \noindent Hardware:\\
 - Ipad Air\\
 
 \noindent Operating System:\\
-- IOS V.XX\\
+- iOS 7.1.2
 
 \noindent Browsers Tested:\\
 - Safari Version XX
@@ -1699,7 +1673,7 @@ On Ubuntu, both Chrome and Firefox performed well. Chrome worked perfectly as in
 \end{center}
 
 
-\subsubsection*{IOS}
+\subsubsection*{iOS}
 
 As expected, most functionality did not work on the Ipad. The display layer management worked fine, however the user is not able to load a file, since the default file opening only allows opening photos. However, it would be possible to circumvent this by implementing a solution that uses a file loading app, such as Dropbox. The Driopbox API seems to allow for this, so it could be possible given extra time.
 
@@ -1723,9 +1697,7 @@ Looking at the results from all browser tests, ScanView seems to be stable for C
 
 \subsection{CPU performance}
 
-It has to be noted that the CPU usage is higher in ScanView than the original XTK apps. This is large part due to the design choice of copying the renders from the XTK renderers as discussed in the implementation. This accounts for the majority of the computational overhead. CPU comparisons were run in the Chrome - OSX environment and look as follows.
-In order to improve performance, RequestAnimationFrame was used. Need some more text explaing what this does.
-
+It has to be noted that the CPU usage is higher in ScanView than the original \textit{XTK} apps. This is large part due to the design choice of copying the renders from the \textit{XTK} renderers as discussed in the implementation. This accounts for the majority of the computational overhead. This tradeoff was consciously made to add extra functionality to the Viewer Panels.
 
 
 \subsection{Usage and User Feedback}
@@ -1747,12 +1719,11 @@ website would be online for a longer time to get a more complete picture in term
 \subsubsection{Survey Responses and Feedback}
 
 Unfortunately only three people answered the survey, but I received two more individual responses with reviews and suggestions by email.
-For the survey, 2 of the 3 users had used medical imaging software before (such as ITKSnap). The users spent 0 to 30 minutes with the website. For convenience, the responses were 'extremely convenient', 'very convenient' and 'moderately convenient', which suggests that convenience was judged to be better than average. When asked if the software could be an alternative to desktop software, the answers were 'agree somewhat', 'disagree somewhat' and 'not sure' which is undecisive, and in retrospect deservedly so, as most desktop software reviewed had a lot more features and development time compared to ScanView. In terms of criticism, the following were raised (combined with individual email responses):
+For the survey, 2 of the 3 users had used medical imaging software before (such as ITKSnap). The users spent 0 to 30 minutes with the website. For judging convenience, the responses were 'extremely convenient', 'very convenient' and 'moderately convenient', which suggests that convenience was judged to be better than average. When asked if the software could be an alternative to desktop software, the answers were 'agree somewhat', 'disagree somewhat' and 'not sure' which is undecisive, and in retrospect deservedly so, as most desktop software reviewed had a lot more features and development time compared to ScanView. In terms of criticism, the following were raised (combined with individual email responses):
 
 \begin{itemize}
 \item High CPU usage on Ubuntu laptop (with Chrome)
 \item Loading stack of images rather than isotropic volume does not work
-\item Volume rendering not working with Sample Data
 \item Cannot delete Labelmaps
 \item Lack of Undo functionality
 \item Lack of clarity in terms of which orthographical view is which, should be labeled more clearly
@@ -1780,7 +1751,7 @@ As mentioned, it would have been beneficial to run a more comprehensive beta tes
 
 \subsubsection{Outstanding Feedback}
 
-I sent a link to the software to the XTK developers in order to get their feedback, but at this point in time have not heard back from them. Also two radiologists in London and India have been contacted through private channels, but their feedback is also outstanding at this point.
+I sent a link to the software to the \textit{XTK} developers in order to get their feedback, but at this point in time have not heard back from them. Also two radiologists in London and India have been contacted through private channels, but their feedback is also outstanding at this point.
 
 
 
@@ -1788,11 +1759,13 @@ I sent a link to the software to the XTK developers in order to get their feedba
 
 \section{Conclusions}
 
-In terms of the initial purpose of this project to investigate whether it is possible to create a feature rich medical image viewer which works in a web browser, the course of the project seems to suggest that it is indeed possible given current Web standards with HTML5 Canvas Element and the WebGL standard becoming common-place. The XTK library forms a solid base for adding more features such as in this project. In order to add more complexity, a method was chosen which requires more CPU power than the normal XTK library.
+In terms of investigating whether it is possible to create a feature rich browser-based medical image viewer, the course of the project seems to suggest that it is indeed possible given current Web technology. The standards introduced with \textit{HTML5} such as the Canvas Element and WebGL enable richer graphical capabilities, which is required for a medical image viewer. The \textit{XTK} library forms a solid base for adding more features such as in this project. 
 
-In terms of creating a functioning piece of software, more time would have been benificial to iron out bugs. Also it would have been great to have a bigger pool of sample data to work from, as there seem to certain files that do not open with this software. Given the limited time frame and man power, ScanView does not match the feature richness and performance of high-end software solutions. However this is not a limitation based on the technical possibilities of web browser technology, so should be feasible. One issue might be the complexity of scale, as software solutions such as BrainSomething are 400MB. That would be too much to load in a web browser, so a more complex memory management would be required.
+In terms of creating a functioning piece of software, ScanView is successful on Chrome and Firefox, so is only partially successful in its aim to create a widely accessible tool independent of computer setup. This is due to differing implementation of Web standards between the web browsers. However with more time invested in this, it should be possible to make it work fully across all the most popular web browsers. The problems that currently stand in the way of this are smaller scale issues, and would require small tweaks rather than a whole rebuild.
 
-The experience of this project suggests that with a team of dedicated programmers and proper funding, a viable web-browser based medical imaging tool could be created that could rival current desktop based applications in terms of features richness, performance and user experience.
+Furthermore, more time would have been benificial to iron out bugs. Also it would have been great to have a bigger pool of sample data to work from, as there seem to exist certain files that do not open with this software. Given the limited time frame and man power, ScanView does not match the feature richness and performance of high-end software solutions. However this is not a limitation based on the technical possibilities of web browser technology. One issue might be the complexity of scale, as software solutions such as ITKSnap require a relatively hefty 30 MBs download. That would be too much to load for a web browser application which should work instantly, so a more complex memory management would be required.
+
+However personally I am satisfied with the progress of this project, in that it mostly achieved its initial goals. It compares favorably to the other web-based medical image viewers in terms of desktop-style interactivity, features count and UI design. It suggests that with a team of dedicated programmers and proper funding, a viable web-browser based medical imaging tool could be created that could rival current desktop based applications. Modern web standards have made this a real possibility and I see no reason why medical image viewers could not exist as web applications along side with Google Docs, Autodesk's Webversion of Autocad and other complex web-based applications.
 
 
 
@@ -1807,7 +1780,7 @@ At the time of writing, there are a number of known bugs and issues to resolve:
 \begin{itemize}
 
 \item Annotations are not positioned properly with specific files
-\item Not all .nii files open, due to issue with XTK library
+\item Not all .nii files open, due to issue with \textit{XTK} library
 \item ColorPicker pop-up for Annotations will open too low in screen if too many Annotation Layers have been created, so that the 'OK' button can not be pressed
 \item Number input fields for Window and Threshold are too small with bigger numbers
 \item When panning, object in Viewer Panel does not follow mouse cursor 100\%
@@ -1819,21 +1792,22 @@ item When loading more complex data sets, the responsiveness drops noticeably
 
 \subsection{Future Improvements}
 
-As has has been shown, using a library like XTK can be used successfully to write a cross-browser web app for inspecting medical image data. In terms of expanding the software, a number of features could be added which could make the application more useful and user-friendly.
+As has has been shown, using a library like \textit{XTK} can be used successfully to write a cross-browser web app for inspecting medical image data. In terms of expanding the software, a number of features could be added which could make the application more useful and user-friendly.
 
 \begin{itemize}
 \item Add support for other file formats other than .nii
 \item Re-enableing the loading of custom color tables
-\item DropBox support could be built into the software to enable file loading, saving and sharing. Additionally this could enable the tool to be used on IOS.
+\item DropBox support could be built into the software to enable file loading, saving and sharing. Additionally this could enable the tool to be used on iOS.
 \item More work to style the website for different resolution screens.
 \item Paint tools could be implemented as has been done successfully by BrainBook, to paint custom Labelmap
-\item Support for 4D data sets could be implemented. This would have be done at a low level in the XTK library, but should conceptually not be too hard since it would just be a series of volumes. Appropriate and meaningful user interface additions could be made without much difficulty.
+\item Support for 4D data sets could be implemented. This would have be done at a low level in the \textit{XTK} library, but should conceptually not be too hard since it would just be a series of volumes. Appropriate and meaningful user interface additions could be made without much difficulty.
 \item Smart sliders should be added, so that for Levels and Threshold, the bar can be dragged instead of having to manipulate for ends.
 \item Interactive splitters could be introduced so that the user has more freedom in defining the size of individual View Panels
+\item As suggested during the live presentation of this project, alternative input devices such as Leap Motion could be tied into the project.
 \end{itemize}
 
 
-In this specific case, I would probably chose to rework the XTK library more closely to add the features that I have added with ScanView, however at a lower level. There exists a performance trade-off based on the decision to have custom Render Canvases copying image data from the XTK canvases. This was done to add extra functionality more easily, but it adds computational requirements. It should be possible to add this high level functionality into the XTK library itself.
+In this specific case, I would probably chose to rework the \textit{XTK} library more closely to add the features that I have added with ScanView, however at a lower level. There exists a performance trade-off based on the decision to have custom Render Canvases copying image data from the \textit{XTK} canvases. This was done to add extra functionality more easily, but it adds extra computational requirements. It should be possible to add this high level functionality into the \textit{XTK} library itself.
 
 
 

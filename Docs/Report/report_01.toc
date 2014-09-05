@@ -84,13 +84,13 @@
 \contentsline {subsubsection}{\numberline {4.3.1}Protocols}{54}{subsubsection.4.3.1}
 \contentsline {subsubsection}{\numberline {4.3.2}Testing Environments}{55}{subsubsection.4.3.2}
 \contentsline {subsubsection}{\numberline {4.3.3}Protocol Results}{56}{subsubsection.4.3.3}
-\contentsline {subsection}{\numberline {4.4}CPU performance}{58}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Usage and User Feedback}{58}{subsection.4.5}
-\contentsline {subsubsection}{\numberline {4.5.1}Google Analytics}{58}{subsubsection.4.5.1}
+\contentsline {subsection}{\numberline {4.4}CPU performance}{57}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Usage and User Feedback}{57}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.5.1}Google Analytics}{57}{subsubsection.4.5.1}
 \contentsline {subsubsection}{\numberline {4.5.2}Survey Responses and Feedback}{58}{subsubsection.4.5.2}
 \contentsline {subsubsection}{\numberline {4.5.3}Outstanding Feedback}{59}{subsubsection.4.5.3}
-\contentsline {section}{\numberline {5}Conclusions}{60}{section.5}
-\contentsline {section}{\numberline {6}Future Work}{61}{section.6}
-\contentsline {subsection}{\numberline {6.1}Limitations and Bugs}{61}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Future Improvements}{61}{subsection.6.2}
-\contentsline {section}{\numberline {7}Appendix}{63}{section.7}
+\contentsline {section}{\numberline {5}Conclusions}{59}{section.5}
+\contentsline {section}{\numberline {6}Future Work}{60}{section.6}
+\contentsline {subsection}{\numberline {6.1}Limitations and Bugs}{60}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Future Improvements}{60}{subsection.6.2}
+\contentsline {section}{\numberline {7}Appendix}{62}{section.7}
